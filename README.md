@@ -60,6 +60,12 @@ public/
 | `npm run build`| Build for production |
 | `npm run preview` | Preview production build |
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). We use GitHub Issues and Pull Requests with templates; CI runs on every push and PR.
+
+**First push (repo already created with `gh repo create`):** If push failed due to workflow scope, run `gh auth refresh -s workflow -h github.com` in your terminal, complete the browser flow, then `git push -u origin main`.
+
 ## License
 
 Open source. Use and contribute under the project license.
