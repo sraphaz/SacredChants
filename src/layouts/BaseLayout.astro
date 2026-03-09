@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import { ui, type Locale } from '../i18n/strings';
+
+interface Props {
+  title: string;
+  description?: string;
+  locale?: Locale;
+}
+
+const { title, description = 'A living library of sacred sound traditions.', locale = 'en' } = Astro.props;
+const t = ui[locale];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | Sacred Chants</title>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header class="border-b border-stone-200 bg-white/80 backdrop-blur">
+      <nav class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+        <a href="/" class="font-serif text-xl text-stone-900 hover:text-stone-700">
+          Sacred Chants
+        </a>
+        <ul class="flex flex-wrap items-center gap-6 text-sm">
+          <li><a href="/" class="text-stone-600 hover:text-stone-900">{t.nav.home}</a></li>
+          <li><a href="/chants" class="text-stone-600 hover:text-stone-900">{t.nav.chants}</a></li>
+          <li><a href="/traditions" class="text-stone-600 hover:text-stone-900">{t.nav.traditions}</a></li>
+          <li><a href="/knowledge" class="text-stone-600 hover:text-stone-900">{t.nav.knowledge}</a></li>
+          <li><a href="/contribute" class="text-stone-600 hover:text-stone-900">{t.nav.contribute}</a></li>
+          <li>
+            <span class="text-stone-400">|</span>
+          </li>
+          <li>
+            <a href={Astro.url.pathname + (locale === 'en' ? '?lang=pt' : '?lang=en')} class="text-stone-600 hover:text-stone-900">
+              {locale === 'en' ? t.lang.pt : t.lang.en}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="flex-1">
+      <slot />
+    </main>
+    <footer class="border-t border-stone-200 py-8 mt-auto">
+      <div class="max-w-4xl mx-auto px-4 text-center text-sm text-stone-500">
+        <p>Sacred Chants — {t.home.tagline}</p>
+        <p class="mt-1">Open source · No ads · Contemplative</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+
+const exampleVerse = `{
+  "order": 1,
+  "original": "श्रीगुरु चरण सरोज रज",
+  "transliteration": "śrī guru charaṇa sarōja raja",
+  "translations": {
+    "pt": "Com a poeira dos pés de lótus do venerável Guru",
+    "en": "With the dust of the lotus feet of the revered Guru"
+  }
+}`;
+---
+
+<BaseLayout
+  title={t.contribute.title}
+  description={t.contribute.description}
+  locale={locale}
+>
+  <div class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="font-serif text-3xl text-stone-900 mb-2">
+      {t.contribute.title}
+    </h1>
+    <p class="text-stone-600 mb-10">
+      {t.contribute.description}
+    </p>
+
+    <div class="prose prose-stone max-w-none">
+      <h2 class="font-serif text-xl text-stone-900 mt-8 mb-4">How to add a chant</h2>
+      <ol class="list-decimal list-inside space-y-3 text-stone-700">
+        <li>Create a new JSON file in <code class="bg-stone-100 px-1 rounded">src/content/chants/</code> (e.g. <code class="bg-stone-100 px-1 rounded">my-chant.json</code>).</li>
+        <li>Follow the chant schema (see below). The filename without extension becomes the chant slug/URL.</li>
+        <li>Run <code class="bg-stone-100 px-1 rounded">npm run dev</code> to preview.</li>
+        <li>Submit a pull request with your new file.</li>
+      </ol>
+
+      <h2 class="font-serif text-xl text-stone-900 mt-8 mb-4">Chant schema</h2>
+      <p class="text-stone-600 mb-4">
+        Each chant file must include:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-stone-700">
+        <li><strong>slug</strong> — same as filename (e.g. <code>my-chant</code>)</li>
+        <li><strong>title</strong> — display name</li>
+        <li><strong>tradition</strong> — e.g. Hindu, Buddhist, Indigenous</li>
+        <li><strong>language</strong> — original language name</li>
+        <li><strong>description</strong> — short description</li>
+        <li><strong>verses</strong> — array of verse objects (order, original, transliteration, translations.pt, translations.en)</li>
+        <li><strong>tags</strong> — optional array of strings</li>
+        <li><strong>audio</strong> — optional URL to an audio file</li>
+      </ul>
+
+      <h2 class="font-serif text-xl text-stone-900 mt-8 mb-4">Example verse</h2>
+      <pre class="bg-stone-100 p-4 rounded-lg text-sm overflow-x-auto"><code>{exampleVerse}</code></pre>
+
+      <p class="mt-8 text-stone-500 text-sm">
+        For the full schema, see <code class="bg-stone-100 px-1 rounded">src/content/schemas/chant.ts</code>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

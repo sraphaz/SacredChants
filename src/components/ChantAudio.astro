@@ -1,0 +1,25 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+}
+
+const { src, title = 'Chant audio' } = Astro.props;
+---
+
+{src && (
+  <div class="max-w-2xl mx-auto mb-10 px-4">
+    <div class="rounded-lg bg-stone-100 p-4 flex items-center gap-4">
+      <audio
+        controls
+        preload="metadata"
+        class="flex-1 min-w-0 h-10"
+        aria-label={title}
+      >
+        <source src={src} type="audio/mpeg" />
+        <source src={src} type="audio/ogg" />
+        <p>Your browser does not support the audio element.</p>
+      </audio>
+    </div>
+  </div>
+)}

@@ -1,0 +1,19 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { ui, type Locale } from '../i18n/strings';
+import type { Chant } from '../content/schemas/chant';
+
+interface Props {
+  chant: Chant;
+  locale?: Locale;
+}
+
+const { chant, locale = 'en' } = Astro.props;
+const t = ui[locale];
+---
+
+<BaseLayout title={chant.title} description={chant.description} locale={locale}>
+  <article class="py-12 px-4">
+    <slot />
+  </article>
+</BaseLayout>

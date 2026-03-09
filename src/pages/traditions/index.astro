@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+
+const chants = await getCollection('chants');
+const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
+---
+
+<BaseLayout
+  title={t.traditions.title}
+  description={t.traditions.description}
+  locale={locale}
+>
+  <div class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="font-serif text-3xl text-stone-900 mb-2">
+      {t.traditions.title}
+    </h1>
+    <p class="text-stone-600 mb-10">
+      {t.traditions.description}
+    </p>
+    {traditions.length > 0 ? (
+      <ul class="space-y-3">
+        {traditions.map((tradition) => (
+          <li>
+            <a
+              href={`/chants?tradition=${encodeURIComponent(tradition)}`}
+              class="block py-2 text-stone-700 hover:text-stone-900 font-medium"
+            >
+              {tradition}
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-stone-500">No traditions yet.</p>
+    )}
+  </div>
+</BaseLayout>

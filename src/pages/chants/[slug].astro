@@ -1,0 +1,43 @@
+---
+import ChantLayout from '../../layouts/ChantLayout.astro';
+import ChantHeader from '../../components/ChantHeader.astro';
+import ChantVerse from '../../components/ChantVerse.astro';
+import ChantAudio from '../../components/ChantAudio.astro';
+import { getEntry, getCollection } from 'astro:content';
+import { ui, type Locale } from '../../i18n/strings';
+
+export async function getStaticPaths() {
+  const chants = await getCollection('chants');
+  return chants.map((entry) => ({
+    params: { slug: entry.id },
+    props: { chant: { ...entry.data, slug: entry.id } },
+  }));
+}
+
+const { slug } = Astro.params;
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+
+const entry = await getEntry('chants', slug!);
+if (!entry) {
+  return Astro.redirect('/chants');
+}
+
+const chant = { ...entry.data, slug: entry.id };
+---
+
+<ChantLayout chant={chant} locale={locale}>
+  <div class="max-w-2xl mx-auto px-4">
+    <ChantHeader chant={chant} locale={locale} />
+    {chant.audio && (
+      <ChantAudio src={chant.audio} title={chant.title} />
+    )}
+    <div class="space-y-0">
+      {chant.verses
+        .sort((a, b) => a.order - b.order)
+        .map((verse) => (
+          <ChantVerse verse={verse} locale={locale} showLabels={true} />
+        ))}
+    </div>
+  </div>
+</ChantLayout>

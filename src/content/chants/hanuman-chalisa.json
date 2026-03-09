@@ -1,0 +1,39 @@
+{
+  "slug": "hanuman-chalisa",
+  "title": "Hanuman Chalisa",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Hindi (Awadhi)",
+  "script": "Devanagari",
+  "description": "The Hanuman Chalisa is a devotional hymn of 40 verses in praise of Hanuman, the divine monkey deity and devotee of Rama. Composed by Tulsidas in the 16th century, it is one of the most popular Hindu devotional texts.",
+  "tags": ["mantra", "hanuman", "rama", "devotional", "hindu"],
+  "verses": [
+    {
+      "order": 1,
+      "original": "श्रीगुरु चरण सरोज रज",
+      "transliteration": "śrī guru charaṇa sarōja raja",
+      "translations": {
+        "pt": "Com a poeira dos pés de lótus do venerável Guru",
+        "en": "With the dust of the lotus feet of the revered Guru"
+      }
+    },
+    {
+      "order": 2,
+      "original": "निजमन मुकुरु सुधारि",
+      "transliteration": "nijamana mukura sudhāri",
+      "translations": {
+        "pt": "Purifico o espelho do meu coração",
+        "en": "I purify the mirror of my heart"
+      }
+    },
+    {
+      "order": 3,
+      "original": "बरनउँ रघुबर बिमल जसु जो दायकु फल चारि",
+      "transliteration": "baraṇa'u̐ raghubara bimala jasu jō dāyaku phala chāri",
+      "translations": {
+        "pt": "E narro o puro louvor de Raghubar (Rama), que concede os quatro frutos (dharma, artha, kama, moksha)",
+        "en": "And narrate the pure glory of Raghubar (Rama), who bestows the four fruits (dharma, artha, kama, moksha)"
+      }
+    }
+  ]
+}

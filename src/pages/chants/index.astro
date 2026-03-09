@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ChantCard from '../../components/ChantCard.astro';
+import { getCollection } from 'astro:content';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+
+const chants = await getCollection('chants');
+const sortedChants = chants
+  .map((entry) => ({ ...entry.data, slug: entry.id }))
+  .sort((a, b) => a.title.localeCompare(b.title));
+---
+
+<BaseLayout
+  title={t.chants.title}
+  description="Browse all sacred chants in the library."
+  locale={locale}
+>
+  <div class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="font-serif text-3xl text-stone-900 mb-2">
+      {t.chants.allChants}
+    </h1>
+    <p class="text-stone-600 mb-10">
+      {t.chants.title}
+    </p>
+    {sortedChants.length > 0 ? (
+      <ul class="space-y-4">
+        {sortedChants.map((chant) => (
+          <li>
+            <ChantCard chant={chant} />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-stone-500 py-12 text-center">{t.chants.noChants}</p>
+    )}
+  </div>
+</BaseLayout>

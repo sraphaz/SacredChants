@@ -1,0 +1,35 @@
+---
+import type { ChantVerse } from '../content/schemas/chant';
+import { ui, type Locale } from '../i18n/strings';
+
+interface Props {
+  verse: ChantVerse;
+  locale?: Locale;
+  showLabels?: boolean;
+}
+
+const { verse, locale = 'en', showLabels = true } = Astro.props;
+const t = ui[locale];
+---
+
+<div class="verse-block prose-chant">
+  {showLabels && (
+    <span class="text-xs uppercase tracking-wider text-stone-400" aria-hidden="true">
+      {t.chant.verse} {verse.order}
+    </span>
+  )}
+  <p class="original mt-1" dir="auto" lang="und">
+    {verse.original}
+  </p>
+  <p class="transliteration" dir="ltr">
+    {verse.transliteration}
+  </p>
+  <div class="translations">
+    {verse.translations.pt && (
+      <p data-lang="pt">{verse.translations.pt}</p>
+    )}
+    {verse.translations.en && (
+      <p data-lang="en">{verse.translations.en}</p>
+    )}
+  </div>
+</div>

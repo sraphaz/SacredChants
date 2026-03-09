@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+---
+
+<BaseLayout
+  title={t.knowledge.title}
+  description={t.knowledge.description}
+  locale={locale}
+>
+  <div class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="font-serif text-3xl text-stone-900 mb-2">
+      {t.knowledge.title}
+    </h1>
+    <p class="text-stone-600 mb-10">
+      {t.knowledge.description}
+    </p>
+    <p class="text-stone-500">
+      Educational content will be added here (MDX pages in <code class="text-stone-600 bg-stone-100 px-1 rounded">src/content/knowledge/</code>).
+    </p>
+  </div>
+</BaseLayout>
