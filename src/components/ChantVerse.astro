@@ -12,13 +12,13 @@ const { verse, locale = 'en', showLabels = true } = Astro.props;
 const t = ui[locale];
 ---
 
-<div class="verse-block prose-chant">
+<div class="verse-block prose-chant" data-verse={verse.order}>
   {showLabels && (
-    <span class="text-xs uppercase tracking-wider text-stone-400" aria-hidden="true">
+    <span class="verse-block__label text-sc-xs uppercase tracking-label text-stone-400" aria-hidden="true">
       {t.chant.verse} {verse.order}
     </span>
   )}
-  <p class="original mt-1" dir="auto" lang="und">
+  <p class="original mt-verse-inner" dir="auto" lang="und">
     {verse.original}
   </p>
   <p class="transliteration" dir="ltr">

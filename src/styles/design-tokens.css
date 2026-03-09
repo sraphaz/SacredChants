@@ -1,0 +1,49 @@
+/**
+ * Sacred Chants — Typography & layout design tokens
+ * For contemplative reading of sacred text.
+ */
+
+:root {
+  /* ——— Type scale (modular scale 1.25 — major third) ——— */
+  --sc-font-size-xs: 0.75rem;      /* 12px */
+  --sc-font-size-sm: 0.875rem;    /* 14px */
+  --sc-font-size-base: 1rem;      /* 16px */
+  --sc-font-size-lg: 1.125rem;    /* 18px */
+  --sc-font-size-xl: 1.25rem;     /* 20px */
+  --sc-font-size-2xl: 1.5rem;    /* 24px */
+  --sc-font-size-3xl: 1.875rem;   /* 30px */
+  --sc-font-size-4xl: 2.25rem;    /* 36px */
+  --sc-font-size-5xl: 3rem;       /* 48px */
+
+  /* ——— Line height (reading comfort) ——— */
+  --sc-leading-tight: 1.25;
+  --sc-leading-snug: 1.375;
+  --sc-leading-normal: 1.5;
+  --sc-leading-relaxed: 1.625;
+  --sc-leading-loose: 1.75;
+  --sc-leading-sacred: 1.7;       /* optimal for long-form sacred text */
+
+  /* ——— Letter spacing ——— */
+  --sc-tracking-tighter: -0.02em;
+  --sc-tracking-tight: -0.01em;
+  --sc-tracking-normal: 0;
+  --sc-tracking-wide: 0.025em;
+  --sc-tracking-wider: 0.05em;
+  --sc-tracking-widest: 0.1em;
+  --sc-tracking-label: 0.08em;   /* verse labels, meta */
+
+  /* ——— Reading measure (line length) ——— */
+  --sc-measure-narrow: 45ch;     /* dense verse lines */
+  --sc-measure-reading: 60ch;    /* body, translations */
+  --sc-measure-wide: 70ch;       /* max content width */
+
+  /* ——— Spacing (vertical rhythm) ——— */
+  --sc-space-verse: 1.5rem;      /* between verses */
+  --sc-space-verse-inner: 0.5rem; /* between original / translit / translation */
+  --sc-space-section: 3rem;      /* header ↔ body */
+  --sc-space-block: 1rem;
+
+  /* ——— Font stacks ——— */
+  --sc-font-serif: Georgia, 'Cambria', 'Times New Roman', Times, serif;
+  --sc-font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}

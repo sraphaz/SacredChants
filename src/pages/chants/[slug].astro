@@ -27,17 +27,19 @@ const chant = { ...entry.data, slug: entry.id };
 ---
 
 <ChantLayout chant={chant} locale={locale}>
-  <div class="max-w-2xl mx-auto px-4">
-    <ChantHeader chant={chant} locale={locale} />
-    {chant.audio && (
+  <ChantHeader chant={chant} locale={locale} />
+  {chant.audio && (
+    <div class="chant-audio-wrap mb-section">
       <ChantAudio src={chant.audio} title={chant.title} />
-    )}
-    <div class="space-y-0">
+    </div>
+  )}
+  <section class="chant-verses" aria-label="Verses">
+    <div class="chant-verses__list">
       {chant.verses
         .sort((a, b) => a.order - b.order)
         .map((verse) => (
           <ChantVerse verse={verse} locale={locale} showLabels={true} />
         ))}
     </div>
-  </div>
+  </section>
 </ChantLayout>

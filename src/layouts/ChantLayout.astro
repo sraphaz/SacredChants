@@ -13,7 +13,9 @@ const t = ui[locale];
 ---
 
 <BaseLayout title={chant.title} description={chant.description} locale={locale}>
-  <article class="py-12 px-4">
-    <slot />
+  <article class="chant-page py-12 md:py-16 px-4 md:px-6" role="article" aria-label={chant.title}>
+    <div class="chant-page__inner max-w-[var(--sc-measure-wide)] mx-auto">
+      <slot />
+    </div>
   </article>
 </BaseLayout>

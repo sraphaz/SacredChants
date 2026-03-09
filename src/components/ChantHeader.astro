@@ -11,30 +11,30 @@ const { chant, locale = 'en' } = Astro.props;
 const t = ui[locale];
 ---
 
-<header class="max-w-2xl mx-auto text-center mb-12">
-  <p class="text-sm uppercase tracking-wider text-stone-500 mb-2">
+<header class="chant-header text-center mb-section max-w-[var(--sc-measure-reading)] mx-auto">
+  <p class="chant-header__meta text-sc-sm uppercase tracking-label text-stone-500 mb-2" aria-hidden="true">
     {chant.tradition}
     {chant.origin ? ` · ${chant.origin}` : ''}
   </p>
-  <h1 class="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
+  <h1 class="chant-header__title font-serif text-sc-4xl md:text-sc-5xl text-stone-900 mb-4">
     {chant.title}
   </h1>
   {chant.language && (
-    <p class="text-stone-600 text-sm">
+    <p class="chant-header__lang text-stone-600 text-sc-sm">
       {chant.language}
       {chant.script ? ` (${chant.script})` : ''}
     </p>
   )}
   {chant.description && (
-    <p class="mt-6 text-stone-600 leading-relaxed max-w-xl mx-auto">
+    <p class="chant-header__desc mt-6 text-stone-600 text-sc-base max-w-[var(--sc-measure-narrow)] mx-auto" style="line-height: var(--sc-leading-relaxed);">
       {chant.description}
     </p>
   )}
   {chant.tags && chant.tags.length > 0 && (
-    <ul class="flex flex-wrap justify-center gap-2 mt-4" aria-label="Tags">
+    <ul class="chant-header__tags flex flex-wrap justify-center gap-2 mt-6" aria-label="Tags">
       {chant.tags.map((tag) => (
         <li>
-          <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">{tag}</span>
+          <span class="text-sc-xs px-2 py-1 rounded bg-stone-100 text-stone-600">{tag}</span>
         </li>
       ))}
     </ul>
