@@ -62,8 +62,9 @@
 }
 /* Depth / luminosity: past lines recede, current line in focus, future lines softer */
 .prose-chant .verse-block--before {
-  opacity: 0.48;
-  transform: scale(0.985);
+  opacity: 0.38;
+  transform: scale(0.98);
+  filter: brightness(0.85);
 }
 .prose-chant .verse-block--before .original,
 .prose-chant .verse-block--before .transliteration,
@@ -71,18 +72,31 @@
   color: var(--sc-text-muted);
 }
 .prose-chant .verse-block--after {
-  opacity: 0.72;
-  transform: scale(0.995);
+  opacity: 0.6;
+  transform: scale(0.99);
+  filter: brightness(0.92);
 }
 .prose-chant .verse-block--active {
   opacity: 1;
   transform: scale(1);
+  filter: brightness(1);
   background-color: var(--sc-border);
-  border-radius: 0.25rem;
+  box-shadow: 0 0 0 1px var(--sc-border);
+  border-radius: 0.375rem;
   margin-left: -0.5rem;
   margin-right: -0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+.prose-chant .verse-block--active .original {
+  color: var(--sc-verse-original);
+}
+.prose-chant .verse-block--active .transliteration {
+  color: var(--sc-verse-transliteration);
+}
+.prose-chant .verse-block--active .translations,
+.prose-chant .verse-block--active .translations [data-lang] {
+  color: var(--sc-verse-translation);
 }
 
 .prose-chant .original {

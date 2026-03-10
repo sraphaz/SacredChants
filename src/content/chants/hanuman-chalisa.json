@@ -17,7 +17,7 @@
     "hindu"
   ],
   "audio": "/audio/hanuman-chalisa.mp3",
-  "duration": 589,
+  "duration": 605,
   "about": {
     "en": "Śrī Hanumān Chālīsā means “Hymn to Śrī Hanumān in 40 verses”. It is a 40-verse prayer in praise of Lord Hanumān, the greatest devotee of Śrī Rāma. The word chālīsā comes from chālīs (forty in Hindi). The work has two introductory Dohās, forty Caupāī verses, and one closing Dohā (43 verses total). It was written by Goswāmī Tulsīdās in Awadhi, a Hindi dialect from Uttar Pradesh, to make the hymn accessible to common people. Chanting with devotion is said to invoke Hanumān’s grace and protection.",
     "pt": "Śrī Hanumān Chālīsā significa “Hino a Śrī Hanumān em 40 versos”. É uma oração de 40 versos em louvor ao Senhor Hanumān, o maior devoto de Śrī Rāma. A palavra chālīsā vem de chālīs (quarenta em hindi). A obra tem dois Dohās introdutórios, quarenta versos Caupāī e um Dohā final (43 versos no total). Foi escrita por Goswāmī Tulsīdās em Awadhi, um dialeto do hindi de Uttar Pradesh, para tornar o hino acessível ao povo. Diz-se que cantar com devoção invoca a graça e a proteção de Hanumān."
@@ -27,21 +27,21 @@
       "order": 1,
       "lines": [
         {
-          "start": 10,
+          "start": 26,
           "original": "श्री गुरु चरण सरोज रज निज मन मुकुरु सुधारि।",
           "transliteration": "śrī guru carana saroja raja nija manu mukuru sudhāri |",
           "translations": {
-            "pt": "Tendo limpado o espelho da minha mente com a poeira dos pés de lótus do Sri Gurudeva, canto as puras glórias do Senhor Ramachandra, que concede os quatro frutos da vida: dharma, artha, kama e Moksha.",
-            "en": "Having cleaned the mirror of my mind with the dust from the lotus feet of Sri Gurudeva, I sing the pure glories of Lord Ramachandra, who bestows the four fruits of life: dharma (religion), artha (wealth), kama (pleasure), and Moksha (liberation)."
+            "pt": "Tendo polido o espelho da minha mente com a poeira dos pés de lótus do Gurudeva.",
+            "en": "Having polished the mirror of my mind with the dust of the lotus feet of the Guru."
           }
         },
         {
-          "start": 24,
+          "start": 40,
           "original": "बरनउँ रघुबर बिमल जसु जो दायकु फल चारि॥",
           "transliteration": "baraṇaūṁ raghubara bimala jasu jo dāyaku phala cāri ||",
           "translations": {
-            "pt": "Tendo limpado o espelho da minha mente com a poeira dos pés de lótus do Sri Gurudeva, canto as puras glórias do Senhor Ramachandra, que concede os quatro frutos da vida: dharma, artha, kama e Moksha.",
-            "en": "Having cleaned the mirror of my mind with the dust from the lotus feet of Sri Gurudeva, I sing the pure glories of Lord Ramachandra, who bestows the four fruits of life: dharma (religion), artha (wealth), kama (pleasure), and Moksha (liberation)."
+            "pt": "Canto a glória imaculada do melhor dos Raghu (Rāma), que concede os quatro frutos: dharma, artha, kama e moksha.",
+            "en": "I sing the spotless glory of the best of Raghu (Rāma), who bestows the four fruits: dharma (religion), artha (wealth), kama (pleasure), and moksha (liberation)."
           }
         }
       ]
@@ -50,21 +50,21 @@
       "order": 2,
       "lines": [
         {
-          "start": 38,
+          "start": 54,
           "original": "बुद्धि हीन तनु जानिके सुमिरौं पवन कुमार।",
           "transliteration": "buddhi-hīna tanu jānike sumirauṁ pavana-kumāra |",
           "translations": {
-            "pt": "Sabendo-me carente de sabedoria, invoco o Senhor Hanumān, filho do Deus do Vento. Que Ele me dê força, sabedoria e conhecimento e me liberte de todas as aflições e impurezas.",
-            "en": "Knowing myself to be lacking in wisdom, I invoke Lord Hanumān, the son of the Wind God. May He give me strength, wisdom and knowledge, and may He free me of all afflictions and impurities."
+            "pt": "Sabendo-me carente de sabedoria, invoco o filho do vento (Hanumān).",
+            "en": "Knowing myself to be lacking in wisdom, I invoke the son of the wind (Hanumān)."
           }
         },
         {
-          "start": 45,
+          "start": 61,
           "original": "बल बुद्धि बिद्या देहु मोहिं हरहु कलेस बिकार॥",
           "transliteration": "bala buddhi bidyā dehu mohiṁ harahu kalesa bikāra ||",
           "translations": {
-            "pt": "Sabendo-me carente de sabedoria, invoco o Senhor Hanumān, filho do Deus do Vento. Que Ele me dê força, sabedoria e conhecimento e me liberte de todas as aflições e impurezas.",
-            "en": "Knowing myself to be lacking in wisdom, I invoke Lord Hanumān, the son of the Wind God. May He give me strength, wisdom and knowledge, and may He free me of all afflictions and impurities."
+            "pt": "Conceda-me força, sabedoria e conhecimento; remova as minhas aflições e impurezas.",
+            "en": "Grant me strength, wisdom and knowledge; remove my afflictions and impurities."
           }
         }
       ]
@@ -73,21 +73,21 @@
       "order": 3,
       "lines": [
         {
-          "start": 52,
+          "start": 68,
           "original": "जय हनुमान ज्ञान गुण सागर।",
           "transliteration": "jaya hanumāna jñāna guṇa sāgara",
           "translations": {
-            "pt": "Vitória a Ti, ó Hanumān, oceano de sabedoria e virtude; vitória ao Senhor dos Vānaras, bem conhecido nos três mundos.",
-            "en": "Victory to Thee, O Hanumān, Ocean of wisdom and virtue, victory to the Lord of the Vānaras (monkeys) who is well known in all the three worlds."
+            "pt": "Vitória a Ti, ó Hanumān, oceano de sabedoria e virtude.",
+            "en": "Victory to Thee, O Hanumān, ocean of wisdom and virtue."
           }
         },
         {
-          "start": 64.5,
+          "start": 80.5,
           "original": "जय कपीस तिहुँ लोक उजागर॥",
           "transliteration": "jaya kapīsa tihuṁ loka ujāgara ||",
           "translations": {
-            "pt": "Vitória a Ti, ó Hanumān, oceano de sabedoria e virtude; vitória ao Senhor dos Vānaras, bem conhecido nos três mundos.",
-            "en": "Victory to Thee, O Hanumān, Ocean of wisdom and virtue, victory to the Lord of the Vānaras (monkeys) who is well known in all the three worlds."
+            "pt": "Vitória ao Senhor dos Vānaras, que ilumina os três mundos.",
+            "en": "Victory to the Lord of the Vānaras (monkeys), who illuminates the three worlds."
           }
         }
       ]
@@ -96,21 +96,21 @@
       "order": 4,
       "lines": [
         {
-          "start": 77,
+          "start": 93,
           "original": "राम दूत अतुलित बल धामा।",
           "transliteration": "rāma dūta atulita bala dhāmā",
           "translations": {
-            "pt": "Tu és o mensageiro divino de Rāma e repositório de força incomensurável; és conhecido como filho de Añjana e como filho do vento (pavana-putra).",
-            "en": "You are the divine messenger and servant of Rāma and repository of immeasurable strength; you are also known as the son of mother Añjana (añjani-putra) and as the son of the wind (pavana-putra)."
+            "pt": "Mensageiro de Rāma e repositório de força incomensurável.",
+            "en": "Messenger of Rāma and repository of immeasurable strength."
           }
         },
         {
-          "start": 83.5,
+          "start": 99.5,
           "original": "अञ्जनि पुत्र पवनसुत नामा॥",
           "transliteration": "añjani-putra pavana-suta nāmā ||",
           "translations": {
-            "pt": "Tu és o mensageiro divino de Rāma e repositório de força incomensurável; és conhecido como filho de Añjana e como filho do vento (pavana-putra).",
-            "en": "You are the divine messenger and servant of Rāma and repository of immeasurable strength; you are also known as the son of mother Añjana (añjani-putra) and as the son of the wind (pavana-putra)."
+            "pt": "Filho de Añjanī e do vento (Pavana), assim é chamado.",
+            "en": "Son of Añjanī and of the wind (Pavana), by that name you are known."
           }
         }
       ]
@@ -119,21 +119,21 @@
       "order": 5,
       "lines": [
         {
-          "start": 90,
+          "start": 106,
           "original": "महाबीर बिक्रम बजरंगी।",
           "transliteration": "mahābīra bikrama bajaraṅgī",
           "translations": {
-            "pt": "Ó Mahāvīr (Hanumān), grande herói, poderoso como um raio; removedor de pensamentos perversos e companheiro dos bons.",
-            "en": "O Mahāvīr (Hanumān), Great hero, mighty as a thunderbolt, remover of wicked thoughts and companion to the good, granting us the company of the wise."
+            "pt": "Ó Mahāvīra (Hanumān), grande herói, de valentia poderosa como um raio, de corpo adamantino (Vajrāṅgī).",
+            "en": "O Mahāvīra (Hanumān), great hero, of mighty valour like a thunderbolt, thunderbolt-bodied (Vajrāṅgī)."
           }
         },
         {
-          "start": 96.5,
+          "start": 112.5,
           "original": "कुमति निवार सुमति के संगी॥",
           "transliteration": "kumati nivāra sumati ke saṅgī ||",
           "translations": {
-            "pt": "Ó Mahāvīr (Hanumān), grande herói, poderoso como um raio; removedor de pensamentos perversos e companheiro dos bons.",
-            "en": "O Mahāvīr (Hanumān), Great hero, mighty as a thunderbolt, remover of wicked thoughts and companion to the good, granting us the company of the wise."
+            "pt": "Removedor de pensamentos perversos (kumati) e companheiro dos de boa mente (sumati).",
+            "en": "Remover of wicked thoughts (kumati) and companion to the good-minded (sumati)."
           }
         }
       ]
@@ -142,21 +142,21 @@
       "order": 6,
       "lines": [
         {
-          "start": 103,
+          "start": 119,
           "original": "कंचन बरन बिराज सुबेसा।",
           "transliteration": "kāñcana barana birāja subesā",
           "translations": {
-            "pt": "Tua compleição brilha dourada; pareces belo com roupas requintadas, brincos cintilantes e cabelo encaracolado.",
-            "en": "Your complexion shines golden; you look beautiful with your exquisite clothes, glittering earrings and curly hair."
+            "pt": "Sua compleição brilha dourada; resplandece com bela vestimenta.",
+            "en": "Your complexion shines golden; you shine with beautiful attire."
           }
         },
         {
-          "start": 109.5,
+          "start": 125.5,
           "original": "कानन कुंडल कुंचित केसा॥",
           "transliteration": "kānana kuṇḍala kuñcita kesā ||",
           "translations": {
-            "pt": "Tua compleição brilha dourada; pareces belo com roupas requintadas, brincos cintilantes e cabelo encaracolado.",
-            "en": "Your complexion shines golden; you look beautiful with your exquisite clothes, glittering earrings and curly hair."
+            "pt": "Brincos cintilantes (kuṇḍala) e cabelo encaracolado.",
+            "en": "Glittering earrings (kuṇḍala) and curly hair."
           }
         }
       ]
@@ -165,21 +165,21 @@
       "order": 7,
       "lines": [
         {
-          "start": 116,
+          "start": 132,
           "original": "हाथ बज्र औ ध्वजा बिराजै।",
           "transliteration": "hātha bajra aura dhvajā birājai",
           "translations": {
-            "pt": "Tens um maço como um raio numa mão e a bandeira da vitória de Śrī Rāma na outra; nos ombros o fio sagrado de erva muñjā.",
-            "en": "You have a thunderbolt-like mace in one hand and a victory flag of Śrī Rāma in the other; across your shoulder is the sacred thread made of muñjā grass."
+            "pt": "Tem um maço como um raio numa mão e a bandeira da vitória de Śrī Rāma na outra; resplandecem nas suas mãos.",
+            "en": "You have a thunderbolt-like mace in one hand and Śrī Rāma's victory flag in the other; they shine in your hands."
           }
         },
         {
-          "start": 122.5,
+          "start": 138.5,
           "original": "काँधे मूँज जनेऊ साजै॥",
           "transliteration": "kāṁdhe mūṁja janeū sājai ||",
           "translations": {
-            "pt": "Tens um maço como um raio numa mão e a bandeira da vitória de Śrī Rāma na outra; nos ombros o fio sagrado de erva muñjā.",
-            "en": "You have a thunderbolt-like mace in one hand and a victory flag of Śrī Rāma in the other; across your shoulder is the sacred thread made of muñjā grass."
+            "pt": "Nos ombros o fio sagrado de erva muñjā.",
+            "en": "Across your shoulder is the sacred thread made of muñjā grass."
           }
         }
       ]
@@ -188,21 +188,21 @@
       "order": 8,
       "lines": [
         {
-          "start": 129,
+          "start": 145,
           "original": "शंकर सुवन केसरी नन्दन।",
           "transliteration": "śaṅkara suvana kesarī nandana",
           "translations": {
-            "pt": "És a encarnação de Śiva e o filho de Keśarī; és adorado por todo o mundo pelo teu grande poder e valor.",
-            "en": "You are the incarnation of Śiva and the son of Keśarī. You are adored by the entire world for your great power and valour."
+            "pt": "É a encarnação de Śiva (Śaṅkara) e o filho de Keśarī.",
+            "en": "You are the incarnation of Śiva (Śaṅkara) and the son of Keśarī."
           }
         },
         {
-          "start": 135.3,
+          "start": 151.3,
           "original": "तेज प्रताप महा जग बन्दन॥",
           "transliteration": "teja pratāpa mahā jaga bandana ||",
           "translations": {
-            "pt": "És a encarnação de Śiva e o filho de Keśarī; és adorado por todo o mundo pelo teu grande poder e valor.",
-            "en": "You are the incarnation of Śiva and the son of Keśarī. You are adored by the entire world for your great power and valour."
+            "pt": "É adorado por todo o mundo pelo seu grande esplendor e poder.",
+            "en": "You are adored by the entire world for your great splendour and might."
           }
         }
       ]
@@ -211,21 +211,21 @@
       "order": 9,
       "lines": [
         {
-          "start": 141.5,
+          "start": 157.5,
           "original": "विद्यावान गुणी अति चातुर।",
           "transliteration": "vidyāvāna gunī ati cātura",
           "translations": {
-            "pt": "És supremamente sábio, virtuoso e inteligente, sempre pronto a servir o Senhor Rāma.",
-            "en": "You are supremely wise, virtuous and intelligent, always ready to serve Lord Rāma."
+            "pt": "É supremamente sábio, virtuoso e inteligente.",
+            "en": "You are supremely wise, virtuous and intelligent."
           }
         },
         {
-          "start": 147.8,
+          "start": 163.8,
           "original": "राम काज करिबे को आतुर॥",
           "transliteration": "rāma kāja karibe ko ātura ||",
           "translations": {
-            "pt": "És supremamente sábio, virtuoso e inteligente, sempre pronto a servir o Senhor Rāma.",
-            "en": "You are supremely wise, virtuous and intelligent, always ready to serve Lord Rāma."
+            "pt": "Sempre ávido por cumprir a obra do Senhor Rāma.",
+            "en": "Always eager to accomplish Lord Rāma's work."
           }
         }
       ]
@@ -234,21 +234,21 @@
       "order": 10,
       "lines": [
         {
-          "start": 154,
+          "start": 170,
           "original": "प्रभु चरित्र सुनिबे को रसिया।",
           "transliteration": "prabhu caritra sunibe ko rasiyā",
           "translations": {
-            "pt": "Teu maior prazer é ouvir as Suas glórias. Śrī Rāma, Śrī Sītā e Śrī Lakṣmaṇa residem sempre no teu coração.",
-            "en": "Your greatest pleasure is listening to His glories. Śrī Rāma, Śrī Sītā and Śrī Lakṣmaṇa always reside in your heart."
+            "pt": "Seu maior prazer é ouvir as glórias e a história do Senhor.",
+            "en": "Your greatest pleasure is listening to the Lord's glories and story."
           }
         },
         {
-          "start": 160.5,
+          "start": 176.5,
           "original": "राम लखन सीता मन बसिया॥",
           "transliteration": "rāma lakhana sītā mana basiyā ||",
           "translations": {
-            "pt": "Teu maior prazer é ouvir as Suas glórias. Śrī Rāma, Śrī Sītā e Śrī Lakṣmaṇa residem sempre no teu coração.",
-            "en": "Your greatest pleasure is listening to His glories. Śrī Rāma, Śrī Sītā and Śrī Lakṣmaṇa always reside in your heart."
+            "pt": "Śrī Rāma, Śrī Lakṣmaṇa e Śrī Sītā residem sempre no seu coração.",
+            "en": "Śrī Rāma, Śrī Lakṣmaṇa and Śrī Sītā always dwell in your heart."
           }
         }
       ]
@@ -257,21 +257,21 @@
       "order": 11,
       "lines": [
         {
-          "start": 167,
+          "start": 183,
           "original": "सूक्ष्म रूप धरि सियहिं दिखावा।",
           "transliteration": "sūkṣma rūpa dhari siyahiṁ dikhāvā",
           "translations": {
-            "pt": "Assumindo uma forma minúscula apareceste perante Sītā; em aspecto terrível queimaste a cidade de Laṅkā.",
-            "en": "Assuming a tiny form you appeared before Sītā, and in awesome guise you burned down the city of Laṅkā."
+            "pt": "Assumindo uma forma minúscula apareceu perante Sītā.",
+            "en": "Assuming a tiny form you appeared before Sītā."
           }
         },
         {
-          "start": 173.5,
+          "start": 189.5,
           "original": "बिकट रूप धरि लंक जरावा॥",
           "transliteration": "bikaṭa rūpa dhari laṅkā jarāvā ||",
           "translations": {
-            "pt": "Assumindo uma forma minúscula apareceste perante Sītā; em aspecto terrível queimaste a cidade de Laṅkā.",
-            "en": "Assuming a tiny form you appeared before Sītā, and in awesome guise you burned down the city of Laṅkā."
+            "pt": "Em aspecto terrível queimou a cidade de Laṅkā.",
+            "en": "In awesome, fearsome guise you burned the city of Laṅkā."
           }
         }
       ]
@@ -280,21 +280,21 @@
       "order": 12,
       "lines": [
         {
-          "start": 180,
+          "start": 196,
           "original": "भीम रूप धरि असुर सँहारे।",
           "transliteration": "bhīma rūpa dhari asura saṁhāre",
           "translations": {
-            "pt": "Tomando uma forma temível destruíste os demónios e cumpriste a missão do Senhor Rāma com grande fineza.",
-            "en": "Taking a dreadful, fierce form you destroyed demons and you accomplished the mission of Lord Rāma with great finesse."
+            "pt": "Tomando uma forma temível e gigantesca destruiu os demônios.",
+            "en": "Taking a dreadful, mighty form you destroyed the asuras (demons)."
           }
         },
         {
-          "start": 186.5,
+          "start": 202.5,
           "original": "रामचन्द्र के काज सँवारे॥",
           "transliteration": "rāmacandra ke kāja saṁvāre ||",
           "translations": {
-            "pt": "Tomando uma forma temível destruíste os demónios e cumpriste a missão do Senhor Rāma com grande fineza.",
-            "en": "Taking a dreadful, fierce form you destroyed demons and you accomplished the mission of Lord Rāma with great finesse."
+            "pt": "Cumpriu a missão do Senhor Rāmacandra com grande fineza.",
+            "en": "You accomplished the mission of Lord Rāmacandra with great finesse."
           }
         }
       ]
@@ -303,21 +303,21 @@
       "order": 13,
       "lines": [
         {
-          "start": 193,
+          "start": 209,
           "original": "लाय सजीवन लखन जियाये।",
           "transliteration": "lāya sañjīvana lakhana jiyāye",
           "translations": {
-            "pt": "Trazendo a erva Mṛta-Sañjīvaṇī que dá vida, reviveste Lakṣmaṇa; Śrī Rāma abraçou-te jubiloso ao peito.",
-            "en": "Bringing the life-giving Mṛta-Sañjīvaṇī herb to revive (the unconscious) Lakṣmaṇa, Śrī Rāma (Raghuvīra) joyfully embraced you to his heart."
+            "pt": "Trazendo a erva Mṛta-Sañjīvaṇī que dá vida, reviveu Lakṣmaṇa.",
+            "en": "Bringing the life-giving Mṛta-Sañjīvaṇī herb, you revived (the unconscious) Lakṣmaṇa."
           }
         },
         {
-          "start": 199.5,
+          "start": 215.5,
           "original": "श्री रघुबीर हरषि उर लाये॥",
           "transliteration": "śrī raghubīra haraṣi ura lāye ||",
           "translations": {
-            "pt": "Trazendo a erva Mṛta-Sañjīvaṇī que dá vida, reviveste Lakṣmaṇa; Śrī Rāma abraçou-te jubiloso ao peito.",
-            "en": "Bringing the life-giving Mṛta-Sañjīvaṇī herb to revive (the unconscious) Lakṣmaṇa, Śrī Rāma (Raghuvīra) joyfully embraced you to his heart."
+            "pt": "Śrī Raghubīra (Rāma) o abraçou jubiloso ao peito.",
+            "en": "Śrī Raghubīra (Rāma) joyfully embraced you to his heart."
           }
         }
       ]
@@ -326,21 +326,21 @@
       "order": 14,
       "lines": [
         {
-          "start": 206,
+          "start": 222,
           "original": "रघुपति कीन्ही बहुत बड़ाई।",
           "transliteration": "raghupati kīnhī bahuta baḍāī",
           "translations": {
-            "pt": "Grandemente o rei da dinastia Raghu te elogiou dizendo: «És tão querido para mim como o meu próprio irmão Bharat.»",
-            "en": "Greatly did the king of Raghu Dynasty praise you saying, “you are as dear to me as my very own brother Bharat.”"
+            "pt": "Grandemente o Senhor dos Raghu (Rāma) o elogiou.",
+            "en": "Greatly did the Lord of the Raghus (Rāma) praise you."
           }
         },
         {
-          "start": 212.3,
+          "start": 228.3,
           "original": "तुम मम प्रिय भरतहि सम भाई॥",
           "transliteration": "tuma mama priya bharatahi sama bhāī ||",
           "translations": {
-            "pt": "Grandemente o rei da dinastia Raghu te elogiou dizendo: «És tão querido para mim como o meu próprio irmão Bharat.»",
-            "en": "Greatly did the king of Raghu Dynasty praise you saying, “you are as dear to me as my very own brother Bharat.”"
+            "pt": "Dizendo: «É tão querido para mim como o meu próprio irmão Bharat.»",
+            "en": "Saying: \"You are as dear to me as my very own brother Bharat.\""
           }
         }
       ]
@@ -349,21 +349,21 @@
       "order": 15,
       "lines": [
         {
-          "start": 218.5,
+          "start": 234.5,
           "original": "सहस बदन तुम्हारो जस गावैं।",
           "transliteration": "sahasa badana tumharo yaśa gāvaiṁ",
           "translations": {
-            "pt": "«Mil bocas cantam as tuas glórias (a serpente de mil bocas Śeṣa).» Com estas palavras, o Senhor de Sītā (Rāma) te abraçou ao peito.",
-            "en": "\"Thousands of mouths sing your glories (the thousand-mouthed serpent Śeṣa),\" with these words, Sītā's Lord (śrīpati—Lord Rāma) drew you to himself, embracing you to his heart."
+            "pt": "Mil bocas (a serpente Śeṣa) cantam as suas glórias.",
+            "en": "Thousands of mouths (the thousand-mouthed serpent Śeṣa) sing your glories."
           }
         },
         {
-          "start": 224.8,
+          "start": 240.8,
           "original": "अस कहि श्रीपति कण्ठ लगावैं॥",
           "transliteration": "asa kahi śrīpati kaṇṭha lagāvaiṁ ||",
           "translations": {
-            "pt": "«Mil bocas cantam as tuas glórias (a serpente de mil bocas Śeṣa).» Com estas palavras, o Senhor de Sītā (Rāma) te abraçou ao peito.",
-            "en": "\"Thousands of mouths sing your glories (the thousand-mouthed serpent Śeṣa),\" with these words, Sītā's Lord (śrīpati—Lord Rāma) drew you to himself, embracing you to his heart."
+            "pt": "Com estas palavras, o Senhor de Sītā (Śrīpati—Rāma) o abraçou ao peito.",
+            "en": "With these words, Sītā's Lord (Śrīpati—Lord Rāma) drew you to himself, embracing you to his heart."
           }
         }
       ]
@@ -372,21 +372,21 @@
       "order": 16,
       "lines": [
         {
-          "start": 231,
+          "start": 247,
           "original": "सनकादिक ब्रह्मादि मुनीसा।",
           "transliteration": "sanakādika brahmādi munīśā",
           "translations": {
-            "pt": "Sanaka, os sábios, Brahma, os deuses, Nārada, Sarasvati e Ahīśā, o senhor das serpentes, não conseguem descrever completamente as tuas glórias.",
-            "en": "Even Sanaka and the sages (Kumaras), Brahma, the gods and great saints, Nārada, Sarasvati, and Ahīśā the lord of serpents, cannot completely describe your glories."
+            "pt": "Sanaka, os (Kumāras), Brahmā, os deuses e os grandes sábios.",
+            "en": "Sanaka and the sages (Kumāras), Brahmā, the gods and the great sages."
           }
         },
         {
-          "start": 237.5,
+          "start": 253.5,
           "original": "नारद सारद सहित अहीसा॥",
           "transliteration": "nārada śārada sahita ahīśā ||",
           "translations": {
-            "pt": "Sanaka, os sábios, Brahma, os deuses, Nārada, Sarasvati e Ahīśā, o senhor das serpentes, não conseguem descrever completamente as tuas glórias.",
-            "en": "Even Sanaka and the sages (Kumaras), Brahma, the gods and great saints, Nārada, Sarasvati, and Ahīśā the lord of serpents, cannot completely describe your glories."
+            "pt": "Nārada, Sarasvatī e Ahīśā (senhor das serpentes) não conseguem descrever completamente as suas glórias.",
+            "en": "Nārada, Sarasvatī and Ahīśā the lord of serpents cannot completely describe your glories."
           }
         }
       ]
@@ -395,21 +395,21 @@
       "order": 17,
       "lines": [
         {
-          "start": 244,
+          "start": 260,
           "original": "यम कुबेर दिगपाल जहाँ ते।",
           "transliteration": "yama kubera digapāla jahāṁ te",
           "translations": {
-            "pt": "Yama e Kubera, com os Dikpāla devatas, continuarão a cantar a tua fama. Como poderão poetas ordinários descrever totalmente a tua glória?",
-            "en": "Yama and Kubera along with the Dikpāla devatas (the 8 guardian deities) will keep singing your fame. How can ordinary poets and knowers of Vedas fully describe your glory?"
+            "pt": "Yama, Kubera e os Dikpāla (deidades guardiãs das direções) continuam a cantar a sua fama.",
+            "en": "Yama and Kubera along with the Dikpāla devatas (the eight guardian deities) keep singing your fame."
           }
         },
         {
-          "start": 250.5,
+          "start": 266.5,
           "original": "कबि कोबिद कहि सके कहाँ ते॥",
           "transliteration": "kabi kobida kahi sake kahāṁ te ||",
           "translations": {
-            "pt": "Yama e Kubera, com os Dikpāla devatas, continuarão a cantar a tua fama. Como poderão poetas ordinários descrever totalmente a tua glória?",
-            "en": "Yama and Kubera along with the Dikpāla devatas (the 8 guardian deities) will keep singing your fame. How can ordinary poets and knowers of Vedas fully describe your glory?"
+            "pt": "Como poderão poetas e conhecedores dos Vedas descrever totalmente a sua glória?",
+            "en": "How can ordinary poets and knowers of the Vedas fully describe your glory?"
           }
         }
       ]
@@ -418,21 +418,21 @@
       "order": 18,
       "lines": [
         {
-          "start": 257,
+          "start": 273,
           "original": "तुम उपकार सुग्रीवहिं कीन्हा।",
           "transliteration": "tuma upakāra sugrīvahiṁ kīnhā",
           "translations": {
-            "pt": "Fizeste a Sugrīva um grande favor — fizeste-o encontrar o Senhor Rāma e deste-lhe a realeza e refúgio aos pés do Rei Rāma.",
-            "en": "You did Sugrīva a great favour—making him meet Lord Rāma, You gave him kingship [over Kiṣkindhā] and refuge at the feet of King Rāma."
+            "pt": "Fez a Sugrīva um grande favor — fez com que ele encontrasse o Senhor Rāma.",
+            "en": "You did Sugrīva a great favour—you made him meet Lord Rāma."
           }
         },
         {
-          "start": 263.3,
+          "start": 279.3,
           "original": "राम मिलाय राज पद दीन्हा॥",
           "transliteration": "rāma milāya rāja pada dīnhā ||",
           "translations": {
-            "pt": "Fizeste a Sugrīva um grande favor — fizeste-o encontrar o Senhor Rāma e deste-lhe a realeza e refúgio aos pés do Rei Rāma.",
-            "en": "You did Sugrīva a great favour—making him meet Lord Rāma, You gave him kingship [over Kiṣkindhā] and refuge at the feet of King Rāma."
+            "pt": "Deu-lhe a realeza e refúgio aos pés do Rei Rāma.",
+            "en": "You gave him kingship [over Kiṣkindhā] and refuge at the feet of King Rāma."
           }
         }
       ]
@@ -441,21 +441,21 @@
       "order": 19,
       "lines": [
         {
-          "start": 269.5,
+          "start": 285.5,
           "original": "तुम्हरो मन्त्र विभीषण माना।",
           "transliteration": "tumharo mantra bibhīṣana mānā",
           "translations": {
-            "pt": "Ao seguir o teu conselho, Vibhīṣaṇa tornou-se rei de Laṅkā. Isto é conhecido em todo o mundo.",
-            "en": "By heeding your advice, Vibhīṣaṇa became the king of Laṅkā. This is known throughout the world."
+            "pt": "Ao seguir o seu conselho, Vibhīṣaṇa tornou-se rei de Laṅkā.",
+            "en": "By heeding your advice, Vibhīṣaṇa became the king of Laṅkā."
           }
         },
         {
-          "start": 275.8,
+          "start": 291.8,
           "original": "लंकेश्वर भए सब जग जाना॥",
           "transliteration": "laṅkeśvara bhae saba jaga jānā ||",
           "translations": {
-            "pt": "Ao seguir o teu conselho, Vibhīṣaṇa tornou-se rei de Laṅkā. Isto é conhecido em todo o mundo.",
-            "en": "By heeding your advice, Vibhīṣaṇa became the king of Laṅkā. This is known throughout the world."
+            "pt": "Isto é conhecido em todo o mundo.",
+            "en": "This is known throughout the world."
           }
         }
       ]
@@ -464,21 +464,21 @@
       "order": 20,
       "lines": [
         {
-          "start": 282,
+          "start": 298,
           "original": "जुग सहस्त्र जोजन पर भानू।",
           "transliteration": "juga sahastra jojana para bhānū",
           "translations": {
-            "pt": "Saltaste em direção ao sol, a milhões de milhas de distância, tentando engoli-lo pois pensaste ser uma doce fruta.",
-            "en": "You leapt towards the sun, situated millions of miles away, trying to swallow it, because you mistook it to be a sweet fruit."
+            "pt": "Saltou em direção ao sol, situado a milhões de yojanas de distância.",
+            "en": "You leapt towards the sun, situated millions of yojanas away."
           }
         },
         {
-          "start": 288.5,
+          "start": 304.5,
           "original": "लील्यो ताहि मधुर फल जानू॥",
           "transliteration": "līlyo tāhi madhura phala jānū ||",
           "translations": {
-            "pt": "Saltaste em direção ao sol, a milhões de milhas de distância, tentando engoli-lo pois pensaste ser uma doce fruta.",
-            "en": "You leapt towards the sun, situated millions of miles away, trying to swallow it, because you mistook it to be a sweet fruit."
+            "pt": "Tentou engoli-lo pois pensou ser uma doce fruta.",
+            "en": "You tried to swallow it because you mistook it to be a sweet fruit."
           }
         }
       ]
@@ -487,21 +487,21 @@
       "order": 21,
       "lines": [
         {
-          "start": 295,
+          "start": 311,
           "original": "प्रभु मुद्रिका मेलि मुख माहीं।",
           "transliteration": "prabhu mudrikā meli mukha māhīṁ",
           "translations": {
-            "pt": "Colocando o anel do Senhor Rāma na tua boca (como token para Sītā), não é de admirar que tenhas atravessado o vasto oceano.",
-            "en": "Placing Lord Rāma's ring in Your mouth (as a token for Sītā), no wonder, You leaped across the vast ocean."
+            "pt": "Colocando o anel do Senhor Rāma na sua boca (como token para Sītā).",
+            "en": "Placing Lord Rāma's ring in your mouth (as a token for Sītā)."
           }
         },
         {
-          "start": 301.5,
+          "start": 317.5,
           "original": "जलधि लाँघि गये अचरज नाहीं॥",
           "transliteration": "jaladhi lāṁghi gaye acaraja nāhīṁ ||",
           "translations": {
-            "pt": "Colocando o anel do Senhor Rāma na tua boca (como token para Sītā), não é de admirar que tenhas atravessado o vasto oceano.",
-            "en": "Placing Lord Rāma's ring in Your mouth (as a token for Sītā), no wonder, You leaped across the vast ocean."
+            "pt": "Não é de admirar que tenha atravessado o vasto oceano.",
+            "en": "No wonder you leaped across the vast ocean."
           }
         }
       ]
@@ -510,21 +510,21 @@
       "order": 22,
       "lines": [
         {
-          "start": 308,
+          "start": 324,
           "original": "दुर्गम काज जगत के जेते।",
           "transliteration": "durgama kāja jagata ke jete",
           "translations": {
-            "pt": "Qualquer tarefa difícil ou aparentemente impossível torna-se fácil de alcançar pela Tua Graça.",
-            "en": "Any tasks that are difficult or apparently impossible become easy to attain by Your Grace."
+            "pt": "Qualquer tarefa difícil ou aparentemente impossível do mundo.",
+            "en": "Any task that is difficult or apparently impossible in the world."
           }
         },
         {
-          "start": 314.5,
+          "start": 330.5,
           "original": "सुगम अनुग्रह तुम्हरे तेते॥",
           "transliteration": "sugama anugraha tumhare tete ||",
           "translations": {
-            "pt": "Qualquer tarefa difícil ou aparentemente impossível torna-se fácil de alcançar pela Tua Graça.",
-            "en": "Any tasks that are difficult or apparently impossible become easy to attain by Your Grace."
+            "pt": "Torna-se fácil de alcançar pela sua graça.",
+            "en": "Becomes easy to attain by your grace."
           }
         }
       ]
@@ -533,21 +533,21 @@
       "order": 23,
       "lines": [
         {
-          "start": 321,
+          "start": 337,
           "original": "राम दुआरे तुम रखवारे।",
           "transliteration": "rāma duāre tuma rakhavāre",
           "translations": {
-            "pt": "És o guarda vigilante à porta da morada de Śrī Rāma; sem a tua permissão ninguém pode entrar.",
-            "en": "You are the (ever vigilant) Guard at the door of Śrī Rāma's abode, and without your permission no one can enter."
+            "pt": "É o guarda vigilante à porta da morada de Śrī Rāma.",
+            "en": "You are the ever vigilant guard at the door of Śrī Rāma's abode."
           }
         },
         {
-          "start": 327.5,
+          "start": 343.5,
           "original": "होत न आज्ञा बिनु पैसारे॥",
           "transliteration": "hota na ājñā binu paisāre ||",
           "translations": {
-            "pt": "És o guarda vigilante à porta da morada de Śrī Rāma; sem a tua permissão ninguém pode entrar.",
-            "en": "You are the (ever vigilant) Guard at the door of Śrī Rāma's abode, and without your permission no one can enter."
+            "pt": "Sem a sua permissão ninguém pode entrar.",
+            "en": "Without your permission no one can enter."
           }
         }
       ]
@@ -556,21 +556,21 @@
       "order": 24,
       "lines": [
         {
-          "start": 334,
+          "start": 350,
           "original": "सब सुख लहै तुम्हारी सरना।",
           "transliteration": "saba sukha lahai tumhārī saranā",
           "translations": {
-            "pt": "Ao refugiar-se em ti pode-se gozar toda a felicidade; quem está sob a tua proteção não tem nada a temer.",
-            "en": "By taking shelter in you, one can enjoy all happiness, and anyone under your protection has nothing to fear."
+            "pt": "Ao refugiar-se em você pode-se gozar toda a felicidade.",
+            "en": "By taking shelter in you one can enjoy all happiness."
           }
         },
         {
-          "start": 340.3,
+          "start": 356.3,
           "original": "तुम रक्षक काहू को डरना॥",
           "transliteration": "tuma rakṣaka kāhū ko ḍaranā ||",
           "translations": {
-            "pt": "Ao refugiar-se em ti pode-se gozar toda a felicidade; quem está sob a tua proteção não tem nada a temer.",
-            "en": "By taking shelter in you, one can enjoy all happiness, and anyone under your protection has nothing to fear."
+            "pt": "Quem está sob a sua proteção não tem nada a temer.",
+            "en": "Anyone under your protection has nothing to fear."
           }
         }
       ]
@@ -579,21 +579,21 @@
       "order": 25,
       "lines": [
         {
-          "start": 346.5,
+          "start": 362.5,
           "original": "आपन तेज सम्हारो आपै।",
           "transliteration": "āpana teja samhāro āpai",
           "translations": {
-            "pt": "Quando te lembras dos teus poderes e ruges, os três mundos tremem de medo perante o teu poder.",
-            "en": "When you remember your powers and roar, all three worlds tremble with fear before Your might."
+            "pt": "Quando se lembra dos seus poderes e ruge.",
+            "en": "When you remember your powers and roar."
           }
         },
         {
-          "start": 352.8,
+          "start": 368.8,
           "original": "तीनों लोक हाँक ते काँपै॥",
           "transliteration": "tīnoṁ loka hāṁka te kāṁpai ||",
           "translations": {
-            "pt": "Quando te lembras dos teus poderes e ruges, os três mundos tremem de medo perante o teu poder.",
-            "en": "When you remember your powers and roar, all three worlds tremble with fear before Your might."
+            "pt": "Os três mundos tremem de medo perante o seu poder.",
+            "en": "All three worlds tremble with fear before your might."
           }
         }
       ]
@@ -602,21 +602,21 @@
       "order": 26,
       "lines": [
         {
-          "start": 359,
+          "start": 375,
           "original": "भूत पिशाच निकट नहिं आवै।",
           "transliteration": "bhūta piśāca nikaṭa nahiṁ āvai",
           "translations": {
-            "pt": "Fantasmas, espíritos malignos e demónios nunca se aproximam de quem pronuncia o teu nome, Mahāvīra.",
-            "en": "Ghosts, evil spirits (bhūtas) and hideous demons (piśācas) never come near him who utters your name, Mahāvīra."
+            "pt": "Fantasmas, espíritos malignos (bhūtas) e demônios (piśācas) nunca se aproximam.",
+            "en": "Ghosts, evil spirits (bhūtas) and hideous demons (piśācas) never come near."
           }
         },
         {
-          "start": 365.5,
+          "start": 381.5,
           "original": "महावीर जब नाम सुनावै॥",
           "transliteration": "mahābīra jaba nāma sunāvai ||",
           "translations": {
-            "pt": "Fantasmas, espíritos malignos e demónios nunca se aproximam de quem pronuncia o teu nome, Mahāvīra.",
-            "en": "Ghosts, evil spirits (bhūtas) and hideous demons (piśācas) never come near him who utters your name, Mahāvīra."
+            "pt": "Não se aproximam de quem pronuncia o seu nome, Mahāvīra.",
+            "en": "They never come near him who utters your name, Mahāvīra."
           }
         }
       ],
@@ -629,21 +629,21 @@
       "order": 27,
       "lines": [
         {
-          "start": 372,
+          "start": 388,
           "original": "नासै रोग हरै सब पीरा।",
           "transliteration": "nāsai roga harai saba pīrā",
           "translations": {
-            "pt": "Todas as doenças e sofrimentos são destruídos pela repetição constante (japa) do nome de Hanumān.",
-            "en": "All diseases and sufferings are destroyed by the constant repetition (japa) of the name of Hanumān."
+            "pt": "Todas as doenças e sofrimentos são destruídos.",
+            "en": "All diseases and sufferings are destroyed."
           }
         },
         {
-          "start": 378.5,
+          "start": 394.5,
           "original": "जपत निरन्तर हनुमत बीरा॥",
           "transliteration": "japata nirantara hanumata bīrā ||",
           "translations": {
-            "pt": "Todas as doenças e sofrimentos são destruídos pela repetição constante (japa) do nome de Hanumān.",
-            "en": "All diseases and sufferings are destroyed by the constant repetition (japa) of the name of Hanumān."
+            "pt": "Pela repetição constante (japa) do nome do herói Hanumān.",
+            "en": "By the constant repetition (japa) of the name of the hero Hanumān."
           }
         }
       ]
@@ -652,21 +652,21 @@
       "order": 28,
       "lines": [
         {
-          "start": 385,
+          "start": 401,
           "original": "संकट तें हनुमान छुड़ावै।",
           "transliteration": "saṅkaṭa teṁ hanumāna chuḍāvai",
           "translations": {
-            "pt": "Quem medita no Senhor Hanumān por pensamento, palavra e ação é libertado de todos os obstáculos e dificuldades.",
-            "en": "Anyone who meditates on Lord Hanumān by his thought (mana), word (vācana) and deed (karam) is freed from all obstacles and difficulties."
+            "pt": "Hanumān liberta de todos os obstáculos e dificuldades.",
+            "en": "Hanumān frees from all obstacles and difficulties."
           }
         },
         {
-          "start": 391.5,
+          "start": 407.5,
           "original": "मन क्रम वचन ध्यान जो लावै॥",
           "transliteration": "mana krama vācana dhyāna jo lāvai ||",
           "translations": {
-            "pt": "Quem medita no Senhor Hanumān por pensamento, palavra e ação é libertado de todos os obstáculos e dificuldades.",
-            "en": "Anyone who meditates on Lord Hanumān by his thought (mana), word (vācana) and deed (karam) is freed from all obstacles and difficulties."
+            "pt": "Quem medita no Senhor Hanumān por pensamento, palavra e ação.",
+            "en": "Anyone who meditates on Lord Hanumān by thought (mana), word (vācana) and deed (krama)."
           }
         }
       ],
@@ -679,21 +679,21 @@
       "order": 29,
       "lines": [
         {
-          "start": 398,
+          "start": 414,
           "original": "सब पर राम तपस्वी राजा।",
           "transliteration": "saba para rāma tapasvī rājā",
           "translations": {
-            "pt": "Śrī Rāma, o Senhor dos Ascetas, é o Governante de todos os seres. E ainda assim cumpriste todas as Suas tarefas difíceis com facilidade.",
-            "en": "Śrī Rāma, the Lord of Ascetics (tapasvī-rājā), is the Ruler of all beings. And even then you have accomplished all his difficult tasks with ease."
+            "pt": "Śrī Rāma, o Senhor dos Ascetas, é o Governante de todos os seres.",
+            "en": "Śrī Rāma, the Lord of Ascetics (tapasvī-rājā), is the Ruler of all beings."
           }
         },
         {
-          "start": 404.5,
+          "start": 420.5,
           "original": "तिन के काज सकल तुम साजा॥",
           "transliteration": "tina ke kāja sakala tuma sājā ||",
           "translations": {
-            "pt": "Śrī Rāma, o Senhor dos Ascetas, é o Governante de todos os seres. E ainda assim cumpriste todas as Suas tarefas difíceis com facilidade.",
-            "en": "Śrī Rāma, the Lord of Ascetics (tapasvī-rājā), is the Ruler of all beings. And even then you have accomplished all his difficult tasks with ease."
+            "pt": "E ainda assim cumpriu todas as Suas tarefas difíceis com facilidade.",
+            "en": "And even then you have accomplished all His difficult tasks with ease."
           }
         }
       ]
@@ -702,21 +702,21 @@
       "order": 30,
       "lines": [
         {
-          "start": 411,
+          "start": 427,
           "original": "और मनोरथ जो कोई लावै।",
           "transliteration": "aura manoratha jo koī lāvai",
           "translations": {
-            "pt": "Qualquer desejo que um devoto acalente, o Senhor Hanumān concede os desejos dos seus devotos para uma vida plena.",
-            "en": "Whatever wish or desire is cherished by a devotee, Lord Hanuman grants the wishes and desires of his devotees for a fulfilled life."
+            "pt": "Qualquer desejo que um devoto acalente e Lhe apresente.",
+            "en": "Whatever wish or desire a devotee cherishes and brings to Him."
           }
         },
         {
-          "start": 417.3,
+          "start": 433.3,
           "original": "सोई अमित जीवन फल पावै॥",
           "transliteration": "soī amita jīvana phala pāvai ||",
           "translations": {
-            "pt": "Qualquer desejo que um devoto acalente, o Senhor Hanumān concede os desejos dos seus devotos para uma vida plena.",
-            "en": "Whatever wish or desire is cherished by a devotee, Lord Hanuman grants the wishes and desires of his devotees for a fulfilled life."
+            "pt": "O Senhor Hanumān concede esse fruto de vida plena e ilimitada.",
+            "en": "Lord Hanumān grants that fruit of fulfilled and limitless life."
           }
         }
       ]
@@ -725,21 +725,21 @@
       "order": 31,
       "lines": [
         {
-          "start": 423.5,
+          "start": 439.5,
           "original": "चारों जुग प्रताप तुम्हारा।",
           "transliteration": "cāroṁ juga pratāpa tumhārā",
           "translations": {
-            "pt": "A tua glória estende-se pelos quatro yugas (Kṛta, Tretā, Dvāpara e Kali) e o teu brilho é conhecido em todo o mundo.",
-            "en": "Your glory is spread throughout the four yugas (Kṛta, Tretā, Dvāpara, and Kali) and your brilliance is known in the whole world."
+            "pt": "A sua glória estende-se pelos quatro yugas (Kṛta, Tretā, Dvāpara e Kali).",
+            "en": "Your glory is spread throughout the four yugas (Kṛta, Tretā, Dvāpara and Kali)."
           }
         },
         {
-          "start": 429.8,
+          "start": 445.8,
           "original": "है परसिद्ध जगत उजियारा॥",
           "transliteration": "hai parasiddha jagata ujiyārā ||",
           "translations": {
-            "pt": "A tua glória estende-se pelos quatro yugas (Kṛta, Tretā, Dvāpara e Kali) e o teu brilho é conhecido em todo o mundo.",
-            "en": "Your glory is spread throughout the four yugas (Kṛta, Tretā, Dvāpara, and Kali) and your brilliance is known in the whole world."
+            "pt": "O seu brilho é conhecido em todo o mundo; o mundo resplandece por você.",
+            "en": "Your brilliance is known in the whole world; the world is illumined by you."
           }
         }
       ]
@@ -748,21 +748,21 @@
       "order": 32,
       "lines": [
         {
-          "start": 436,
+          "start": 452,
           "original": "साधु संत के तुम रखवारे।",
           "transliteration": "sādhu santa ke tuma rakhavāre",
           "translations": {
-            "pt": "És o protetor dos sādhus e santos, o destruidor de demónios e o amado do Senhor Rāma.",
-            "en": "You are the protector of sādhus and saints, the destroyer of demons, and the beloved of Lord Rāma."
+            "pt": "É o protetor dos sādhus e santos.",
+            "en": "You are the protetor of sādhus and saints."
           }
         },
         {
-          "start": 442.3,
+          "start": 458.3,
           "original": "असुर निकन्दन राम दुलारे॥",
           "transliteration": "asura nikandana rāma dulāre ||",
           "translations": {
-            "pt": "És o protetor dos sādhus e santos, o destruidor de demónios e o amado do Senhor Rāma.",
-            "en": "You are the protector of sādhus and saints, the destroyer of demons, and the beloved of Lord Rāma."
+            "pt": "O destruidor de demônios e o amado do Senhor Rāma.",
+            "en": "The destroyer of demons and the beloved of Lord Rāma."
           }
         }
       ]
@@ -771,21 +771,21 @@
       "order": 33,
       "lines": [
         {
-          "start": 448.5,
+          "start": 464.5,
           "original": "अष्ट सिद्धि नौ निधि के दाता।",
           "transliteration": "aṣṭa siddhi nau nidhi ke dātā",
           "translations": {
-            "pt": "És o concedente dos oito poderes sobrenaturais (siddhis) e dos nove tesouros divinos (nidhis), pela bênção que a Mãe Jānakī (Sītā) te concedeu.",
-            "en": "You are the bestower of the eight supernatural powers (siddhis) and the nine divine treasures (nidhis), by the boon Mother Jānakī (Sītā) has given You."
+            "pt": "É o concedente dos oito poderes sobrenaturais (siddhis) e dos nove tesouros divinos (nidhis).",
+            "en": "You are the bestower of the eight supernatural powers (siddhis) and the nine divine treasures (nidhis)."
           }
         },
         {
-          "start": 454.8,
+          "start": 470.8,
           "original": "अस बर दीन जानकी माता॥",
           "transliteration": "asa bara dīna jānakī mātā ||",
           "translations": {
-            "pt": "És o concedente dos oito poderes sobrenaturais (siddhis) e dos nove tesouros divinos (nidhis), pela bênção que a Mãe Jānakī (Sītā) te concedeu.",
-            "en": "You are the bestower of the eight supernatural powers (siddhis) and the nine divine treasures (nidhis), by the boon Mother Jānakī (Sītā) has given You."
+            "pt": "Foi essa a bênção que a Mãe Jānakī (Sītā) lhe concedeu.",
+            "en": "Such is the boon Mother Jānakī (Sītā) has given you."
           }
         }
       ]
@@ -794,21 +794,21 @@
       "order": 34,
       "lines": [
         {
-          "start": 461,
+          "start": 477,
           "original": "राम रसायन तुम्हरे पासा।",
           "transliteration": "rāma rasāyana tumhare pāsā",
           "translations": {
-            "pt": "Saboreias o doce néctar do Rāma-nāma; estás sempre presente ao serviço de Śrī Rāma e permaneces eternamente Seu servo.",
-            "en": "You enjoy the sweet nectar elixir of Rāma-nāma, relishing spiritual love and devotion in the service of Lord Rāma. You are always present in the service of Śrī Rāma and remain eternally His servant."
+            "pt": "Saboreia o doce néctar do Rāma-nāma (o elixir do nome de Rāma); tem sempre consigo.",
+            "en": "You enjoy the sweet nectar elixir of Rāma-nāma (the name of Rāma); you always have it with you."
           }
         },
         {
-          "start": 467.8,
+          "start": 483.8,
           "original": "सदा रहो रघुपति के दासा॥",
           "transliteration": "sādara ho raghupati ke dāsā ||",
           "translations": {
-            "pt": "Saboreias o doce néctar do Rāma-nāma; estás sempre presente ao serviço de Śrī Rāma e permaneces eternamente Seu servo.",
-            "en": "You enjoy the sweet nectar elixir of Rāma-nāma, relishing spiritual love and devotion in the service of Lord Rāma. You are always present in the service of Śrī Rāma and remain eternally His servant."
+            "pt": "Está sempre presente ao serviço de Śrī Rāma e permanece eternamente Seu servo.",
+            "en": "You are always present in the service of Śrī Rāma and remain eternally His servant."
           }
         }
       ]
@@ -817,48 +817,48 @@
       "order": 35,
       "lines": [
         {
-          "start": 474.5,
+          "start": 490.5,
           "original": "तुम्हरे भजन राम को पावै।",
           "transliteration": "tumhare bhajana rāma ko pāvai",
           "translations": {
-            "pt": "Ao recitar as tuas qualidades e cantar o teu nome pode-se alcançar o Senhor Rāma e libertar-se das tristezas de muitas vidas.",
-            "en": "By reciting your qualities and chanting your name one can reach lord Rāma and get freed from the sorrows of many lives."
+            "pt": "Ao recitar as suas qualidades e cantar o seu nome pode-se alcançar o Senhor Rāma.",
+            "en": "By reciting your qualities and chanting your name one can reach Lord Rāma."
           }
         },
         {
-          "start": 481.3,
+          "start": 497.3,
           "original": "जनम जनम के दुख बिसरावै॥",
           "transliteration": "janama janama ke dukha bisarāvai ||",
           "translations": {
-            "pt": "Ao recitar as tuas qualidades e cantar o teu nome pode-se alcançar o Senhor Rāma e libertar-se das tristezas de muitas vidas.",
-            "en": "By reciting your qualities and chanting your name one can reach lord Rāma and get freed from the sorrows of many lives."
+            "pt": "E libertar-se das tristezas de muitas vidas.",
+            "en": "And get freed from the sorrows of many lives."
           }
         }
       ],
       "explanation": {
         "en": "Verses 35-36: By reciting your qualities and chanting your name one can reach Lord Rāma and get freed from the sorrows of many lives. At last, when he leaves his physical body, he enters the eternal abode of Śrī Rāma.",
-        "pt": "Versos 35-36: Ao recitar as tuas qualidades e cantar o teu nome pode-se alcançar o Senhor Rāma e libertar-se das tristezas de muitas vidas. Por fim, ao deixar o corpo físico, entra na morada eterna de Śrī Rāma."
+        "pt": "Versos 35-36: Ao recitar as suas qualidades e cantar o seu nome pode-se alcançar o Senhor Rāma e libertar-se das tristezas de muitas vidas. Por fim, ao deixar o corpo físico, entra na morada eterna de Śrī Rāma."
       }
     },
     {
       "order": 36,
       "lines": [
         {
-          "start": 488,
+          "start": 504,
           "original": "अन्त काल रघुबर पुर जाई।",
           "transliteration": "anta kāla raghubara pura jāī",
           "translations": {
-            "pt": "Por fim, quando deixa o corpo físico, entra na morada eterna de Śrī Rāma ou nasce na terra como devoto de Deus (hari-bhakta).",
-            "en": "At last, when he leaves his physical body, he enters the eternal abode of Śrī Rāma and remains his devotee, or is born on earth as God's devotee (hari-bhakta)."
+            "pt": "Por fim, quando deixa o corpo físico, entra na morada eterna de Raghubara (Śrī Rāma).",
+            "en": "At last, when he leaves his physical body, he enters the eternal abode of Raghubara (Śrī Rāma)."
           }
         },
         {
-          "start": 494.3,
+          "start": 510.3,
           "original": "जहाँ जन्म हरिभक्त कहाई॥",
           "transliteration": "jahāṁ janma haribhakta kahāī ||",
           "translations": {
-            "pt": "Por fim, quando deixa o corpo físico, entra na morada eterna de Śrī Rāma ou nasce na terra como devoto de Deus (hari-bhakta).",
-            "en": "At last, when he leaves his physical body, he enters the eternal abode of Śrī Rāma and remains his devotee, or is born on earth as God's devotee (hari-bhakta)."
+            "pt": "Ou nasce na terra como devoto de Deus (hari-bhakta).",
+            "en": "Or is born on earth as God's devotee (hari-bhakta)."
           }
         }
       ]
@@ -867,21 +867,21 @@
       "order": 37,
       "lines": [
         {
-          "start": 500.5,
+          "start": 516.5,
           "original": "और देवता चित्त न धरई।",
           "transliteration": "aura devatā citta na dharaī",
           "translations": {
-            "pt": "Não é preciso lembrar ou adorar nenhuma outra divindade; apenas adorando Hanumān alcança-se toda a felicidade.",
-            "en": "There is no need to remember or worship any other deity; by just worshiping Hanumān one attains all happiness."
+            "pt": "Não é preciso fixar a mente nem adorar nenhuma outra divindade.",
+            "en": "There is no need to fix the mind on or worship any other deity."
           }
         },
         {
-          "start": 506.8,
+          "start": 522.8,
           "original": "हनुमत सेई सर्व सुख करई॥",
           "transliteration": "hanumata seī sarva sukha karaī ||",
           "translations": {
-            "pt": "Não é preciso lembrar ou adorar nenhuma outra divindade; apenas adorando Hanumān alcança-se toda a felicidade.",
-            "en": "There is no need to remember or worship any other deity; by just worshiping Hanumān one attains all happiness."
+            "pt": "Apenas adorando Hanumān alcança-se toda a felicidade.",
+            "en": "By just worshipping Hanumān one attains all happiness."
           }
         }
       ]
@@ -890,21 +890,21 @@
       "order": 38,
       "lines": [
         {
-          "start": 513,
+          "start": 529,
           "original": "संकट कटै मिटै सब पीरा।",
           "transliteration": "saṅkaṭa kaṭai miṭai saba pīrā",
           "translations": {
-            "pt": "Todo o sofrimento e dor desaparecem quando alguém se lembra do poderoso e bravo Hanumān.",
-            "en": "All suffering and pain vanish when one remembers the mighty and brave Hanumān [balabīrā]."
+            "pt": "Todo o sofrimento, dificuldade e dor desaparecem.",
+            "en": "All suffering, distress and pain are cut away and vanish."
           }
         },
         {
-          "start": 519.3,
+          "start": 535.3,
           "original": "जो सुमिरै हनुमत बलबीरा॥",
           "transliteration": "jo sumirai hanumata balabīrā ||",
           "translations": {
-            "pt": "Todo o sofrimento e dor desaparecem quando alguém se lembra do poderoso e bravo Hanumān.",
-            "en": "All suffering and pain vanish when one remembers the mighty and brave Hanumān [balabīrā]."
+            "pt": "Para quem se lembra do poderoso e bravo Hanumān.",
+            "en": "For one who remembers the mighty and brave Hanumān (balabīrā)."
           }
         }
       ]
@@ -913,21 +913,21 @@
       "order": 39,
       "lines": [
         {
-          "start": 525.5,
+          "start": 541.5,
           "original": "जय जय जय हनुमान गोसाईं।",
           "transliteration": "jai jai jai hanumāna gosāīṁ",
           "translations": {
-            "pt": "Vitória, vitória, vitória a Hanumān! Sê compassivo comigo e concede-me a tua graça como meu Guru!",
-            "en": "Victory, victory, victory to Hanumān! Be compassionate to me and bestow your grace on me as my Guru!"
+            "pt": "Vitória, vitória, vitória a Hanumān, Senhor (Gosāīṁ)!",
+            "en": "Victory, victory, victory to Hanumān, O Lord (Gosāīṁ)!"
           }
         },
         {
-          "start": 531.8,
+          "start": 547.8,
           "original": "कृपा करहु गुरु देव की नाईं॥",
           "transliteration": "kṛpā karahu guru deva kī nāīṁ ||",
           "translations": {
-            "pt": "Vitória, vitória, vitória a Hanumān! Sê compassivo comigo e concede-me a tua graça como meu Guru!",
-            "en": "Victory, victory, victory to Hanumān! Be compassionate to me and bestow your grace on me as my Guru!"
+            "pt": "Seja compassivo comigo e conceda-me a sua graça como meu Guru e Senhor!",
+            "en": "Be compassionate to me and bestow your grace on me as my Guru and Lord!"
           }
         }
       ]
@@ -936,21 +936,21 @@
       "order": 40,
       "lines": [
         {
-          "start": 538,
+          "start": 554,
           "original": "जो शत बार पाठ कर कोई।",
           "transliteration": "jo śata bāra pāṭha kara koī",
           "translations": {
-            "pt": "Quem recitar ou ler este Hanumān Chālīsā cem vezes liberta-se de todos os tipos de cativeiro e goza a Suprema Bem-aventurança.",
-            "en": "Whoever recites or reads this Hanumān Chālīsā a hundred times, becomes free of all types of bondage and enjoys supreme Bliss."
+            "pt": "Quem recitar ou ler este (Hanumān Chālīsā) cem vezes.",
+            "en": "Whoever recites or reads this (Hanumān Chālīsā) a hundred times."
           }
         },
         {
-          "start": 544.8,
+          "start": 560.8,
           "original": "छूटहि बन्दि महा सुख होई॥",
           "transliteration": "chūṭahi bandi mahā sukha hoī ||",
           "translations": {
-            "pt": "Quem recitar ou ler este Hanumān Chālīsā cem vezes liberta-se de todos os tipos de cativeiro e goza a Suprema Bem-aventurança.",
-            "en": "Whoever recites or reads this Hanumān Chālīsā a hundred times, becomes free of all types of bondage and enjoys supreme Bliss."
+            "pt": "Liberta-se de todos os tipos de cativeiro e goza a Suprema Bem-aventurança.",
+            "en": "Becomes free of all types of bondage and enjoys supreme Bliss."
           }
         }
       ],
@@ -963,21 +963,21 @@
       "order": 41,
       "lines": [
         {
-          "start": 551.5,
+          "start": 567.5,
           "original": "जो यह पढ़ै हनुमान चालीसा।",
           "transliteration": "jo yaha paḍhai hanumāna calīsā",
           "translations": {
-            "pt": "Quem ler ou cantar este Hanumān Chālīsā obterá certamente todas as perfeições espirituais (Siddhis). Que o Senhor Śiva (Gaurīsā) seja minha testemunha!",
-            "en": "Whoever reads or chants this Hanumān Cālīsā, is sure to obtain all the spiritual perfections (Siddhis). May lord Śiva (Gaurīsā) be my witness!"
+            "pt": "Quem ler ou cantar este Hanumān Chālīsā.",
+            "en": "Whoever reads or chants this Hanumān Chālīsā."
           }
         },
         {
-          "start": 558.3,
+          "start": 574.3,
           "original": "होय सिद्धि साखी गौरीसा॥",
           "transliteration": "hoya siddhi sākhī gaurīsā ||",
           "translations": {
-            "pt": "Quem ler ou cantar este Hanumān Chālīsā obterá certamente todas as perfeições espirituais (Siddhis). Que o Senhor Śiva (Gaurīsā) seja minha testemunha!",
-            "en": "Whoever reads or chants this Hanumān Cālīsā, is sure to obtain all the spiritual perfections (Siddhis). May lord Śiva (Gaurīsā) be my witness!"
+            "pt": "Obterá certamente as perfeições espirituais (Siddhis). Que o Senhor Śiva (Gaurīsā) seja minha testemunha!",
+            "en": "Is sure to obtain all spiritual perfections (Siddhis). May Lord Śiva (Gaurīsā) be my witness!"
           }
         }
       ]
@@ -986,21 +986,21 @@
       "order": 42,
       "lines": [
         {
-          "start": 565,
+          "start": 581,
           "original": "तुलसीदास सदा हरी चेरा।",
           "transliteration": "tulasīdāsa sadā hari cerā",
           "translations": {
-            "pt": "Tulsīdās, o escritor destes versos, é o servo eterno de Deus. Ó Senhor Hanumān, faz do meu coração a tua morada.",
-            "en": "Tulasīdās, the writer of these verses, is the eternal servant of God. O Lord Hanumān, please make my heart your abode."
+            "pt": "Tulsīdās, o escritor destes versos, é o servo eterno de Hari (Deus).",
+            "en": "Tulasīdās, the writer of these verses, is the eternal servant of Hari (God)."
           }
         },
         {
-          "start": 571,
+          "start": 587,
           "original": "कीजै नाथ हृदय महँ डेरा॥",
           "transliteration": "kījai nātha hṛdaya mahaṁ ḍerā ||",
           "translations": {
-            "pt": "Tulsīdās, o escritor destes versos, é o servo eterno de Deus. Ó Senhor Hanumān, faz do meu coração a tua morada.",
-            "en": "Tulasīdās, the writer of these verses, is the eternal servant of God. O Lord Hanumān, please make my heart your abode."
+            "pt": "Ó Senhor (Nātha), faça do meu coração a sua morada.",
+            "en": "O Lord (Nātha), please make my heart your abode."
           }
         }
       ]
@@ -1009,21 +1009,21 @@
       "order": 43,
       "lines": [
         {
-          "start": 577,
+          "start": 593,
           "original": "पवन तनय संकट हरन मंगल मूरति रूप।",
           "transliteration": "pavana tanaya saṅkaṭa harana maṅgala mūrati rūpa |",
           "translations": {
-            "pt": "Ó Hanumān, Filho do Vento (pavana), destruís todas as dificuldades. Tua forma é auspiciosa. Ó Senhor dos deuses, reside sempre no meu coração junto com Rāma, Lakṣmaṇa e Sītā.",
-            "en": "O Hanumān, Son of the Wind (pavana=wind-god), you destroy all difficulties. Your form is all auspicious. O Lord of the gods, please always reside in my heart together with Rāma, Lakṣmaṇa, and Sītā."
+            "pt": "Ó Filho do Vento (pavana), removedor de dificuldades, de forma auspiciosa.",
+            "en": "O Son of the Wind (pavana), remover of difficulties, of auspicious form."
           }
         },
         {
-          "start": 583,
+          "start": 599,
           "original": "राम लखन सीता सहित हृदय बसहु सुर भूप॥",
           "transliteration": "rāma lakhana sītā sahita hṛdaya basahu sura bhūpa ||",
           "translations": {
-            "pt": "Ó Hanumān, Filho do Vento (pavana), destruís todas as dificuldades. Tua forma é auspiciosa. Ó Senhor dos deuses, reside sempre no meu coração junto com Rāma, Lakṣmaṇa e Sītā.",
-            "en": "O Hanumān, Son of the Wind (pavana=wind-god), you destroy all difficulties. Your form is all auspicious. O Lord of the gods, please always reside in my heart together with Rāma, Lakṣmaṇa, and Sītā."
+            "pt": "Ó Senhor dos deuses (sura bhūpa), resida sempre no meu coração junto com Rāma, Lakṣmaṇa e Sītā.",
+            "en": "O Lord of the gods (sura bhūpa), please always reside in my heart together with Rāma, Lakṣmaṇa and Sītā."
           }
         }
       ]

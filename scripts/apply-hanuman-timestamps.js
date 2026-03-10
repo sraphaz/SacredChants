@@ -4,6 +4,9 @@
  * Sita Ram repetitions (10:33+) are not in the 43 verses — excluded.
  *
  * Run: node scripts/apply-hanuman-timestamps.js
+ *
+ * Timestamps may need manual tuning per recording. Use:
+ *   node scripts/offset-hanuman-times.js [seconds]   to add a constant offset to all lines.
  */
 
 import fs from 'fs';

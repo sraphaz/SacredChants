@@ -175,11 +175,12 @@ const linesWithMeta = (() => {
         }
 
         function getCurrentLineIndex(time) {
+          if (time < syncLines[0].start) return 0;
           for (var i = 0; i < syncLines.length; i++) {
             var nextStart = i + 1 < syncLines.length ? syncLines[i + 1].start : Infinity;
             if (time >= syncLines[i].start && time < nextStart) return i;
           }
-          return null;
+          return syncLines.length - 1;
         }
         function clearActive() {
           blocks.forEach(function(el) {
@@ -203,6 +204,10 @@ const linesWithMeta = (() => {
 
         var syncEnabled = getSyncEnabled();
         setSyncEnabled(syncEnabled);
+        if (syncEnabled) {
+          var idx = getCurrentLineIndex(audio.currentTime);
+          if (idx != null) { lastActiveIndex = idx; setActive(idx, false); }
+        }
 
         if (toggleBtn) {
           toggleBtn.addEventListener('click', function() {
