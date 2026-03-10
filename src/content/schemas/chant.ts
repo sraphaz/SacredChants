@@ -43,6 +43,10 @@ export const chantSchema = z.object({
   duration: z.number().min(0).optional(),
   /** Spotify track/album URL for "Listen on Spotify". No playback sync (Spotify does not expose position). */
   spotifyUrl: z.string().url().optional(),
+  /** Bandcamp embed iframe src URL. Shown as embedded player when set. */
+  bandcampEmbedSrc: z.string().url().optional(),
+  /** Bandcamp track/page URL for "Listen on Bandcamp" link. Optional when bandcampEmbedSrc is set. */
+  bandcampUrl: z.string().url().optional(),
   /** Long "about" text: meaning, context, history. Optional. */
   about: z
     .object({
