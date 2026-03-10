@@ -1,10 +1,14 @@
-# Build on main (e.g. for branch protection or deploy hooks)
-name: Release
+# Validate build on main (CI). Deploy happens on release via deploy.yml.
+name: Release (build validation)
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:

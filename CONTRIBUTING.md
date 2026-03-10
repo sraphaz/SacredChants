@@ -71,6 +71,14 @@ Example:
 - Use TypeScript and the existing Zod schemas.
 - Prefer minimal, accessible HTML and Tailwind for layout.
 
+## Releases and deployment
+
+- **CI** (`.github/workflows/ci.yml`): on every push/PR to `main` — runs build and lint.
+- **Release build** (`.github/workflows/release.yml`): on push to `main` — validates build (e.g. for branch protection).
+- **Deploy** (`.github/workflows/deploy.yml`): on every **published GitHub Release** — builds the site and deploys to **GitHub Pages**.
+
+To publish a new version: create a new Release in the repo (e.g. tag `v0.2.0` and publish). The deploy workflow will run automatically and update the site at `https://sraphaz.github.io/SacredChants/`.
+
 ## Questions
 
 Open an issue for discussion or questions about traditions, attribution, or schema changes.
