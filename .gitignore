@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+
+# env
+.env
+.env.*
+!.env.example
+
+# IDE
+.astro/
+*.log
+.DS_Store
+
+# lock (optional; uncomment if you want to ignore)
+# package-lock.json
+# pnpm-lock.yaml

@@ -1,0 +1,61 @@
+---
+import type { ChantVerse as ChantVerseType, ChantLine } from '../content/schemas/chant';
+import { ui } from '../i18n/strings';
+
+interface Props {
+  verse: ChantVerseType;
+  line: ChantLine;
+  /** Global line index for audio sync (0-based). */
+  syncIndex: number;
+  /** Show "Verse N" label (true for first line of verse). */
+  showVerseLabel?: boolean;
+  /** Show verse explanation (true for last line of verse). */
+  showExplanation?: boolean;
+}
+
+const { verse, line, syncIndex, showVerseLabel = true, showExplanation = false } = Astro.props;
+const tEn = ui.en;
+const tPt = ui.pt;
+---
+
+<div
+  class="verse-block prose-chant"
+  data-verse={verse.order}
+  data-sync-index={syncIndex}
+  data-start-time={String(line.start)}
+>
+  {showVerseLabel && (
+    <span class="verse-block__label uppercase tracking-label" aria-hidden="true">
+      <span class="locale-en">{tEn.chant.verse} {verse.order}</span>
+      <span class="locale-pt">{tPt.chant.verse} {verse.order}</span>
+    </span>
+  )}
+  <p class="original" dir="auto" lang="und">
+    {line.original}
+  </p>
+  <p class="transliteration" dir="ltr">
+    {line.transliteration}
+  </p>
+  <div class="translations">
+    {line.translations.en && (
+      <p class="locale-en" data-lang="en">{line.translations.en}</p>
+    )}
+    {line.translations.pt && (
+      <p class="locale-pt" data-lang="pt">{line.translations.pt}</p>
+    )}
+  </div>
+  {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt) && (
+    <>
+      {verse.explanation.en && (
+        <div class="verse-block__explanation locale-en mt-3 text-sm rounded-md p-3" style="color: var(--sc-text-muted); background-color: var(--sc-border);">
+          <p class="whitespace-pre-wrap">{verse.explanation.en}</p>
+        </div>
+      )}
+      {verse.explanation.pt && (
+        <div class="verse-block__explanation locale-pt mt-3 text-sm rounded-md p-3" style="color: var(--sc-text-muted); background-color: var(--sc-border);">
+          <p class="whitespace-pre-wrap">{verse.explanation.pt}</p>
+        </div>
+      )}
+    </>
+  )}
+</div>

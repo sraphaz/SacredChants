@@ -1,0 +1,124 @@
+---
+import ChantAudio from './ChantAudio.astro';
+
+interface Props {
+  audioUrl: string;
+  title: string;
+  hasSync: boolean;
+  syncLabelEn: string;
+  syncLabelPt: string;
+  syncOnEn: string;
+  syncOffEn: string;
+  syncOnPt: string;
+  syncOffPt: string;
+  bandcampUrl?: string;
+  bandcampEmbedSrc?: string;
+  bandcampArtImage?: string;
+  bandcampTooltipEn?: string;
+  bandcampTooltipPt?: string;
+}
+
+const {
+  audioUrl,
+  title,
+  hasSync,
+  syncLabelEn,
+  syncLabelPt,
+  syncOnEn,
+  syncOffEn,
+  syncOnPt,
+  syncOffPt,
+  bandcampUrl,
+  bandcampEmbedSrc,
+  bandcampArtImage,
+  bandcampTooltipEn = 'Listen on Bandcamp',
+  bandcampTooltipPt = 'Ouvir no Bandcamp',
+} = Astro.props;
+---
+
+<div class="chant-player-bar chant-player-bar--fixed w-full flex flex-wrap items-center gap-3 chant-player-bar__sized">
+  <!-- Native audio bar (id required for lyric sync script); wrapper grows to fill space so progress bar spans to Lyrics sync -->
+  <div class="chant-player-bar__audio flex-1 min-w-0 flex items-center gap-3">
+    <ChantAudio src={audioUrl} title={title} id="chant-audio" compact />
+  </div>
+
+  <!-- Lyrics sync toggle -->
+  {hasSync && (
+    <div class="flex items-center gap-2 shrink-0">
+      <span class="locale-en text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelEn}</span>
+      <span class="locale-pt text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelPt}</span>
+      <button
+        type="button"
+        id="chant-sync-toggle"
+        class="chant-sync-switch w-9 h-5 rounded-full relative border cursor-pointer transition-colors"
+        style="background-color: var(--sc-border); border-color: var(--sc-border);"
+        aria-pressed="true"
+        data-sync-on="true"
+        data-sync-on-en={syncOnEn}
+        data-sync-off-en={syncOffEn}
+        data-sync-on-pt={syncOnPt}
+        data-sync-off-pt={syncOffPt}
+        data-sync-label-en={syncLabelEn}
+        data-sync-label-pt={syncLabelPt}
+        aria-label={`${syncLabelEn} — ${syncOnEn}`}
+      >
+        <span class="chant-sync-switch-thumb absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform" style="background-color: var(--sc-accent);"></span>
+      </button>
+      <span id="chant-sync-toggle-state" class="locale-en text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnEn}</span>
+      <span id="chant-sync-toggle-state-pt" class="locale-pt text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnPt}</span>
+    </div>
+  )}
+
+  <!-- Bandcamp: square album art (image or embed), 2rem to match player bar -->
+  {bandcampUrl && (bandcampArtImage || bandcampEmbedSrc) && (
+    <a
+      href={bandcampUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="chant-bar-bandcamp-art chant-bar-bandcamp-art--in-bar shrink-0 block overflow-hidden rounded"
+      style="width: 2rem; height: 2rem; min-width: 2rem; min-height: 2rem;"
+      title={bandcampTooltipEn}
+      aria-label="Listen on Bandcamp"
+    >
+      {bandcampArtImage ? (
+        <img
+          src={bandcampArtImage}
+          alt=""
+          class="chant-bar-bandcamp-art-img"
+          width="32"
+          height="32"
+          loading="lazy"
+        />
+      ) : bandcampEmbedSrc ? (
+        <iframe
+          class="chant-bar-bandcamp-art-iframe chant-bar-bandcamp-art-iframe--scaled"
+          style="border: 0; width: 350px; height: 150px; max-width: none; pointer-events: none;"
+          src={bandcampEmbedSrc.replace('/size=small/', '/size=large/')}
+          seamless
+          title={bandcampTooltipEn}
+          allow="encrypted-media"
+        >
+          <a href={bandcampUrl}>Hanuman Chalisa — Víctor Sakshin (Bandcamp)</a>
+        </iframe>
+      ) : null}
+    </a>
+  )}
+
+  <!-- Bandcamp link (when no embed) -->
+  {bandcampUrl && !bandcampEmbedSrc && (
+    <a
+      href={bandcampUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="chant-bar-bandcamp inline-flex items-center gap-1.5 py-1 shrink-0 transition-colors hover:opacity-90"
+      style="color: var(--sc-text-muted);"
+      title={bandcampTooltipEn}
+      aria-label="Bandcamp"
+    >
+      <svg class="chant-bar-bandcamp-icon chant-bar-bandcamp-icon--shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <circle cx="12" cy="12" r="12" fill="currentColor"/>
+        <polygon points="5,9 19,9 17,15 3,15" fill="var(--sc-bg)" style="fill: var(--sc-bg);"/>
+      </svg>
+    </a>
+  )}
+</div>

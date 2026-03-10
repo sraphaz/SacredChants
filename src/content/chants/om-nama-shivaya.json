@@ -1,0 +1,38 @@
+{
+  "slug": "om-nama-shivaya",
+  "title": "Om Namah Shivaya",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Sanskrit",
+  "script": "Devanagari",
+  "description": {
+    "en": "The five-syllable mantra (pañcāksara) sacred to Shiva. It means \"I bow to Shiva\" and is one of the most widely chanted mantras in Shaivism.",
+    "pt": "O mantra de cinco sílabas (pañcāksara) sagrado a Shiva. Significa \"Inclino-me perante Shiva\" e é um dos mantras mais cantados no Shaivismo."
+  },
+  "tags": [
+    "mantra",
+    "shiva",
+    "shaivism",
+    "hindu"
+  ],
+  "about": {
+    "en": "Om Namah Shivaya is the panchakshara (five-syllable) mantra: na-maḥ-śi-vā-ya. It is repeated in japa and kirtan. Chanting it is said to purify the mind and invoke Shiva's grace.",
+    "pt": "Om Namah Shivaya é o mantra panchakshara (cinco sílabas): na-maḥ-śi-vā-ya. É repetido em japa e kirtan. Diz-se que cantá-lo purifica a mente e invoca a graça de Shiva."
+  },
+  "verses": [
+    {
+      "order": 1,
+      "lines": [
+        {
+          "start": 0,
+          "original": "ॐ नमः शिवाय",
+          "transliteration": "oṃ namaḥ śivāya",
+          "translations": {
+            "en": "Om. I bow to Shiva.",
+            "pt": "Om. Curvo-me a Shiva."
+          }
+        }
+      ]
+    }
+  ]
+}

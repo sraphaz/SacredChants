@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { getCollection } from 'astro:content';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+
+const chants = await getCollection('chants');
+const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
+---
+
+<BaseLayout
+  title={t.traditions.title}
+  description={t.traditions.description}
+  locale={locale}
+>
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      {t.traditions.title}
+    </h1>
+    <p class="mb-page-content" style="color: var(--sc-text-muted)">
+      {t.traditions.description}
+    </p>
+    {traditions.length > 0 ? (
+      <ul class="space-y-3">
+        {traditions.map((tradition) => (
+          <li>
+            <a
+              href={`/chants?tradition=${encodeURIComponent(tradition)}`}
+              class="block py-2 font-medium transition-colors"
+              style="color: var(--sc-text-muted)"
+            >
+              {tradition}
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p style="color: var(--sc-text-subtle)">No traditions yet.</p>
+    )}
+  </PageShell>
+</BaseLayout>

@@ -1,0 +1,23 @@
+{
+  "name": "sacred-chants",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "A living library of sacred sound traditions.",
+  "scripts": {
+    "dev": "astro dev",
+    "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite', { recursive: true, force: true })\" && astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "chant:new": "node scripts/generate-chant.js"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^4.16.0",
+    "tailwindcss": "^3.4.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

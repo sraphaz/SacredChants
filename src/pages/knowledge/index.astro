@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+---
+
+<BaseLayout
+  title={t.knowledge.title}
+  description={t.knowledge.description}
+  locale={locale}
+>
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      {t.knowledge.title}
+    </h1>
+    <p class="mb-page-content" style="color: var(--sc-text-muted)">
+      {t.knowledge.description}
+    </p>
+    <p style="color: var(--sc-text-subtle)">
+      Educational content will be added here (MDX pages in <code class="px-1 rounded" style="color: var(--sc-text-muted); background-color: var(--sc-border)">src/content/knowledge/</code>).
+    </p>
+  </PageShell>
+</BaseLayout>

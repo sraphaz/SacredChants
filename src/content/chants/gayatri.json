@@ -1,0 +1,69 @@
+{
+  "slug": "gayatri",
+  "title": "Gāyatrī Mantra",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Sanskrit",
+  "script": "Devanagari",
+  "description": {
+    "en": "One of the most sacred Vedic mantras, from the Rigveda (3.62.10), dedicated to Savitr, the solar deity. It is recited for clarity of mind and inspiration.",
+    "pt": "Um dos mais sagrados mantras védicos, do Rigveda (3.62.10), dedicado a Savitr, a divindade solar. É recitado para clareza de espírito e inspiração."
+  },
+  "tags": [
+    "mantra",
+    "vedic",
+    "savitr",
+    "hindu"
+  ],
+  "about": {
+    "en": "The Gāyatrī Mantra is addressed to Savitr (the sun as stimulator of consciousness). It has 24 syllables in three lines of eight. It is traditionally chanted at dawn and dusk. Meditating on this mantra is said to illuminate the intellect and remove ignorance.",
+    "pt": "O Mantra Gāyatrī é dirigido a Savitr (o sol como estimulador da consciência). Tem 24 sílabas em três linhas de oito. É tradicionalmente cantado ao amanhecer e ao crepúsculo. Diz-se que meditar neste mantra ilumina o intelecto e remove a ignorância."
+  },
+  "verses": [
+    {
+      "order": 1,
+      "lines": [
+        {
+          "start": 0,
+          "original": "ॐ भूर्भुवः स्वः",
+          "transliteration": "oṃ bhūr bhuvaḥ svaḥ",
+          "translations": {
+            "en": "Om. We meditate on the glorious light of the divine Sun; may it illumine our minds.",
+            "pt": "Om. Meditamos na luz gloriosa do Sol divino; que ilumine as nossas mentes."
+          }
+        },
+        {
+          "start": 0,
+          "original": "तत्सवितुर्वरेण्यं",
+          "transliteration": "tat savitur vareṇyaṃ",
+          "translations": {
+            "en": "Om. We meditate on the glorious light of the divine Sun; may it illumine our minds.",
+            "pt": "Om. Meditamos na luz gloriosa do Sol divino; que ilumine as nossas mentes."
+          }
+        },
+        {
+          "start": 0,
+          "original": "भर्गो देवस्य धीमहि",
+          "transliteration": "bhargo devasya dhīmahi",
+          "translations": {
+            "en": "Om. We meditate on the glorious light of the divine Sun; may it illumine our minds.",
+            "pt": "Om. Meditamos na luz gloriosa do Sol divino; que ilumine as nossas mentes."
+          }
+        },
+        {
+          "start": 0,
+          "original": "धियो यो नः प्रचोदयात्",
+          "transliteration": "dhiyo yo naḥ pracodayāt",
+          "translations": {
+            "en": "Om. We meditate on the glorious light of the divine Sun; may it illumine our minds.",
+            "pt": "Om. Meditamos na luz gloriosa do Sol divino; que ilumine as nossas mentes."
+          }
+        }
+      ],
+      "explanation": {
+        "en": "Literal: Earth, atmosphere, heaven — That excellent glory of Savitar the god we meditate on; may he stimulate our thoughts.",
+        "pt": "Literal: Terra, atmosfera, céu — Aquela excelente glória do deus Savitar nós meditamos; que ele estimule os nossos pensamentos."
+      }
+    }
+  ]
+}

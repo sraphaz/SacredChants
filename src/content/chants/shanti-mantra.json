@@ -1,0 +1,39 @@
+{
+  "slug": "shanti-mantra",
+  "title": "Om Shanti Shanti Shanti",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Sanskrit",
+  "script": "Devanagari",
+  "description": {
+    "en": "The peace mantra. The three repetitions of \"shanti\" (peace) are often said to refer to peace in the physical, mental, and spiritual realms, or to remove obstacles from three sources.",
+    "pt": "O mantra da paz. As três repetições de \"shanti\" (paz) dizem-se referir à paz nos planos físico, mental e espiritual, ou a remover obstáculos de três fontes."
+  },
+  "tags": [
+    "mantra",
+    "peace",
+    "shanti",
+    "hindu",
+    "vedic"
+  ],
+  "about": {
+    "en": "Shanti means peace. Repeating it three times is a common closing in Vedic recitation and meditation, invoking peace in body, mind, and spirit, and in the world.",
+    "pt": "Shanti significa paz. Repetir três vezes é um encerramento comum na recitação e meditação védicas, invocando paz no corpo, na mente e no espírito, e no mundo."
+  },
+  "verses": [
+    {
+      "order": 1,
+      "lines": [
+        {
+          "start": 0,
+          "original": "ॐ शान्तिः शान्तिः शान्तिः",
+          "transliteration": "oṃ śāntiḥ śāntiḥ śāntiḥ",
+          "translations": {
+            "en": "Om. Peace, peace, peace.",
+            "pt": "Om. Paz, paz, paz."
+          }
+        }
+      ]
+    }
+  ]
+}

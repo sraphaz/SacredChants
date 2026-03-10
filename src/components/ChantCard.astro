@@ -1,0 +1,36 @@
+---
+import type { Chant } from '../content/schemas/chant';
+
+interface Props {
+  chant: Chant;
+}
+
+const { chant } = Astro.props;
+---
+
+<div class="sc-card block rounded-lg border transition hover:shadow-sm" style="background-color: var(--sc-bg-elevated); border-color: var(--sc-border); --tw-shadow-color: var(--sc-border);">
+  <a href={`/chants/${chant.slug}`} class="locale-en block p-6">
+    <p class="text-sm uppercase tracking-wider" style="color: var(--sc-text-muted)">{chant.tradition}</p>
+    <h2 class="sc-card-title font-serif text-xl mt-1" style="color: var(--sc-text)">{chant.title}</h2>
+    <p class="text-sm mt-2 line-clamp-2" style="color: var(--sc-text-muted)">{typeof chant.description === 'string' ? chant.description : chant.description?.en}</p>
+    {chant.tags && chant.tags.length > 0 && (
+      <ul class="flex flex-wrap gap-1 mt-3">
+        {chant.tags.slice(0, 3).map((tag) => (
+          <li><span class="text-xs" style="color: var(--sc-text-subtle)">#{tag}</span></li>
+        ))}
+      </ul>
+    )}
+  </a>
+  <a href={`/chants/${chant.slug}?lang=pt`} class="locale-pt block p-6">
+    <p class="text-sm uppercase tracking-wider" style="color: var(--sc-text-muted)">{chant.tradition}</p>
+    <h2 class="sc-card-title font-serif text-xl mt-1" style="color: var(--sc-text)">{chant.title}</h2>
+    <p class="text-sm mt-2 line-clamp-2" style="color: var(--sc-text-muted)">{typeof chant.description === 'string' ? chant.description : chant.description?.pt}</p>
+    {chant.tags && chant.tags.length > 0 && (
+      <ul class="flex flex-wrap gap-1 mt-3">
+        {chant.tags.slice(0, 3).map((tag) => (
+          <li><span class="text-xs" style="color: var(--sc-text-subtle)">#{tag}</span></li>
+        ))}
+      </ul>
+    )}
+  </a>
+</div>

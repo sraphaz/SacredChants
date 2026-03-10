@@ -1,0 +1,17 @@
+---
+interface Props {
+  /** Extra vertical padding for hero-style pages (e.g. home) */
+  variant?: 'default' | 'hero';
+}
+
+const { variant = 'default' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'max-w-content mx-auto px-page-x',
+    variant === 'hero' ? 'py-16 md:py-24' : 'py-page',
+  ]}
+>
+  <slot />
+</div>

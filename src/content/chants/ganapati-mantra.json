@@ -1,0 +1,38 @@
+{
+  "slug": "ganapati-mantra",
+  "title": "Om Gam Ganapataye Namaha",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Sanskrit",
+  "script": "Devanagari",
+  "description": {
+    "en": "A mantra to Ganesha (Gaṇapati), the remover of obstacles. Chanted before beginnings to invoke his blessings.",
+    "pt": "Um mantra a Ganesha (Gaṇapati), o removedor de obstáculos. Cantado antes de novos começos para invocar as suas bênçãos."
+  },
+  "tags": [
+    "mantra",
+    "ganesha",
+    "ganapati",
+    "hindu"
+  ],
+  "about": {
+    "en": "Gaṃ (Gam) is the bija (seed) mantra of Ganesha. This mantra is traditionally recited at the start of rituals, journeys, or any new undertaking to remove obstacles and ensure success.",
+    "pt": "Gaṃ (Gam) é o mantra bija (semente) de Ganesha. Este mantra é tradicionalmente recitado no início de rituais, viagens ou qualquer novo empreendimento para remover obstáculos e assegurar sucesso."
+  },
+  "verses": [
+    {
+      "order": 1,
+      "lines": [
+        {
+          "start": 0,
+          "original": "ॐ गं गणपतये नमः",
+          "transliteration": "oṃ gaṃ gaṇapataye namaḥ",
+          "translations": {
+            "en": "Om. I bow to Gaṇapati (Ganesha).",
+            "pt": "Om. Curvo-me a Gaṇapati (Ganesha)."
+          }
+        }
+      ]
+    }
+  ]
+}

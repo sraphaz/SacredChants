@@ -1,0 +1,48 @@
+{
+  "slug": "karpura-gauram",
+  "title": "Karpūra Gauram",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Sanskrit",
+  "script": "Devanagari",
+  "description": {
+    "en": "A devotional mantra to Shiva and Parvati, often chanted during ārati. It describes Shiva as radiant like camphor and an embodiment of compassion.",
+    "pt": "Um mantra devocional a Shiva e Parvati, frequentemente cantado durante o ārati. Descreve Shiva como radiante como cânfora e uma encarnação da compaixão."
+  },
+  "tags": [
+    "mantra",
+    "shiva",
+    "parvati",
+    "arati",
+    "hindu"
+  ],
+  "about": {
+    "en": "Karpūra Gauram praises Shiva as camphor-white (radiant), compassionate, the essence of existence, wearing the serpent king as a garland, ever present in the lotus of the devotee's heart, together with Bhavānī (Parvati). It is commonly used in Shiva worship and ārati.",
+    "pt": "Karpūra Gauram louva Shiva como branco como cânfora (radiante), compassivo, a essência da existência, com o rei das serpentes como guirlanda, sempre presente no lótus do coração do devoto, junto com Bhavānī (Parvati). É comum no culto a Shiva e no ārati."
+  },
+  "verses": [
+    {
+      "order": 1,
+      "lines": [
+        {
+          "start": 0,
+          "original": "कर्पूरगौरं करुणावतारं संसारसारं भुजगेन्द्रहारम्।",
+          "transliteration": "karpūragauraṃ karuṇāvatāraṃ saṃsārasāraṃ bhujagendrahāram |",
+          "translations": {
+            "en": "I bow to Shiva, radiant as camphor, embodiment of compassion, essence of the world, who wears the king of serpents as a garland, ever dwelling in the lotus of the heart, together with Bhavānī.",
+            "pt": "Curvo-me a Shiva, radiante como cânfora, encarnação da compaixão, essência do mundo, que traz o rei das serpentes como guirlanda, sempre presente no lótus do coração, junto com Bhavānī."
+          }
+        },
+        {
+          "start": 0,
+          "original": "सदा वसन्तं हृदयारविन्दे भवं भवानीसहितं नमामि॥",
+          "transliteration": "sadā vasantaṃ hṛdayāravinde bhavaṃ bhavānīsahitaṃ namāmi ||",
+          "translations": {
+            "en": "I bow to Shiva, radiant as camphor, embodiment of compassion, essence of the world, who wears the king of serpents as a garland, ever dwelling in the lotus of the heart, together with Bhavānī.",
+            "pt": "Curvo-me a Shiva, radiante como cânfora, encarnação da compaixão, essência do mundo, que traz o rei das serpentes como guirlanda, sempre presente no lótus do coração, junto com Bhavānī."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+---
+import type { Chant } from '../content/schemas/chant';
+
+interface Props {
+  chant: Chant;
+}
+
+const { chant } = Astro.props;
+---
+
+<header class="chant-header chant-header--centered">
+  <div class="chant-header__top">
+    <p class="chant-header__meta" aria-hidden="true">
+      {chant.tradition}
+      {chant.origin ? ` · ${chant.origin}` : ''}
+    </p>
+    <h1 class="chant-header__title sc-heading font-serif">
+      {chant.title}
+    </h1>
+    {chant.language && (
+      <p class="chant-header__lang" aria-hidden="true">
+        {chant.language}
+        {chant.script ? ` (${chant.script})` : ''}
+      </p>
+    )}
+  </div>
+  <div class="chant-header__body">
+    {(chant.description?.en || chant.description?.pt) && (
+      <div class="chant-header__desc">
+        {chant.description.en && (
+          <p class="locale-en mb-0">{chant.description.en}</p>
+        )}
+        {chant.description.pt && (
+          <p class="locale-pt mb-0">{chant.description.pt}</p>
+        )}
+      </div>
+    )}
+    {chant.tags && chant.tags.length > 0 && (
+      <ul class="chant-header__tags" aria-label="Tags">
+        {chant.tags.map((tag) => (
+          <li>
+            <span class="chant-header__tag">{tag}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</header>

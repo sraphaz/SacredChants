@@ -1,0 +1,544 @@
+@import './design-tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ——— Locale switch (PT/EN) — show one language based on data-locale ——— */
+[data-locale="en"] .locale-pt {
+  display: none !important;
+}
+[data-locale="pt"] .locale-en {
+  display: none !important;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    font-family: var(--sc-font-body);
+    font-size: calc(var(--sc-font-size-base) * var(--sc-font-size-scale));
+    line-height: var(--sc-leading-relaxed);
+    background-color: var(--sc-bg);
+    color: var(--sc-text);
+  }
+}
+
+/* ——— Sacred Chants typography (design system) ——— */
+.prose-chant {
+  max-width: var(--sc-measure-reading);
+  margin-left: auto;
+  margin-right: auto;
+  line-height: var(--sc-leading-sacred);
+}
+
+.prose-chant .verse-block {
+  padding-top: var(--sc-space-verse-custom);
+  padding-bottom: var(--sc-space-verse-custom);
+  border-bottom: 1px solid var(--sc-border);
+}
+
+.prose-chant .verse-block:last-child {
+  border-bottom: 0;
+}
+
+/* Verse number: follows theme gradient, more prominent; respiro around marker */
+.prose-chant .verse-block__label {
+  display: block;
+  color: var(--sc-verse-number);
+  font-weight: 600;
+  font-size: calc(var(--sc-font-size-sm) * var(--sc-font-size-scale));
+  letter-spacing: var(--sc-tracking-label);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Lyric sync: highlight current verse when audio is playing */
+.prose-chant .verse-block[data-start-time][data-start-time=""],
+.prose-chant .verse-block:not([data-start-time]) {
+  cursor: default;
+}
+.prose-chant .verse-block[data-start-time]:not([data-start-time=""]) {
+  cursor: pointer;
+  transition: background-color 0.25s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+/* Depth / luminosity: past lines recede, current line in focus, future lines softer */
+.prose-chant .verse-block--before {
+  opacity: 0.38;
+  transform: scale(0.98);
+  filter: brightness(0.85);
+}
+.prose-chant .verse-block--before .original,
+.prose-chant .verse-block--before .transliteration,
+.prose-chant .verse-block--before .translations {
+  color: var(--sc-text-muted);
+}
+.prose-chant .verse-block--after {
+  opacity: 0.6;
+  transform: scale(0.99);
+  filter: brightness(0.92);
+}
+.prose-chant .verse-block--active {
+  opacity: 1;
+  transform: scale(1);
+  filter: brightness(1);
+  background-color: var(--sc-border);
+  box-shadow: 0 0 0 1px var(--sc-border);
+  border-radius: 0.375rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.prose-chant .verse-block--active .original {
+  color: var(--sc-verse-original);
+}
+.prose-chant .verse-block--active .transliteration {
+  color: var(--sc-verse-transliteration);
+}
+.prose-chant .verse-block--active .translations,
+.prose-chant .verse-block--active .translations [data-lang] {
+  color: var(--sc-verse-translation);
+}
+
+.prose-chant .original {
+  font-family: var(--sc-font-serif);
+  font-size: calc(var(--sc-font-size-2xl) * var(--sc-font-size-scale));
+  line-height: var(--sc-leading-sacred);
+  letter-spacing: var(--sc-tracking-normal);
+  color: var(--sc-verse-original);
+  white-space: pre-line;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .prose-chant .original {
+    font-size: calc(var(--sc-font-size-3xl) * var(--sc-font-size-scale));
+  }
+}
+
+@media (min-width: 1024px) {
+  .prose-chant .original {
+    font-size: calc(var(--sc-font-size-4xl) * var(--sc-font-size-scale));
+  }
+}
+
+.prose-chant .transliteration {
+  font-size: calc(var(--sc-font-size-xl) * var(--sc-font-size-scale));
+  line-height: var(--sc-leading-relaxed);
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  color: var(--sc-verse-transliteration);
+  font-style: italic;
+  white-space: pre-line;
+  letter-spacing: var(--sc-tracking-wide);
+}
+
+.prose-chant .translations {
+  font-size: calc(var(--sc-font-size-lg) * var(--sc-font-size-scale));
+  line-height: var(--sc-leading-relaxed);
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  color: var(--sc-verse-translation);
+  letter-spacing: 0.01em;
+  @apply space-y-1;
+}
+
+.prose-chant .translations [data-lang]::before {
+  font-size: var(--sc-font-size-sm);
+  font-weight: 500;
+  letter-spacing: var(--sc-tracking-label);
+  color: var(--sc-verse-translation);
+  opacity: 0.85;
+}
+
+.prose-chant .translations [data-lang="pt"]::before {
+  content: 'PT — ';
+}
+
+.prose-chant .translations [data-lang="en"]::before {
+  content: 'EN — ';
+}
+
+/* ——— Chant page layout (sacred text reading) ——— */
+.chant-page {
+  min-height: 60vh;
+}
+
+.chant-verses {
+  margin-top: var(--sc-space-section);
+}
+
+.chant-verses__list {
+  max-width: var(--sc-measure-reading);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ——— Headings: use theme text colour (verse tint only affects verse block) ——— */
+.sc-heading {
+  color: var(--sc-text);
+}
+
+/* ——— Theme-aware header & footer ——— */
+.sc-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--sc-header-h);
+  display: flex;
+  align-items: center;
+  background-color: var(--sc-bg-elevated);
+  border-bottom: 1px solid var(--sc-border);
+}
+.sc-header__nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* Symmetric margins: Sacred Chants at left edge, language at right edge (first/last place for the eye) */
+.sc-header__nav-pad {
+  padding-left: var(--sc-page-padding-x);
+  padding-right: var(--sc-page-padding-x);
+}
+.sc-header__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sc-main-with-header {
+  padding-top: var(--sc-header-h);
+}
+.sc-header a {
+  color: var(--sc-text-muted);
+  transition: color 0.2s ease;
+}
+.sc-header a:hover {
+  color: var(--sc-accent);
+}
+.sc-header a:focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 2px;
+}
+.sc-footer {
+  border-top: 1px solid var(--sc-border);
+  color: var(--sc-text-subtle);
+}
+.sc-btn-primary {
+  background-color: var(--sc-accent);
+  color: var(--sc-accent-contrast);
+  transition: background-color 0.2s ease;
+}
+.sc-btn-primary:hover {
+  background-color: var(--sc-accent-hover);
+}
+.sc-btn-primary:focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 2px;
+}
+.sc-btn-secondary {
+  border: 1px solid var(--sc-border);
+  color: var(--sc-text);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.sc-btn-secondary:hover {
+  border-color: var(--sc-accent-soft);
+  background-color: var(--sc-accent-soft);
+}
+.sc-btn-secondary:focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 2px;
+}
+
+/* ——— Theme + verse-tint overrides for Tailwind classes ——— */
+[data-theme="dark"] .text-stone-900,
+[data-theme="dark"] .text-stone-800 { color: var(--sc-text); }
+[data-theme="dark"] .text-stone-700,
+[data-theme="dark"] .text-stone-600 { color: var(--sc-text-muted); }
+[data-theme="dark"] .text-stone-500,
+[data-theme="dark"] .text-stone-400 { color: var(--sc-text-subtle); }
+[data-theme="dark"] .bg-stone-50 { background-color: var(--sc-bg); }
+[data-theme="dark"] .bg-stone-900 { background-color: var(--sc-bg-elevated); }
+[data-theme="dark"] .bg-white { background-color: var(--sc-bg-elevated); }
+[data-theme="dark"] .border-stone-200,
+[data-theme="dark"] .border-stone-300 { border-color: var(--sc-border); }
+[data-theme="dark"] .hover\:border-stone-300:hover { border-color: var(--sc-text-subtle); }
+[data-theme="dark"] .hover\:bg-stone-800:hover { background-color: var(--sc-border); }
+[data-theme="dark"] .hover\:bg-stone-50:hover { background-color: var(--sc-border); }
+[data-theme="dark"] .hover\:text-stone-700:hover,
+[data-theme="dark"] .hover\:text-stone-900:hover,
+.hover\:text-stone-900:hover { color: var(--sc-text); }
+[data-theme="dark"] .bg-stone-100 { background-color: var(--sc-border); }
+
+/* Card hover: subtle accent border and title colour */
+.sc-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.sc-card:hover {
+  border-color: var(--sc-accent-soft);
+  box-shadow: 0 0 0 1px var(--sc-accent-soft);
+}
+.sc-card:hover .sc-card-title {
+  color: var(--sc-text);
+}
+.sc-card-title {
+  transition: color 0.2s ease;
+}
+
+/* Form controls (settings) — theme-aware */
+[data-theme="dark"] input[type="radio"] {
+  accent-color: var(--sc-text-muted);
+  border-color: var(--sc-border);
+}
+
+/* ——— Chant media: sync toggle switch with visible track ——— */
+.chant-sync-switch {
+  padding: 0.125rem;
+}
+.chant-sync-switch-thumb {
+  background-color: var(--sc-accent-contrast);
+}
+/* Track (rail) visible so it reads clearly as a toggle */
+.chant-sync-switch--track {
+  background-color: var(--sc-border);
+  border: 1px solid var(--sc-text-subtle);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+[data-theme="dark"] .chant-sync-switch--track {
+  border-color: var(--sc-text-subtle);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.chant-sync-switch[aria-pressed="false"] .chant-sync-switch-thumb {
+  transform: translateX(0);
+}
+/* large switch (w-11) */
+.chant-sync-switch.w-11[aria-pressed="true"] .chant-sync-switch-thumb {
+  transform: translateX(1.25rem);
+}
+/* compact switch in player bar (w-9) */
+.chant-sync-switch.w-9[aria-pressed="true"] .chant-sync-switch-thumb {
+  transform: translateX(1rem);
+}
+
+/* Bandcamp: square album art only; in-bar variant fits inside 2.5rem bar */
+.chant-bar-bandcamp-art {
+  flex-shrink: 0;
+}
+/* Audio block (play + progress bar) fills space between left edge and Lyrics sync */
+.chant-player-bar__audio {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+.chant-player-bar .chant-audio-box--compact {
+  flex: 1 1 0%;
+  min-width: 0;
+  width: 100%;
+}
+
+.chant-player-bar .chant-bar-bandcamp-art--in-bar {
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+.chant-bar-bandcamp-art-iframe {
+  display: block;
+  margin: 0;
+  transform: translate(0, 0);
+}
+/* Scale Bandcamp embed down so full image fits inside 2rem box without cutting */
+.chant-player-bar .chant-bar-bandcamp-art-iframe--scaled {
+  transform: scale(0.14);
+  transform-origin: 0 0;
+}
+
+/* Static Bandcamp art image: fill 2rem square, centered crop */
+.chant-bar-bandcamp-art-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Bandcamp icon in player bar (inherits color) */
+.chant-bar-bandcamp-icon {
+  display: block;
+}
+
+/* Shape-only icon (black circle, white parallelogram); invert on dark for contrast */
+.chant-bar-bandcamp-icon--shape {
+  display: block;
+}
+[data-theme="dark"] .chant-bar-bandcamp-icon--shape {
+  filter: invert(1);
+}
+
+/* ——— Chant page: minimal action links (PDF, Spotify, etc.) ——— */
+.chant-action-link:focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 2px;
+}
+
+/* ——— Chant: spacer for fixed player bar (desktop); avoid content cut by bar ——— */
+.chant-player-bar-spacer {
+  height: var(--sc-player-bar-spacer-h);
+}
+
+/* ——— Chant intro: symmetric, centered layout (single axis) ——— */
+.chant-intro {
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-top: 0.75rem;
+}
+
+.chant-header--centered {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.chant-header__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem 1rem;
+}
+
+.chant-header__meta {
+  order: -1;
+  width: 100%;
+  flex-basis: 100%;
+  margin: 0;
+  font-size: calc(var(--sc-font-size-sm) * var(--sc-font-size-scale));
+  text-transform: uppercase;
+  letter-spacing: var(--sc-tracking-label);
+  color: var(--sc-text-subtle);
+}
+
+.chant-header__title {
+  margin: 0;
+  font-size: calc(var(--sc-font-size-3xl) * var(--sc-font-size-scale));
+  line-height: var(--sc-leading-tight);
+}
+
+@media (min-width: 768px) {
+  .chant-header__title {
+    font-size: calc(var(--sc-font-size-4xl) * var(--sc-font-size-scale));
+  }
+}
+
+.chant-header__lang {
+  margin: 0;
+  width: 100%;
+  flex-basis: 100%;
+  font-size: calc(var(--sc-font-size-sm) * var(--sc-font-size-scale));
+  color: var(--sc-text-muted);
+  text-align: center;
+}
+
+.chant-header__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.chant-header__desc {
+  width: 100%;
+  max-width: var(--sc-measure-reading);
+  margin-left: auto;
+  margin-right: auto;
+  font-size: calc(var(--sc-font-size-sm) * var(--sc-font-size-scale));
+  line-height: var(--sc-leading-snug);
+  color: var(--sc-text-muted);
+  text-align: left;
+}
+
+.chant-header__tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.375rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chant-header__tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: calc(var(--sc-font-size-xs) * var(--sc-font-size-scale));
+  border-radius: 0.25rem;
+  background-color: var(--sc-border);
+  color: var(--sc-text-muted);
+}
+
+.chant-intro .chant-actions {
+  margin-top: 0.75rem;
+}
+
+/* ——— Chant: fixed player bar (desktop only); inline on mobile ——— */
+.chant-player-bar {
+  border-bottom: 1px solid var(--sc-border);
+}
+/* Same height as header (2.5rem); padding inside so bar doesn’t grow; same horizontal pad as header */
+.chant-player-bar__sized {
+  box-sizing: border-box;
+  height: var(--sc-player-bar-h);
+  max-height: var(--sc-player-bar-h);
+  min-height: var(--sc-player-bar-h);
+  padding: 0.25rem var(--sc-page-padding-x);
+  overflow: hidden;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .chant-player-bar.chant-player-bar--fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--sc-player-bar-top);
+    z-index: 40;
+    background-color: var(--sc-bg-elevated);
+    box-shadow: 0 1px 0 var(--sc-border);
+  }
+}
+@media (max-width: 767px) {
+  .chant-player-bar.chant-player-bar--fixed {
+    position: static;
+  }
+}
+
+/* ——— Print: hide nav, footer, audio and action buttons; show only chant content ——— */
+@media print {
+  .sc-header,
+  .sc-footer,
+  .chant-player-bar,
+  .chant-player-bar-spacer,
+  .chant-actions {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #1a1a1a;
+  }
+  .prose-chant .verse-block {
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageShell from '../components/PageShell.astro';
+import { ui } from '../i18n/strings';
+
+const tEn = ui.en;
+const tPt = ui.pt;
+---
+
+<BaseLayout
+  title="Sacred Chants"
+  description="A living library of sacred sound traditions. Sacred chants, mantras, prayers, and devotional songs."
+>
+  <PageShell variant="hero">
+    <section class="text-center max-w-[var(--sc-measure-narrow)] mx-auto">
+      <h1 class="font-serif text-sc-4xl md:text-sc-5xl sc-heading mb-page-heading">
+        Sacred Chants
+      </h1>
+      <p class="text-xl mb-6" style="color: var(--sc-text-muted)">
+        <span class="locale-en">{tEn.home.tagline}</span>
+        <span class="locale-pt">{tPt.home.tagline}</span>
+      </p>
+      <p class="mb-page-content max-w-lg mx-auto" style="color: var(--sc-text-muted)">
+        <span class="locale-en">{tEn.home.subtitle}</span>
+        <span class="locale-pt">{tPt.home.subtitle}</span>
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/chants" class="locale-en sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+          {tEn.home.browseChants}
+        </a>
+        <a href="/chants?lang=pt" class="locale-pt sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+          {tPt.home.browseChants}
+        </a>
+        <a href="/traditions" class="locale-en sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+          {tEn.home.exploreTraditions}
+        </a>
+        <a href="/traditions?lang=pt" class="locale-pt sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+          {tPt.home.exploreTraditions}
+        </a>
+      </div>
+    </section>
+  </PageShell>
+</BaseLayout>
