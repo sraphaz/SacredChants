@@ -4,7 +4,7 @@ import ChantHeader from '../../components/ChantHeader.astro';
 import ChantVerse from '../../components/ChantVerse.astro';
 import ChantAudio from '../../components/ChantAudio.astro';
 import { getEntry, getCollection } from 'astro:content';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui } from '../../i18n/strings';
 
 export async function getStaticPaths() {
   const chants = await getCollection('chants');
@@ -15,8 +15,8 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
-const t = ui[locale];
+const tEn = ui.en;
+const tPt = ui.pt;
 
 const entry = await getEntry('chants', slug!);
 if (!entry) {
@@ -24,22 +24,219 @@ if (!entry) {
 }
 
 const chant = { ...entry.data, slug: entry.id };
+
+const sortedVerses = [...chant.verses].sort((a, b) => a.order - b.order);
+/** Flat list of line start times (one per rendered line) for audio sync. */
+const syncLines = sortedVerses.flatMap((v) => v.lines.map((l) => ({ start: l.start })));
+const hasSync = Boolean(chant.audio && syncLines.length > 0);
+
+/** Flat list of { verse, line, syncIndex, showVerseLabel, showExplanation } for rendering. */
+const linesWithMeta = (() => {
+  let syncIndex = 0;
+  return sortedVerses.flatMap((verse) => {
+    const lineList = verse.lines;
+    return lineList.map((line, i) => {
+      const showVerseLabel = i === 0;
+      const showExplanation = i === lineList.length - 1;
+      const out = { verse, line, syncIndex, showVerseLabel, showExplanation };
+      syncIndex += 1;
+      return out;
+    });
+  });
+})();
+
 ---
 
-<ChantLayout chant={chant} locale={locale}>
-  <ChantHeader chant={chant} locale={locale} />
-  {chant.audio && (
-    <div class="chant-audio-wrap mb-section">
-      <ChantAudio src={chant.audio} title={chant.title} />
+<ChantLayout chant={chant}>
+  <ChantHeader chant={chant} />
+  <div class="chant-media-widget max-w-2xl mx-auto mb-8 px-4 rounded-xl p-5 transition-colors" style="background-color: var(--sc-border);">
+    {chant.audio && (
+      <div class="chant-audio-wrap mb-4">
+        <p class="text-sm font-medium mb-2" style="color: var(--sc-text-muted)">
+          <span class="locale-en">{tEn.chant.listen}</span>
+          <span class="locale-pt">{tPt.chant.listen}</span>
+        </p>
+        <ChantAudio id={hasSync ? 'chant-audio' : undefined} src={chant.audio} title={chant.title} />
+        {hasSync && (
+          <div class="chant-sync-controls flex flex-col items-center gap-2 mt-2">
+            <p class="text-sm text-center" style="color: var(--sc-text-muted)" role="status">
+              <span class="locale-en">{tEn.chant.syncHint}</span>
+              <span class="locale-pt">{tPt.chant.syncHint}</span>
+            </p>
+            <button
+              type="button"
+              id="chant-sync-toggle"
+              class="chant-sync-toggle text-sm font-medium px-3 py-1.5 rounded-full border transition-colors cursor-pointer"
+              style="color: var(--sc-text-muted); background-color: var(--sc-bg); border-color: var(--sc-border);"
+              aria-pressed="true"
+              data-sync-on
+              data-sync-on-en={tEn.chant.syncOn}
+              data-sync-off-en={tEn.chant.syncOff}
+              data-sync-on-pt={tPt.chant.syncOn}
+              data-sync-off-pt={tPt.chant.syncOff}
+            >
+              <span class="locale-en">{tEn.chant.syncLabel}: <span aria-hidden="true" id="chant-sync-toggle-state">{tEn.chant.syncOn}</span></span>
+              <span class="locale-pt">{tPt.chant.syncLabel}: <span aria-hidden="true" id="chant-sync-toggle-state-pt">{tPt.chant.syncOn}</span></span>
+            </button>
+          </div>
+        )}
+      </div>
+    )}
+    <div class="chant-links-wrap flex flex-wrap items-center justify-center gap-3">
+      <button
+        type="button"
+        id="chant-download-pdf-btn"
+        class="sc-btn-primary inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full border-0 cursor-pointer"
+      >
+        <span aria-hidden="true">📄</span>
+        <span class="locale-en">{tEn.chant.downloadPdf}</span>
+        <span class="locale-pt">{tPt.chant.downloadPdf}</span>
+      </button>
+      {chant.spotifyUrl && (
+        <a
+          href={chant.spotifyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full transition"
+          style="color: var(--sc-text); background-color: var(--sc-bg);"
+        >
+          <span aria-hidden="true">♫</span>
+          <span class="locale-en">{tEn.chant.listenOnSpotify}</span>
+          <span class="locale-pt">{tPt.chant.listenOnSpotify}</span>
+        </a>
+      )}
     </div>
-  )}
+  </div>
   <section class="chant-verses" aria-label="Verses">
-    <div class="chant-verses__list">
-      {chant.verses
-        .sort((a, b) => a.order - b.order)
-        .map((verse) => (
-          <ChantVerse verse={verse} locale={locale} showLabels={true} />
-        ))}
+    <div class="chant-verses__list" id="chant-verses-list" data-sync-lines={JSON.stringify(syncLines)}>
+      {linesWithMeta.map(({ verse, line, syncIndex, showVerseLabel, showExplanation }) => (
+        <ChantVerse verse={verse} line={line} syncIndex={syncIndex} showVerseLabel={showVerseLabel} showExplanation={showExplanation} />
+      ))}
     </div>
   </section>
+
+  {(chant.about?.en || chant.about?.pt) && (
+    <section class="chant-about max-w-[var(--sc-measure-reading)] mx-auto px-4 mt-16 mb-12" aria-labelledby="chant-about-title">
+      <h2 id="chant-about-title" class="sc-heading font-serif text-2xl mb-4">
+        <span class="locale-en">{tEn.chant.aboutTitle}</span>
+        <span class="locale-pt">{tPt.chant.aboutTitle}</span>
+      </h2>
+      {chant.about?.en && (
+        <div class="text-base leading-relaxed whitespace-pre-wrap locale-en" style="color: var(--sc-text-muted)">
+          {chant.about.en}
+        </div>
+      )}
+      {chant.about?.pt && (
+        <div class="text-base leading-relaxed whitespace-pre-wrap locale-pt mt-4" style="color: var(--sc-text-muted)">
+          {chant.about.pt}
+        </div>
+      )}
+    </section>
+  )}
+
+  <script is:inline>
+    document.getElementById('chant-download-pdf-btn')?.addEventListener('click', function() { window.print(); });
+  </script>
+  {hasSync && (
+    <script is:inline>
+      (function() {
+        var STORAGE_KEY = 'chant-sync-enabled';
+        var audio = document.getElementById('chant-audio');
+        var list = document.getElementById('chant-verses-list');
+        var toggleBtn = document.getElementById('chant-sync-toggle');
+        var stateEl = document.getElementById('chant-sync-toggle-state');
+        var stateElPt = document.getElementById('chant-sync-toggle-state-pt');
+        var syncLinesRaw = list && list.getAttribute('data-sync-lines');
+        var syncLines = [];
+        try { if (syncLinesRaw) syncLines = JSON.parse(syncLinesRaw); } catch (e) {}
+        if (!audio || !list || !syncLines.length) return;
+        var blocks = list.querySelectorAll('.verse-block[data-sync-index]');
+        var lastActiveIndex = -1;
+        var syncOnEn = (toggleBtn && toggleBtn.getAttribute('data-sync-on-en')) || 'On';
+        var syncOffEn = (toggleBtn && toggleBtn.getAttribute('data-sync-off-en')) || 'Off';
+        var syncOnPt = (toggleBtn && toggleBtn.getAttribute('data-sync-on-pt')) || 'Ligado';
+        var syncOffPt = (toggleBtn && toggleBtn.getAttribute('data-sync-off-pt')) || 'Desligado';
+
+        function getSyncEnabled() {
+          try {
+            var v = localStorage.getItem(STORAGE_KEY);
+            return v !== 'false';
+          } catch (e) { return true; }
+        }
+        function setSyncEnabled(on) {
+          try { localStorage.setItem(STORAGE_KEY, on ? 'true' : 'false'); } catch (e) {}
+          if (toggleBtn) {
+            toggleBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            toggleBtn.setAttribute('data-sync-on', on ? 'true' : '');
+            if (stateEl) stateEl.textContent = on ? syncOnEn : syncOffEn;
+            if (stateElPt) stateElPt.textContent = on ? syncOnPt : syncOffPt;
+          }
+          if (!on) clearActive();
+        }
+
+        function getCurrentLineIndex(time) {
+          for (var i = 0; i < syncLines.length; i++) {
+            var nextStart = i + 1 < syncLines.length ? syncLines[i + 1].start : Infinity;
+            if (time >= syncLines[i].start && time < nextStart) return i;
+          }
+          return null;
+        }
+        function clearActive() {
+          blocks.forEach(function(el) {
+            el.classList.remove('verse-block--active', 'verse-block--before', 'verse-block--after');
+          });
+        }
+        function setActive(index, scroll) {
+          blocks.forEach(function(el) {
+            var i = Number(el.getAttribute('data-sync-index'));
+            el.classList.remove('verse-block--active', 'verse-block--before', 'verse-block--after');
+            if (i === index) {
+              el.classList.add('verse-block--active');
+              if (scroll) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (i < index) {
+              el.classList.add('verse-block--before');
+            } else {
+              el.classList.add('verse-block--after');
+            }
+          });
+        }
+
+        var syncEnabled = getSyncEnabled();
+        setSyncEnabled(syncEnabled);
+
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', function() {
+            syncEnabled = !getSyncEnabled();
+            setSyncEnabled(syncEnabled);
+            if (syncEnabled) {
+              var idx = getCurrentLineIndex(audio.currentTime);
+              if (idx != null) { lastActiveIndex = idx; setActive(idx, false); }
+            }
+          });
+        }
+
+        audio.addEventListener('timeupdate', function() {
+          if (!getSyncEnabled()) return;
+          var index = getCurrentLineIndex(audio.currentTime);
+          if (index == null) return;
+          var isNew = index !== lastActiveIndex;
+          lastActiveIndex = index;
+          setActive(index, isNew);
+        });
+        blocks.forEach(function(el) {
+          el.style.cursor = 'pointer';
+          el.addEventListener('click', function() {
+            var t = parseFloat(el.getAttribute('data-start-time'));
+            if (!Number.isNaN(t)) {
+              audio.currentTime = t;
+              audio.play();
+              var idx = Number(el.getAttribute('data-sync-index'));
+              lastActiveIndex = idx;
+              if (getSyncEnabled()) setActive(idx, true);
+            }
+          });
+        });
+      })();
+    </script>
+  )}
 </ChantLayout>

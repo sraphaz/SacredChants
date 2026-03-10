@@ -16,7 +16,7 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
   locale={locale}
 >
   <div class="max-w-2xl mx-auto px-4 py-12">
-    <h1 class="font-serif text-3xl text-stone-900 mb-2">
+    <h1 class="font-serif text-3xl sc-heading mb-2">
       {t.traditions.title}
     </h1>
     <p class="text-stone-600 mb-10">
@@ -28,7 +28,7 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
           <li>
             <a
               href={`/chants?tradition=${encodeURIComponent(tradition)}`}
-              class="block py-2 text-stone-700 hover:text-stone-900 font-medium"
+              class="block py-2 text-stone-700 hover:text-stone-900 font-medium transition-colors"
             >
               {tradition}
             </a>

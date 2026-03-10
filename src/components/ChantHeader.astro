@@ -1,14 +1,11 @@
 ---
 import type { Chant } from '../content/schemas/chant';
-import { ui, type Locale } from '../i18n/strings';
 
 interface Props {
   chant: Chant;
-  locale?: Locale;
 }
 
-const { chant, locale = 'en' } = Astro.props;
-const t = ui[locale];
+const { chant } = Astro.props;
 ---
 
 <header class="chant-header text-center mb-section max-w-[var(--sc-measure-reading)] mx-auto">
@@ -16,7 +13,7 @@ const t = ui[locale];
     {chant.tradition}
     {chant.origin ? ` · ${chant.origin}` : ''}
   </p>
-  <h1 class="chant-header__title font-serif text-sc-4xl md:text-sc-5xl text-stone-900 mb-4">
+  <h1 class="chant-header__title sc-heading font-serif text-sc-4xl md:text-sc-5xl mb-4">
     {chant.title}
   </h1>
   {chant.language && (
@@ -25,10 +22,19 @@ const t = ui[locale];
       {chant.script ? ` (${chant.script})` : ''}
     </p>
   )}
-  {chant.description && (
-    <p class="chant-header__desc mt-6 text-stone-600 text-sc-base max-w-[var(--sc-measure-narrow)] mx-auto" style="line-height: var(--sc-leading-relaxed);">
-      {chant.description}
-    </p>
+  {(chant.description?.en || chant.description?.pt) && (
+    <div class="chant-header__desc mt-6 max-w-[var(--sc-measure-narrow)] mx-auto" style="line-height: var(--sc-leading-relaxed);">
+      {chant.description.en && (
+        <p class="locale-en text-stone-600 text-sc-base" style="color: var(--sc-text-muted);">
+          {chant.description.en}
+        </p>
+      )}
+      {chant.description.pt && (
+        <p class="locale-pt text-stone-600 text-sc-base" style="color: var(--sc-text-muted);">
+          {chant.description.pt}
+        </p>
+      )}
+    </div>
   )}
   {chant.tags && chant.tags.length > 0 && (
     <ul class="chant-header__tags flex flex-wrap justify-center gap-2 mt-6" aria-label="Tags">

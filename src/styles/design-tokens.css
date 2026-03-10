@@ -1,7 +1,37 @@
 /**
  * Sacred Chants — Typography & layout design tokens
  * For contemplative reading of sacred text.
+ * Theme (light/dark) and user settings override these via [data-theme] and [data-*].
  */
+
+:root,
+[data-theme="light"] {
+  /* ——— Theme: light (soft, calm reading) ——— */
+  --sc-bg: #f5f3f0;
+  --sc-bg-elevated: #fafaf8;
+  --sc-text: #3d3832;
+  --sc-text-muted: #5c5650;
+  --sc-text-subtle: #78716c;
+  --sc-border: rgba(214, 211, 209, 0.7);
+  --sc-accent: #44403c;
+  --sc-accent-hover: #57534e;
+  --sc-accent-soft: rgba(68, 64, 60, 0.12);
+  --sc-accent-contrast: #f5f3f0;
+}
+
+[data-theme="dark"] {
+  /* ——— Theme: dark (soft, calm reading) ——— */
+  --sc-bg: #1a1918;
+  --sc-bg-elevated: #252422;
+  --sc-text: #e7e5e4;
+  --sc-text-muted: #a8a29e;
+  --sc-text-subtle: #78716c;
+  --sc-border: rgba(68, 64, 60, 0.6);
+  --sc-accent: #d6d3d1;
+  --sc-accent-hover: #e7e5e4;
+  --sc-accent-soft: rgba(214, 211, 209, 0.12);
+  --sc-accent-contrast: #1a1918;
+}
 
 :root {
   /* ——— Type scale (modular scale 1.25 — major third) ——— */
@@ -33,9 +63,9 @@
   --sc-tracking-label: 0.08em;   /* verse labels, meta */
 
   /* ——— Reading measure (line length) ——— */
-  --sc-measure-narrow: 45ch;     /* dense verse lines */
-  --sc-measure-reading: 60ch;    /* body, translations */
-  --sc-measure-wide: 70ch;       /* max content width */
+  --sc-measure-narrow: 50ch;     /* short lines (e.g. header description) */
+  --sc-measure-reading: 80ch;    /* body, verses, translations — use horizontal space */
+  --sc-measure-wide: 90ch;       /* max content width */
 
   /* ——— Spacing (vertical rhythm) ——— */
   --sc-space-verse: 1.5rem;      /* between verses */
@@ -46,4 +76,223 @@
   /* ——— Font stacks ——— */
   --sc-font-serif: Georgia, 'Cambria', 'Times New Roman', Times, serif;
   --sc-font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* ——— User overrides (from settings) ——— */
+  --sc-font-size-scale: 1;
+  --sc-space-verse-custom: var(--sc-space-verse);
+}
+
+/* Font size scale from settings */
+[data-font-size="small"] { --sc-font-size-scale: 0.9; }
+[data-font-size="medium"] { --sc-font-size-scale: 1; }
+[data-font-size="large"] { --sc-font-size-scale: 1.15; }
+
+/* Paragraph / verse spacing from settings */
+[data-spacing="tight"] { --sc-space-verse-custom: 1rem; }
+[data-spacing="normal"] { --sc-space-verse-custom: 1.5rem; }
+[data-spacing="relaxed"] { --sc-space-verse-custom: 2.25rem; }
+
+/* Font family from settings (body/UI) */
+:root { --sc-font-body: var(--sc-font-sans); }
+[data-font-family="sans"] { --sc-font-body: var(--sc-font-sans); }
+[data-font-family="serif"] { --sc-font-body: var(--sc-font-serif); }
+
+/* ——— Verse tint: gradient for verse text only (original / transliteration / translation / number) ——— */
+/* Each theme option defines three shades so you can tell at a glance which line you're reading. */
+/* Does not change headings, buttons or rest of site — only the verse block. */
+:root,
+[data-verse-tint="default"] {
+  --sc-verse-original: var(--sc-text);
+  --sc-verse-transliteration: var(--sc-text-muted);
+  --sc-verse-translation: var(--sc-text-muted);
+  --sc-verse-number: var(--sc-text);
+}
+
+/* ——— Verse gradient: soft, muted tones (number → original → translit → translation) ——— */
+/* Four distinct but gentle steps; no vivid colours — calm on the eyes. */
+
+/* Green: sage, forest mist */
+[data-theme="light"][data-verse-tint="green"] {
+  --sc-verse-number: #3d5c4f;
+  --sc-verse-original: #4a6b5c;
+  --sc-verse-transliteration: #5c7a6e;
+  --sc-verse-translation: #6e8a7e;
+}
+[data-theme="dark"][data-verse-tint="green"] {
+  --sc-verse-number: #9cb5a8;
+  --sc-verse-original: #8ba89a;
+  --sc-verse-transliteration: #7a9a8a;
+  --sc-verse-translation: #6a8a7a;
+}
+
+/* Blue: dusty slate, soft blue-grey */
+[data-theme="light"][data-verse-tint="blue"] {
+  --sc-verse-number: #455a6a;
+  --sc-verse-original: #526b7a;
+  --sc-verse-transliteration: #617c8c;
+  --sc-verse-translation: #728d9a;
+}
+[data-theme="dark"][data-verse-tint="blue"] {
+  --sc-verse-number: #9cb0be;
+  --sc-verse-original: #8a9eac;
+  --sc-verse-transliteration: #7a8e9c;
+  --sc-verse-translation: #6a7e8c;
+}
+
+/* Amber: warm sand, wheat */
+[data-theme="light"][data-verse-tint="amber"] {
+  --sc-verse-number: #6b5c4a;
+  --sc-verse-original: #7a6b58;
+  --sc-verse-transliteration: #8a7a68;
+  --sc-verse-translation: #9a8a78;
+}
+[data-theme="dark"][data-verse-tint="amber"] {
+  --sc-verse-number: #c4b8a8;
+  --sc-verse-original: #b0a494;
+  --sc-verse-transliteration: #9e9282;
+  --sc-verse-translation: #8c8070;
+}
+
+/* Rose: dusty rose, mauve */
+[data-theme="light"][data-verse-tint="rose"] {
+  --sc-verse-number: #6b5258;
+  --sc-verse-original: #7a6068;
+  --sc-verse-transliteration: #8a7078;
+  --sc-verse-translation: #9a8088;
+}
+[data-theme="dark"][data-verse-tint="rose"] {
+  --sc-verse-number: #c4a8b0;
+  --sc-verse-original: #b098a0;
+  --sc-verse-transliteration: #9e8890;
+  --sc-verse-translation: #8c7880;
+}
+
+/* Violet: soft lavender, heather */
+[data-theme="light"][data-verse-tint="violet"] {
+  --sc-verse-number: #5a5268;
+  --sc-verse-original: #6a6278;
+  --sc-verse-transliteration: #7a7288;
+  --sc-verse-translation: #8a8298;
+}
+[data-theme="dark"][data-verse-tint="violet"] {
+  --sc-verse-number: #b8b0c4;
+  --sc-verse-original: #a69eb8;
+  --sc-verse-transliteration: #948ca8;
+  --sc-verse-translation: #827a98;
+}
+
+/* ——— Text color / contrast (readability) ——— */
+/* default: use theme colors (no override) */
+/* moss: verde musgo — softer on the eyes, good readability */
+[data-theme="light"][data-text-color="moss"] {
+  --sc-text: #2d4a3e;
+  --sc-text-muted: #4a6b5c;
+  --sc-text-subtle: #5c7a6e;
+}
+[data-theme="dark"][data-text-color="moss"] {
+  --sc-text: #a8c4b8;
+  --sc-text-muted: #8ba89a;
+  --sc-text-subtle: #6e8a7e;
+}
+/* sepia: warm brown — reduced blue light, comfortable reading */
+[data-theme="light"][data-text-color="sepia"] {
+  --sc-text: #4a3c2e;
+  --sc-text-muted: #6b5a4a;
+  --sc-text-subtle: #7d6d5c;
+}
+[data-theme="dark"][data-text-color="sepia"] {
+  --sc-text: #d4c4b0;
+  --sc-text-muted: #b8a090;
+  --sc-text-subtle: #9a8a78;
+}
+/* soft: reduced contrast — less glare */
+[data-theme="light"][data-text-color="soft"] {
+  --sc-text: #45403c;
+  --sc-text-muted: #57534e;
+  --sc-text-subtle: #78716c;
+}
+[data-theme="dark"][data-text-color="soft"] {
+  --sc-text: #d6d3d1;
+  --sc-text-muted: #a8a29e;
+  --sc-text-subtle: #78716c;
+}
+/* ink: soft slate — clarity without glare */
+[data-theme="light"][data-text-color="ink"] {
+  --sc-text: #3d4552;
+  --sc-text-muted: #5a6474;
+  --sc-text-subtle: #6e7888;
+}
+[data-theme="dark"][data-text-color="ink"] {
+  --sc-text: #d4dae2;
+  --sc-text-muted: #9ca8b8;
+  --sc-text-subtle: #6e7888;
+}
+
+/* ——— Background colour (readability preserved with theme + text color) ——— */
+/* default: use theme background (no override) */
+/* cream: warm off-white / warm dark */
+[data-theme="light"][data-bg="cream"] {
+  --sc-bg: #f5f2eb;
+  --sc-bg-elevated: #faf8f3;
+  --sc-border: rgba(220, 215, 205, 0.8);
+}
+[data-theme="dark"][data-bg="cream"] {
+  --sc-bg: #252219;
+  --sc-bg-elevated: #2d281f;
+  --sc-border: rgba(60, 55, 48, 0.8);
+}
+/* paper: sepia / parchment feel */
+[data-theme="light"][data-bg="paper"] {
+  --sc-bg: #f0ebe0;
+  --sc-bg-elevated: #f7f2e8;
+  --sc-border: rgba(215, 205, 190, 0.8);
+}
+[data-theme="dark"][data-bg="paper"] {
+  --sc-bg: #1f1c17;
+  --sc-bg-elevated: #29251e;
+  --sc-border: rgba(55, 50, 42, 0.8);
+}
+/* snow: cool neutral, soft */
+[data-theme="light"][data-bg="snow"] {
+  --sc-bg: #f4f6f8;
+  --sc-bg-elevated: #fafbfc;
+  --sc-border: rgba(220, 226, 234, 0.7);
+}
+[data-theme="dark"][data-bg="snow"] {
+  --sc-bg: #1e293b;
+  --sc-bg-elevated: #334155;
+  --sc-border: rgba(51, 65, 85, 0.8);
+}
+/* mint: subtle green tint */
+[data-theme="light"][data-bg="mint"] {
+  --sc-bg: #f0f5f2;
+  --sc-bg-elevated: #f5faf7;
+  --sc-border: rgba(210, 225, 218, 0.8);
+}
+[data-theme="dark"][data-bg="mint"] {
+  --sc-bg: #1a2420;
+  --sc-bg-elevated: #24302a;
+  --sc-border: rgba(45, 65, 58, 0.8);
+}
+/* charcoal: neutral dark */
+[data-theme="light"][data-bg="charcoal"] {
+  --sc-bg: #f5f5f4;
+  --sc-bg-elevated: #e7e5e4;
+  --sc-border: rgba(214, 211, 209, 0.8);
+}
+[data-theme="dark"][data-bg="charcoal"] {
+  --sc-bg: #171717;
+  --sc-bg-elevated: #262626;
+  --sc-border: rgba(38, 38, 38, 0.8);
+}
+/* navy: blue dark */
+[data-theme="light"][data-bg="navy"] {
+  --sc-bg: #f1f5f9;
+  --sc-bg-elevated: #e2e8f0;
+  --sc-border: rgba(203, 213, 225, 0.8);
+}
+[data-theme="dark"][data-bg="navy"] {
+  --sc-bg: #0f172a;
+  --sc-bg-elevated: #1e293b;
+  --sc-border: rgba(30, 41, 59, 0.8);
 }

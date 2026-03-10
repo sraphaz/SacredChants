@@ -23,13 +23,20 @@ Each file must validate against the Zod schema. Required fields:
 | `description` | string   | Short description                    |
 | `verses`      | array    | At least one verse (see below)       |
 
-Optional: `origin`, `script`, `tags` (string[]), `audio` (URL).
+Optional: `origin`, `script`, `tags` (string[]), `audio` (URL), `spotifyUrl` (URL).
+
+**Audio and lyric sync**
+
+- **`audio`** — URL to an MP3/OGG file. If present, an audio player is shown on the chant page.
+- **`spotifyUrl`** — Link to the track on Spotify. Shown as “Listen on Spotify” (no playback sync; Spotify does not expose playback position).
+- **Lyric sync** — To have the current verse highlight and follow the audio (and allow clicking a verse to jump to that time), add a **`startTime`** (number, seconds from start) to each verse. Example: `"order": 1, "startTime": 0, "original": "..."`. Only verses with `startTime` are synced; you can add it to some verses only.
 
 ### 3. Verse structure
 
 Each item in `verses` must have:
 
 - `order` — number (1, 2, 3, …)
+- `startTime` — optional number (seconds from start of audio) for lyric sync
 - `original` — text in original script
 - `transliteration` — romanized form
 - `translations` — object with optional `pt` and `en` strings

@@ -2,10 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ChantCard from '../../components/ChantCard.astro';
 import { getCollection } from 'astro:content';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
-const t = ui[locale];
+const tEn = ui.en;
+const tPt = ui.pt;
 
 const chants = await getCollection('chants');
 const sortedChants = chants
@@ -14,16 +14,17 @@ const sortedChants = chants
 ---
 
 <BaseLayout
-  title={t.chants.title}
+  title={tEn.chants.title}
   description="Browse all sacred chants in the library."
-  locale={locale}
 >
   <div class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="font-serif text-3xl text-stone-900 mb-2">
-      {t.chants.allChants}
+    <h1 class="font-serif text-3xl sc-heading mb-2">
+      <span class="locale-en">{tEn.chants.allChants}</span>
+      <span class="locale-pt">{tPt.chants.allChants}</span>
     </h1>
     <p class="text-stone-600 mb-10">
-      {t.chants.title}
+      <span class="locale-en">{tEn.chants.title}</span>
+      <span class="locale-pt">{tPt.chants.title}</span>
     </p>
     {sortedChants.length > 0 ? (
       <ul class="space-y-4">
@@ -34,7 +35,10 @@ const sortedChants = chants
         ))}
       </ul>
     ) : (
-      <p class="text-stone-500 py-12 text-center">{t.chants.noChants}</p>
+      <p class="text-stone-500 py-12 text-center">
+        <span class="locale-en">{tEn.chants.noChants}</span>
+        <span class="locale-pt">{tPt.chants.noChants}</span>
+      </p>
     )}
   </div>
 </BaseLayout>

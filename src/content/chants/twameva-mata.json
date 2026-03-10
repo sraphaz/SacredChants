@@ -1,0 +1,66 @@
+{
+  "slug": "twameva-mata",
+  "title": "Twameva Mata",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Sanskrit",
+  "script": "Devanagari",
+  "description": {
+    "en": "A devotional verse addressing the Divine as mother, father, friend, and everything. Often associated with Ganesha or used as a universal prayer of surrender.",
+    "pt": "Um verso devocional que se dirige ao Divino como mãe, pai, amigo e tudo. Frequentemente associado a Ganesha ou usado como oração universal de entrega."
+  },
+  "tags": [
+    "mantra",
+    "devotional",
+    "ganesha",
+    "surrender",
+    "hindu"
+  ],
+  "about": {
+    "en": "This verse expresses complete surrender: \"You alone are mother, you alone are father.\" It is often chanted in Ganesha worship or as a general offering to the divine as the sole refuge and support.",
+    "pt": "Este verso exprime entrega total: \"Só Tu és a mãe, só Tu és o pai.\" É frequentemente cantado no culto a Ganesha ou como oferta geral ao divino como único refúgio e suporte."
+  },
+  "verses": [
+    {
+      "order": 1,
+      "lines": [
+        {
+          "start": 0,
+          "original": "त्वमेव माता च पिता त्वमेव",
+          "transliteration": "tvam eva mātā ca pitā tvam eva",
+          "translations": {
+            "en": "You alone are mother and you alone are father; you alone are relative and you alone are friend; you alone are knowledge and you alone are wealth; you alone are everything to me, O God of gods.",
+            "pt": "Só Tu és a mãe e só Tu és o pai; só Tu és o parente e só Tu és o amigo; só Tu és o conhecimento e só Tu és a riqueza; só Tu és tudo para mim, ó Deus dos deuses."
+          }
+        },
+        {
+          "start": 0,
+          "original": "त्वमेव बन्धुश्च सखा त्वमेव",
+          "transliteration": "tvam eva bandhuś ca sakhā tvam eva",
+          "translations": {
+            "en": "You alone are mother and you alone are father; you alone are relative and you alone are friend; you alone are knowledge and you alone are wealth; you alone are everything to me, O God of gods.",
+            "pt": "Só Tu és a mãe e só Tu és o pai; só Tu és o parente e só Tu és o amigo; só Tu és o conhecimento e só Tu és a riqueza; só Tu és tudo para mim, ó Deus dos deuses."
+          }
+        },
+        {
+          "start": 0,
+          "original": "त्वमेव विद्या द्रविणं त्वमेव",
+          "transliteration": "tvam eva vidyā draviṇaṃ tvam eva",
+          "translations": {
+            "en": "You alone are mother and you alone are father; you alone are relative and you alone are friend; you alone are knowledge and you alone are wealth; you alone are everything to me, O God of gods.",
+            "pt": "Só Tu és a mãe e só Tu és o pai; só Tu és o parente e só Tu és o amigo; só Tu és o conhecimento e só Tu és a riqueza; só Tu és tudo para mim, ó Deus dos deuses."
+          }
+        },
+        {
+          "start": 0,
+          "original": "त्वमेव सर्वं मम देव देव",
+          "transliteration": "tvam eva sarvaṃ mama deva deva",
+          "translations": {
+            "en": "You alone are mother and you alone are father; you alone are relative and you alone are friend; you alone are knowledge and you alone are wealth; you alone are everything to me, O God of gods.",
+            "pt": "Só Tu és a mãe e só Tu és o pai; só Tu és o parente e só Tu és o amigo; só Tu és o conhecimento e só Tu és a riqueza; só Tu és tudo para mim, ó Deus dos deuses."
+          }
+        }
+      ]
+    }
+  ]
+}

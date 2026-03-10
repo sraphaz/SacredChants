@@ -8,18 +8,29 @@ interface Props {
 const { chant } = Astro.props;
 ---
 
-<a
-  href={`/chants/${chant.slug}`}
-  class="block p-6 rounded-lg border border-stone-200 bg-white hover:border-stone-300 hover:shadow-sm transition"
->
-  <p class="text-sm text-stone-500 uppercase tracking-wider">{chant.tradition}</p>
-  <h2 class="font-serif text-xl text-stone-900 mt-1">{chant.title}</h2>
-  <p class="text-stone-600 text-sm mt-2 line-clamp-2">{chant.description}</p>
-  {chant.tags && chant.tags.length > 0 && (
-    <ul class="flex flex-wrap gap-1 mt-3">
-      {chant.tags.slice(0, 3).map((tag) => (
-        <li><span class="text-xs text-stone-500">#{tag}</span></li>
-      ))}
-    </ul>
-  )}
-</a>
+<div class="sc-card block rounded-lg border border-stone-200 bg-white hover:border-stone-300 hover:shadow-sm transition">
+  <a href={`/chants/${chant.slug}`} class="locale-en block p-6">
+    <p class="text-sm text-stone-500 uppercase tracking-wider">{chant.tradition}</p>
+    <h2 class="sc-card-title font-serif text-xl text-stone-900 mt-1">{chant.title}</h2>
+    <p class="text-stone-600 text-sm mt-2 line-clamp-2">{typeof chant.description === 'string' ? chant.description : chant.description?.en}</p>
+    {chant.tags && chant.tags.length > 0 && (
+      <ul class="flex flex-wrap gap-1 mt-3">
+        {chant.tags.slice(0, 3).map((tag) => (
+          <li><span class="text-xs text-stone-500">#{tag}</span></li>
+        ))}
+      </ul>
+    )}
+  </a>
+  <a href={`/chants/${chant.slug}?lang=pt`} class="locale-pt block p-6">
+    <p class="text-sm text-stone-500 uppercase tracking-wider">{chant.tradition}</p>
+    <h2 class="sc-card-title font-serif text-xl text-stone-900 mt-1">{chant.title}</h2>
+    <p class="text-stone-600 text-sm mt-2 line-clamp-2">{typeof chant.description === 'string' ? chant.description : chant.description?.pt}</p>
+    {chant.tags && chant.tags.length > 0 && (
+      <ul class="flex flex-wrap gap-1 mt-3">
+        {chant.tags.slice(0, 3).map((tag) => (
+          <li><span class="text-xs text-stone-500">#{tag}</span></li>
+        ))}
+      </ul>
+    )}
+  </a>
+</div>

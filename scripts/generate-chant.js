@@ -48,6 +48,7 @@ function buildChant(data) {
     description: data.description,
     tags: data.tags.length ? data.tags : [],
     audio: data.audio || undefined,
+    spotifyUrl: data.spotifyUrl || undefined,
     verses: data.verses.length
       ? data.verses
       : [
@@ -81,6 +82,7 @@ async function main() {
   const description = await ask('Description', '');
   const tagsInput = await ask('Tags (comma-separated)', '');
   const audio = await ask('Audio URL (optional)', '');
+  const spotifyUrl = await ask('Spotify track URL (optional)', '');
 
   const tags = tagsInput ? tagsInput.split(',').map((t) => t.trim()).filter(Boolean) : [];
 
@@ -94,6 +96,7 @@ async function main() {
     description,
     tags,
     audio: audio || undefined,
+    spotifyUrl: spotifyUrl || undefined,
     verses: [],
   });
 
@@ -109,7 +112,8 @@ async function main() {
 
   writeFileSync(outPath, JSON.stringify(chant, null, 2) + '\n', 'utf8');
   console.log(`\nCreated: src/content/chants/${slug}.json`);
-  console.log('Add verses (order, original, transliteration, translations.pt, translations.en) and run the dev server to preview.\n');
+  console.log('Add verses (order, original, transliteration, translations.pt, translations.en).');
+  console.log('Optional: add "startTime" (seconds) per verse for lyric sync with audio; add "spotifyUrl" for a Listen on Spotify link.\n');
   rl.close();
 }
 
