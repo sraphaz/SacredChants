@@ -79,6 +79,8 @@ Example:
 
 To publish a new version: create a new Release in the repo (e.g. tag `v0.2.0` and publish). The deploy workflow will run automatically and update the site at `https://sraphaz.github.io/SacredChants/`.
 
+**If deploy fails with "Tag is not allowed to deploy due to environment protection rules":** go to **Settings → Environments → github-pages** and adjust deployment protection (e.g. allow tags matching `v*` or disable branch/tag restrictions for this environment).
+
 ## Questions
 
 Open an issue for discussion or questions about traditions, attribution, or schema changes.

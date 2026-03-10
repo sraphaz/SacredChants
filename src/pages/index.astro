@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageShell from '../components/PageShell.astro';
 import { ui } from '../i18n/strings';
 
+const BASE = import.meta.env.BASE_URL;
 const tEn = ui.en;
 const tPt = ui.pt;
 ---
@@ -25,16 +26,16 @@ const tPt = ui.pt;
         <span class="locale-pt">{tPt.home.subtitle}</span>
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="/chants" class="locale-en sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+        <a href={`${BASE}chants`} class="locale-en sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
           {tEn.home.browseChants}
         </a>
-        <a href="/chants?lang=pt" class="locale-pt sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+        <a href={`${BASE}chants?lang=pt`} class="locale-pt sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
           {tPt.home.browseChants}
         </a>
-        <a href="/traditions" class="locale-en sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+        <a href={`${BASE}traditions`} class="locale-en sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
           {tEn.home.exploreTraditions}
         </a>
-        <a href="/traditions?lang=pt" class="locale-pt sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
+        <a href={`${BASE}traditions?lang=pt`} class="locale-pt sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
           {tPt.home.exploreTraditions}
         </a>
       </div>

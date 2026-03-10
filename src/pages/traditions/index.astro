@@ -4,6 +4,7 @@ import PageShell from '../../components/PageShell.astro';
 import { getCollection } from 'astro:content';
 import { ui, type Locale } from '../../i18n/strings';
 
+const BASE = import.meta.env.BASE_URL;
 const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
 const t = ui[locale];
 
@@ -28,7 +29,7 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
         {traditions.map((tradition) => (
           <li>
             <a
-              href={`/chants?tradition=${encodeURIComponent(tradition)}`}
+              href={`${BASE}chants?tradition=${encodeURIComponent(tradition)}`}
               class="block py-2 font-medium transition-colors"
               style="color: var(--sc-text-muted)"
             >

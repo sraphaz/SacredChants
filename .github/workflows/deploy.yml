@@ -1,4 +1,5 @@
 # Deploy to GitHub Pages on every new release (CI/CD delivery)
+# If deploy fails: Settings → Environments → github-pages → ensure tags (e.g. v*) are allowed by protection rules.
 name: Deploy to GitHub Pages
 
 on:
@@ -26,7 +27,7 @@ jobs:
         uses: withastro/action@v3
         with:
           path: .
-          node-version: 20
+          node-version: 22
 
   deploy:
     needs: build

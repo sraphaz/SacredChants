@@ -5,5 +5,6 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://sraphaz.github.io',
   base: '/SacredChants/',
+  trailingSlash: 'always',
   integrations: [mdx(), tailwind()],
 });
