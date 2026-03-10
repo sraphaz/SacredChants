@@ -20,6 +20,9 @@ export const chantSchema = z.object({
   description: z.string(),
   tags: z.array(z.string()).default([]),
   audio: z.string().url().optional(),
+  bandcampTrackId: z.number().int().positive().optional(),
+  bandcampTrackUrl: z.string().url().optional(),
+  bandcampFallbackLabel: z.string().optional(),
   verses: z.array(chantVerseSchema),
 });
 

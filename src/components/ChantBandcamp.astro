@@ -1,0 +1,28 @@
+---
+interface Props {
+  trackId: number;
+  title?: string;
+  /** Fallback link when iframe is not available (e.g. full Bandcamp track URL) */
+  trackUrl?: string;
+  /** Fallback link text (e.g. "Hanuman Chalisa by Víctor Sakshin") */
+  fallbackLabel?: string;
+}
+
+const { trackId, title = 'Chant audio', trackUrl, fallbackLabel } = Astro.props;
+const embedSrc = `https://bandcamp.com/EmbeddedPlayer/track=${trackId}/size=small/bgcol=333333/linkcol=2ebd35/transparent=true/`;
+const linkUrl = trackUrl ?? `https://bandcamp.com/track/${trackId}`;
+const label = fallbackLabel ?? title;
+---
+
+<div class="max-w-2xl mx-auto mb-10 px-4 min-w-0" aria-label={title}>
+  <!-- Bandcamp small bar: 42px height, includes play button and progress -->
+  <iframe
+    style="border: 0; width: 100%; height: 42px; min-height: 42px;"
+    src={embedSrc}
+    seamless
+    title={title}
+    allow="encrypted-media"
+  >
+    <a href={linkUrl}>{label}</a>
+  </iframe>
+</div>

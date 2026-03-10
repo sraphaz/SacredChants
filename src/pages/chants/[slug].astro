@@ -3,6 +3,7 @@ import ChantLayout from '../../layouts/ChantLayout.astro';
 import ChantHeader from '../../components/ChantHeader.astro';
 import ChantVerse from '../../components/ChantVerse.astro';
 import ChantAudio from '../../components/ChantAudio.astro';
+import ChantBandcamp from '../../components/ChantBandcamp.astro';
 import { getEntry, getCollection } from 'astro:content';
 import { ui, type Locale } from '../../i18n/strings';
 
@@ -29,7 +30,15 @@ const chant = { ...entry.data, slug: entry.id };
 <ChantLayout chant={chant} locale={locale}>
   <div class="max-w-2xl mx-auto px-4">
     <ChantHeader chant={chant} locale={locale} />
-    {chant.audio && (
+    {chant.bandcampTrackId && (
+      <ChantBandcamp
+        trackId={chant.bandcampTrackId}
+        title={chant.title}
+        trackUrl={chant.bandcampTrackUrl}
+        fallbackLabel={chant.bandcampFallbackLabel}
+      />
+    )}
+    {chant.audio && !chant.bandcampTrackId && (
       <ChantAudio src={chant.audio} title={chant.title} />
     )}
     <div class="space-y-0">
