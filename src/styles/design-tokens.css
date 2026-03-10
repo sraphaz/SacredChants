@@ -62,16 +62,26 @@
   --sc-tracking-widest: 0.1em;
   --sc-tracking-label: 0.08em;   /* verse labels, meta */
 
+  /* ——— Layout: content width & padding (unified grid) ——— */
+  --sc-content-width: 48rem;     /* 768px — single column for all pages */
+  --sc-page-padding-x: 1.25rem;  /* mobile — breathing margin */
+  --sc-page-padding-y: 2rem;     /* page top/bottom rhythm */
+  --sc-header-h: 3.5rem;         /* fixed site header height */
+  --sc-player-bar-h: 2.5rem;     /* fixed player bar height (chant pages) */
+
   /* ——— Reading measure (line length) ——— */
   --sc-measure-narrow: 50ch;     /* short lines (e.g. header description) */
-  --sc-measure-reading: 80ch;    /* body, verses, translations — use horizontal space */
-  --sc-measure-wide: 90ch;       /* max content width */
+  --sc-measure-reading: 80ch;    /* body, verses, translations */
+  --sc-measure-wide: 90ch;       /* max content width (chant inner) */
 
   /* ——— Spacing (vertical rhythm) ——— */
   --sc-space-verse: 1.5rem;      /* between verses */
   --sc-space-verse-inner: 0.5rem; /* between original / translit / translation */
   --sc-space-section: 3rem;      /* header ↔ body */
   --sc-space-block: 1rem;
+  --sc-space-page-heading: 0.5rem;   /* title → subtitle */
+  --sc-space-page-content: 2.5rem;   /* subtitle/desc → content */
+  --sc-space-section-gap: 3rem;     /* between major sections */
 
   /* ——— Font stacks ——— */
   --sc-font-serif: Georgia, 'Cambria', 'Times New Roman', Times, serif;
@@ -80,6 +90,17 @@
   /* ——— User overrides (from settings) ——— */
   --sc-font-size-scale: 1;
   --sc-space-verse-custom: var(--sc-space-verse);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --sc-page-padding-x: 2.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --sc-page-padding-x: 3rem;
+  }
 }
 
 /* Font size scale from settings */

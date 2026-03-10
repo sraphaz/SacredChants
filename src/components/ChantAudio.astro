@@ -13,8 +13,8 @@ const playId = audioId + '-play';
 ---
 
 {src && (
-  <div class="chant-audio-box max-w-2xl mx-auto mb-10 px-4" role="group" aria-label={title}>
-    <div class="rounded-lg p-4 flex flex-col gap-3" style="background-color: var(--sc-border);">
+  <div class="chant-audio-box w-full" role="group" aria-label={title}>
+    <div class="rounded-lg p-4 flex flex-col gap-3" style="background-color: var(--sc-bg); border: 1px solid var(--sc-border);">
       <audio
         id={audioId}
         preload="metadata"

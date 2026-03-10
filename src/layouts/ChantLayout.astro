@@ -10,8 +10,8 @@ const { chant } = Astro.props;
 ---
 
 <BaseLayout title={chant.title} description={chant.description?.en ?? chant.description?.pt ?? ''}>
-  <article class="chant-page py-12 md:py-16 px-4 md:px-6" role="article" aria-label={chant.title}>
-    <div class="chant-page__inner max-w-[var(--sc-measure-wide)] mx-auto">
+  <article class="chant-page py-page px-page-x" role="article" aria-label={chant.title}>
+    <div class="chant-page__inner max-w-content mx-auto">
       <slot />
     </div>
   </article>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
 import { getCollection } from 'astro:content';
 import { ui, type Locale } from '../../i18n/strings';
 
@@ -15,11 +16,11 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
   description={t.traditions.description}
   locale={locale}
 >
-  <div class="max-w-2xl mx-auto px-4 py-12">
-    <h1 class="font-serif text-3xl sc-heading mb-2">
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       {t.traditions.title}
     </h1>
-    <p class="text-stone-600 mb-10">
+    <p class="mb-page-content" style="color: var(--sc-text-muted)">
       {t.traditions.description}
     </p>
     {traditions.length > 0 ? (
@@ -28,7 +29,8 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
           <li>
             <a
               href={`/chants?tradition=${encodeURIComponent(tradition)}`}
-              class="block py-2 text-stone-700 hover:text-stone-900 font-medium transition-colors"
+              class="block py-2 font-medium transition-colors"
+              style="color: var(--sc-text-muted)"
             >
               {tradition}
             </a>
@@ -36,7 +38,7 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
         ))}
       </ul>
     ) : (
-      <p class="text-stone-500">No traditions yet.</p>
+      <p style="color: var(--sc-text-subtle)">No traditions yet.</p>
     )}
-  </div>
+  </PageShell>
 </BaseLayout>

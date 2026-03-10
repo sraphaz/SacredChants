@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
 import { ui, type Locale } from '../../i18n/strings';
 
 const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
@@ -11,11 +12,11 @@ const t = ui[locale];
   description={t.settings.description}
   locale={locale}
 >
-  <div class="max-w-xl mx-auto px-4 py-12">
-    <h1 class="font-serif text-3xl md:text-4xl sc-heading mb-2">
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl md:text-sc-4xl sc-heading mb-page-heading">
       {t.settings.title}
     </h1>
-    <p class="mb-10 text-sm" style="color: var(--sc-text-muted)">
+    <p class="mb-page-content text-sm" style="color: var(--sc-text-muted)">
       {t.settings.description}
     </p>
 
@@ -212,7 +213,7 @@ const t = ui[locale];
         {t.settings.saved}
       </p>
     </form>
-  </div>
+  </PageShell>
 
   <script is:inline>
     (function() {

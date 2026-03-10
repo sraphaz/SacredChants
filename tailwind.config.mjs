@@ -19,6 +19,7 @@ export default {
         'sc-5xl': ['var(--sc-font-size-5xl)', { lineHeight: 'var(--sc-leading-tight)' }],
       },
       maxWidth: {
+        'content': 'var(--sc-content-width)',
         'measure-narrow': 'var(--sc-measure-narrow)',
         'measure-reading': 'var(--sc-measure-reading)',
         'measure-wide': 'var(--sc-measure-wide)',
@@ -27,6 +28,11 @@ export default {
         'verse': 'var(--sc-space-verse)',
         'verse-inner': 'var(--sc-space-verse-inner)',
         'section': 'var(--sc-space-section)',
+        'page': 'var(--sc-page-padding-y)',
+        'page-x': 'var(--sc-page-padding-x)',
+        'page-heading': 'var(--sc-space-page-heading)',
+        'page-content': 'var(--sc-space-page-content)',
+        'section-gap': 'var(--sc-space-section-gap)',
       },
       letterSpacing: {
         'label': 'var(--sc-tracking-label)',

@@ -51,10 +51,11 @@ const tPt = ui.pt;
   </head>
   <body class="min-h-screen flex flex-col">
     <header class="sc-header backdrop-blur">
-      <nav class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-        <a href="/" class="locale-en font-serif text-xl sc-header-a"><span class="locale-en">Sacred Chants</span></a>
-        <a href="/?lang=pt" class="locale-pt font-serif text-xl sc-header-a"><span class="locale-pt">Sacred Chants</span></a>
-        <ul class="flex flex-wrap items-center gap-6 text-sm">
+      <nav class="sc-header__nav max-w-content mx-auto px-page-x py-4 flex flex-wrap items-center gap-4">
+        <a href="/" class="locale-en font-serif text-xl sc-header-a shrink-0"><span class="locale-en">Sacred Chants</span></a>
+        <a href="/?lang=pt" class="locale-pt font-serif text-xl sc-header-a shrink-0"><span class="locale-pt">Sacred Chants</span></a>
+        <div class="sc-header__menu-wrap flex-1 flex justify-center min-w-0">
+          <ul class="sc-header__menu flex flex-wrap items-center justify-center gap-6 text-sm">
           <li><a href="/" class="locale-en">{tEn.nav.home}</a><a href="/?lang=pt" class="locale-pt">{tPt.nav.home}</a></li>
           <li><a href="/chants" class="locale-en">{tEn.nav.chants}</a><a href="/chants?lang=pt" class="locale-pt">{tPt.nav.chants}</a></li>
           <li><a href="/traditions" class="locale-en">{tEn.nav.traditions}</a><a href="/traditions?lang=pt" class="locale-pt">{tPt.nav.traditions}</a></li>
@@ -63,17 +64,18 @@ const tPt = ui.pt;
           <li><a href="/settings" class="locale-en">{tEn.nav.settings}</a><a href="/settings?lang=pt" class="locale-pt">{tPt.nav.settings}</a></li>
           <li><span style="color: var(--sc-text-subtle)">|</span></li>
           <li><a href={Astro.url.pathname + '?lang=pt'} class="locale-en">{tEn.lang.pt}</a><a href={Astro.url.pathname + '?lang=en'} class="locale-pt">{tPt.lang.en}</a></li>
-        </ul>
+          </ul>
+        </div>
       </nav>
     </header>
-    <main class="flex-1">
+    <main class="flex-1 sc-main-with-header">
       <slot />
     </main>
     <footer class="sc-footer border-t py-8 mt-auto">
-      <div class="max-w-4xl mx-auto px-4 text-center text-sm">
+      <div class="max-w-content mx-auto px-page-x text-center text-sm">
         <p class="locale-en">Sacred Chants — {tEn.home.tagline}</p>
         <p class="locale-pt">Sacred Chants — {tPt.home.tagline}</p>
-        <p class="mt-1">Open source · No ads · Contemplative</p>
+        <p class="mt-1" style="color: var(--sc-text-subtle)">Open source · No ads · Contemplative</p>
       </div>
     </footer>
   </body>
