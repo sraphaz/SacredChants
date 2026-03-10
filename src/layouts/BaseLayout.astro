@@ -2,7 +2,11 @@
 import '../styles/global.css';
 import { ui, type Locale } from '../i18n/strings';
 
-const BASE = import.meta.env.BASE_URL;
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+// Current path with base guaranteed (Astro.url.pathname may not include base at build)
+const pathname = Astro.url.pathname;
+const pathWithBase = pathname.startsWith(BASE_SLASH) || pathname === BASE_SLASH.replace(/\/$/, '') ? pathname : BASE_SLASH.replace(/\/$/, '') + (pathname.startsWith('/') ? pathname : '/' + pathname);
 
 interface Props {
   title: string;
@@ -20,7 +24,8 @@ const tPt = ui.pt;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href={`${BASE}favicon.svg`} />
+    <base href={new URL(BASE_SLASH, Astro.url.origin).href} />
+    <link rel="icon" type="image/svg+xml" href={`${BASE_SLASH}favicon.svg`} />
     <meta name="description" content={description} />
     <title>{title} | Sacred Chants</title>
     <script is:inline>
@@ -54,18 +59,18 @@ const tPt = ui.pt;
   <body class="min-h-screen flex flex-col">
     <header class="sc-header backdrop-blur">
       <nav class="sc-header__nav max-w-content mx-auto px-page-x py-4 flex flex-wrap items-center gap-4">
-        <a href={BASE} class="locale-en font-serif text-xl sc-header-a shrink-0"><span class="locale-en">Sacred Chants</span></a>
-        <a href={`${BASE}?lang=pt`} class="locale-pt font-serif text-xl sc-header-a shrink-0"><span class="locale-pt">Sacred Chants</span></a>
+        <a href={BASE_SLASH} class="locale-en font-serif text-xl sc-header-a shrink-0"><span class="locale-en">Sacred Chants</span></a>
+        <a href={`${BASE_SLASH}?lang=pt`} class="locale-pt font-serif text-xl sc-header-a shrink-0"><span class="locale-pt">Sacred Chants</span></a>
         <div class="sc-header__menu-wrap flex-1 flex justify-center min-w-0">
           <ul class="sc-header__menu flex flex-wrap items-center justify-center gap-6 text-sm">
-          <li><a href={BASE} class="locale-en">{tEn.nav.home}</a><a href={`${BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
-          <li><a href={`${BASE}chants`} class="locale-en">{tEn.nav.chants}</a><a href={`${BASE}chants?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
-          <li><a href={`${BASE}traditions`} class="locale-en">{tEn.nav.traditions}</a><a href={`${BASE}traditions?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a></li>
-          <li><a href={`${BASE}knowledge`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${BASE}knowledge?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
-          <li><a href={`${BASE}contribute`} class="locale-en">{tEn.nav.contribute}</a><a href={`${BASE}contribute?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
-          <li><a href={`${BASE}settings`} class="locale-en">{tEn.nav.settings}</a><a href={`${BASE}settings?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
+          <li><a href={BASE_SLASH} class="locale-en">{tEn.nav.home}</a><a href={`${BASE_SLASH}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
+          <li><a href={`${BASE_SLASH}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${BASE_SLASH}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
+          <li><a href={`${BASE_SLASH}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${BASE_SLASH}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a></li>
+          <li><a href={`${BASE_SLASH}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${BASE_SLASH}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
+          <li><a href={`${BASE_SLASH}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${BASE_SLASH}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
+          <li><a href={`${BASE_SLASH}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${BASE_SLASH}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
           <li><span style="color: var(--sc-text-subtle)">|</span></li>
-          <li><a href={Astro.url.pathname + '?lang=pt'} class="locale-en">{tEn.lang.pt}</a><a href={Astro.url.pathname + '?lang=en'} class="locale-pt">{tPt.lang.en}</a></li>
+          <li><a href={`${pathWithBase}?lang=pt`} class="locale-en">{tEn.lang.pt}</a><a href={`${pathWithBase}?lang=en`} class="locale-pt">{tPt.lang.en}</a></li>
           </ul>
         </div>
       </nav>
