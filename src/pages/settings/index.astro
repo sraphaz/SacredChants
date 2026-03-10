@@ -1,0 +1,290 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+---
+
+<BaseLayout
+  title={t.settings.title}
+  description={t.settings.description}
+  locale={locale}
+>
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl md:text-sc-4xl sc-heading mb-page-heading">
+      {t.settings.title}
+    </h1>
+    <p class="mb-page-content text-sm" style="color: var(--sc-text-muted)">
+      {t.settings.description}
+    </p>
+
+    <form id="settings-form" class="space-y-10" autocomplete="off" aria-label={t.settings.title}>
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.theme}
+        </label>
+        <div class="flex gap-4">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-theme-dark">
+            <input type="radio" id="settings-theme-dark" name="theme" value="dark" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.themeDark}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-theme-light">
+            <input type="radio" id="settings-theme-light" name="theme" value="light" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.themeLight}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.language}
+        </label>
+        <div class="flex gap-4">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-lang-en">
+            <input type="radio" id="settings-lang-en" name="lang" value="en" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.languageEn}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-lang-pt">
+            <input type="radio" id="settings-lang-pt" name="lang" value="pt" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.languagePt}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.fontSize}
+        </label>
+        <div class="flex gap-4 flex-wrap">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontSize-small">
+            <input type="radio" id="settings-fontSize-small" name="fontSize" value="small" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.fontSizeSmall}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontSize-medium">
+            <input type="radio" id="settings-fontSize-medium" name="fontSize" value="medium" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.fontSizeMedium}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontSize-large">
+            <input type="radio" id="settings-fontSize-large" name="fontSize" value="large" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.fontSizeLarge}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.fontFamily}
+        </label>
+        <div class="flex gap-4 flex-wrap">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontFamily-sans">
+            <input type="radio" id="settings-fontFamily-sans" name="fontFamily" value="sans" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.fontFamilySans}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontFamily-serif">
+            <input type="radio" id="settings-fontFamily-serif" name="fontFamily" value="serif" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.fontFamilySerif}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.spacing}
+        </label>
+        <div class="flex gap-4 flex-wrap">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-spacing-tight">
+            <input type="radio" id="settings-spacing-tight" name="spacing" value="tight" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.spacingTight}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-spacing-normal">
+            <input type="radio" id="settings-spacing-normal" name="spacing" value="normal" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.spacingNormal}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-spacing-relaxed">
+            <input type="radio" id="settings-spacing-relaxed" name="spacing" value="relaxed" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.spacingRelaxed}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.verseTint}
+        </label>
+        <p class="text-xs mb-3" style="color: var(--sc-text-subtle)">
+          <span class="locale-en">One colour and its variations for original script, transliteration, and translation.</span>
+          <span class="locale-pt">Uma cor e as suas variações para o texto original, transliteração e tradução.</span>
+        </p>
+        <div class="flex gap-4 flex-wrap">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-default">
+            <input type="radio" id="settings-verseTint-default" name="verseTint" value="default" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.verseTintDefault}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-green">
+            <input type="radio" id="settings-verseTint-green" name="verseTint" value="green" class="rounded-full border-2" />
+            <span style="color: #4a6b5c">{t.settings.verseTintGreen}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-blue">
+            <input type="radio" id="settings-verseTint-blue" name="verseTint" value="blue" class="rounded-full border-2" />
+            <span style="color: #526b7a">{t.settings.verseTintBlue}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-amber">
+            <input type="radio" id="settings-verseTint-amber" name="verseTint" value="amber" class="rounded-full border-2" />
+            <span style="color: #7a6b58">{t.settings.verseTintAmber}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-rose">
+            <input type="radio" id="settings-verseTint-rose" name="verseTint" value="rose" class="rounded-full border-2" />
+            <span style="color: #7a6068">{t.settings.verseTintRose}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-violet">
+            <input type="radio" id="settings-verseTint-violet" name="verseTint" value="violet" class="rounded-full border-2" />
+            <span style="color: #6a6278">{t.settings.verseTintViolet}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.textColor}
+        </label>
+        <div class="flex gap-4 flex-wrap">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-default">
+            <input type="radio" id="settings-textColor-default" name="textColor" value="default" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.textColorDefault}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-moss">
+            <input type="radio" id="settings-textColor-moss" name="textColor" value="moss" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.textColorMoss}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-sepia">
+            <input type="radio" id="settings-textColor-sepia" name="textColor" value="sepia" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.textColorSepia}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-soft">
+            <input type="radio" id="settings-textColor-soft" name="textColor" value="soft" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.textColorSoft}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-ink">
+            <input type="radio" id="settings-textColor-ink" name="textColor" value="ink" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.textColorInk}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
+          {t.settings.bgColor}
+        </label>
+        <div class="flex gap-4 flex-wrap">
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-default">
+            <input type="radio" id="settings-bg-default" name="bg" value="default" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.bgColorDefault}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-cream">
+            <input type="radio" id="settings-bg-cream" name="bg" value="cream" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.bgColorCream}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-paper">
+            <input type="radio" id="settings-bg-paper" name="bg" value="paper" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.bgColorPaper}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-snow">
+            <input type="radio" id="settings-bg-snow" name="bg" value="snow" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.bgColorSnow}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-mint">
+            <input type="radio" id="settings-bg-mint" name="bg" value="mint" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.bgColorMint}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-charcoal">
+            <input type="radio" id="settings-bg-charcoal" name="bg" value="charcoal" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.bgColorCharcoal}</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-navy">
+            <input type="radio" id="settings-bg-navy" name="bg" value="navy" class="rounded-full border-2" />
+            <span style="color: var(--sc-text-muted)">{t.settings.bgColorNavy}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <p id="settings-toast" class="text-sm hidden" style="color: var(--sc-text-muted)" aria-live="polite">
+        {t.settings.saved}
+      </p>
+    </form>
+  </PageShell>
+
+  <script is:inline>
+    (function() {
+      var STORAGE = 'sacred-chants-';
+      var form = document.getElementById('settings-form');
+      var toast = document.getElementById('settings-toast');
+      var root = document.documentElement;
+
+      function load() {
+        root.dataset.theme = localStorage.getItem(STORAGE + 'theme') || 'dark';
+        root.dataset.fontSize = localStorage.getItem(STORAGE + 'fontSize') || 'medium';
+        root.dataset.fontFamily = localStorage.getItem(STORAGE + 'fontFamily') || 'sans';
+        root.dataset.spacing = localStorage.getItem(STORAGE + 'spacing') || 'normal';
+        root.dataset.verseTint = localStorage.getItem(STORAGE + 'verseTint') || 'default';
+        root.dataset.textColor = localStorage.getItem(STORAGE + 'textColor') || 'default';
+        root.dataset.bg = localStorage.getItem(STORAGE + 'bg') || 'default';
+        var q = new URLSearchParams(window.location.search);
+        var urlLang = q.get('lang');
+        var savedLang = localStorage.getItem(STORAGE + 'lang');
+        if (savedLang && !urlLang) {
+          q.set('lang', savedLang);
+          window.location.replace(window.location.pathname + (q.toString() ? '?' + q.toString() : ''));
+          return;
+        }
+        var currentLang = urlLang || savedLang || 'en';
+        var themeEl = form.querySelector('input[name="theme"][value="' + root.dataset.theme + '"]');
+        if (themeEl) themeEl.checked = true;
+        var langEl = form.querySelector('input[name="lang"][value="' + currentLang + '"]');
+        if (langEl) langEl.checked = true;
+        var fontSizeEl = form.querySelector('input[name="fontSize"][value="' + (root.dataset.fontSize || 'medium') + '"]');
+        if (fontSizeEl) fontSizeEl.checked = true;
+        var fontFamilyEl = form.querySelector('input[name="fontFamily"][value="' + (root.dataset.fontFamily || 'sans') + '"]');
+        if (fontFamilyEl) fontFamilyEl.checked = true;
+        var spacingEl = form.querySelector('input[name="spacing"][value="' + (root.dataset.spacing || 'normal') + '"]');
+        if (spacingEl) spacingEl.checked = true;
+        var verseTintEl = form.querySelector('input[name="verseTint"][value="' + (root.dataset.verseTint || 'default') + '"]');
+        if (verseTintEl) verseTintEl.checked = true;
+        var textColorEl = form.querySelector('input[name="textColor"][value="' + (root.dataset.textColor || 'default') + '"]');
+        if (textColorEl) textColorEl.checked = true;
+        var bgEl = form.querySelector('input[name="bg"][value="' + (root.dataset.bg || 'default') + '"]');
+        if (bgEl) bgEl.checked = true;
+      }
+
+      function save(key, value) {
+        if (!value) return;
+        localStorage.setItem(STORAGE + key, value);
+        if (key === 'theme') root.dataset.theme = value;
+        if (key === 'fontSize') root.dataset.fontSize = value;
+        if (key === 'fontFamily') root.dataset.fontFamily = value;
+        if (key === 'spacing') root.dataset.spacing = value;
+        if (key === 'verseTint') root.dataset.verseTint = value;
+        if (key === 'textColor') root.dataset.textColor = value;
+        if (key === 'bg') root.dataset.bg = value;
+        if (key === 'lang') {
+          var q = new URLSearchParams(window.location.search);
+          q.set('lang', value);
+          window.location.replace(window.location.pathname + '?' + q.toString());
+          return;
+        }
+        if (toast) {
+          toast.classList.remove('hidden');
+          var hideToast = function() { toast.classList.add('hidden'); };
+          window.setTimeout(hideToast, 2000);
+        }
+      }
+
+      load();
+      form.addEventListener('change', function(e) {
+        var t = e.target;
+        if (t.name && t.value) save(t.name, t.value);
+      });
+    })();
+  </script>
+</BaseLayout>

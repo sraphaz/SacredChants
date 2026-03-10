@@ -1,35 +1,61 @@
 ---
-import type { ChantVerse } from '../content/schemas/chant';
-import { ui, type Locale } from '../i18n/strings';
+import type { ChantVerse as ChantVerseType, ChantLine } from '../content/schemas/chant';
+import { ui } from '../i18n/strings';
 
 interface Props {
-  verse: ChantVerse;
-  locale?: Locale;
-  showLabels?: boolean;
+  verse: ChantVerseType;
+  line: ChantLine;
+  /** Global line index for audio sync (0-based). */
+  syncIndex: number;
+  /** Show "Verse N" label (true for first line of verse). */
+  showVerseLabel?: boolean;
+  /** Show verse explanation (true for last line of verse). */
+  showExplanation?: boolean;
 }
 
-const { verse, locale = 'en', showLabels = true } = Astro.props;
-const t = ui[locale];
+const { verse, line, syncIndex, showVerseLabel = true, showExplanation = false } = Astro.props;
+const tEn = ui.en;
+const tPt = ui.pt;
 ---
 
-<div class="verse-block prose-chant">
-  {showLabels && (
-    <span class="text-xs uppercase tracking-wider text-stone-400" aria-hidden="true">
-      {t.chant.verse} {verse.order}
+<div
+  class="verse-block prose-chant"
+  data-verse={verse.order}
+  data-sync-index={syncIndex}
+  data-start-time={String(line.start)}
+>
+  {showVerseLabel && (
+    <span class="verse-block__label uppercase tracking-label" aria-hidden="true">
+      <span class="locale-en">{tEn.chant.verse} {verse.order}</span>
+      <span class="locale-pt">{tPt.chant.verse} {verse.order}</span>
     </span>
   )}
-  <p class="original mt-1" dir="auto" lang="und">
-    {verse.original}
+  <p class="original" dir="auto" lang="und">
+    {line.original}
   </p>
   <p class="transliteration" dir="ltr">
-    {verse.transliteration}
+    {line.transliteration}
   </p>
   <div class="translations">
-    {verse.translations.pt && (
-      <p data-lang="pt">{verse.translations.pt}</p>
+    {line.translations.en && (
+      <p class="locale-en" data-lang="en">{line.translations.en}</p>
     )}
-    {verse.translations.en && (
-      <p data-lang="en">{verse.translations.en}</p>
+    {line.translations.pt && (
+      <p class="locale-pt" data-lang="pt">{line.translations.pt}</p>
     )}
   </div>
+  {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt) && (
+    <>
+      {verse.explanation.en && (
+        <div class="verse-block__explanation locale-en mt-3 text-sm rounded-md p-3" style="color: var(--sc-text-muted); background-color: var(--sc-border);">
+          <p class="whitespace-pre-wrap">{verse.explanation.en}</p>
+        </div>
+      )}
+      {verse.explanation.pt && (
+        <div class="verse-block__explanation locale-pt mt-3 text-sm rounded-md p-3" style="color: var(--sc-text-muted); background-color: var(--sc-border);">
+          <p class="whitespace-pre-wrap">{verse.explanation.pt}</p>
+        </div>
+      )}
+    </>
+  )}
 </div>

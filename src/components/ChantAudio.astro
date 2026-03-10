@@ -2,24 +2,81 @@
 interface Props {
   src: string;
   title?: string;
+  /** Id for lyric-sync script to attach timeupdate listener; always set so the element is identifiable. */
+  id?: string;
 }
 
-const { src, title = 'Chant audio' } = Astro.props;
+const { src, title = 'Chant audio', id } = Astro.props;
+const audioId = id ?? 'chant-audio-player';
+const seekId = audioId + '-seek';
+const playId = audioId + '-play';
 ---
 
 {src && (
-  <div class="max-w-2xl mx-auto mb-10 px-4">
-    <div class="rounded-lg bg-stone-100 p-4 flex items-center gap-4">
+  <div class="chant-audio-box w-full" role="group" aria-label={title}>
+    <div class="rounded-lg p-4 flex flex-col gap-3" style="background-color: var(--sc-bg); border: 1px solid var(--sc-border);">
       <audio
-        controls
+        id={audioId}
         preload="metadata"
-        class="flex-1 min-w-0 h-10"
-        aria-label={title}
+        class="hidden"
+        aria-hidden="true"
       >
         <source src={src} type="audio/mpeg" />
         <source src={src} type="audio/ogg" />
-        <p>Your browser does not support the audio element.</p>
       </audio>
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          id={playId}
+          class="chant-audio-play flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border-2 cursor-pointer transition-colors"
+          style="background-color: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text);"
+          aria-label={title + ' — play'}
+        >
+          <span aria-hidden="true">▶</span>
+        </button>
+        <label class="flex-1 min-w-0 flex flex-col gap-1" for={seekId}>
+          <input
+            type="range"
+            id={seekId}
+            name="chant-audio-seek"
+            min="0"
+            max="100"
+            value="0"
+            class="chant-audio-seek w-full h-2 rounded-full cursor-pointer accent-current"
+            style="color: var(--sc-text-muted);"
+            aria-label="Position"
+          />
+        </label>
+      </div>
     </div>
+    <script is:inline define:vars={{ audioId, seekId, playId }}>
+      (function() {
+        var audio = document.getElementById(audioId);
+        var seek = document.getElementById(seekId);
+        var playBtn = document.getElementById(playId);
+        if (!audio || !seek || !playBtn) return;
+        function setPlaying(playing) {
+          playBtn.innerHTML = playing ? '<span aria-hidden="true">⏸</span>' : '<span aria-hidden="true">▶</span>';
+          playBtn.setAttribute('aria-label', audio.getAttribute('aria-label') + (playing ? ' — pause' : ' — play'));
+        }
+        function updateSeek() {
+          var pct = audio.duration ? (100 * audio.currentTime / audio.duration) : 0;
+          seek.value = String(pct);
+        }
+        audio.addEventListener('loadedmetadata', updateSeek);
+        audio.addEventListener('timeupdate', updateSeek);
+        audio.addEventListener('play', function() { setPlaying(true); });
+        audio.addEventListener('pause', function() { setPlaying(false); });
+        audio.addEventListener('ended', function() { setPlaying(false); updateSeek(); });
+        playBtn.addEventListener('click', function() {
+          if (audio.paused) audio.play(); else audio.pause();
+        });
+        seek.addEventListener('input', function() {
+          var t = (audio.duration || 0) * (Number(seek.value) / 100);
+          audio.currentTime = t;
+        });
+        setPlaying(false);
+      })();
+    </script>
   </div>
 )}

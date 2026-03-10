@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
 import { ui, type Locale } from '../../i18n/strings';
 
 const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
@@ -11,15 +12,15 @@ const t = ui[locale];
   description={t.knowledge.description}
   locale={locale}
 >
-  <div class="max-w-2xl mx-auto px-4 py-12">
-    <h1 class="font-serif text-3xl text-stone-900 mb-2">
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       {t.knowledge.title}
     </h1>
-    <p class="text-stone-600 mb-10">
+    <p class="mb-page-content" style="color: var(--sc-text-muted)">
       {t.knowledge.description}
     </p>
-    <p class="text-stone-500">
-      Educational content will be added here (MDX pages in <code class="text-stone-600 bg-stone-100 px-1 rounded">src/content/knowledge/</code>).
+    <p style="color: var(--sc-text-subtle)">
+      Educational content will be added here (MDX pages in <code class="px-1 rounded" style="color: var(--sc-text-muted); background-color: var(--sc-border)">src/content/knowledge/</code>).
     </p>
-  </div>
+  </PageShell>
 </BaseLayout>

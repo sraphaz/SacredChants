@@ -8,48 +8,74 @@ interface Props {
   locale?: Locale;
 }
 
-const { title, description = 'A living library of sacred sound traditions.', locale = 'en' } = Astro.props;
-const t = ui[locale];
+const { title, description = 'A living library of sacred sound traditions.' } = Astro.props;
+const tEn = ui.en;
+const tPt = ui.pt;
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang="en" data-locale="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content={description} />
     <title>{title} | Sacred Chants</title>
+    <script is:inline>
+      (function() {
+        var STORAGE = 'sacred-chants-';
+        var root = document.documentElement;
+        root.dataset.theme = localStorage.getItem(STORAGE + 'theme') || 'dark';
+        root.dataset.fontSize = localStorage.getItem(STORAGE + 'fontSize') || 'medium';
+        root.dataset.fontFamily = localStorage.getItem(STORAGE + 'fontFamily') || 'sans';
+        root.dataset.spacing = localStorage.getItem(STORAGE + 'spacing') || 'normal';
+        var verseTint = localStorage.getItem(STORAGE + 'verseTint') || 'default';
+        if (verseTint) root.dataset.verseTint = verseTint;
+        var textColor = localStorage.getItem(STORAGE + 'textColor') || 'default';
+        if (textColor) root.dataset.textColor = textColor;
+        var bg = localStorage.getItem(STORAGE + 'bg') || 'default';
+        if (bg) root.dataset.bg = bg;
+        var savedLang = localStorage.getItem(STORAGE + 'lang');
+        var q = new URLSearchParams(window.location.search);
+        var urlLang = q.get('lang');
+        if (savedLang && !urlLang) {
+          q.set('lang', savedLang);
+          window.location.replace(window.location.pathname + (q.toString() ? '?' + q.toString() : ''));
+          return;
+        }
+        var locale = urlLang === 'pt' ? 'pt' : (savedLang === 'pt' ? 'pt' : 'en');
+        root.dataset.locale = locale;
+        root.lang = locale === 'pt' ? 'pt' : 'en';
+      })();
+    </script>
   </head>
   <body class="min-h-screen flex flex-col">
-    <header class="border-b border-stone-200 bg-white/80 backdrop-blur">
-      <nav class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-        <a href="/" class="font-serif text-xl text-stone-900 hover:text-stone-700">
-          Sacred Chants
-        </a>
-        <ul class="flex flex-wrap items-center gap-6 text-sm">
-          <li><a href="/" class="text-stone-600 hover:text-stone-900">{t.nav.home}</a></li>
-          <li><a href="/chants" class="text-stone-600 hover:text-stone-900">{t.nav.chants}</a></li>
-          <li><a href="/traditions" class="text-stone-600 hover:text-stone-900">{t.nav.traditions}</a></li>
-          <li><a href="/knowledge" class="text-stone-600 hover:text-stone-900">{t.nav.knowledge}</a></li>
-          <li><a href="/contribute" class="text-stone-600 hover:text-stone-900">{t.nav.contribute}</a></li>
-          <li>
-            <span class="text-stone-400">|</span>
-          </li>
-          <li>
-            <a href={Astro.url.pathname + (locale === 'en' ? '?lang=pt' : '?lang=en')} class="text-stone-600 hover:text-stone-900">
-              {locale === 'en' ? t.lang.pt : t.lang.en}
-            </a>
-          </li>
-        </ul>
+    <header class="sc-header backdrop-blur">
+      <nav class="sc-header__nav max-w-content mx-auto px-page-x py-4 flex flex-wrap items-center gap-4">
+        <a href="/" class="locale-en font-serif text-xl sc-header-a shrink-0"><span class="locale-en">Sacred Chants</span></a>
+        <a href="/?lang=pt" class="locale-pt font-serif text-xl sc-header-a shrink-0"><span class="locale-pt">Sacred Chants</span></a>
+        <div class="sc-header__menu-wrap flex-1 flex justify-center min-w-0">
+          <ul class="sc-header__menu flex flex-wrap items-center justify-center gap-6 text-sm">
+          <li><a href="/" class="locale-en">{tEn.nav.home}</a><a href="/?lang=pt" class="locale-pt">{tPt.nav.home}</a></li>
+          <li><a href="/chants" class="locale-en">{tEn.nav.chants}</a><a href="/chants?lang=pt" class="locale-pt">{tPt.nav.chants}</a></li>
+          <li><a href="/traditions" class="locale-en">{tEn.nav.traditions}</a><a href="/traditions?lang=pt" class="locale-pt">{tPt.nav.traditions}</a></li>
+          <li><a href="/knowledge" class="locale-en">{tEn.nav.knowledge}</a><a href="/knowledge?lang=pt" class="locale-pt">{tPt.nav.knowledge}</a></li>
+          <li><a href="/contribute" class="locale-en">{tEn.nav.contribute}</a><a href="/contribute?lang=pt" class="locale-pt">{tPt.nav.contribute}</a></li>
+          <li><a href="/settings" class="locale-en">{tEn.nav.settings}</a><a href="/settings?lang=pt" class="locale-pt">{tPt.nav.settings}</a></li>
+          <li><span style="color: var(--sc-text-subtle)">|</span></li>
+          <li><a href={Astro.url.pathname + '?lang=pt'} class="locale-en">{tEn.lang.pt}</a><a href={Astro.url.pathname + '?lang=en'} class="locale-pt">{tPt.lang.en}</a></li>
+          </ul>
+        </div>
       </nav>
     </header>
-    <main class="flex-1">
+    <main class="flex-1 sc-main-with-header">
       <slot />
     </main>
-    <footer class="border-t border-stone-200 py-8 mt-auto">
-      <div class="max-w-4xl mx-auto px-4 text-center text-sm text-stone-500">
-        <p>Sacred Chants — {t.home.tagline}</p>
-        <p class="mt-1">Open source · No ads · Contemplative</p>
+    <footer class="sc-footer border-t py-8 mt-auto">
+      <div class="max-w-content mx-auto px-page-x text-center text-sm">
+        <p class="locale-en">Sacred Chants — {tEn.home.tagline}</p>
+        <p class="locale-pt">Sacred Chants — {tPt.home.tagline}</p>
+        <p class="mt-1" style="color: var(--sc-text-subtle)">Open source · No ads · Contemplative</p>
       </div>
     </footer>
   </body>

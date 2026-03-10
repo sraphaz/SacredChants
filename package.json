@@ -5,8 +5,10 @@
   "description": "A living library of sacred sound traditions.",
   "scripts": {
     "dev": "astro dev",
+    "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite', { recursive: true, force: true })\" && astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "chant:new": "node scripts/generate-chant.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.0",

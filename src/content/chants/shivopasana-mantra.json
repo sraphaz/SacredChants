@@ -1,0 +1,194 @@
+{
+  "slug": "shivopasana-mantra",
+  "title": "Shivopasana Mantra",
+  "tradition": "Hindu",
+  "origin": "India",
+  "language": "Sanskrit",
+  "script": "Devanagari",
+  "description": {
+    "en": "The Shivopasana Mantra is a sacred invocation to Lord Shiva from the Maha Narayana Upanishad. It consists of eleven names of Shiva (each with a linga form), followed by a closing verse. Chanting is said to bring peace, prosperity, health and devotion.",
+    "pt": "O Shivopasana Mantra é uma invocação sagrada ao Senhor Shiva do Maha Narayana Upanishad. Consiste em onze nomes de Shiva (cada um com uma forma linga), seguidos de um verso final. Diz-se que cantar traz paz, prosperidade, saúde e devoção."
+  },
+  "tags": [
+    "mantra",
+    "shiva",
+    "upanishad",
+    "devotional",
+    "hindu"
+  ],
+  "audio": "/audio/shivopasana-mantra.mp3",
+  "about": {
+    "en": "Shivopasana means \"worship of Shiva\". This mantra appears in the Maha Narayana Upanishad and invokes Shiva through various aspects: Lord of the departed (Nidhanapata), the upward (Urdhva), the golden (Hiranya, Suvarna), the divine (Divya), existence (Bhava), the fierce (Sharva), the auspicious (Shiva), the radiant (Jvala), the Self (Atman), and the supreme (Parama). The closing line states that this mantra sanctifies and establishes all lingas, and is pure like the moon and sun. Note: the recording used may include, after the Shivopasana (c. 1:24), other mantras or stotras (e.g. Tryambakam, Rudram); the text above covers only the full Shivopasana from the Upanishad.",
+    "pt": "Shivopasana significa \"culto a Shiva\". Este mantra aparece no Maha Narayana Upanishad e invoca Shiva através de vários aspectos: Senhor dos que partiram (Nidhanapata), o elevado (Urdhva), o dourado (Hiranya, Suvarna), o divino (Divya), a existência (Bhava), o feroz (Sharva), o auspicioso (Shiva), o radiante (Jvala), o Ser (Atman) e o supremo (Parama). O verso final afirma que este mantra santifica e estabelece todos os lingas e é puro como a lua e o sol. Nota: a gravação utilizada pode incluir, após o Shivopasana (c. 1:24), outros mantras ou estotras (por ex. Tryambakam, Rudram); o texto acima cobre apenas o Shivopasana completo do Upanishad."
+  },
+  "verses": [
+    {
+      "order": 1,
+      "lines": [
+        {
+          "start": 0,
+          "original": "ॐ निधनपतये नमः। निधनपतान्तिकाय नमः।",
+          "transliteration": "oṃ nidhanapataye namaḥ | nidhanapatāntikāya namaḥ |",
+          "translations": {
+            "en": "Om, obeisance to the Lord of the departed; obeisance to the one who is near the Lord of the departed.",
+            "pt": "Om, reverência ao Senhor dos que partiram; reverência a quem está próximo do Senhor dos que partiram."
+          }
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "lines": [
+        {
+          "start": 0,
+          "original": "ऊर्ध्वाय नमः। ऊर्ध्वलिङ्गाय नमः।",
+          "transliteration": "ūrdhvāya namaḥ | ūrdhvaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to the upward one; obeisance to the one whose symbol is the upward (linga).",
+            "pt": "Reverência ao elevado; reverência àquele cujo símbolo é o elevado (linga)."
+          }
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "lines": [
+        {
+          "start": 0,
+          "original": "हिरण्याय नमः। हिरण्यलिङ्गाय नमः।",
+          "transliteration": "hiraṇyāya namaḥ | hiraṇyaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to the golden one; obeisance to the one whose symbol is golden.",
+            "pt": "Reverência ao dourado; reverência àquele cujo símbolo é dourado."
+          }
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "lines": [
+        {
+          "start": 0,
+          "original": "सुवर्णाय नमः। सुवर्णलिङ्गाय नमः।",
+          "transliteration": "suvarṇāya namaḥ | suvarṇaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to the one of gold; obeisance to the one whose symbol is of gold.",
+            "pt": "Reverência ao de ouro; reverência àquele cujo símbolo é de ouro."
+          }
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "lines": [
+        {
+          "start": 0,
+          "original": "दिव्याय नमः। दिव्यलिङ्गाय नमः।",
+          "transliteration": "divyāya namaḥ | divyaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to the divine one; obeisance to the one whose symbol is divine.",
+            "pt": "Reverência ao divino; reverência àquele cujo símbolo é divino."
+          }
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "lines": [
+        {
+          "start": 0,
+          "original": "भवाय नमः। भवलिङ्गाय नमः।",
+          "transliteration": "bhavāya namaḥ | bhavaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to existence (Bhava); obeisance to the one whose symbol is existence.",
+            "pt": "Reverência à existência (Bhava); reverência àquele cujo símbolo é a existência."
+          }
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "lines": [
+        {
+          "start": 0,
+          "original": "शर्वाय नमः। शर्वलिङ्गाय नमः।",
+          "transliteration": "śarvāya namaḥ | śarvaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to Sharva (the fierce one); obeisance to the one whose symbol is Sharva.",
+            "pt": "Reverência a Sharva (o feroz); reverência àquele cujo símbolo é Sharva."
+          }
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "lines": [
+        {
+          "start": 0,
+          "original": "शिवाय नमः। शिवलिङ्गाय नमः।",
+          "transliteration": "śivāya namaḥ | śivaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to Shiva (the auspicious one); obeisance to the one whose symbol is Shiva.",
+            "pt": "Reverência a Shiva (o auspicioso); reverência àquele cujo símbolo é Shiva."
+          }
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "lines": [
+        {
+          "start": 0,
+          "original": "ज्वलाय नमः। ज्वललिङ्गाय नमः।",
+          "transliteration": "jvalāya namaḥ | jvalaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to the radiant one; obeisance to the one whose symbol is the radiant.",
+            "pt": "Reverência ao radiante; reverência àquele cujo símbolo é o radiante."
+          }
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "lines": [
+        {
+          "start": 0,
+          "original": "आत्माय नमः। आत्मलिङ्गाय नमः।",
+          "transliteration": "ātmāya namaḥ | ātmaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to the Self; obeisance to the one whose symbol is the Self.",
+            "pt": "Reverência ao Ser; reverência àquele cujo símbolo é o Ser."
+          }
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "lines": [
+        {
+          "start": 0,
+          "original": "परमाय नमः। परमलिङ्गाय नमः।",
+          "transliteration": "paramāya namaḥ | paramaliṅgāya namaḥ |",
+          "translations": {
+            "en": "Obeisance to the supreme one; obeisance to the one whose symbol is the supreme.",
+            "pt": "Reverência ao supremo; reverência àquele cujo símbolo é o supremo."
+          }
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "lines": [
+        {
+          "start": 0,
+          "original": "एतत्सोमस्य सूर्यस्य सर्व लिङ्गस्थापयति पाणिमन्त्रं पवित्रम्।",
+          "transliteration": "etat somasya sūryasya sarva liṅgasthāpayati pāṇimantraṃ pavitram |",
+          "translations": {
+            "en": "This hand-mantra of the moon (Soma) and the sun (Surya) establishes all lingas; it is pure.",
+            "pt": "Este mantra da mão da lua (Soma) e do sol (Surya) estabelece todos os lingas; é puro."
+          }
+        }
+      ]
+    }
+  ]
+}

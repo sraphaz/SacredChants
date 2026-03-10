@@ -1,42 +1,48 @@
 ---
 import type { Chant } from '../content/schemas/chant';
-import { ui, type Locale } from '../i18n/strings';
 
 interface Props {
   chant: Chant;
-  locale?: Locale;
 }
 
-const { chant, locale = 'en' } = Astro.props;
-const t = ui[locale];
+const { chant } = Astro.props;
 ---
 
-<header class="max-w-2xl mx-auto text-center mb-12">
-  <p class="text-sm uppercase tracking-wider text-stone-500 mb-2">
-    {chant.tradition}
-    {chant.origin ? ` · ${chant.origin}` : ''}
-  </p>
-  <h1 class="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
-    {chant.title}
-  </h1>
-  {chant.language && (
-    <p class="text-stone-600 text-sm">
-      {chant.language}
-      {chant.script ? ` (${chant.script})` : ''}
+<header class="chant-header chant-header--centered">
+  <div class="chant-header__top">
+    <p class="chant-header__meta" aria-hidden="true">
+      {chant.tradition}
+      {chant.origin ? ` · ${chant.origin}` : ''}
     </p>
-  )}
-  {chant.description && (
-    <p class="mt-6 text-stone-600 leading-relaxed max-w-xl mx-auto">
-      {chant.description}
-    </p>
-  )}
-  {chant.tags && chant.tags.length > 0 && (
-    <ul class="flex flex-wrap justify-center gap-2 mt-4" aria-label="Tags">
-      {chant.tags.map((tag) => (
-        <li>
-          <span class="text-xs px-2 py-1 rounded bg-stone-100 text-stone-600">{tag}</span>
-        </li>
-      ))}
-    </ul>
-  )}
+    <h1 class="chant-header__title sc-heading font-serif">
+      {chant.title}
+    </h1>
+    {chant.language && (
+      <p class="chant-header__lang" aria-hidden="true">
+        {chant.language}
+        {chant.script ? ` (${chant.script})` : ''}
+      </p>
+    )}
+  </div>
+  <div class="chant-header__body">
+    {(chant.description?.en || chant.description?.pt) && (
+      <div class="chant-header__desc">
+        {chant.description.en && (
+          <p class="locale-en mb-0">{chant.description.en}</p>
+        )}
+        {chant.description.pt && (
+          <p class="locale-pt mb-0">{chant.description.pt}</p>
+        )}
+      </div>
+    )}
+    {chant.tags && chant.tags.length > 0 && (
+      <ul class="chant-header__tags" aria-label="Tags">
+        {chant.tags.map((tag) => (
+          <li>
+            <span class="chant-header__tag">{tag}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
 </header>
