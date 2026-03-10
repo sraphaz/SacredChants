@@ -2,6 +2,14 @@
 import '../styles/global.css';
 import { ui, type Locale } from '../i18n/strings';
 
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+const ORIGIN = Astro.url.origin;
+const FULL_BASE = ORIGIN + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const pathname = Astro.url.pathname;
+const pathWithBase = pathname.startsWith(BASE_SLASH) || pathname === BASE_SLASH.replace(/\/$/, '') ? pathname : BASE_SLASH.replace(/\/$/, '') + (pathname.startsWith('/') ? pathname : '/' + pathname);
+const FULL_PATH = ORIGIN + (pathWithBase.startsWith('/') ? pathWithBase : '/' + pathWithBase);
+
 interface Props {
   title: string;
   description?: string;
@@ -21,7 +29,8 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <base href={FULL_BASE} />
+    <link rel="icon" type="image/svg+xml" href={`${FULL_BASE}favicon.svg`} />
     <meta name="description" content={description} />
     <title>{title} | Sacred Chants</title>
     <script is:inline>
@@ -56,23 +65,20 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
     <header class="sc-header backdrop-blur">
       <nav class="sc-header__nav w-full flex flex-nowrap items-center gap-3 sc-header__nav-pad">
         <div class="sc-header__brand shrink-0">
-          <a href="/" class="locale-en font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-en">Sacred Chants</span></a>
-          <a href="/?lang=pt" class="locale-pt font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-pt">Sacred Chants</span></a>
+          <a href={FULL_BASE} class="locale-en font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-en">Sacred Chants</span></a>
+          <a href={`${FULL_BASE}?lang=pt`} class="locale-pt font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-pt">Sacred Chants</span></a>
         </div>
         <div class="sc-header__menu-wrap flex-1 flex justify-center min-w-0 shrink">
           <ul class="sc-header__menu flex flex-nowrap items-center justify-center gap-3 md:gap-5 text-sm whitespace-nowrap">
-          <li><a href="/" class="locale-en">{tEn.nav.home}</a><a href="/?lang=pt" class="locale-pt">{tPt.nav.home}</a></li>
-          <li><a href="/chants" class="locale-en">{tEn.nav.chants}</a><a href="/chants?lang=pt" class="locale-pt">{tPt.nav.chants}</a></li>
-          <li><a href="/traditions" class="locale-en">{tEn.nav.traditions}</a><a href="/traditions?lang=pt" class="locale-pt">{tPt.nav.traditions}</a></li>
-          <li><a href="/knowledge" class="locale-en">{tEn.nav.knowledge}</a><a href="/knowledge?lang=pt" class="locale-pt">{tPt.nav.knowledge}</a></li>
-          <li><a href="/contribute" class="locale-en">{tEn.nav.contribute}</a><a href="/contribute?lang=pt" class="locale-pt">{tPt.nav.contribute}</a></li>
-          <li><a href="/settings" class="locale-en">{tEn.nav.settings}</a><a href="/settings?lang=pt" class="locale-pt">{tPt.nav.settings}</a></li>
+          <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
+          <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
+          <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a></li>
+          <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
+          <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
+          <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
+          <li><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span></li>
+          <li><a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
           </ul>
-        </div>
-        <div class="sc-header__lang shrink-0 ml-auto flex items-center gap-2">
-          <span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span>
-          <a href={Astro.url.pathname + '?lang=pt'} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a>
-          <a href={Astro.url.pathname + '?lang=en'} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a>
         </div>
       </nav>
     </header>
