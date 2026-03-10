@@ -211,6 +211,9 @@
   padding-left: var(--sc-page-padding-x);
   padding-right: var(--sc-page-padding-x);
 }
+.sc-header__lang {
+  margin-left: auto;
+}
 .sc-header__menu {
   list-style: none;
   margin: 0;
