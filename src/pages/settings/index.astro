@@ -19,7 +19,7 @@ const t = ui[locale];
       {t.settings.description}
     </p>
 
-    <form id="settings-form" class="space-y-10">
+    <form id="settings-form" class="space-y-10" autocomplete="off" aria-label={t.settings.title}>
       <fieldset>
         <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
           {t.settings.theme}
