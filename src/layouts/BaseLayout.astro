@@ -62,14 +62,25 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
     </script>
   </head>
   <body class="min-h-screen flex flex-col">
-    <header class="sc-header backdrop-blur">
-      <nav class="sc-header__nav w-full flex flex-nowrap items-center gap-3 sc-header__nav-pad">
+    <header class="sc-header backdrop-blur" id="sc-header">
+      <nav class="sc-header__nav w-full flex flex-nowrap items-center gap-3 sc-header__nav-pad" aria-label="Main">
         <div class="sc-header__brand shrink-0">
           <a href={FULL_BASE} class="locale-en font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-en">Sacred Chants</span></a>
           <a href={`${FULL_BASE}?lang=pt`} class="locale-pt font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-pt">Sacred Chants</span></a>
         </div>
-        <div class="sc-header__menu-wrap flex-1 flex justify-center min-w-0 shrink">
-          <ul class="sc-header__menu flex flex-nowrap items-center justify-center gap-3 md:gap-5 text-sm whitespace-nowrap">
+        <button
+          type="button"
+          class="sc-header__menu-toggle"
+          id="sc-header-menu-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="sc-header-drawer"
+        >
+          <span class="sc-header__menu-toggle-icon" aria-hidden="true"></span>
+        </button>
+        <div class="sc-header__drawer-backdrop" id="sc-header-drawer-backdrop" aria-hidden="true"></div>
+        <div class="sc-header__menu-wrap" id="sc-header-drawer" role="navigation" aria-label="Site menu">
+          <ul class="sc-header__menu">
           <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
           <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
           <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a></li>
@@ -82,6 +93,35 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
         </div>
       </nav>
     </header>
+    <script is:inline>
+      (function() {
+        var header = document.getElementById('sc-header');
+        var toggle = document.getElementById('sc-header-menu-toggle');
+        var drawer = document.getElementById('sc-header-drawer');
+        var backdrop = document.getElementById('sc-header-drawer-backdrop');
+        if (!header || !toggle || !drawer) return;
+        function open() {
+          header.classList.add('sc-header--open');
+          toggle.setAttribute('aria-expanded', 'true');
+          toggle.setAttribute('aria-label', 'Close menu');
+        }
+        function close() {
+          header.classList.remove('sc-header--open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+        }
+        toggle.addEventListener('click', function() {
+          if (header.classList.contains('sc-header--open')) close(); else open();
+        });
+        if (backdrop) backdrop.addEventListener('click', close);
+        drawer.querySelectorAll('a').forEach(function(a) {
+          a.addEventListener('click', close);
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && header.classList.contains('sc-header--open')) close();
+        });
+      })();
+    </script>
     <main class="flex-1 sc-main-with-header">
       <slot />
     </main>

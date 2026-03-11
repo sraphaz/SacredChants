@@ -26,6 +26,16 @@ if (!entry) {
 
 const chant = { ...entry.data, slug: entry.id };
 
+/** Resolve audio URL with base path so it works on GitHub Pages (content uses paths like /audio/chant.mp3). */
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const audioUrlForPlayer = chant.audio?.startsWith('http')
+  ? chant.audio
+  : chant.audio
+    ? FULL_BASE + chant.audio.replace(/^\//, '')
+    : '';
+
 /** Resolve Bandcamp art from page when not set in content (so editors don't need to manage the image). */
 const bandcampArtImage =
   chant.bandcampArtImage ??
@@ -54,10 +64,10 @@ const linesWithMeta = (() => {
 ---
 
 <ChantLayout chant={chant}>
-  {chant.audio && (
+  {chant.audio && audioUrlForPlayer && (
     <>
       <ChantPlayerBar
-        audioUrl={chant.audio}
+        audioUrl={audioUrlForPlayer}
         title={chant.title}
         hasSync={hasSync}
         syncLabelEn={tEn.chant.syncLabel}
