@@ -59,6 +59,20 @@ public/
 | `npm run dev`  | Start dev server |
 | `npm run build`| Build for production |
 | `npm run preview` | Preview production build |
+| `npm run test:e2e` | Run E2E tests (Playwright; inicia servidor com base `/` automaticamente) |
+| `npm run test:e2e:server` | Só inicia o servidor para E2E (correr noutro terminal antes de `test:e2e` para evitar timeout) |
+| `npm run test:e2e:ui` | E2E com interface gráfica |
+
+## E2E (Playwright)
+
+Os testes E2E cobrem:
+
+- **Drawer mobile** — abrir/fechar pelo botão, fechar por backdrop, Escape ou clique num link; drawer com altura útil e **sem barra de rolagem**.
+- **Navegação** — home, lista de chants, página de um chant com player; links do header em viewport desktop.
+
+**Recomendado (ambiente isolado):** `npm run test:e2e:docker` — sobe uma imagem Docker com Playwright, faz build com base `/`, inicia o preview e corre os testes. Não depende do Node/browsers do host.
+
+Alternativa local: `npm run test:e2e` (pode demorar ~2 min no primeiro run). Ou noutro terminal `npm run test:e2e:server` e depois `npm run test:e2e`.
 
 ## Contributing
 

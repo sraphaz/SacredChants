@@ -8,7 +8,9 @@
     "url": "https://github.com/sraphaz/SacredChants.git"
   },
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -20,6 +22,10 @@
     "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite', { recursive: true, force: true })\" && astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:server": "node scripts/start-preview-e2e.js",
+    "test:e2e:docker": "docker build -f Dockerfile.e2e -t sacred-chants-e2e . && docker run --rm --ipc=host sacred-chants-e2e",
     "chant:new": "node scripts/generate-chant.js"
   },
   "dependencies": {
@@ -30,9 +36,11 @@
     "zod": "^3.23.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@semantic-release/commit-analyzer": "^11.0.0",
     "@semantic-release/github": "^10.0.2",
     "@semantic-release/release-notes-generator": "^12.0.0",
+    "cross-env": "^10.1.0",
     "semantic-release": "^24.0.0",
     "typescript": "^5.6.0"
   }

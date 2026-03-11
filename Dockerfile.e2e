@@ -1,0 +1,20 @@
+# E2E em ambiente isolado: imagem Playwright (Node + Chromium) + app
+FROM mcr.microsoft.com/playwright:v1.48.0-noble
+
+WORKDIR /app
+
+# Usar browsers já presentes na imagem (evitar download no npm ci)
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+# Dependências (lockfile para build reproduzível)
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# Código e config
+COPY . .
+
+# Sem webServer no Playwright; o entrypoint sobe o preview e corre os testes
+ENV E2E_DOCKER=1
+ENV CI=1
+
+ENTRYPOINT ["node", "scripts/run-e2e-in-docker.mjs"]

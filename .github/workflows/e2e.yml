@@ -1,0 +1,21 @@
+# E2E em ambiente isolado (Docker). Corre em push para main e em PRs.
+name: E2E
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build E2E Docker image
+        run: docker build -f Dockerfile.e2e -t sacred-chants-e2e .
+
+      - name: Run E2E tests
+        run: docker run --rm --ipc=host sacred-chants-e2e
