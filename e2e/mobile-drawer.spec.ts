@@ -78,7 +78,7 @@ test.describe('Mobile drawer', () => {
     expect(box!.width).toBeGreaterThan(100);
   });
 
-  test('drawer não mostra barra de rolagem (menu em altura cheia, sem scroll)', async ({ page }) => {
+  test('drawer sem scroll; menu pode ter overflow-y auto (scroll discreto quando muitos itens)', async ({ page }) => {
     const toggle = page.getByRole('button', { name: /open menu/i });
     const drawer = page.locator('#sc-header-drawer');
     const menu = page.locator('#sc-header-drawer .sc-header__drawer-menu');
@@ -86,12 +86,12 @@ test.describe('Mobile drawer', () => {
     await toggle.click();
     await expect(drawer).toHaveClass(/sc-header__drawer--open/);
 
-    // Drawer: sem overflow vertical (nunca mostra scrollbar)
+    // Drawer: sem overflow vertical (nunca mostra scrollbar no container)
     const drawerOverflowY = await drawer.evaluate((el) => window.getComputedStyle(el).overflowY);
     expect(drawerOverflowY, 'drawer não deve ter overflow-y auto/scroll').not.toMatch(/^(auto|scroll)$/);
 
-    // Lista do menu: sem overflow auto/scroll (sem barra de rolagem)
+    // Lista do menu: pode ser overflow-y auto para scroll discreto quando há muitos itens
     const menuOverflowY = await menu.evaluate((el) => window.getComputedStyle(el).overflowY);
-    expect(menuOverflowY, 'menu do drawer não deve ter barra de rolagem').not.toMatch(/^(auto|scroll)$/);
+    expect(['auto', 'hidden'].includes(menuOverflowY), 'menu deve ter overflow-y auto ou hidden').toBe(true);
   });
 });
