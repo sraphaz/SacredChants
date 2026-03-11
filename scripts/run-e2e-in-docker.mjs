@@ -31,27 +31,30 @@ function freePort(port) {
 const MAX_WAIT_MS = 90_000;
 const POLL_MS = 800;
 
-function waitForServer(baseUrl) {
-  const u = new URL(baseUrl);
+function waitForServer(port) {
   return new Promise((resolve, reject) => {
     const deadline = Date.now() + MAX_WAIT_MS;
     function poll() {
       const req = http.request({
-        hostname: u.hostname,
-        port: u.port,
-        path: u.pathname || '/',
+        hostname: '127.0.0.1',
+        port: Number(port),
+        path: '/',
         method: 'HEAD',
-        timeout: 3000,
+        timeout: 5000,
       }, (res) => {
         if (res.statusCode < 500) return resolve();
         if (Date.now() > deadline) return reject(new Error('Timeout waiting for server'));
         setTimeout(poll, POLL_MS);
       });
-      req.on('error', () => {
-        if (Date.now() > deadline) return reject(new Error('Timeout waiting for server'));
+      req.on('error', (err) => {
+        if (Date.now() > deadline) return reject(new Error('Timeout waiting for server: ' + err.message));
         setTimeout(poll, POLL_MS);
       });
-      req.on('timeout', () => { req.destroy(); if (Date.now() > deadline) reject(new Error('Timeout waiting for server')); else setTimeout(poll, POLL_MS); });
+      req.on('timeout', () => {
+        req.destroy();
+        if (Date.now() > deadline) reject(new Error('Timeout waiting for server'));
+        else setTimeout(poll, POLL_MS);
+      });
       req.end();
     }
     poll();
@@ -89,7 +92,7 @@ async function main() {
   freePort(e2ePort);
   await new Promise((r) => setTimeout(r, 1000));
   console.log('[e2e-docker] Starting preview server on port', e2ePort, '...');
-  const preview = spawn('npm', ['run', 'preview', '--', '--port', String(e2ePort)], {
+  const preview = spawn('npm', ['run', 'preview', '--', '--port', String(e2ePort), '--host', '0.0.0.0'], {
     env: process.env,
     stdio: ['ignore', 'pipe', 'inherit'],
     shell: true,
@@ -102,12 +105,12 @@ async function main() {
   const portPromise = parsePortFromPreviewOutput(preview.stdout);
   const port = await Promise.race([
     portPromise,
-    new Promise((res) => setTimeout(() => res(e2ePort), 12000)),
+    new Promise((res) => setTimeout(() => res(e2ePort), 15000)),
   ]);
-  const baseUrl = `http://localhost:${port}/`;
+  const baseUrl = `http://127.0.0.1:${port}/`;
   console.log('[e2e-docker] Preview on port', port, '- waiting for server...');
-  await new Promise((r) => setTimeout(r, 3000));
-  await waitForServer(baseUrl);
+  await new Promise((r) => setTimeout(r, 5000));
+  await waitForServer(port);
   console.log('[e2e-docker] Server ready, running Playwright tests...');
 
   const playwright = spawn('npx', ['playwright', 'test'], {
