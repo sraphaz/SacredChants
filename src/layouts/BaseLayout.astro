@@ -76,8 +76,7 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
           <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
           <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
           <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
-          <li><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span></li>
-          <li><a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
+          <li class="sc-header__menu-lang-row"><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span> <a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
           </ul>
         </div>
         <button
@@ -101,8 +100,7 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
       <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
       <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
       <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
-      <li><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span></li>
-      <li><a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
+      <li class="sc-header__menu-lang-row"><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span> <a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
       </ul>
     </div>
     <script is:inline>
@@ -113,6 +111,7 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
         var backdrop = document.getElementById('sc-header-drawer-backdrop');
         if (!header || !toggle || !drawer) return;
         function open() {
+          document.body.classList.add('sc-drawer-open');
           header.classList.add('sc-header--open');
           drawer.classList.add('sc-header__drawer--open');
           if (backdrop) backdrop.classList.add('sc-header__drawer-backdrop--open');
@@ -120,6 +119,7 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
           toggle.setAttribute('aria-label', 'Close menu');
         }
         function close() {
+          document.body.classList.remove('sc-drawer-open');
           header.classList.remove('sc-header--open');
           drawer.classList.remove('sc-header__drawer--open');
           if (backdrop) backdrop.classList.remove('sc-header__drawer-backdrop--open');
