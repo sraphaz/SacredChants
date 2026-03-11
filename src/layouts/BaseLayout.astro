@@ -68,18 +68,7 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
           <a href={FULL_BASE} class="locale-en font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-en">Sacred Chants</span></a>
           <a href={`${FULL_BASE}?lang=pt`} class="locale-pt font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-pt">Sacred Chants</span></a>
         </div>
-        <button
-          type="button"
-          class="sc-header__menu-toggle"
-          id="sc-header-menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="sc-header-drawer"
-        >
-          <span class="sc-header__menu-toggle-icon" aria-hidden="true"></span>
-        </button>
-        <div class="sc-header__drawer-backdrop" id="sc-header-drawer-backdrop" aria-hidden="true"></div>
-        <div class="sc-header__menu-wrap" id="sc-header-drawer" role="navigation" aria-label="Site menu">
+        <div class="sc-header__menu-inline">
           <ul class="sc-header__menu">
           <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
           <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
@@ -91,8 +80,31 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
           <li><a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
           </ul>
         </div>
+        <button
+          type="button"
+          class="sc-header__menu-toggle"
+          id="sc-header-menu-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="sc-header-drawer"
+        >
+          <span class="sc-header__menu-toggle-icon" aria-hidden="true"></span>
+        </button>
       </nav>
     </header>
+    <div class="sc-header__drawer-backdrop" id="sc-header-drawer-backdrop" aria-hidden="true"></div>
+    <div class="sc-header__drawer" id="sc-header-drawer" role="navigation" aria-label="Site menu">
+      <ul class="sc-header__drawer-menu">
+      <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
+      <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
+      <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a></li>
+      <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
+      <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
+      <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
+      <li><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span></li>
+      <li><a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
+      </ul>
+    </div>
     <script is:inline>
       (function() {
         var header = document.getElementById('sc-header');
@@ -102,23 +114,27 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
         if (!header || !toggle || !drawer) return;
         function open() {
           header.classList.add('sc-header--open');
+          drawer.classList.add('sc-header__drawer--open');
+          if (backdrop) backdrop.classList.add('sc-header__drawer-backdrop--open');
           toggle.setAttribute('aria-expanded', 'true');
           toggle.setAttribute('aria-label', 'Close menu');
         }
         function close() {
           header.classList.remove('sc-header--open');
+          drawer.classList.remove('sc-header__drawer--open');
+          if (backdrop) backdrop.classList.remove('sc-header__drawer-backdrop--open');
           toggle.setAttribute('aria-expanded', 'false');
           toggle.setAttribute('aria-label', 'Open menu');
         }
         toggle.addEventListener('click', function() {
-          if (header.classList.contains('sc-header--open')) close(); else open();
+          if (drawer.classList.contains('sc-header__drawer--open')) close(); else open();
         });
         if (backdrop) backdrop.addEventListener('click', close);
         drawer.querySelectorAll('a').forEach(function(a) {
           a.addEventListener('click', close);
         });
         document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && header.classList.contains('sc-header--open')) close();
+          if (e.key === 'Escape' && drawer.classList.contains('sc-header__drawer--open')) close();
         });
       })();
     </script>
