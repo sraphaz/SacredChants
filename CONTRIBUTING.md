@@ -71,6 +71,43 @@ Example:
 - Use TypeScript and the existing Zod schemas.
 - Prefer minimal, accessible HTML and Tailwind for layout.
 
+## Commits and releases
+
+We use **Conventional Commits** so that each merge to `main` can trigger an automatic release and deploy.
+
+### Commit message format
+
+Use a type and optional scope in the first line:
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+```
+
+**Types that trigger a release:**
+
+| Type     | Effect on version | Example                    |
+|----------|-------------------|----------------------------|
+| `feat`   | Minor (0.x.0)     | `feat: add Hanuman Chalisa` |
+| `fix`    | Patch (0.0.x)     | `fix: audio URL on GitHub Pages` |
+| `perf`   | Patch             | `perf: reduce bundle size`  |
+| `docs`   | No release        | `docs: update CONTRIBUTING` |
+| `chore`  | No release        | `chore: bump deps`          |
+| `style`  | No release        | `style: format with prettier` |
+
+Use **BREAKING CHANGE:** in the body (or suffix `!` after type) for a major version bump.
+
+### Flow
+
+1. You open a PR; CI runs (build + lint).
+2. After merge to `main`, the **Release** workflow runs:
+   - Analyzes commits since the last tag.
+   - If there is at least one `feat` or `fix` (or other release type), it creates a new **GitHub Release** (tag + notes) with **Semantic Versioning**.
+3. The **Deploy** workflow runs when a release is **published**, building from that tag and deploying to GitHub Pages.
+
+So: **merge to main with conventional commits → automatic release (when applicable) → automatic deploy.**
+
 ## Questions
 
 Open an issue for discussion or questions about traditions, attribution, or schema changes.

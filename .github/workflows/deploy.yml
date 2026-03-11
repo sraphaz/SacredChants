@@ -1,9 +1,10 @@
 # Deploy to GitHub Pages (https://sraphaz.github.io/SacredChants/)
+# Dispara quando uma release é publicada (criada pelo workflow Release).
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -17,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'release' && github.event.release.tag_name || 'main' }}
 
       - name: Install, build, and upload site
         uses: withastro/action@v3

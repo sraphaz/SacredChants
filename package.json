@@ -3,6 +3,18 @@
   "type": "module",
   "version": "0.1.0",
   "description": "A living library of sacred sound traditions.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sraphaz/SacredChants.git"
+  },
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ]
+  },
   "scripts": {
     "dev": "astro dev",
     "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite', { recursive: true, force: true })\" && astro dev",
@@ -18,6 +30,10 @@
     "zod": "^3.23.0"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^11.0.0",
+    "@semantic-release/github": "^10.0.2",
+    "@semantic-release/release-notes-generator": "^12.0.0",
+    "semantic-release": "^24.0.0",
     "typescript": "^5.6.0"
   }
 }
