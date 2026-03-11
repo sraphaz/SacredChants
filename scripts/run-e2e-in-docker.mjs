@@ -4,11 +4,8 @@
  * Uso: node scripts/run-e2e-in-docker.mjs
  */
 import { spawn, execSync } from 'child_process';
-import { createInterface } from 'readline';
 import http from 'http';
 import { platform } from 'os';
-
-const DEFAULT_PORT = 4321;
 
 function freePort(port) {
   try {
@@ -61,20 +58,6 @@ function waitForServer(port) {
   });
 }
 
-function parsePortFromPreviewOutput(stream) {
-  return new Promise((resolve) => {
-    const rl = createInterface({ input: stream, crlfDelay: Infinity });
-    rl.on('line', (line) => {
-      const m = line.match(/Local\s+http:\/\/[^:]+:(\d+)/);
-      if (m) {
-        resolve(parseInt(m[1], 10));
-        rl.close();
-      }
-    });
-    rl.on('close', () => resolve(DEFAULT_PORT));
-  });
-}
-
 async function main() {
   const e2ePort = Number(process.env.E2E_PORT) || 4321;
   const siteOrigin = `http://localhost:${e2ePort}`;
@@ -91,26 +74,21 @@ async function main() {
 
   freePort(e2ePort);
   await new Promise((r) => setTimeout(r, 1000));
-  console.log('[e2e-docker] Starting preview server on port', e2ePort, '...');
-  const preview = spawn('npm', ['run', 'preview', '--', '--port', String(e2ePort), '--host', '0.0.0.0'], {
+  console.log('[e2e-docker] Serving dist/ on port', e2ePort, '(serve for CI)...');
+  const server = spawn('npx', ['serve', 'dist', '-l', String(e2ePort)], {
     env: process.env,
     stdio: ['ignore', 'pipe', 'inherit'],
-    shell: true,
+    cwd: process.cwd(),
   });
-  preview.on('error', (err) => {
+  server.on('error', (err) => {
     console.error(err);
     process.exit(1);
   });
 
-  const portPromise = parsePortFromPreviewOutput(preview.stdout);
-  const port = await Promise.race([
-    portPromise,
-    new Promise((res) => setTimeout(() => res(e2ePort), 15000)),
-  ]);
-  const baseUrl = `http://127.0.0.1:${port}/`;
-  console.log('[e2e-docker] Preview on port', port, '- waiting for server...');
-  await new Promise((r) => setTimeout(r, 5000));
-  await waitForServer(port);
+  const baseUrl = `http://127.0.0.1:${e2ePort}/`;
+  console.log('[e2e-docker] Waiting for server...');
+  await new Promise((r) => setTimeout(r, 3000));
+  await waitForServer(e2ePort);
   console.log('[e2e-docker] Server ready, running Playwright tests...');
 
   const playwright = spawn('npx', ['playwright', 'test'], {
@@ -121,7 +99,7 @@ async function main() {
   const code = await new Promise((resolve) => {
     playwright.on('close', resolve);
   });
-  preview.kill('SIGTERM');
+  server.kill('SIGTERM');
   process.exit(code ?? 1);
 }
 
