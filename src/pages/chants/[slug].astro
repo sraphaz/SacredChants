@@ -83,6 +83,28 @@ const linesWithMeta = (() => {
         bandcampTooltipPt="Ouvir no Bandcamp"
       />
       <div class="chant-player-bar-spacer hidden md:block"></div>
+      <script is:inline>
+        (function() {
+          var audio = document.getElementById('chant-audio');
+          if (!audio) return;
+          var p = new URLSearchParams(window.location.search);
+          var wantSync = p.get('sync') === '1' || p.get('sync') === 'true';
+          var wantAutoplay = p.get('autoplay') === '1' || p.get('autoplay') === 'true';
+          if (wantSync) {
+            try { localStorage.setItem('chant-sync-enabled', 'true'); } catch (e) {}
+          }
+          if (wantAutoplay) {
+            var playWhenReady = function() {
+              audio.play().catch(function() {});
+            };
+            if (audio.readyState >= 2) {
+              playWhenReady();
+            } else {
+              audio.addEventListener('canplay', playWhenReady, { once: true });
+            }
+          }
+        })();
+      </script>
     </>
   )}
   <div class="chant-intro flex flex-col gap-3 pb-6">
@@ -117,6 +139,18 @@ const linesWithMeta = (() => {
             <circle cx="12" cy="12" r="12" fill="#000"/>
             <polygon points="5,9 19,9 17,15 3,15" fill="#fff"/>
           </svg>
+        </a>
+      )}
+      {chant.audio && (
+        <a
+          href={`${FULL_BASE}chants/${chant.slug}?autoplay=1&sync=1`}
+          class="chant-action-link inline-flex items-center gap-1.5 py-1 transition-colors hover:opacity-90"
+          style="color: var(--sc-text-muted);"
+          title="Copy or share this link so the chant opens with audio playing and lyrics sync on"
+        >
+          <span aria-hidden="true">🔗</span>
+          <span class="locale-en">{tEn.chant.shareWithAutoplay}</span>
+          <span class="locale-pt">{tPt.chant.shareWithAutoplay}</span>
         </a>
       )}
     </nav>

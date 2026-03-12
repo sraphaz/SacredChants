@@ -36,6 +36,7 @@ export const ui = {
       syncOff: 'Off',
       downloadPdf: 'Print / Save as PDF',
       aboutTitle: 'About this chant',
+      shareWithAutoplay: 'Share link (autoplay + sync)',
     },
     traditions: {
       title: 'Traditions',
@@ -141,6 +142,7 @@ export const ui = {
       syncOff: 'Off',
       downloadPdf: 'Imprimir / Guardar como PDF',
       aboutTitle: 'Sobre este cântico',
+      shareWithAutoplay: 'Partilhar link (autoplay + sync)',
     },
     traditions: {
       title: 'Tradições',
