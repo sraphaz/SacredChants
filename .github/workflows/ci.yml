@@ -117,19 +117,19 @@ jobs:
             echo "tag=" >> $GITHUB_OUTPUT
           fi
 
-  # Só corre após release e só se semantic-release criou uma nova release (tag). Deploy do tag para GitHub Pages.
+  # Corre após release em todo push para main. Se houve nova release, faz deploy do tag; senão, deploy de main.
   deploy:
     needs: [release]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.release.outputs.released == 'true'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout (release tag)
+      - name: Checkout (tag if new release, else main)
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.release.outputs.tag }}
+          ref: ${{ needs.release.outputs.released == 'true' && needs.release.outputs.tag || 'main' }}
 
       - name: Install, build, and upload site
         uses: withastro/action@v3
