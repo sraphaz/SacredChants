@@ -46,6 +46,14 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       )}
     </div>
   </PageShell>
+  <style>
+    #dashboard-contributions li { word-wrap: break-word; overflow-wrap: break-word; }
+    #dashboard-contributions a { min-height: 2.75rem; display: inline-flex; align-items: center; padding: 0.25rem 0; }
+    @media (max-width: 767px) {
+      #dashboard-contributions li { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+      .sc-btn-primary { min-height: 2.75rem; padding: 0.625rem 1.25rem; }
+    }
+  </style>
 </BaseLayout>
 
 <script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, noContributionsYet: t.contribute.noContributionsYet }}>
