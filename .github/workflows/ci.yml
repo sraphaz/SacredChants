@@ -1,5 +1,5 @@
-# Pipeline único: Build → Lint → E2E → Release (só main) → Deploy (só se houve release)
-# Tudo no mesmo fluxo; deploy só corre depois da release e usa o tag criado por ela.
+# Pipeline: Build (incl. unit tests) → Lint → E2E (Playwright no Docker) → Release (só main) → Deploy
+# Unit tests: npm run test:unit (Vitest). E2E: Dockerfile.e2e corre todos os specs em e2e/*.spec.ts.
 name: CI
 
 on:
@@ -35,6 +35,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:unit
 
       - name: Build
         run: npm run build
