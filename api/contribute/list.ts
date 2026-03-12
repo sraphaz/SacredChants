@@ -5,6 +5,12 @@ import { getSessionCookie, verifySession } from '../lib/session.js';
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER || 'sraphaz';
 const REPO_NAME = process.env.GITHUB_REPO_NAME || 'SacredChants';
 
+/**
+ * GET /api/contribute/list — returns contribution PRs for the authenticated user.
+ * Lists repo PRs with label "contribution" whose body mentions the user; returns pr number, url, title, state.
+ * @param req - Vercel request (must include session cookie)
+ * @param res - Vercel response; 200 with { prs: [...] } or 401 if not authenticated
+ */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');

@@ -6,6 +6,12 @@ const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 /** Site origin where user is sent after login (Astro app). */
 const CONTRIBUTE_ORIGIN = process.env.CONTRIBUTE_ORIGIN || 'http://localhost:4321';
 
+/**
+ * GET /api/auth/callback — OAuth callback for GitHub sign-in.
+ * Exchanges `code` for access token, fetches user, creates session cookie, redirects to CONTRIBUTE_ORIGIN/contribute/.
+ * @param req - Vercel request; query.code = OAuth authorization code from GitHub
+ * @param res - Vercel response; 302 redirect to contribute app or error=config|access_denied
+ */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');

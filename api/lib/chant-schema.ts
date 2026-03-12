@@ -31,6 +31,7 @@ const audioSchema = z.union([
   z.string().min(1).refine((s) => s.startsWith('/'), { message: 'Audio must be URL or path starting with /' }),
 ]);
 
+/** Zod schema for contribution API request body; matches content chant shape. */
 export const chantSchema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/, 'Slug: lowercase letters, numbers, hyphens only'),
   title: z.string().min(1),

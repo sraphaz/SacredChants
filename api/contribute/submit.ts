@@ -6,17 +6,33 @@ import type { z } from 'zod';
 
 type Chant = z.infer<typeof chantSchema>;
 
-/** Escape string for use inside Markdown inline code (backticks). */
+/**
+ * Escapes a string for safe use inside Markdown inline code (backticks).
+ * Escapes backslash and backtick, and normalizes newlines to space.
+ * @param s - Raw string (e.g. verse line or translation)
+ * @returns Escaped string safe for wrapping in `...`
+ */
 function escapeForInlineCode(s: string): string {
   return s.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\n/g, ' ');
 }
 
-/** Escape pipe for Markdown table cells. */
+/**
+ * Escapes a string for safe use in a Markdown table cell.
+ * Escapes backslash first, then pipe; newlines become space.
+ * @param s - Raw string (e.g. title, tradition, description)
+ * @returns Escaped string safe for use between | delimiters
+ */
 function escapeTableCell(s: string): string {
-  return s.replace(/\|/g, '\\|').replace(/\n/g, ' ');
+  return s.replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\n/g, ' ');
 }
 
-/** Format chant content as Markdown for the PR body (verses, metadata, descriptions). */
+/**
+ * Formats chant payload as Markdown for the contribution PR body.
+ * Outputs metadata table, description, about (if present), and all verses with
+ * original, transliteration, and translations per line.
+ * @param chant - Validated chant payload (schema-inferred type)
+ * @returns Markdown string for the "Conteúdo adicionado pelo contribuidor" section
+ */
 function formatChantContentAsMarkdown(chant: Chant): string {
   const lines: string[] = [];
 
@@ -78,6 +94,13 @@ function formatChantContentAsMarkdown(chant: Chant): string {
 
 export const config = { maxDuration: 30 };
 
+/**
+ * POST /api/contribute/submit — creates a GitHub PR from a validated chant submission.
+ * Requires authenticated session (GitHub OAuth). Body must be valid chant JSON (chantSchema).
+ * Creates a branch, adds src/content/chants/{slug}.json, opens a PR with a detailed body.
+ * @param req - Vercel request; body = chant JSON
+ * @param res - Vercel response; 201 with prNumber, prUrl, branch on success
+ */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');

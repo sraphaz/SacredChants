@@ -3,12 +3,17 @@ import { Octokit } from 'octokit';
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER || 'sraphaz';
 const REPO_NAME = process.env.GITHUB_REPO_NAME || 'SacredChants';
 
+/**
+ * Returns an Octokit instance authenticated with GITHUB_TOKEN.
+ * @throws If GITHUB_TOKEN is not set
+ */
 export function getOctokit(): Octokit {
   const token = process.env.GITHUB_TOKEN;
   if (!token) throw new Error('GITHUB_TOKEN is required for PR creation');
   return new Octokit({ auth: token });
 }
 
+/** Parameters for creating a contribution PR (branch, file, title, body). */
 export interface CreatePRParams {
   title: string;
   body: string;
@@ -17,6 +22,11 @@ export interface CreatePRParams {
   branchFrom?: string;
 }
 
+/**
+ * Creates a branch from ref, adds the chant JSON file, opens a PR, and adds the "contribution" label.
+ * @param params - Title, body, slug, chantJson, and optional branchFrom (default main)
+ * @returns PR number, html url, and branch name
+ */
 export async function createContributionPR(params: CreatePRParams): Promise<{ prNumber: number; prUrl: string; branch: string }> {
   const octokit = getOctokit();
   const branchName = `contribution/${params.slug}-${Date.now()}`;

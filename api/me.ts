@@ -1,6 +1,12 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getSessionCookie, verifySession } from './lib/session.js';
 
+/**
+ * GET /api/me — returns the current authenticated user (id, login, avatar_url, name).
+ * Requires valid session cookie from GitHub OAuth.
+ * @param req - Vercel request (must include session cookie)
+ * @param res - Vercel response; 200 with user object or 401 if not authenticated
+ */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
