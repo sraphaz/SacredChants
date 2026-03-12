@@ -1,4 +1,7 @@
-# Pipeline: Build (incl. unit tests) → Lint → E2E (Playwright no Docker) → Release (só main) → Deploy
+# Pipeline: Build (unit tests + build) | Lint | E2E (paralelo) → Release (só main) → Deploy GitHub Pages
+#                                                          → Deploy Vercel (só main, após build/lint/e2e)
+# O deploy na Vercel é feito por este workflow após os testes passarem. Desative "Production" auto-deploy
+# no projeto Vercel (Settings → Git) para evitar deploy em paralelo antes dos testes.
 # Unit tests: npm run test:unit (Vitest). E2E: Dockerfile.e2e corre todos os specs em e2e/*.spec.ts.
 name: CI
 
@@ -72,6 +75,31 @@ jobs:
 
       - name: Run E2E tests
         run: docker run --rm --ipc=host sacred-chants-e2e
+
+  # Deploy app de contribuição (app.sacredchants.org) só após build + lint + e2e passarem.
+  # Requer secrets: VERCEL_TOKEN; opcional: VERCEL_ORG_ID, VERCEL_PROJECT_ID (se não tiver .vercel no repo).
+  deploy-vercel:
+    needs: [build, lint, e2e]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy to Vercel (Production)
+        run: npx vercel deploy --prod --token="${{ secrets.VERCEL_TOKEN }}" --yes
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
   # Só em main, depois de build + lint + e2e. Cria tag e GitHub Release; expõe tag para o deploy.
   release:
@@ -148,6 +176,8 @@ jobs:
         env:
           SITE_ORIGIN: https://sacredchants.org
           BASE_PATH: /
+          PUBLIC_CONTRIBUTE_API_ORIGIN: https://app.sacredchants.org
+          PUBLIC_CONTRIBUTE_APP_URL: https://app.sacredchants.org
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -4,6 +4,12 @@ const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 /** Base URL of this API (GitHub redirects here). e.g. https://api.sacredchants.org or https://xxx.vercel.app */
 const API_ORIGIN = process.env.API_ORIGIN || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
 
+/**
+ * GET /api/auth/github — redirects the user to GitHub OAuth authorization.
+ * Callback is API_ORIGIN/api/auth/callback. Requires GITHUB_CLIENT_ID.
+ * @param req - Vercel request (GET)
+ * @param res - Vercel response; 302 to GitHub or 500 if not configured
+ */
 export default function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
