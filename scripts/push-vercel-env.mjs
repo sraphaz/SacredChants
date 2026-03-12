@@ -24,12 +24,18 @@ const lines = raw.split(/\r?\n/).filter((line) => {
   return t && !t.startsWith('#') && t.includes('=');
 });
 
+const ENV_NAME_RE = /^[A-Za-z_][A-Za-z0-9_]*$/;
 const vars = [];
 for (const line of lines) {
   const eq = line.indexOf('=');
   const name = line.slice(0, eq).trim();
   const value = line.slice(eq + 1).trim().replace(/^["']|["']$/g, '');
-  if (name) vars.push({ name, value });
+  if (!name) continue;
+  if (!ENV_NAME_RE.test(name)) {
+    console.error(`Invalid env var name: ${name}`);
+    process.exit(1);
+  }
+  vars.push({ name, value });
 }
 
 if (vars.length === 0) {
@@ -37,13 +43,13 @@ if (vars.length === 0) {
   process.exit(1);
 }
 
+const npxBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 console.log(`Pushing ${vars.length} env var(s) to Vercel (production)...`);
 for (const { name, value } of vars) {
-  const r = spawnSync('npx', ['vercel', 'env', 'add', name, 'production'], {
+  const r = spawnSync(npxBin, ['vercel', 'env', 'add', name, 'production', '--force'], {
     cwd: root,
     input: value,
     stdio: ['pipe', 'inherit', 'inherit'],
-    shell: true,
   });
   if (r.status !== 0) {
     console.error(`Failed to add ${name}`);
