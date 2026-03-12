@@ -5,7 +5,7 @@
 #   export VERCEL_TOKEN="..."
 #   export VERCEL_ORG_ID="..."
 #   export VERCEL_PROJECT_ID="..."
-#   ./scripts/setup-github-secrets-vercel.sh
+#   bash scripts/setup-github-secrets-vercel.sh
 # Ou no Windows (PowerShell): ver instruções em docs/DEPLOY-VERCEL-APP.md
 
 set -e
