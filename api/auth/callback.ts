@@ -6,10 +6,23 @@ const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 /** Site origin where user is sent after login (Astro app). */
 const CONTRIBUTE_ORIGIN = process.env.CONTRIBUTE_ORIGIN || 'http://localhost:4321';
 
+/** Allowed redirect path after login: must start with /contribute and contain no protocol. */
+function safeReturnToFromState(state: string | undefined): string {
+  if (typeof state !== 'string' || !state) return '/contribute/';
+  try {
+    const payload = JSON.parse(Buffer.from(state, 'base64url').toString('utf8'));
+    const r = payload?.r;
+    if (typeof r !== 'string' || !r.startsWith('/contribute') || r.includes('//')) return '/contribute/';
+    return r.startsWith('/contribute/') || r === '/contribute' ? r : '/contribute/';
+  } catch {
+    return '/contribute/';
+  }
+}
+
 /**
  * GET /api/auth/callback — OAuth callback for GitHub sign-in.
- * Exchanges `code` for access token, fetches user, creates session cookie, redirects to CONTRIBUTE_ORIGIN/contribute/.
- * @param req - Vercel request; query.code = OAuth authorization code from GitHub
+ * Exchanges `code` for access token, fetches user, creates session cookie, redirects to CONTRIBUTE_ORIGIN + returnTo (from state).
+ * @param req - Vercel request; query.code and query.state from GitHub
  * @param res - Vercel response; 302 redirect to contribute app or error=config|access_denied
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -23,6 +36,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.status(302).end();
     return;
   }
+  const returnTo = safeReturnToFromState(typeof req.query.state === 'string' ? req.query.state : undefined);
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
@@ -54,6 +68,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     name: user.name ?? null,
   });
   res.setHeader('Set-Cookie', setSessionCookieHeader(sessionToken));
-  res.setHeader('Location', `${CONTRIBUTE_ORIGIN}/contribute/`);
+  res.setHeader('Location', `${CONTRIBUTE_ORIGIN}${returnTo}`);
   res.status(302).end();
 }
