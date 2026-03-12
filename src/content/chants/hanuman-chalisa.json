@@ -29,7 +29,7 @@
       "order": 1,
       "lines": [
         {
-          "start": 26,
+          "start": 27,
           "original": "श्री गुरु चरण सरोज रज निज मन मुकुरु सुधारि।",
           "transliteration": "śrī guru carana saroja raja nija manu mukuru sudhāri |",
           "translations": {
@@ -38,7 +38,7 @@
           }
         },
         {
-          "start": 40,
+          "start": 39,
           "original": "बरनउँ रघुबर बिमल जसु जो दायकु फल चारि॥",
           "transliteration": "baraṇaūṁ raghubara bimala jasu jo dāyaku phala cāri ||",
           "translations": {
@@ -52,7 +52,7 @@
       "order": 2,
       "lines": [
         {
-          "start": 54,
+          "start": 52,
           "original": "बुद्धि हीन तनु जानिके सुमिरौं पवन कुमार।",
           "transliteration": "buddhi-hīna tanu jānike sumirauṁ pavana-kumāra |",
           "translations": {
@@ -61,7 +61,7 @@
           }
         },
         {
-          "start": 61,
+          "start": 64,
           "original": "बल बुद्धि विद्या देहु मोहिं हरहु क्लेश विकार॥",
           "transliteration": "bala buddhi vidyā dehu mohiṁ harahu kleśa vikāra ||",
           "translations": {
@@ -75,7 +75,7 @@
       "order": 3,
       "lines": [
         {
-          "start": 68,
+          "start": 76,
           "original": "जय हनुमान ज्ञान गुण सागर।",
           "transliteration": "jaya hanumāna jñāna guṇa sāgara",
           "translations": {
@@ -84,7 +84,7 @@
           }
         },
         {
-          "start": 80.5,
+          "start": 90,
           "original": "जय कपीस तिहुँ लोक उजागर॥",
           "transliteration": "jaya kapīsa tihuṁ loka ujāgara ||",
           "translations": {
@@ -98,7 +98,7 @@
       "order": 4,
       "lines": [
         {
-          "start": 93,
+          "start": 96,
           "original": "राम दूत अतुलित बल धामा।",
           "transliteration": "rāma dūta atulita bala dhāmā",
           "translations": {
@@ -107,7 +107,7 @@
           }
         },
         {
-          "start": 99.5,
+          "start": 103,
           "original": "अञ्जनि पुत्र पवनसुत नामा॥",
           "transliteration": "añjani-putra pavana-suta nāmā ||",
           "translations": {
@@ -121,7 +121,7 @@
       "order": 5,
       "lines": [
         {
-          "start": 106,
+          "start": 110,
           "original": "महाबीर बिक्रम बजरंगी।",
           "transliteration": "mahābīra bikrama bajaraṅgī",
           "translations": {
@@ -130,7 +130,7 @@
           }
         },
         {
-          "start": 112.5,
+          "start": 115,
           "original": "कुमति निवार सुमति के संगी॥",
           "transliteration": "kumati nivāra sumati ke saṅgī ||",
           "translations": {
@@ -144,7 +144,7 @@
       "order": 6,
       "lines": [
         {
-          "start": 119,
+          "start": 122,
           "original": "कंचन बरन बिराज सुबेसा।",
           "transliteration": "kāñcana barana birāja subesā",
           "translations": {
@@ -153,7 +153,7 @@
           }
         },
         {
-          "start": 125.5,
+          "start": 129,
           "original": "कानन कुंडल कुंचित केसा॥",
           "transliteration": "kānana kuṇḍala kuñcita kesā ||",
           "translations": {
@@ -167,7 +167,7 @@
       "order": 7,
       "lines": [
         {
-          "start": 132,
+          "start": 135,
           "original": "हाथ बज्र औ ध्वजा बिराजै।",
           "transliteration": "hātha bajra aura dhvajā birājai",
           "translations": {
@@ -176,7 +176,7 @@
           }
         },
         {
-          "start": 138.5,
+          "start": 141,
           "original": "काँधे मूँज जनेऊ साजै॥",
           "transliteration": "kāṁdhe mūṁja janeū sājai ||",
           "translations": {
@@ -190,7 +190,7 @@
       "order": 8,
       "lines": [
         {
-          "start": 145,
+          "start": 147,
           "original": "शंकर सुवन केसरी नन्दन।",
           "transliteration": "śaṅkara suvana kesarī nandana",
           "translations": {
@@ -199,7 +199,7 @@
           }
         },
         {
-          "start": 151.3,
+          "start": 154,
           "original": "तेज प्रताप महा जग बन्दन॥",
           "transliteration": "teja pratāpa mahā jaga bandana ||",
           "translations": {
@@ -213,7 +213,7 @@
       "order": 9,
       "lines": [
         {
-          "start": 157.5,
+          "start": 160,
           "original": "विद्यावान गुणी अति चातुर।",
           "transliteration": "vidyāvāna gunī ati cātura",
           "translations": {
@@ -222,7 +222,7 @@
           }
         },
         {
-          "start": 163.8,
+          "start": 167,
           "original": "राम काज करिबे को आतुर॥",
           "transliteration": "rāma kāja karibe ko ātura ||",
           "translations": {
@@ -236,7 +236,7 @@
       "order": 10,
       "lines": [
         {
-          "start": 170,
+          "start": 173,
           "original": "प्रभु चरित्र सुनिबे को रसिया।",
           "transliteration": "prabhu caritra sunibe ko rasiyā",
           "translations": {
@@ -245,7 +245,7 @@
           }
         },
         {
-          "start": 176.5,
+          "start": 180,
           "original": "राम लखन सीता मन बसिया॥",
           "transliteration": "rāma lakhana sītā mana basiyā ||",
           "translations": {
@@ -259,7 +259,7 @@
       "order": 11,
       "lines": [
         {
-          "start": 183,
+          "start": 186,
           "original": "सूक्ष्म रूप धरि सियहिं दिखावा।",
           "transliteration": "sūkṣma rūpa dhari siyahiṁ dikhāvā",
           "translations": {
@@ -268,7 +268,7 @@
           }
         },
         {
-          "start": 189.5,
+          "start": 193,
           "original": "बिकट रूप धरि लंक जरावा॥",
           "transliteration": "bikaṭa rūpa dhari laṅkā jarāvā ||",
           "translations": {
@@ -282,7 +282,7 @@
       "order": 12,
       "lines": [
         {
-          "start": 196,
+          "start": 199,
           "original": "भीम रूप धरि असुर सँहारे।",
           "transliteration": "bhīma rūpa dhari asura saṁhāre",
           "translations": {
@@ -291,7 +291,7 @@
           }
         },
         {
-          "start": 202.5,
+          "start": 205,
           "original": "रामचन्द्र के काज सँवारे॥",
           "transliteration": "rāmacandra ke kāja saṁvāre ||",
           "translations": {
@@ -305,7 +305,7 @@
       "order": 13,
       "lines": [
         {
-          "start": 209,
+          "start": 211,
           "original": "लाय सजीवन लखन जियाये।",
           "transliteration": "lāya sañjīvana lakhana jiyāye",
           "translations": {
@@ -314,7 +314,7 @@
           }
         },
         {
-          "start": 215.5,
+          "start": 218,
           "original": "श्री रघुबीर हरषि उर लाये॥",
           "transliteration": "śrī raghubīra haraṣi ura lāye ||",
           "translations": {
@@ -328,7 +328,7 @@
       "order": 14,
       "lines": [
         {
-          "start": 222,
+          "start": 224,
           "original": "रघुपति कीन्ही बहुत बड़ाई।",
           "transliteration": "raghupati kīnhī bahuta baḍāī",
           "translations": {
@@ -337,7 +337,7 @@
           }
         },
         {
-          "start": 228.3,
+          "start": 231,
           "original": "तुम मम प्रिय भरतहि सम भाई॥",
           "transliteration": "tuma mama priya bharatahi sama bhāī ||",
           "translations": {
@@ -351,7 +351,7 @@
       "order": 15,
       "lines": [
         {
-          "start": 234.5,
+          "start": 237,
           "original": "सहस बदन तुम्हारो जस गावैं।",
           "transliteration": "sahasa badana tumharo yaśa gāvaiṁ",
           "translations": {
@@ -360,7 +360,7 @@
           }
         },
         {
-          "start": 240.8,
+          "start": 244,
           "original": "अस कहि श्रीपति कण्ठ लगावैं॥",
           "transliteration": "asa kahi śrīpati kaṇṭha lagāvaiṁ ||",
           "translations": {
@@ -374,7 +374,7 @@
       "order": 16,
       "lines": [
         {
-          "start": 247,
+          "start": 250,
           "original": "सनकादिक ब्रह्मादि मुनीसा।",
           "transliteration": "sanakādika brahmādi munīśā",
           "translations": {
@@ -383,7 +383,7 @@
           }
         },
         {
-          "start": 253.5,
+          "start": 256,
           "original": "नारद सारद सहित अहीसा॥",
           "transliteration": "nārada śārada sahita ahīśā ||",
           "translations": {
@@ -397,7 +397,7 @@
       "order": 17,
       "lines": [
         {
-          "start": 260,
+          "start": 263,
           "original": "यम कुबेर दिगपाल जहाँ ते।",
           "transliteration": "yama kubera digapāla jahāṁ te",
           "translations": {
@@ -406,7 +406,7 @@
           }
         },
         {
-          "start": 266.5,
+          "start": 269,
           "original": "कबि कोबिद कहि सके कहाँ ते॥",
           "transliteration": "kabi kobida kahi sake kahāṁ te ||",
           "translations": {
@@ -420,7 +420,7 @@
       "order": 18,
       "lines": [
         {
-          "start": 273,
+          "start": 275,
           "original": "तुम उपकार सुग्रीवहिं कीन्हा।",
           "transliteration": "tuma upakāra sugrīvahiṁ kīnhā",
           "translations": {
@@ -429,7 +429,7 @@
           }
         },
         {
-          "start": 279.3,
+          "start": 282,
           "original": "राम मिलाय राज पद दीन्हा॥",
           "transliteration": "rāma milāya rāja pada dīnhā ||",
           "translations": {
@@ -443,7 +443,7 @@
       "order": 19,
       "lines": [
         {
-          "start": 285.5,
+          "start": 288,
           "original": "तुम्हरो मन्त्र विभीषण माना।",
           "transliteration": "tumharo mantra bibhīṣana mānā",
           "translations": {
@@ -452,7 +452,7 @@
           }
         },
         {
-          "start": 291.8,
+          "start": 295,
           "original": "लंकेश्वर भए सब जग जाना॥",
           "transliteration": "laṅkeśvara bhae saba jaga jānā ||",
           "translations": {
@@ -466,7 +466,7 @@
       "order": 20,
       "lines": [
         {
-          "start": 298,
+          "start": 301,
           "original": "जुग सहस्त्र जोजन पर भानू।",
           "transliteration": "juga sahastra jojana para bhānū",
           "translations": {
@@ -475,7 +475,7 @@
           }
         },
         {
-          "start": 304.5,
+          "start": 308,
           "original": "लील्यो ताहि मधुर फल जानू॥",
           "transliteration": "līlyo tāhi madhura phala jānū ||",
           "translations": {
@@ -489,7 +489,7 @@
       "order": 21,
       "lines": [
         {
-          "start": 311,
+          "start": 314,
           "original": "प्रभु मुद्रिका मेलि मुख माहीं।",
           "transliteration": "prabhu mudrikā meli mukha māhīṁ",
           "translations": {
@@ -498,7 +498,7 @@
           }
         },
         {
-          "start": 317.5,
+          "start": 320,
           "original": "जलधि लाँघि गये अचरज नाहीं॥",
           "transliteration": "jaladhi lāṁghi gaye acaraja nāhīṁ ||",
           "translations": {
@@ -512,7 +512,7 @@
       "order": 22,
       "lines": [
         {
-          "start": 324,
+          "start": 327,
           "original": "दुर्गम काज जगत के जेते।",
           "transliteration": "durgama kāja jagata ke jete",
           "translations": {
@@ -521,7 +521,7 @@
           }
         },
         {
-          "start": 330.5,
+          "start": 332,
           "original": "सुगम अनुग्रह तुम्हरे तेते॥",
           "transliteration": "sugama anugraha tumhare tete ||",
           "translations": {
@@ -535,7 +535,7 @@
       "order": 23,
       "lines": [
         {
-          "start": 337,
+          "start": 339,
           "original": "राम दुआरे तुम रखवारे।",
           "transliteration": "rāma duāre tuma rakhavāre",
           "translations": {
@@ -544,7 +544,7 @@
           }
         },
         {
-          "start": 343.5,
+          "start": 346,
           "original": "होत न आज्ञा बिनु पैसारे॥",
           "transliteration": "hota na ājñā binu paisāre ||",
           "translations": {
@@ -558,7 +558,7 @@
       "order": 24,
       "lines": [
         {
-          "start": 350,
+          "start": 352,
           "original": "सब सुख लहै तुम्हारी सरना।",
           "transliteration": "saba sukha lahai tumhārī saranā",
           "translations": {
@@ -567,7 +567,7 @@
           }
         },
         {
-          "start": 356.3,
+          "start": 359,
           "original": "तुम रक्षक काहू को डरना॥",
           "transliteration": "tuma rakṣaka kāhū ko ḍaranā ||",
           "translations": {
@@ -581,7 +581,7 @@
       "order": 25,
       "lines": [
         {
-          "start": 362.5,
+          "start": 365,
           "original": "आपन तेज सम्हारो आपै।",
           "transliteration": "āpana teja samhāro āpai",
           "translations": {
@@ -590,7 +590,7 @@
           }
         },
         {
-          "start": 368.8,
+          "start": 372,
           "original": "तीनों लोक हाँक ते काँपै॥",
           "transliteration": "tīnoṁ loka hāṁka te kāṁpai ||",
           "translations": {
@@ -604,7 +604,7 @@
       "order": 26,
       "lines": [
         {
-          "start": 375,
+          "start": 378,
           "original": "भूत पिशाच निकट नहिं आवै।",
           "transliteration": "bhūta piśāca nikaṭa nahiṁ āvai",
           "translations": {
@@ -613,7 +613,7 @@
           }
         },
         {
-          "start": 381.5,
+          "start": 384,
           "original": "महावीर जब नाम सुनावै॥",
           "transliteration": "mahābīra jaba nāma sunāvai ||",
           "translations": {
@@ -631,7 +631,7 @@
       "order": 27,
       "lines": [
         {
-          "start": 388,
+          "start": 391,
           "original": "नासै रोग हरै सब पीरा।",
           "transliteration": "nāsai roga harai saba pīrā",
           "translations": {
@@ -640,7 +640,7 @@
           }
         },
         {
-          "start": 394.5,
+          "start": 398,
           "original": "जपत निरन्तर हनुमत बीरा॥",
           "transliteration": "japata nirantara hanumata bīrā ||",
           "translations": {
@@ -654,7 +654,7 @@
       "order": 28,
       "lines": [
         {
-          "start": 401,
+          "start": 404,
           "original": "संकट तें हनुमान छुड़ावै।",
           "transliteration": "saṅkaṭa teṁ hanumāna chuḍāvai",
           "translations": {
@@ -663,7 +663,7 @@
           }
         },
         {
-          "start": 407.5,
+          "start": 410,
           "original": "मन क्रम वचन ध्यान जो लावै॥",
           "transliteration": "mana krama vācana dhyāna jo lāvai ||",
           "translations": {
@@ -681,7 +681,7 @@
       "order": 29,
       "lines": [
         {
-          "start": 414,
+          "start": 416,
           "original": "सब पर राम तपस्वी राजा।",
           "transliteration": "saba para rāma tapasvī rājā",
           "translations": {
@@ -690,7 +690,7 @@
           }
         },
         {
-          "start": 420.5,
+          "start": 423,
           "original": "तिन के काज सकल तुम साजा॥",
           "transliteration": "tina ke kāja sakala tuma sājā ||",
           "translations": {
@@ -704,7 +704,7 @@
       "order": 30,
       "lines": [
         {
-          "start": 427,
+          "start": 428,
           "original": "और मनोरथ जो कोई लावै।",
           "transliteration": "aura manoratha jo koī lāvai",
           "translations": {
@@ -713,7 +713,7 @@
           }
         },
         {
-          "start": 433.3,
+          "start": 435,
           "original": "सोई अमित जीवन फल पावै॥",
           "transliteration": "soī amita jīvana phala pāvai ||",
           "translations": {
@@ -727,7 +727,7 @@
       "order": 31,
       "lines": [
         {
-          "start": 439.5,
+          "start": 442,
           "original": "चारों जुग प्रताप तुम्हारा।",
           "transliteration": "cāroṁ juga pratāpa tumhārā",
           "translations": {
@@ -736,7 +736,7 @@
           }
         },
         {
-          "start": 445.8,
+          "start": 449,
           "original": "है परसिद्ध जगत उजियारा॥",
           "transliteration": "hai parasiddha jagata ujiyārā ||",
           "translations": {
@@ -750,7 +750,7 @@
       "order": 32,
       "lines": [
         {
-          "start": 452,
+          "start": 455,
           "original": "साधु संत के तुम रखवारे।",
           "transliteration": "sādhu santa ke tuma rakhavāre",
           "translations": {
@@ -759,7 +759,7 @@
           }
         },
         {
-          "start": 458.3,
+          "start": 461,
           "original": "असुर निकन्दन राम दुलारे॥",
           "transliteration": "asura nikandana rāma dulāre ||",
           "translations": {
@@ -773,7 +773,7 @@
       "order": 33,
       "lines": [
         {
-          "start": 464.5,
+          "start": 468,
           "original": "अष्ट सिद्धि नौ निधि के दाता।",
           "transliteration": "aṣṭa siddhi nau nidhi ke dātā",
           "translations": {
@@ -782,7 +782,7 @@
           }
         },
         {
-          "start": 470.8,
+          "start": 474,
           "original": "अस बर दीन जानकी माता॥",
           "transliteration": "asa bara dīna jānakī mātā ||",
           "translations": {
@@ -796,7 +796,7 @@
       "order": 34,
       "lines": [
         {
-          "start": 477,
+          "start": 482,
           "original": "राम रसायन तुम्हरे पासा।",
           "transliteration": "rāma rasāyana tumhare pāsā",
           "translations": {
@@ -805,7 +805,7 @@
           }
         },
         {
-          "start": 483.8,
+          "start": 487,
           "original": "सदा रहो रघुपति के दासा॥",
           "transliteration": "sadā raho raghupati ke dāsā ||",
           "translations": {
@@ -819,7 +819,7 @@
       "order": 35,
       "lines": [
         {
-          "start": 490.5,
+          "start": 493,
           "original": "तुम्हरे भजन राम को पावै।",
           "transliteration": "tumhare bhajana rāma ko pāvai",
           "translations": {
@@ -828,7 +828,7 @@
           }
         },
         {
-          "start": 497.3,
+          "start": 500,
           "original": "जनम जनम के दुःख बिसरावै॥",
           "transliteration": "janama janama ke duḥkha bisarāvai ||",
           "translations": {
@@ -846,7 +846,7 @@
       "order": 36,
       "lines": [
         {
-          "start": 504,
+          "start": 506,
           "original": "अन्त काल रघुबर पुर जाई।",
           "transliteration": "anta kāla raghubara pura jāī",
           "translations": {
@@ -855,7 +855,7 @@
           }
         },
         {
-          "start": 510.3,
+          "start": 512,
           "original": "जहाँ जन्म हरिभक्त कहाई॥",
           "transliteration": "jahāṁ janma haribhakta kahāī ||",
           "translations": {
@@ -869,7 +869,7 @@
       "order": 37,
       "lines": [
         {
-          "start": 516.5,
+          "start": 519,
           "original": "और देवता चित्त न धरई।",
           "transliteration": "aura devatā citta na dharaī",
           "translations": {
@@ -878,7 +878,7 @@
           }
         },
         {
-          "start": 522.8,
+          "start": 525,
           "original": "हनुमत सेई सर्व सुख करई॥",
           "transliteration": "hanumata seī sarva sukha karaī ||",
           "translations": {
@@ -892,7 +892,7 @@
       "order": 38,
       "lines": [
         {
-          "start": 529,
+          "start": 531,
           "original": "संकट कटै मिटै सब पीरा।",
           "transliteration": "saṅkaṭa kaṭai miṭai saba pīrā",
           "translations": {
@@ -901,7 +901,7 @@
           }
         },
         {
-          "start": 535.3,
+          "start": 538,
           "original": "जो सुमिरै हनुमत बलबीरा॥",
           "transliteration": "jo sumirai hanumata balabīrā ||",
           "translations": {
@@ -915,7 +915,7 @@
       "order": 39,
       "lines": [
         {
-          "start": 541.5,
+          "start": 544,
           "original": "जय जय जय हनुमान गोसाईं।",
           "transliteration": "jai jai jai hanumāna gosāīṁ",
           "translations": {
@@ -924,7 +924,7 @@
           }
         },
         {
-          "start": 547.8,
+          "start": 550,
           "original": "कृपा करहु गुरु देव की नाईं॥",
           "transliteration": "kṛpā karahu guru deva kī nāīṁ ||",
           "translations": {
@@ -938,7 +938,7 @@
       "order": 40,
       "lines": [
         {
-          "start": 554,
+          "start": 557,
           "original": "जो शत बार पाठ कर कोई।",
           "transliteration": "jo śata bāra pāṭha kara koī",
           "translations": {
@@ -947,7 +947,7 @@
           }
         },
         {
-          "start": 560.8,
+          "start": 564,
           "original": "छूटहि बन्दि महा सुख होई॥",
           "transliteration": "chūṭahi bandi mahā sukha hoī ||",
           "translations": {
@@ -965,7 +965,7 @@
       "order": 41,
       "lines": [
         {
-          "start": 567.5,
+          "start": 570,
           "original": "जो यह पढ़ै हनुमान चालीसा।",
           "transliteration": "jo yaha paḍhai hanumāna calīsā",
           "translations": {
@@ -974,7 +974,7 @@
           }
         },
         {
-          "start": 574.3,
+          "start": 577,
           "original": "होय सिद्धि साखी गौरीसा॥",
           "transliteration": "hoya siddhi sākhī gaurīsā ||",
           "translations": {
@@ -988,7 +988,7 @@
       "order": 42,
       "lines": [
         {
-          "start": 581,
+          "start": 583,
           "original": "तुलसीदास सदा हरी चेरा।",
           "transliteration": "tulasīdāsa sadā hari cerā",
           "translations": {
@@ -997,7 +997,7 @@
           }
         },
         {
-          "start": 587,
+          "start": 589,
           "original": "कीजै नाथ हृदय महँ डेरा॥",
           "transliteration": "kījai nātha hṛdaya mahaṁ ḍerā ||",
           "translations": {
@@ -1011,7 +1011,7 @@
       "order": 43,
       "lines": [
         {
-          "start": 593,
+          "start": 596,
           "original": "पवन तनय संकट हरन मंगल मूरति रूप।",
           "transliteration": "pavana tanaya saṅkaṭa harana maṅgala mūrati rūpa |",
           "translations": {
@@ -1020,7 +1020,7 @@
           }
         },
         {
-          "start": 599,
+          "start": 608,
           "original": "राम लखन सीता सहित हृदय बसहु सुर भूप॥",
           "transliteration": "rāma lakhana sītā sahita hṛdaya basahu sura bhūpa ||",
           "translations": {
