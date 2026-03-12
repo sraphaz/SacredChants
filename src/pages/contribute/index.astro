@@ -41,7 +41,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
           </p>
           <div id="contribute-login-cta">
             <a
-              href={`${apiOrigin}/api/auth/github`}
+              href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent('/contribute/')}`}
               class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition"
             >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

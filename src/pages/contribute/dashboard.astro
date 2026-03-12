@@ -32,7 +32,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       ) : (
       <div id="dashboard-login-required" class="mb-6">
         <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
-        <a href={`${apiOrigin}/api/auth/github`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+        <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent('/contribute/dashboard/')}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
           {t.contribute.signInWithGitHub}
         </a>
       </div>
