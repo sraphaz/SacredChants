@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { clearSessionCookieHeader } from './lib/session';
+import { clearSessionCookieHeader } from './lib/session.js';
 
 const CONTRIBUTE_ORIGIN = process.env.CONTRIBUTE_ORIGIN || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:4321');
 

@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getOctokit } from '../lib/github';
-import { getSessionCookie, verifySession } from '../lib/session';
+import { getOctokit } from '../lib/github.js';
+import { getSessionCookie, verifySession } from '../lib/session.js';
 
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER || 'sraphaz';
 const REPO_NAME = process.env.GITHUB_REPO_NAME || 'SacredChants';

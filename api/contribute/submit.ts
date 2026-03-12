@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { chantSchema } from '../lib/chant-schema';
-import { getSessionCookie, verifySession } from '../lib/session';
-import { createContributionPR } from '../lib/github';
+import { chantSchema } from '../lib/chant-schema.js';
+import { getSessionCookie, verifySession } from '../lib/session.js';
+import { createContributionPR } from '../lib/github.js';
 
 export const config = { maxDuration: 30 };
 
