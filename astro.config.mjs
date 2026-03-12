@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: process.env.SITE_ORIGIN || 'https://sraphaz.github.io',
-  base: process.env.BASE_PATH || '/SacredChants/',
+  site: process.env.SITE_ORIGIN || 'https://sacredchants.org',
+  base: process.env.BASE_PATH || '/',
   integrations: [mdx(), tailwind()],
 });

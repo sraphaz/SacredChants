@@ -47,13 +47,13 @@ const tPt = ui.pt;
   {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt) && (
     <>
       {verse.explanation.en && (
-        <div class="verse-block__explanation locale-en mt-3 text-sm rounded-md p-3" style="color: var(--sc-text-muted); background-color: var(--sc-border);">
-          <p class="whitespace-pre-wrap">{verse.explanation.en}</p>
+        <div class="verse-block__explanation locale-en">
+          <p>{verse.explanation.en}</p>
         </div>
       )}
       {verse.explanation.pt && (
-        <div class="verse-block__explanation locale-pt mt-3 text-sm rounded-md p-3" style="color: var(--sc-text-muted); background-color: var(--sc-border);">
-          <p class="whitespace-pre-wrap">{verse.explanation.pt}</p>
+        <div class="verse-block__explanation locale-pt">
+          <p>{verse.explanation.pt}</p>
         </div>
       )}
     </>

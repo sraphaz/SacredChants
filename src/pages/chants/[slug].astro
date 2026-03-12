@@ -130,18 +130,18 @@ const linesWithMeta = (() => {
     </section>
 
     {(chant.about?.en || chant.about?.pt) && (
-    <section class="chant-about max-w-content mx-auto px-page-x mt-section-gap mb-section" aria-labelledby="chant-about-title">
-      <h2 id="chant-about-title" class="sc-heading font-serif text-2xl mb-4">
+    <section class="chant-about mt-section-gap mb-section" aria-labelledby="chant-about-title">
+      <h2 id="chant-about-title" class="chant-about__title sc-heading font-serif mb-4">
         <span class="locale-en">{tEn.chant.aboutTitle}</span>
         <span class="locale-pt">{tPt.chant.aboutTitle}</span>
       </h2>
       {chant.about?.en && (
-        <div class="text-base leading-relaxed whitespace-pre-wrap locale-en" style="color: var(--sc-text-muted)">
+        <div class="chant-about__body locale-en">
           {chant.about.en}
         </div>
       )}
       {chant.about?.pt && (
-        <div class="text-base leading-relaxed whitespace-pre-wrap locale-pt mt-4" style="color: var(--sc-text-muted)">
+        <div class="chant-about__body locale-pt mt-4">
           {chant.about.pt}
         </div>
       )}
