@@ -176,6 +176,7 @@ jobs:
         env:
           SITE_ORIGIN: https://sacredchants.org
           BASE_PATH: /
+          PUBLIC_CONTRIBUTE_API_ORIGIN: https://app.sacredchants.org
           PUBLIC_CONTRIBUTE_APP_URL: https://app.sacredchants.org
 
       - name: Upload Pages artifact
