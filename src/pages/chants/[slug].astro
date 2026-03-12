@@ -184,8 +184,13 @@ const linesWithMeta = (() => {
           var state = on ? (locale === 'pt' ? syncOnPt : syncOnEn) : (locale === 'pt' ? syncOffPt : syncOffEn);
           toggleBtn.setAttribute('aria-label', label + ' — ' + state);
         }
+        function updateCylindrical() {
+          var on = getSyncEnabled() && audio && !audio.paused;
+          if (list) list.setAttribute('data-sync-cylindrical', on ? 'true' : '');
+        }
         function setSyncEnabled(on) {
           try { localStorage.setItem(STORAGE_KEY, on ? 'true' : 'false'); } catch (e) {}
+          updateCylindrical();
           if (toggleBtn) {
             toggleBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
             toggleBtn.setAttribute('data-sync-on', on ? 'true' : '');
@@ -242,6 +247,14 @@ const linesWithMeta = (() => {
           });
         }
 
+        audio.addEventListener('play', function() {
+          updateCylindrical();
+          if (getSyncEnabled()) {
+            var idx = getCurrentLineIndex(audio.currentTime);
+            if (idx != null) { lastActiveIndex = idx; setActive(idx, true); }
+          }
+        });
+        audio.addEventListener('pause', updateCylindrical);
         audio.addEventListener('timeupdate', function() {
           if (!getSyncEnabled()) return;
           var index = getCurrentLineIndex(audio.currentTime);

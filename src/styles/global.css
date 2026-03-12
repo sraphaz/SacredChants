@@ -61,9 +61,43 @@
 }
 .prose-chant .verse-block[data-start-time]:not([data-start-time=""]) {
   cursor: pointer;
-  transition: background-color 0.25s ease, opacity 0.35s ease, transform 0.35s ease;
+  transition: background-color 0.25s ease, opacity 0.4s ease, transform 0.4s ease;
+  transform-origin: center center;
 }
-/* Depth / luminosity: past lines recede, current line in focus, future lines softer */
+/* Depth effect (no 3D): past recedes and fades; active full size; future softer – keeps DOM order, no overlay */
+.chant-verses__list[data-sync-cylindrical="true"] .verse-block--before {
+  opacity: 0.32;
+  transform: scale(0.92) translateY(-0.25rem);
+  filter: brightness(0.78);
+}
+.chant-verses__list[data-sync-cylindrical="true"] .verse-block--after {
+  opacity: 0.52;
+  transform: scale(0.95) translateY(0.2rem);
+  filter: brightness(0.88);
+}
+.chant-verses__list[data-sync-cylindrical="true"] .verse-block--active {
+  opacity: 1;
+  transform: scale(1.02);
+  filter: brightness(1);
+}
+
+/* Mobile: softer cylindrical effect to avoid tiny text and overflow, keep scroll/sync smooth */
+@media (max-width: 767px) {
+  .chant-verses__list[data-sync-cylindrical="true"] .verse-block--before {
+    opacity: 0.4;
+    transform: scale(0.97);
+    filter: brightness(0.82);
+  }
+  .chant-verses__list[data-sync-cylindrical="true"] .verse-block--after {
+    opacity: 0.58;
+    transform: scale(0.98);
+    filter: brightness(0.9);
+  }
+  .chant-verses__list[data-sync-cylindrical="true"] .verse-block--active {
+    transform: scale(1);
+  }
+}
+/* Fallback when cylindrical not active (sync off or no data attr): simple depth */
 .prose-chant .verse-block--before {
   opacity: 0.38;
   transform: scale(0.98);
@@ -90,6 +124,24 @@
   margin-right: -0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+.chant-verses__list[data-sync-cylindrical="true"] .verse-block--active {
+  background-color: var(--sc-border);
+  box-shadow: 0 0 0 1px var(--sc-border);
+  border-radius: 0.375rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .chant-verses__list[data-sync-cylindrical="true"] .verse-block--active {
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
 }
 .prose-chant .verse-block--active .original {
   color: var(--sc-verse-original);
@@ -140,7 +192,7 @@
   font-size: calc(var(--sc-font-size-lg) * var(--sc-font-size-scale));
   line-height: var(--sc-leading-relaxed);
   margin-top: 0.75rem;
-  margin-bottom: 0;
+  margin-bottom: 1.25rem;
   color: var(--sc-verse-translation);
   letter-spacing: 0.01em;
   @apply space-y-1;
@@ -176,6 +228,8 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Cylindrical-style effect when sync is on: scale + opacity only (no 3D) to avoid overlay/stacking bugs */
 
 /* ——— Headings: use theme text colour (verse tint only affects verse block) ——— */
 .sc-heading {

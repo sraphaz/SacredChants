@@ -3,7 +3,10 @@
  * Transcription: first timestamp of each line (86 lines).
  * Manual overrides in JSON (script keeps 86 entries, do not re-run without restoring):
  *   - Verse 3 line 2 (jaya kapīsa tihuṁ loka ujāgara): 83s (script has 90)
- *   - Verse 4 line 1 (rāma dūta atulita bala dhāmā): 91s (script has 96)
+ *   - Verse 4 line 1 (rāma dūta atulita bala dhāmā): 90s (script has 96)
+ *   - Verse 4 line 2 (añjani-putra pavana-suta nāmā): 97s / 1:37 (script has 103)
+ *   - Verse 5 line 1 (mahābīra bikrama bajaraṅgī): 103s / 1:43 (script has 110)
+ *   - Verse 5 line 2 (kumati nivāra sumati ke saṅgī): 110s / 1:50 (script has 115)
  *   - Verse 43 line 1 (pavana tanaya saṅkaṭa harana...): 589s (script has 596)
  *   - Verse 43 line 2 (rāma lakhana sītā sahita...): 601s (script has 608)
  */
