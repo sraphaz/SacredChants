@@ -21,7 +21,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       {t.contribute.newContribution}
     </h1>
 
-    <div id="contribute-form-root" data-api-origin={apiOrigin}>
+    <div id="contribute-form-root" data-api-origin={apiOrigin} data-contribute-app-url={useAppSubdomain ? contributeAppContributeUrl : undefined}>
       {useAppSubdomain ? (
         <div class="mb-6">
           <p style="color: var(--sc-text-muted)">{t.contribute.useContributeApp}</p>
@@ -108,7 +108,9 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
 </BaseLayout>
 
 <script define:vars={{ apiOrigin }}>
-  const base = (document.getElementById('contribute-form-root')?.getAttribute('data-api-origin') ?? '') || '';
+  const root = document.getElementById('contribute-form-root');
+  if (root?.getAttribute('data-contribute-app-url')) return;
+  const base = (root?.getAttribute('data-api-origin') ?? '') || '';
   const loginRequired = document.getElementById('form-login-required');
   const wizard = document.getElementById('form-wizard');
   const form = document.getElementById('chant-form') as HTMLFormElement;

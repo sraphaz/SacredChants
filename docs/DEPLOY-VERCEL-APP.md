@@ -14,8 +14,8 @@ Faz isto na ordem para o GitHub Actions fazer deploy automático para a Vercel e
 | 2 | **Projeto (terminal)** | Na raiz do repo: `npx vercel login` e depois `npm run vercel:link`. Escolhe o team e o projeto (ou cria um). Isto gera `.vercel/project.json`. |
 | 3 | **Ficheiro local** | Abre `.vercel/project.json`. Vais precisar de `orgId` (→ VERCEL_ORG_ID) e `projectId` (→ VERCEL_PROJECT_ID). |
 | 4 | **GitHub CLI** | Instala [GitHub CLI](https://cli.github.com/) e faz `gh auth login`. Na raiz do repo (ou com `GITHUB_REPO=owner/SacredChants`). |
-| 5 | **Terminal (Bash)** | Exporta os 3 valores e corre o script (troca pelos teus valores):<br>`export VERCEL_TOKEN="o_token_da_etapa_1"`<br>`export VERCEL_ORG_ID="o_orgId_do_project_json"`<br>`export VERCEL_PROJECT_ID="o_projectId_do_project_json"`<br>`./scripts/setup-github-secrets-vercel.sh` |
-| 5 | **PowerShell** | Define as 3 variáveis e usa `gh secret set` com `--body` (ver secção "Criar os secrets via GitHub CLI" abaixo). |
+| 5a | **Terminal (Bash)** | Exporta os 3 valores e corre o script (troca pelos teus valores):<br>`export VERCEL_TOKEN="o_token_da_etapa_1"`<br>`export VERCEL_ORG_ID="o_orgId_do_project_json"`<br>`export VERCEL_PROJECT_ID="o_projectId_do_project_json"`<br>`./scripts/setup-github-secrets-vercel.sh` |
+| 5b | **PowerShell** | Define as 3 variáveis e usa `gh secret set` com `--body` (ver secção "Criar os secrets via GitHub CLI" abaixo). |
 | 6 | **Verificar** | Faz push para `main`. Em GitHub → **Actions** o workflow deve correr e o step "Deploy to Vercel (Production)" deve fazer deploy (em vez de "skipping"). |
 
 Se algo falhar: o job de deploy **não quebra** o CI se o token não existir; só fica uma mensagem "skipping". Quando os 3 secrets estiverem definidos, o próximo push à `main` faz o deploy.
