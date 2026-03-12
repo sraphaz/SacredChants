@@ -1,0 +1,17 @@
+# Local dev: Astro + Vercel serverless API (vercel dev).
+# Use with: docker compose -f docker-compose.dev.yml up --build
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install deps first so layer is cached
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# App code (node_modules stays from above; mount will overlay rest at run time)
+COPY . .
+
+EXPOSE 3000
+
+# Vercel dev serves app + API on port 3000
+CMD ["npm", "run", "dev:vercel"]

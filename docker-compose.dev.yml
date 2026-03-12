@@ -1,0 +1,23 @@
+# Local dev: run Astro + Vercel API (vercel dev) in Docker.
+# Requires .env.local in repo root (copy from .env.local.example).
+# Usage: docker compose -f docker-compose.dev.yml up --build
+# Then open http://localhost:3000/contribute/
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    volumes:
+      # Mount source so edits are reflected (restart or hot reload may apply)
+      - .:/app
+      # Keep container node_modules (don't overwrite with host's)
+      - app_node_modules:/app/node_modules
+    restart: unless-stopped
+
+volumes:
+  app_node_modules:
