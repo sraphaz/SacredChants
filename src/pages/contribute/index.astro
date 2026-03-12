@@ -30,7 +30,13 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
           <a
             href={contributeAppContributeUrl}
             class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition"
+            aria-label={t.contribute.openContributeApp}
           >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
             <span>{t.contribute.openContributeApp}</span>
           </a>
         </div>
@@ -51,20 +57,27 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
         </a>
       </div>
       <div id="contribute-authenticated" class="hidden">
-        <p class="mb-2" style="color: var(--sc-text)" id="contribute-welcome-msg"></p>
-        <div class="flex flex-wrap gap-3">
+        <p class="mb-3" style="color: var(--sc-text)" id="contribute-welcome-msg"></p>
+        <div role="tablist" class="flex gap-1 mb-4 border-b" style="border-color: var(--sc-border)" aria-label={t.contribute.title}>
+          <button type="button" role="tab" id="tab-new" aria-selected="true" aria-controls="panel-new" class="contribute-tab px-4 py-2 rounded-t text-sm font-medium transition" style="color: var(--sc-text-muted)">{t.contribute.newContribution}</button>
+          <button type="button" role="tab" id="tab-mine" aria-selected="false" aria-controls="panel-mine" class="contribute-tab px-4 py-2 rounded-t text-sm font-medium transition" style="color: var(--sc-text-muted)">{t.contribute.myContributions}</button>
+        </div>
+        <div id="panel-new" role="tabpanel" aria-labelledby="tab-new" class="contribute-panel">
+          <p class="mb-3" style="color: var(--sc-text-muted)">{t.contribute.newContributionIntro}</p>
           <a href="/contribute/form/" class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition">
             {t.contribute.newContribution}
           </a>
-          <a href="/contribute/dashboard/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">
-            {t.contribute.myContributions}
-          </a>
-          <form id="contribute-logout-form" action={`${apiOrigin}/api/logout`} method="post" class="inline">
-            <button type="submit" class="inline text-sm" style="color: var(--sc-text-muted)">
-              {t.contribute.signOut}
-            </button>
-          </form>
         </div>
+        <div id="panel-mine" role="tabpanel" aria-labelledby="tab-mine" class="contribute-panel hidden" aria-hidden="true">
+          <p id="contribute-empty" class="hidden mb-3" style="color: var(--sc-text-muted)">{t.contribute.noContributionsYet}</p>
+          <ul id="contribute-list" class="space-y-3 mb-4" aria-label={t.contribute.myContributions}></ul>
+          <a href="/contribute/form/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">{t.contribute.newContribution}</a>
+        </div>
+        <form id="contribute-logout-form" action={`${apiOrigin}/api/logout`} method="post" class="inline mt-4 block">
+          <button type="submit" class="inline text-sm" style="color: var(--sc-text-muted)">
+            {t.contribute.signOut}
+          </button>
+        </form>
       </div>
       </>
       )}
@@ -83,16 +96,56 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
         opacity: 0;
         pointer-events: none;
       }
+      .contribute-tab[aria-selected="true"] { color: var(--sc-text); border-bottom: 2px solid var(--sc-accent); margin-bottom: -1px; }
+      .contribute-tab {
+        min-height: 2.75rem;
+        padding: 0.5rem 0.75rem;
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      #contribute-list li {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      @media (max-width: 767px) {
+        [role="tablist"] { flex-wrap: wrap; gap: 0.25rem; }
+        .contribute-tab { min-width: 8rem; }
+        #contribute-list li { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+      }
     </style>
 </BaseLayout>
 
-<script define:vars={{ apiOrigin }}>
+<script define:vars={{ apiOrigin, stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, noContributionsYet: t.contribute.noContributionsYet }}>
   const root = document.getElementById('contribute-root');
   if (root?.getAttribute('data-contribute-app-url')) return;
   const loginCta = document.getElementById('contribute-login-cta');
   const authenticated = document.getElementById('contribute-authenticated');
   const welcomeMsg = document.getElementById('contribute-welcome-msg');
   const base = apiOrigin || '';
+
+  const tabNew = document.getElementById('tab-new');
+  const tabMine = document.getElementById('tab-mine');
+  const panelNew = document.getElementById('panel-new');
+  const panelMine = document.getElementById('panel-mine');
+  const listEl = document.getElementById('contribute-list');
+  const emptyEl = document.getElementById('contribute-empty');
+
+  function showPanel(which) {
+    const isNew = which === 'new';
+    if (tabNew) tabNew.setAttribute('aria-selected', isNew ? 'true' : 'false');
+    if (tabMine) tabMine.setAttribute('aria-selected', !isNew ? 'true' : 'false');
+    if (panelNew) {
+      panelNew.classList.toggle('hidden', !isNew);
+      panelNew.setAttribute('aria-hidden', isNew ? 'false' : 'true');
+    }
+    if (panelMine) {
+      panelMine.classList.toggle('hidden', isNew);
+      panelMine.setAttribute('aria-hidden', isNew ? 'true' : 'false');
+    }
+  }
+
+  tabNew?.addEventListener('click', () => showPanel('new'));
+  tabMine?.addEventListener('click', () => showPanel('mine'));
 
   fetch(base + '/api/me', { credentials: 'include' })
     .then((r) => (r.ok ? r.json() : null))
@@ -102,9 +155,43 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
         if (loginCta) loginCta.classList.add('hidden');
         if (authenticated) authenticated.classList.remove('hidden');
         if (welcomeMsg) welcomeMsg.textContent = `${document.documentElement.lang === 'pt' ? 'Bem-vindo(a)' : 'Welcome'}, @${user.login}`;
+        return fetch(base + '/api/contribute/list', { credentials: 'include' });
       }
+    })
+    .then((res) => (res?.ok ? res.json() : null))
+    .then((data) => {
+      const contributions = data?.contributions ?? [];
+      if (listEl) {
+        listEl.innerHTML = '';
+        contributions.forEach((c) => {
+          const li = document.createElement('li');
+          li.className = 'flex flex-wrap items-center gap-2 py-2 border-b';
+          li.style.borderColor = 'var(--sc-border)';
+          const stateLabel = c.merged ? stateMerged : c.state === 'open' ? stateOpen : stateClosed;
+          const numSpan = document.createElement('span');
+          numSpan.className = 'font-medium';
+          numSpan.textContent = '#' + c.number;
+          li.appendChild(numSpan);
+          li.appendChild(document.createTextNode(' ' + (c.title || '') + ' — '));
+          const stateSpan = document.createElement('span');
+          stateSpan.style.color = 'var(--sc-text-muted)';
+          stateSpan.textContent = stateLabel;
+          li.appendChild(stateSpan);
+          const link = document.createElement('a');
+          link.href = (c.htmlUrl && typeof c.htmlUrl === 'string') ? c.htmlUrl : '#';
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.className = 'ml-2 underline';
+          link.textContent = viewPR;
+          li.appendChild(document.createTextNode(' '));
+          li.appendChild(link);
+          listEl.appendChild(li);
+        });
+      }
+      if (emptyEl) emptyEl.classList.toggle('hidden', contributions.length > 0);
     })
     .catch(() => {
       root?.classList.remove('contribute-auth-pending');
+      if (emptyEl) emptyEl.classList.remove('hidden');
     });
 </script>

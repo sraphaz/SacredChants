@@ -46,6 +46,14 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       )}
     </div>
   </PageShell>
+  <style>
+    #dashboard-contributions li { word-wrap: break-word; overflow-wrap: break-word; }
+    #dashboard-contributions a { min-height: 2.75rem; display: inline-flex; align-items: center; padding: 0.25rem 0; }
+    @media (max-width: 767px) {
+      #dashboard-contributions li { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+      .sc-btn-primary { min-height: 2.75rem; padding: 0.625rem 1.25rem; }
+    }
+  </style>
 </BaseLayout>
 
 <script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, noContributionsYet: t.contribute.noContributionsYet }}>
@@ -72,10 +80,26 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
         ul.innerHTML = '';
         contributions.forEach((c) => {
           const li = document.createElement('li');
-          const stateLabel = c.merged ? stateMerged : c.state === 'open' ? stateOpen : stateClosed;
-          li.innerHTML = `<span class="font-medium">#${c.number}</span> ${c.title} — <span style="color: var(--sc-text-muted)">${stateLabel}</span> <a href="${c.htmlUrl}" target="_blank" rel="noopener" class="ml-2 underline">${viewPR}</a>`;
           li.className = 'flex flex-wrap items-center gap-2 py-2 border-b';
           li.style.borderColor = 'var(--sc-border)';
+          const stateLabel = c.merged ? stateMerged : c.state === 'open' ? stateOpen : stateClosed;
+          const numSpan = document.createElement('span');
+          numSpan.className = 'font-medium';
+          numSpan.textContent = '#' + c.number;
+          li.appendChild(numSpan);
+          li.appendChild(document.createTextNode(' ' + (c.title || '') + ' — '));
+          const stateSpan = document.createElement('span');
+          stateSpan.style.color = 'var(--sc-text-muted)';
+          stateSpan.textContent = stateLabel;
+          li.appendChild(stateSpan);
+          const link = document.createElement('a');
+          link.href = (c.htmlUrl && typeof c.htmlUrl === 'string') ? c.htmlUrl : '#';
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.className = 'ml-2 underline';
+          link.textContent = viewPR;
+          li.appendChild(document.createTextNode(' '));
+          li.appendChild(link);
           ul.appendChild(li);
         });
       }
