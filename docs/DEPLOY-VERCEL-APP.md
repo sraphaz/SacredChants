@@ -189,3 +189,9 @@ Se preferires criar o projeto na Vercel pelo browser (em vez de `vercel link` a 
 | **GitHub** | OAuth App: Callback URL = `https://app.sacredchants.org/api/auth/callback` |
 
 Depois do DNS ativo, **https://app.sacredchants.org/contribute/** deve ter login e submissão a funcionar; em sacredchants.org o botão “Open contribution app” leva para aí.
+
+---
+
+## Testar localmente (API + login + submit)
+
+Para testar o fluxo de contribuição (Sign in with GitHub, Create PR) no teu PC ou em Docker, vê **[LOCAL-VERCEL-DEV.md](./LOCAL-VERCEL-DEV.md)**. Resumo: `cp .env.local.example .env.local` → preencher → adicionar callback `http://localhost:3000/api/auth/callback` no GitHub → `npm run dev:vercel` (ou `docker compose -f docker-compose.dev.yml up --build`).

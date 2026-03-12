@@ -52,4 +52,36 @@ test.describe('Contribute (no-code)', () => {
     expect(href).toBeTruthy();
     expect(href).toMatch(/\/api\/auth\/github/);
   });
+
+  test('fluxo: index contribute → form page abre e exige login', async ({ page }) => {
+    await page.goto('/contribute/');
+    await expect(page.getByRole('heading', { name: /contribute/i }).first()).toBeVisible();
+    await expect(page.locator('#contribute-login-cta')).toBeVisible();
+    await page.goto('/contribute/form/');
+    await expect(page).toHaveTitle(/New contribution|Contribute/i);
+    await expect(page.getByRole('heading', { name: /new contribution/i }).first()).toBeVisible();
+    await expect(page.locator('#form-login-required')).toBeVisible();
+    await expect(page.getByRole('link', { name: /sign in with github/i })).toBeVisible();
+    await expect(page.locator('#form-wizard')).toBeAttached();
+  });
+
+  test('form page: link Sign in with GitHub aponta para auth com returnTo form', async ({ page }) => {
+    await page.goto('/contribute/form/');
+    const link = page.getByRole('link', { name: /sign in with github/i });
+    await expect(link).toBeVisible();
+    const href = await link.getAttribute('href');
+    expect(href).toBeTruthy();
+    expect(href).toMatch(/\/api\/auth\/github/);
+    expect(href).toMatch(/returnTo=.*%2Fcontribute%2Fform/);
+  });
+
+  test('form page: botão Sign in com GitHub é clicável e navega para auth', async ({ page }) => {
+    await page.goto('/contribute/form/');
+    const signInLink = page.getByRole('link', { name: /sign in with github/i });
+    await expect(signInLink).toBeVisible();
+    await expect(signInLink).toBeEnabled();
+    await signInLink.click();
+    await page.waitForURL(/\/(api\/auth\/github|github\.com)/, { timeout: 15_000 });
+    expect(page.url()).toMatch(/\/(api\/auth\/github|github\.com)/);
+  });
 });

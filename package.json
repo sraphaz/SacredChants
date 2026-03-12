@@ -18,7 +18,12 @@
     ]
   },
   "scripts": {
+    "deploy:vercel": "vercel --prod",
+    "vercel:link": "vercel link",
+    "vercel:env": "node scripts/push-vercel-env.mjs",
+    "vercel:domain": "vercel domains add app.sacredchants.org",
     "dev": "astro dev",
+    "dev:vercel": "vercel dev",
     "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite', { recursive: true, force: true })\" && astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -26,6 +31,7 @@
     "test:watch": "vitest",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
+    "test:e2e:contribute": "playwright test e2e/contribute.spec.ts",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:server": "node scripts/start-preview-e2e.js",
     "test:e2e:docker": "docker build -f Dockerfile.e2e -t sacred-chants-e2e . && docker run --rm --ipc=host sacred-chants-e2e",
@@ -42,6 +48,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
+    "vercel": "^39.0.0",
     "@vercel/node": "^3.0.0",
     "@playwright/test": "^1.58.2",
     "vitest": "^2.0.0",

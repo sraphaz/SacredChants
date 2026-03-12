@@ -2,7 +2,9 @@
 #                                                          → Deploy Vercel (só main, após build/lint/e2e)
 # O deploy na Vercel é feito por este workflow após os testes passarem. Desative "Production" auto-deploy
 # no projeto Vercel (Settings → Git) para evitar deploy em paralelo antes dos testes.
-# Unit tests: npm run test:unit (Vitest). E2E: Dockerfile.e2e corre todos os specs em e2e/*.spec.ts.
+# Unit tests: npm run test:unit (Vitest).
+# E2E: Dockerfile.e2e corre todos os specs em e2e/*.spec.ts, incluindo o fluxo de contribuição
+# (e2e/contribute.spec.ts: páginas /contribute/, /contribute/form/, login CTA, link Sign in with GitHub, acesso ao form).
 name: CI
 
 on:
@@ -73,7 +75,7 @@ jobs:
       - name: Build E2E Docker image
         run: docker build -f Dockerfile.e2e -t sacred-chants-e2e .
 
-      - name: Run E2E tests
+      - name: Run E2E tests (navigation, contribute flow, mobile drawer)
         run: docker run --rm --ipc=host sacred-chants-e2e
 
   # Deploy app de contribuição (app.sacredchants.org) só após build + lint + e2e passarem.

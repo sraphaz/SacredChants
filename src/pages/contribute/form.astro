@@ -417,10 +417,10 @@ const f = t.contribute.form;
   function submitPR() {
     const requiredSelectors = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt'];
     const invalidEl = requiredSelectors.map((sel) => document.querySelector(sel)).find(
-      (el) => (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) && !(el as HTMLInputElement).reportValidity()
+      (el) => (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) && !el.reportValidity()
     );
     if (invalidEl) {
-      (invalidEl as HTMLInputElement | HTMLTextAreaElement).reportValidity();
+      invalidEl.reportValidity();
       invalidEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       return;
     }
