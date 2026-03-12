@@ -1,0 +1,16 @@
+{
+  "required_status_checks": {
+    "strict": false,
+    "contexts": ["build", "lint", "e2e"]
+  },
+  "enforce_admins": false,
+  "required_pull_request_reviews": {
+    "dismiss_stale_reviews": true,
+    "require_code_owner_reviews": false,
+    "required_approving_review_count": 0
+  },
+  "restrictions": null,
+  "allow_force_pushes": false,
+  "allow_deletions": false,
+  "required_conversation_resolution": false
+}
