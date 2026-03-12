@@ -8,7 +8,8 @@ const t = ui[locale];
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
-const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
+const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
+const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'dashboard/' + (locale === 'pt' ? '?lang=pt' : '') : '';
 ---
 
 <BaseLayout
@@ -25,14 +26,14 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       {useAppSubdomain ? (
         <div class="mb-6">
           <p style="color: var(--sc-text-muted)">{t.contribute.useContributeApp}</p>
-          <a href={contributeAppContributeUrl + 'dashboard/'} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+          <a href={contributeAppContributeUrl} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
             {t.contribute.openContributeApp}
           </a>
         </div>
       ) : (
       <div id="dashboard-login-required" class="mb-6">
         <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
-        <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent('/contribute/dashboard/')}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+        <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(locale === 'pt' ? '/contribute/dashboard/?lang=pt' : '/contribute/dashboard/')}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
           {t.contribute.signInWithGitHub}
         </a>
       </div>
@@ -40,7 +41,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
         <p id="dashboard-empty" class="hidden" style="color: var(--sc-text-muted)">{t.contribute.noContributionsYet}</p>
         <ul id="dashboard-contributions" class="space-y-3" aria-label={t.contribute.myContributions}></ul>
         <p class="mt-4">
-          <a href="/contribute/form/" class="sc-btn-primary inline-flex px-5 py-2.5 rounded-lg">{t.contribute.newContribution}</a>
+          <a href={locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/'} class="sc-btn-primary inline-flex px-5 py-2.5 rounded-lg">{t.contribute.newContribution}</a>
         </p>
       </div>
       )}
@@ -49,6 +50,16 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
   <style>
     #dashboard-contributions li { word-wrap: break-word; overflow-wrap: break-word; }
     #dashboard-contributions a { min-height: 2.75rem; display: inline-flex; align-items: center; padding: 0.25rem 0; }
+    .dashboard-draft-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--sc-text-muted);
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      background: var(--sc-border);
+    }
     @media (max-width: 767px) {
       #dashboard-contributions li { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
       .sc-btn-primary { min-height: 2.75rem; padding: 0.625rem 1.25rem; }
@@ -56,7 +67,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
   </style>
 </BaseLayout>
 
-<script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, closePRLabel: t.contribute.closePR, confirmClosePR: t.contribute.confirmClosePR, prClosed: t.contribute.prClosed, noContributionsYet: t.contribute.noContributionsYet }}>
+<script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, closePRLabel: t.contribute.closePR, confirmClosePR: t.contribute.confirmClosePR, prClosed: t.contribute.prClosed, noContributionsYet: t.contribute.noContributionsYet, draftBadge: t.contribute.draftBadge, continueDraft: t.contribute.continueDraft, currentLocale: locale }}>
   const root = document.getElementById('dashboard-root');
   if (root?.getAttribute('data-contribute-app-url')) return;
   const base = root?.getAttribute('data-api-origin') ?? '';
@@ -64,6 +75,16 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
   const listEl = document.getElementById('dashboard-list');
   const emptyEl = document.getElementById('dashboard-empty');
   const ul = document.getElementById('dashboard-contributions');
+  const DRAFTS_KEY = 'sacredchants_contribute_drafts';
+
+  function getDrafts() {
+    try {
+      const raw = localStorage.getItem(DRAFTS_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  }
 
   function doClosePR(prNumber) {
     if (!confirm(confirmClosePR)) return;
@@ -87,6 +108,71 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       });
   }
 
+  function renderList(contributions) {
+    const drafts = getDrafts();
+    if (!ul) return;
+    ul.innerHTML = '';
+    drafts.forEach((d) => {
+      const li = document.createElement('li');
+      li.className = 'flex flex-wrap items-center gap-2 py-2 border-b';
+      li.style.borderColor = 'var(--sc-border)';
+      li.setAttribute('data-draft-id', d.id || '');
+      const badge = document.createElement('span');
+      badge.className = 'dashboard-draft-badge';
+      badge.textContent = draftBadge;
+      li.appendChild(badge);
+      const title = (d.title || d.slug || d.id || '').toString();
+      const dateStr = d.updatedAt ? new Date(d.updatedAt).toLocaleString(undefined, { dateStyle: 'short', timeStyle: 'short' }) : '';
+      li.appendChild(document.createTextNode(' ' + title + (dateStr ? ' — ' + dateStr : '') + ' '));
+      const continueLink = document.createElement('a');
+      const q = [];
+      if (currentLocale === 'pt') q.push('lang=pt');
+      if (d.id) q.push('draft=' + encodeURIComponent(d.id));
+      continueLink.href = '/contribute/form/' + (q.length ? '?' + q.join('&') : '');
+      continueLink.className = 'underline';
+      continueLink.textContent = continueDraft;
+      li.appendChild(continueLink);
+      ul.appendChild(li);
+    });
+    contributions.forEach((c) => {
+      const li = document.createElement('li');
+      li.className = 'flex flex-wrap items-center gap-2 py-2 border-b';
+      li.style.borderColor = 'var(--sc-border)';
+      li.setAttribute('data-pr-number', String(c.number));
+      const stateLabel = c.merged ? stateMerged : c.state === 'open' ? stateOpen : stateClosed;
+      const numSpan = document.createElement('span');
+      numSpan.className = 'font-medium';
+      numSpan.textContent = '#' + c.number;
+      li.appendChild(numSpan);
+      li.appendChild(document.createTextNode(' ' + (c.title || '') + ' — '));
+      const stateSpan = document.createElement('span');
+      stateSpan.className = 'dashboard-state';
+      stateSpan.style.color = 'var(--sc-text-muted)';
+      stateSpan.textContent = stateLabel;
+      li.appendChild(stateSpan);
+      const link = document.createElement('a');
+      link.href = (c.htmlUrl && typeof c.htmlUrl === 'string') ? c.htmlUrl : '#';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.className = 'ml-2 underline';
+      link.textContent = viewPR;
+      li.appendChild(document.createTextNode(' '));
+      li.appendChild(link);
+      if (c.state === 'open' && !c.merged) {
+        const closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.className = 'dashboard-close-btn ml-2 text-sm border rounded px-2 py-1';
+        closeBtn.style.borderColor = 'var(--sc-border)';
+        closeBtn.textContent = closePRLabel;
+        closeBtn.addEventListener('click', () => doClosePR(c.number));
+        li.appendChild(closeBtn);
+      }
+      ul.appendChild(li);
+    });
+    const total = drafts.length + contributions.length;
+    if (emptyEl) emptyEl.classList.toggle('hidden', total > 0);
+  }
+
   fetch(base + '/api/me', { credentials: 'include' })
     .then((r) => (r.ok ? r.json() : null))
     .then((user) => {
@@ -98,47 +184,9 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
     .then((res) => (res?.ok ? res.json() : null))
     .then((data) => {
       const contributions = data?.contributions ?? [];
-      if (ul) {
-        ul.innerHTML = '';
-        contributions.forEach((c) => {
-          const li = document.createElement('li');
-          li.className = 'flex flex-wrap items-center gap-2 py-2 border-b';
-          li.style.borderColor = 'var(--sc-border)';
-          li.setAttribute('data-pr-number', String(c.number));
-          const stateLabel = c.merged ? stateMerged : c.state === 'open' ? stateOpen : stateClosed;
-          const numSpan = document.createElement('span');
-          numSpan.className = 'font-medium';
-          numSpan.textContent = '#' + c.number;
-          li.appendChild(numSpan);
-          li.appendChild(document.createTextNode(' ' + (c.title || '') + ' — '));
-          const stateSpan = document.createElement('span');
-          stateSpan.className = 'dashboard-state';
-          stateSpan.style.color = 'var(--sc-text-muted)';
-          stateSpan.textContent = stateLabel;
-          li.appendChild(stateSpan);
-          const link = document.createElement('a');
-          link.href = (c.htmlUrl && typeof c.htmlUrl === 'string') ? c.htmlUrl : '#';
-          link.target = '_blank';
-          link.rel = 'noopener';
-          link.className = 'ml-2 underline';
-          link.textContent = viewPR;
-          li.appendChild(document.createTextNode(' '));
-          li.appendChild(link);
-          if (c.state === 'open' && !c.merged) {
-            const closeBtn = document.createElement('button');
-            closeBtn.type = 'button';
-            closeBtn.className = 'dashboard-close-btn ml-2 text-sm border rounded px-2 py-1';
-            closeBtn.style.borderColor = 'var(--sc-border)';
-            closeBtn.textContent = closePRLabel;
-            closeBtn.addEventListener('click', () => doClosePR(c.number));
-            li.appendChild(closeBtn);
-          }
-          ul.appendChild(li);
-        });
-      }
-      if (emptyEl) emptyEl.classList.toggle('hidden', contributions.length > 0);
+      renderList(contributions);
     })
     .catch(() => {
-      if (emptyEl) emptyEl.classList.remove('hidden');
+      renderList([]);
     });
 </script>
