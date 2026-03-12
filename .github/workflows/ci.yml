@@ -1,3 +1,8 @@
+# CI + E2E + Release em sequência correta:
+# 1. Build e Lint (paralelo)
+# 2. E2E (Docker)
+# 3. Release (só em main, só se build + lint + e2e passarem) → cria tag e GitHub Release
+# 4. Deploy (disparado automaticamente por release: published, ver deploy.yml)
 name: CI
 
 on:
@@ -47,3 +52,43 @@ jobs:
       - name: Type check
         run: npx astro check
         continue-on-error: true
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build E2E Docker image
+        run: docker build -f Dockerfile.e2e -t sacred-chants-e2e .
+
+      - name: Run E2E tests
+        run: docker run --rm --ipc=host sacred-chants-e2e
+
+  # Só corre em push para main e só depois de build, lint e e2e passarem.
+  # Cria tag + GitHub Release (semantic-release); deploy.yml dispara em release: published.
+  release:
+    needs: [build, lint, e2e]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

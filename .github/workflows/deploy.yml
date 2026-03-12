@@ -1,5 +1,10 @@
 # Deploy to GitHub Pages (https://sraphaz.github.io/SacredChants/)
-# Dispara quando uma release é publicada (criada pelo workflow Release).
+#
+# Fluxo: CI (ci.yml) corre build → lint → e2e → release (só em main).
+#        Quando semantic-release publica uma release, este workflow dispara e faz deploy do TAG dessa release.
+#        Em execução manual (workflow_dispatch) faz deploy de main.
+#
+# ref: tag da release = código exato que foi testado e versionado; main = só em deploy manual.
 name: Deploy to GitHub Pages
 
 on:
