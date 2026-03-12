@@ -415,6 +415,15 @@ const f = t.contribute.form;
   }
 
   function submitPR() {
+    const requiredSelectors = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt'];
+    const invalidEl = requiredSelectors.map((sel) => document.querySelector(sel)).find(
+      (el) => (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) && !(el as HTMLInputElement).reportValidity()
+    );
+    if (invalidEl) {
+      (invalidEl as HTMLInputElement | HTMLTextAreaElement).reportValidity();
+      invalidEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return;
+    }
     if (verses.length === 0) {
       if (formError) {
         formError.textContent = formT.verseMinSubmitError;
@@ -493,7 +502,11 @@ const f = t.contribute.form;
           navLinks.forEach((a) => {
             const isCurrent = a.getAttribute('data-section') === key;
             a.classList.toggle('is-current', isCurrent);
-            a.setAttribute('aria-current', isCurrent ? 'location' : null);
+            if (isCurrent) {
+              a.setAttribute('aria-current', 'location');
+            } else {
+              a.removeAttribute('aria-current');
+            }
           });
         });
       },
