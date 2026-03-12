@@ -37,8 +37,11 @@ test.describe('Contribute (no-code)', () => {
     await expect(page.locator('#title')).toBeAttached();
     await expect(page.locator('#tradition')).toBeAttached();
     await expect(page.locator('#language')).toBeAttached();
-    await expect(page.locator('#original')).toBeAttached();
-    await expect(page.locator('#chant-form')).toBeAttached();
+    await expect(page.locator('#v_original')).toBeAttached();
+    await expect(page.locator('#form-wizard')).toBeAttached();
+    await expect(page.locator('#form-section-metadata')).toBeAttached();
+    await expect(page.locator('#form-section-verses')).toBeAttached();
+    await expect(page.locator('#form-section-review')).toBeAttached();
   });
 
   test('link Sign in with GitHub no index aponta para API auth', async ({ page }) => {
