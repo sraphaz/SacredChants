@@ -478,12 +478,13 @@ const f = t.contribute.form;
         let pt = v.translation_pt;
         if (contentLang === 'pt') pt = pt || v.original;
         else if (contentLang === 'en') en = en || v.original;
+        const transliteration = (v.transliteration || '').trim() || undefined;
         return {
           order: i + 1,
           lines: [{
             start: 0,
             original: v.original,
-            transliteration: v.transliteration,
+            ...(transliteration !== undefined && { transliteration }),
             translations: { en: en || '', pt: pt || '' },
           }],
         };
