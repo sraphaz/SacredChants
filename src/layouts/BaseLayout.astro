@@ -16,7 +16,7 @@ interface Props {
   locale?: Locale;
 }
 
-const { title, description = 'A living library of sacred sound traditions.' } = Astro.props;
+const { title, description = 'Human heritage in sound. A living library of sacred chant — preserving access to the inner states of consciousness that sacred sound opens.' } = Astro.props;
 const tEn = ui.en;
 const tPt = ui.pt;
 /** Initial locale from URL so the correct language shows on first paint (no flash of EN). */
@@ -145,7 +145,7 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
       <div class="max-w-content mx-auto px-page-x text-center text-sm">
         <p class="locale-en">Sacred Chants — {tEn.home.tagline}</p>
         <p class="locale-pt">Sacred Chants — {tPt.home.tagline}</p>
-        <p class="mt-1" style="color: var(--sc-text-subtle)">Open source · No ads · Contemplative</p>
+        <p class="mt-1" style="color: var(--sc-text-subtle)">Open source · No ads · Human heritage · Contemplative</p>
       </div>
     </footer>
   </body>

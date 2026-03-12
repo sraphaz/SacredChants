@@ -11,8 +11,8 @@ export const ui = {
       settings: 'Settings',
     },
     home: {
-      tagline: 'A living library of sacred sound traditions.',
-      subtitle: 'Sacred chants, mantras, prayers, and devotional songs from different traditions.',
+      tagline: 'Human heritage in sound — a living library of sacred chant.',
+      subtitle: 'Sacred sound opens access to inner states of consciousness. Beyond the text, we preserve this heritage to protect the experience these chants grant: revelatory, and close to who we truly are.',
       browseChants: 'Browse chants',
       exploreTraditions: 'Explore traditions',
     },
@@ -107,8 +107,8 @@ export const ui = {
       settings: 'Configurações',
     },
     home: {
-      tagline: 'Uma biblioteca viva das tradições do som sagrado.',
-      subtitle: 'Cânticos sagrados, mantras, orações e canções devocionais de diferentes tradições.',
+      tagline: 'Património humano em som — uma biblioteca viva de cântico sagrado.',
+      subtitle: 'O som sagrado abre acesso a estados internos de consciência. Para além do texto, preservamos este património para proteger a experiência que estes cânticos concedem: reveladora e próxima do que verdadeiramente somos.',
       browseChants: 'Explorar cânticos',
       exploreTraditions: 'Explorar tradições',
     },
