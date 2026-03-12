@@ -21,7 +21,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       {t.contribute.title}
     </h1>
 
-    <div id="contribute-root" class="space-y-6" data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl}>
+    <div id="contribute-root" class:list={['space-y-6', !useAppSubdomain && 'contribute-auth-pending']} data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl}>
       {useAppSubdomain ? (
         <div class="mb-page-content">
           <p class="mb-3" style="color: var(--sc-text-muted)">
@@ -77,6 +77,13 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       </p>
     </div>
   </PageShell>
+    <style>
+      #contribute-root.contribute-auth-pending #contribute-login-cta,
+      #contribute-root.contribute-auth-pending #contribute-authenticated {
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
 </BaseLayout>
 
 <script define:vars={{ apiOrigin }}>
@@ -90,11 +97,14 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
   fetch(base + '/api/me', { credentials: 'include' })
     .then((r) => (r.ok ? r.json() : null))
     .then((user) => {
+      root?.classList.remove('contribute-auth-pending');
       if (user && user.login) {
         if (loginCta) loginCta.classList.add('hidden');
         if (authenticated) authenticated.classList.remove('hidden');
         if (welcomeMsg) welcomeMsg.textContent = `${document.documentElement.lang === 'pt' ? 'Bem-vindo(a)' : 'Welcome'}, @${user.login}`;
       }
     })
-    .catch(() => {});
+    .catch(() => {
+      root?.classList.remove('contribute-auth-pending');
+    });
 </script>

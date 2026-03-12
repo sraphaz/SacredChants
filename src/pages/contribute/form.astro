@@ -113,7 +113,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
   const base = (root?.getAttribute('data-api-origin') ?? '') || '';
   const loginRequired = document.getElementById('form-login-required');
   const wizard = document.getElementById('form-wizard');
-  const form = document.getElementById('chant-form') as HTMLFormElement;
+  const form = document.getElementById('chant-form');
   const formError = document.getElementById('form-error');
   const formSuccess = document.getElementById('form-success');
   const submitBtn = document.getElementById('form-submit-btn');
@@ -136,18 +136,19 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
     formError.textContent = '';
     submitBtn.setAttribute('disabled', 'disabled');
 
-    const slug = (form.querySelector('#slug') as HTMLInputElement)?.value?.trim().toLowerCase().replace(/\s+/g, '-') || '';
-    const tagsStr = (form.querySelector('#tags') as HTMLInputElement)?.value?.trim() || '';
+    const getVal = (sel) => { const el = form.querySelector(sel); return (el && el.value !== undefined ? el.value : '').trim(); };
+    const slug = getVal('#slug').toLowerCase().replace(/\s+/g, '-') || '';
+    const tagsStr = getVal('#tags');
     const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()).filter(Boolean) : [];
 
     const payload = {
       slug,
-      title: (form.querySelector('#title') as HTMLInputElement)?.value?.trim() || '',
-      tradition: (form.querySelector('#tradition') as HTMLInputElement)?.value?.trim() || '',
-      language: (form.querySelector('#language') as HTMLInputElement)?.value?.trim() || '',
+      title: getVal('#title') || '',
+      tradition: getVal('#tradition') || '',
+      language: getVal('#language') || '',
       description: {
-        en: (form.querySelector('#description_en') as HTMLTextAreaElement)?.value?.trim() || '',
-        pt: (form.querySelector('#description_pt') as HTMLTextAreaElement)?.value?.trim() || '',
+        en: getVal('#description_en') || '',
+        pt: getVal('#description_pt') || '',
       },
       tags,
       verses: [
@@ -156,11 +157,11 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
           lines: [
             {
               start: 0,
-              original: (form.querySelector('#original') as HTMLInputElement)?.value?.trim() || '',
-              transliteration: (form.querySelector('#transliteration') as HTMLInputElement)?.value?.trim() || '',
+              original: getVal('#original') || '',
+              transliteration: getVal('#transliteration') || '',
               translations: {
-                en: (form.querySelector('#translation_en') as HTMLInputElement)?.value?.trim() || undefined,
-                pt: (form.querySelector('#translation_pt') as HTMLInputElement)?.value?.trim() || undefined,
+                en: getVal('#translation_en') || undefined,
+                pt: getVal('#translation_pt') || undefined,
               },
             },
           ],
