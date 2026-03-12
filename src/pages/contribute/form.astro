@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
+---
+
+<BaseLayout
+  title={t.contribute.newContribution + ' — ' + t.contribute.title}
+  description={t.contribute.description}
+  locale={locale}
+>
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      {t.contribute.newContribution}
+    </h1>
+
+    <div id="contribute-form-root" data-api-origin={apiOrigin}>
+      <div id="form-login-required" class="mb-6">
+        <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
+        <a href={`${apiOrigin}/api/auth/github`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+          {t.contribute.signInWithGitHub}
+        </a>
+      </div>
+      <div id="form-wizard" class="hidden space-y-6">
+        <p id="form-error" class="text-red-600 hidden" role="alert"></p>
+        <p id="form-success" class="hidden" style="color: var(--sc-text-muted)" role="status"></p>
+
+        <form id="chant-form" class="space-y-6">
+          <fieldset class="space-y-3">
+            <legend class="font-serif text-sc-xl mb-2" style="color: var(--sc-text)">Metadata</legend>
+            <div>
+              <label for="slug" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Slug (URL id, e.g. my-chant)</label>
+              <input type="text" id="slug" name="slug" required pattern="[a-z0-9-]+" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+            <div>
+              <label for="title" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Title</label>
+              <input type="text" id="title" name="title" required class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+            <div>
+              <label for="tradition" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Tradition</label>
+              <input type="text" id="tradition" name="tradition" required placeholder="e.g. Hindu, Buddhist" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+            <div>
+              <label for="language" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Language</label>
+              <input type="text" id="language" name="language" required placeholder="e.g. Sanskrit" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+            <div>
+              <label for="description_en" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Description (English)</label>
+              <textarea id="description_en" name="description_en" required rows="2" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)"></textarea>
+            </div>
+            <div>
+              <label for="description_pt" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Description (Portuguese)</label>
+              <textarea id="description_pt" name="description_pt" required rows="2" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)"></textarea>
+            </div>
+            <div>
+              <label for="tags" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Tags (comma-separated)</label>
+              <input type="text" id="tags" name="tags" placeholder="mantra, shiva" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+          </fieldset>
+
+          <fieldset class="space-y-3">
+            <legend class="font-serif text-sc-xl mb-2" style="color: var(--sc-text)">First verse (minimal)</legend>
+            <p class="text-sm" style="color: var(--sc-text-muted)">You can add more verses by editing the JSON in the PR. Here we add one line.</p>
+            <div>
+              <label for="original" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Original (script)</label>
+              <input type="text" id="original" name="original" required class="w-full max-w-md px-3 py-2 rounded border font-serif" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+            <div>
+              <label for="transliteration" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Transliteration</label>
+              <input type="text" id="transliteration" name="transliteration" required class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+            <div>
+              <label for="translation_en" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Translation (English)</label>
+              <input type="text" id="translation_en" name="translation_en" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+            <div>
+              <label for="translation_pt" class="block text-sm mb-1" style="color: var(--sc-text-muted)">Translation (Portuguese)</label>
+              <input type="text" id="translation_pt" name="translation_pt" class="w-full max-w-md px-3 py-2 rounded border" style="background: var(--sc-bg); border-color: var(--sc-border); color: var(--sc-text)" />
+            </div>
+          </fieldset>
+
+          <div class="flex gap-3">
+            <button type="submit" id="form-submit-btn" class="sc-btn-primary px-5 py-2.5 rounded-lg">
+              Submit (create pull request)
+            </button>
+            <a href="../" class="inline-flex items-center px-5 py-2.5 rounded-lg" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </PageShell>
+</BaseLayout>
+
+<script define:vars={{ apiOrigin }}>
+  const base = (document.getElementById('contribute-form-root')?.getAttribute('data-api-origin') ?? '') || '';
+  const loginRequired = document.getElementById('form-login-required');
+  const wizard = document.getElementById('form-wizard');
+  const form = document.getElementById('chant-form') as HTMLFormElement;
+  const formError = document.getElementById('form-error');
+  const formSuccess = document.getElementById('form-success');
+  const submitBtn = document.getElementById('form-submit-btn');
+
+  fetch(base + '/api/me', { credentials: 'include' })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((user) => {
+      if (user && user.login) {
+        if (loginRequired) loginRequired.classList.add('hidden');
+        if (wizard) wizard.classList.remove('hidden');
+      }
+    })
+    .catch(() => {});
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!formError || !formSuccess || !submitBtn) return;
+    formError.classList.add('hidden');
+    formSuccess.classList.add('hidden');
+    formError.textContent = '';
+    submitBtn.setAttribute('disabled', 'disabled');
+
+    const slug = (form.querySelector('#slug') as HTMLInputElement)?.value?.trim().toLowerCase().replace(/\s+/g, '-') || '';
+    const tagsStr = (form.querySelector('#tags') as HTMLInputElement)?.value?.trim() || '';
+    const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()).filter(Boolean) : [];
+
+    const payload = {
+      slug,
+      title: (form.querySelector('#title') as HTMLInputElement)?.value?.trim() || '',
+      tradition: (form.querySelector('#tradition') as HTMLInputElement)?.value?.trim() || '',
+      language: (form.querySelector('#language') as HTMLInputElement)?.value?.trim() || '',
+      description: {
+        en: (form.querySelector('#description_en') as HTMLTextAreaElement)?.value?.trim() || '',
+        pt: (form.querySelector('#description_pt') as HTMLTextAreaElement)?.value?.trim() || '',
+      },
+      tags,
+      verses: [
+        {
+          order: 1,
+          lines: [
+            {
+              start: 0,
+              original: (form.querySelector('#original') as HTMLInputElement)?.value?.trim() || '',
+              transliteration: (form.querySelector('#transliteration') as HTMLInputElement)?.value?.trim() || '',
+              translations: {
+                en: (form.querySelector('#translation_en') as HTMLInputElement)?.value?.trim() || undefined,
+                pt: (form.querySelector('#translation_pt') as HTMLInputElement)?.value?.trim() || undefined,
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    try {
+      const res = await fetch(base + '/api/contribute/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.prUrl) {
+        formSuccess.textContent = (document.documentElement.lang === 'pt' ? 'Pull request criado. Será revisto antes de ser publicado.' : 'Pull request created. It will be reviewed before being published.') + ' ';
+        const link = document.createElement('a');
+        link.href = data.prUrl;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = document.documentElement.lang === 'pt' ? 'Ver PR' : 'View PR';
+        formSuccess.appendChild(link);
+        formSuccess.classList.remove('hidden');
+        form.reset();
+      } else {
+        formError.textContent = data.error || data.details || 'Request failed';
+        formError.classList.remove('hidden');
+      }
+    } catch (err) {
+      formError.textContent = err instanceof Error ? err.message : 'Request failed';
+      formError.classList.remove('hidden');
+    } finally {
+      submitBtn?.removeAttribute('disabled');
+    }
+  });
+</script>

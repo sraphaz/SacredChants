@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
+---
+
+<BaseLayout
+  title={t.contribute.myContributions + ' — ' + t.contribute.title}
+  description={t.contribute.description}
+  locale={locale}
+>
+  <PageShell>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      {t.contribute.myContributions}
+    </h1>
+
+    <div id="dashboard-root" data-api-origin={apiOrigin}>
+      <div id="dashboard-login-required" class="mb-6">
+        <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
+        <a href={`${apiOrigin}/api/auth/github`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+          {t.contribute.signInWithGitHub}
+        </a>
+      </div>
+      <div id="dashboard-list" class="hidden">
+        <p id="dashboard-empty" class="hidden" style="color: var(--sc-text-muted)">{t.contribute.noContributionsYet}</p>
+        <ul id="dashboard-contributions" class="space-y-3" aria-label={t.contribute.myContributions}></ul>
+        <p class="mt-4">
+          <a href="../form/" class="sc-btn-primary inline-flex px-5 py-2.5 rounded-lg">{t.contribute.newContribution}</a>
+        </p>
+      </div>
+    </div>
+  </PageShell>
+</BaseLayout>
+
+<script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, noContributionsYet: t.contribute.noContributionsYet }}>
+  const root = document.getElementById('dashboard-root');
+  const base = root?.getAttribute('data-api-origin') ?? '';
+  const loginRequired = document.getElementById('dashboard-login-required');
+  const listEl = document.getElementById('dashboard-list');
+  const emptyEl = document.getElementById('dashboard-empty');
+  const ul = document.getElementById('dashboard-contributions');
+
+  fetch(base + '/api/me', { credentials: 'include' })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((user) => {
+      if (!user?.login) return;
+      if (loginRequired) loginRequired.classList.add('hidden');
+      if (listEl) listEl.classList.remove('hidden');
+      return fetch(base + '/api/contribute/list', { credentials: 'include' });
+    })
+    .then((res) => (res?.ok ? res.json() : null))
+    .then((data) => {
+      const contributions = data?.contributions ?? [];
+      if (ul) {
+        ul.innerHTML = '';
+        contributions.forEach((c) => {
+          const li = document.createElement('li');
+          const stateLabel = c.merged ? stateMerged : c.state === 'open' ? stateOpen : stateClosed;
+          li.innerHTML = `<span class="font-medium">#${c.number}</span> ${c.title} — <span style="color: var(--sc-text-muted)">${stateLabel}</span> <a href="${c.htmlUrl}" target="_blank" rel="noopener" class="ml-2 underline">${viewPR}</a>`;
+          li.className = 'flex flex-wrap items-center gap-2 py-2 border-b';
+          li.style.borderColor = 'var(--sc-border)';
+          ul.appendChild(li);
+        });
+      }
+      if (emptyEl) emptyEl.classList.toggle('hidden', contributions.length > 0);
+    })
+    .catch(() => {
+      if (emptyEl) emptyEl.classList.remove('hidden');
+    });
+</script>
