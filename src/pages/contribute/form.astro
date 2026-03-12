@@ -60,7 +60,7 @@ const f = t.contribute.form;
               <div class="contribute-form-section-inner space-y-3">
                 <div>
                   <label for="slug" class="contribute-form-label">{f.slugLabel}</label>
-                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9-]+" placeholder={f.slugPlaceholder} class="contribute-form-input" />
+                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9\-]+" placeholder={f.slugPlaceholder} class="contribute-form-input" />
                 </div>
                 <div>
                   <label for="title" class="contribute-form-label">{f.titleLabel}</label>
@@ -104,7 +104,8 @@ const f = t.contribute.form;
                   </div>
                   <div>
                     <label for="v_transliteration" class="contribute-form-label">{f.verseTransliterationLabel}</label>
-                    <input type="text" id="v_transliteration" class="contribute-form-input" />
+                    <p id="v_transliteration-hint" class="contribute-form-field-hint">{f.verseTransliterationHint}</p>
+                    <input type="text" id="v_transliteration" class="contribute-form-input" aria-describedby="v_transliteration-hint" />
                   </div>
                   <div>
                     <label for="v_translation_en" class="contribute-form-label">{f.verseTranslationEnLabel}</label>
@@ -241,8 +242,14 @@ const f = t.contribute.form;
     line-height: 1.4;
   }
   .contribute-verses-list li:last-child { border-bottom: none; }
+  .contribute-form-field-hint {
+    font-size: 0.8125rem;
+    color: var(--sc-text-muted);
+    margin: 0.125rem 0 0.5rem 0;
+    line-height: 1.35;
+  }
   .contribute-review-preview {
-    padding: 1rem;
+    padding: 1.25rem;
     border-radius: 0.5rem;
     border: 1px solid var(--sc-border);
     background: var(--sc-bg);
@@ -252,10 +259,25 @@ const f = t.contribute.form;
     line-height: 1.5;
     color: var(--sc-text);
   }
-  .contribute-review-preview .review-title { font-family: var(--font-serif, serif); font-size: 1.125rem; margin-bottom: 0.25rem; }
-  .contribute-review-preview .review-meta { font-size: 0.8125rem; color: var(--sc-text-muted); margin-bottom: 0.5rem; }
-  .contribute-review-preview .review-verses { list-style: disc; padding-left: 1.25rem; margin: 0; }
-  .contribute-review-preview .review-verses li { margin-bottom: 0.25rem; }
+  .contribute-review-preview .review-block {
+    margin-bottom: 1rem;
+  }
+  .contribute-review-preview .review-block:last-child { margin-bottom: 0; }
+  .contribute-review-preview .review-title { font-family: var(--font-serif, serif); font-size: 1.25rem; font-weight: 600; margin: 0 0 0.25rem 0; }
+  .contribute-review-preview .review-meta { font-size: 0.8125rem; color: var(--sc-text-muted); margin: 0 0 0.5rem 0; }
+  .contribute-review-preview .review-description { padding-top: 0.5rem; border-top: 1px solid var(--sc-border); }
+  .contribute-review-preview .review-desc-text { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+  .contribute-review-preview .review-verses-block { padding-top: 0.75rem; border-top: 1px solid var(--sc-border); }
+  .contribute-review-preview .review-verses-heading { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--sc-text-muted); margin: 0 0 0.5rem 0; }
+  .contribute-review-preview .review-verses { list-style: none; padding-left: 0; margin: 0; }
+  .contribute-review-preview .review-verse-line {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--sc-border);
+  }
+  .contribute-review-preview .review-verse-line:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .contribute-review-preview .review-verse-original { display: block; font-size: 1rem; margin-bottom: 0.125rem; }
+  .contribute-review-preview .review-verse-trans { font-size: 0.875rem; color: var(--sc-text-muted); }
   .contribute-form-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
   .contribute-form-btn-secondary {
     display: inline-flex;
@@ -339,15 +361,22 @@ const f = t.contribute.form;
     const meta = [tradition, language].filter(Boolean).join(' · ') || '—';
     const desc = descEn || descPt || '—';
     let html = '';
+    html += '<div class="review-block review-header">';
     if (title) html += '<p class="review-title">' + escapeHtml(title) + '</p>';
     html += '<p class="review-meta">' + escapeHtml(meta) + '</p>';
-    html += '<p class="review-meta">' + escapeHtml(desc) + '</p>';
+    html += '</div>';
+    html += '<div class="review-block review-description">';
+    html += '<p class="review-desc-text">' + escapeHtml(desc) + '</p>';
+    html += '</div>';
     if (verses.length) {
+      html += '<div class="review-block review-verses-block">';
+      html += '<p class="review-verses-heading">' + escapeHtml(formT.stepVerses) + '</p>';
       html += '<ul class="review-verses">';
       verses.forEach((v) => {
-        html += '<li><span class="font-serif">' + escapeHtml(v.original) + '</span> — ' + escapeHtml(v.transliteration) + '</li>';
+        const transPart = v.transliteration ? ' <span class="review-verse-trans">— ' + escapeHtml(v.transliteration) + '</span>' : '';
+        html += '<li class="review-verse-line"><span class="review-verse-original font-serif">' + escapeHtml(v.original) + '</span>' + transPart + '</li>';
       });
-      html += '</ul>';
+      html += '</ul></div>';
     } else {
       html += '<p class="review-meta">' + escapeHtml(formT.reviewEmptyHint) + '</p>';
     }
@@ -357,7 +386,7 @@ const f = t.contribute.form;
   function addVerse() {
     const original = getVal('#v_original');
     const transliteration = getVal('#v_transliteration');
-    if (!original || !transliteration) {
+    if (!original) {
       if (formError) {
         formError.textContent = formT.verseRequiredError;
         formError.classList.remove('hidden');
@@ -383,7 +412,7 @@ const f = t.contribute.form;
     const listEl = document.getElementById('verses-list');
     if (listEl) {
       const li = document.createElement('li');
-      li.textContent = original + ' — ' + transliteration;
+      li.textContent = transliteration ? original + ' — ' + transliteration : original;
       listEl.appendChild(li);
     }
     const legend = document.getElementById('current-verse-legend');
