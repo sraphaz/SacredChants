@@ -96,8 +96,14 @@ jobs:
         run: npm ci
 
       - name: Deploy to Vercel (Production)
-        run: npx vercel deploy --prod --token="${{ secrets.VERCEL_TOKEN }}" --yes
+        run: |
+          if [ -n "$VERCEL_TOKEN" ]; then
+            npx vercel deploy --prod --token="$VERCEL_TOKEN" --yes
+          else
+            echo "VERCEL_TOKEN not set; skipping Vercel deploy. Add it in Settings → Secrets to enable."
+          fi
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
