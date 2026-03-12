@@ -55,6 +55,9 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
           window.location.replace(window.location.pathname + (q.toString() ? '?' + q.toString() : ''));
           return;
         }
+        if (urlLang === 'pt' || urlLang === 'en') {
+          try { localStorage.setItem(STORAGE + 'lang', urlLang); } catch (e) {}
+        }
         var locale = urlLang === 'pt' ? 'pt' : (savedLang === 'pt' ? 'pt' : 'en');
         root.dataset.locale = locale;
         root.lang = locale === 'pt' ? 'pt' : 'en';

@@ -12,14 +12,37 @@ const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
 const langQuery = locale === 'pt' ? '?lang=pt' : '';
 const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
 
-const knowledgeLinks = [
-  { slug: 'sound-and-humanity', titleEn: tEn.knowledge.soundAndHumanity, titlePt: tPt.knowledge.soundAndHumanity },
-  { slug: 'nada-yoga', titleEn: tEn.knowledge.nadaYoga, titlePt: tPt.knowledge.nadaYoga },
-  { slug: 'vibration-mind', titleEn: tEn.knowledge.vibrationMind, titlePt: tPt.knowledge.vibrationMind },
-  { slug: 'elements-and-sound', titleEn: tEn.knowledge.elementsAndSound, titlePt: tPt.knowledge.elementsAndSound },
-  { slug: 'sound-attributes', titleEn: tEn.knowledge.soundAttributes, titlePt: tPt.knowledge.soundAttributes },
-  { slug: 'balance-and-healing', titleEn: tEn.knowledge.balanceAndHealing, titlePt: tPt.knowledge.balanceAndHealing },
-  { slug: 'references', titleEn: tEn.knowledge.references, titlePt: tPt.knowledge.references },
+/** Single nav item for a knowledge page */
+function item(slug: string, titleEn: string, titlePt: string) {
+  return { slug, titleEn, titlePt };
+}
+
+/** Sections: label key (in tEn/tPt.knowledge) + items. Order defines page hierarchy. */
+const sections = [
+  {
+    labelKey: 'sectionStartHere' as const,
+    items: [item('sound-and-humanity', tEn.knowledge.soundAndHumanity, tPt.knowledge.soundAndHumanity)],
+  },
+  {
+    labelKey: 'sectionFirstPillar' as const,
+    items: [item('nada-yoga', tEn.knowledge.nadaYoga, tPt.knowledge.nadaYoga)],
+  },
+  {
+    labelKey: 'sectionConcepts' as const,
+    items: [
+      item('vibration-mind', tEn.knowledge.vibrationMind, tPt.knowledge.vibrationMind),
+      item('elements-and-sound', tEn.knowledge.elementsAndSound, tPt.knowledge.elementsAndSound),
+      item('sound-attributes', tEn.knowledge.soundAttributes, tPt.knowledge.soundAttributes),
+    ],
+  },
+  {
+    labelKey: 'sectionGoDeeper' as const,
+    items: [item('balance-and-healing', tEn.knowledge.balanceAndHealing, tPt.knowledge.balanceAndHealing)],
+  },
+  {
+    labelKey: 'sectionReferences' as const,
+    items: [item('references', tEn.knowledge.references, tPt.knowledge.references)],
+  },
 ];
 ---
 
@@ -35,20 +58,46 @@ const knowledgeLinks = [
     <p class="mb-page-content" style="color: var(--sc-text-muted)">
       {t.knowledge.description}
     </p>
-    <p class="mb-6 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
+    <p class="mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.knowledge.intro}</span>
       <span class="locale-pt">{tPt.knowledge.intro}</span>
     </p>
-    <nav class="flex flex-col gap-3 max-w-xl" aria-label="Knowledge sections">
-      {knowledgeLinks.map((item) => (
-        <a
-          href={`${FULL_BASE}knowledge/${item.slug}/${langQuery}`}
-          class="block py-2 font-medium transition-colors rounded px-2 -mx-2 hover:opacity-80"
-          style="color: var(--sc-text-muted)"
-        >
-          <span class="locale-en">{item.titleEn}</span>
-          <span class="locale-pt">{item.titlePt}</span>
-        </a>
+
+    <nav class="flex flex-col max-w-2xl" style="gap: var(--sc-space-section-gap)" aria-label="Knowledge sections">
+      {sections.map((section) => (
+        <section class="flex flex-col gap-3" aria-labelledby={`knowledge-heading-${section.labelKey}`}>
+          <h2
+            id={`knowledge-heading-${section.labelKey}`}
+            class="text-xs font-medium tracking-wider uppercase"
+            style="color: var(--sc-text-subtle)"
+          >
+            <span class="locale-en">{tEn.knowledge[section.labelKey]}</span>
+            <span class="locale-pt">{tPt.knowledge[section.labelKey]}</span>
+          </h2>
+          <ul class="flex flex-col gap-2 list-none p-0 m-0">
+            {section.items.map((item) => {
+              const href = `${FULL_BASE}knowledge/${item.slug}/${langQuery}`;
+              const isFirstPillar = section.labelKey === 'sectionFirstPillar';
+              return (
+                <li>
+                  <a
+                    href={href}
+                    class:list={[
+                      'block w-full text-left rounded-xl transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sc-accent)]',
+                      isFirstPillar
+                        ? 'sc-btn-primary py-3 px-5 font-medium'
+                        : 'py-3 px-4 border border-[var(--sc-border)] bg-[var(--sc-bg-elevated)] hover:border-[var(--sc-text-subtle)] hover:bg-[var(--sc-accent-soft)]',
+                    ]}
+                    style={!isFirstPillar ? { color: 'var(--sc-text)' } : undefined}
+                  >
+                    <span class="locale-en">{item.titleEn}</span>
+                    <span class="locale-pt">{item.titlePt}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       ))}
     </nav>
   </PageShell>
