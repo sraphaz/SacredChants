@@ -56,7 +56,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
   </style>
 </BaseLayout>
 
-<script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, noContributionsYet: t.contribute.noContributionsYet }}>
+<script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, closePRLabel: t.contribute.closePR, confirmClosePR: t.contribute.confirmClosePR, prClosed: t.contribute.prClosed, noContributionsYet: t.contribute.noContributionsYet }}>
   const root = document.getElementById('dashboard-root');
   if (root?.getAttribute('data-contribute-app-url')) return;
   const base = root?.getAttribute('data-api-origin') ?? '';
@@ -64,6 +64,28 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
   const listEl = document.getElementById('dashboard-list');
   const emptyEl = document.getElementById('dashboard-empty');
   const ul = document.getElementById('dashboard-contributions');
+
+  function doClosePR(prNumber) {
+    if (!confirm(confirmClosePR)) return;
+    fetch(base + '/api/contribute/close', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ prNumber }),
+    })
+      .then((r) => r.json().catch(() => ({})))
+      .then((data) => {
+        if (data.ok) {
+          const li = ul?.querySelector('[data-pr-number="' + prNumber + '"]');
+          if (li) {
+            const stateSpan = li.querySelector('.dashboard-state');
+            if (stateSpan) stateSpan.textContent = stateClosed;
+            const closeBtn = li.querySelector('.dashboard-close-btn');
+            if (closeBtn) closeBtn.remove();
+          }
+        }
+      });
+  }
 
   fetch(base + '/api/me', { credentials: 'include' })
     .then((r) => (r.ok ? r.json() : null))
@@ -82,6 +104,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
           const li = document.createElement('li');
           li.className = 'flex flex-wrap items-center gap-2 py-2 border-b';
           li.style.borderColor = 'var(--sc-border)';
+          li.setAttribute('data-pr-number', String(c.number));
           const stateLabel = c.merged ? stateMerged : c.state === 'open' ? stateOpen : stateClosed;
           const numSpan = document.createElement('span');
           numSpan.className = 'font-medium';
@@ -89,6 +112,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
           li.appendChild(numSpan);
           li.appendChild(document.createTextNode(' ' + (c.title || '') + ' — '));
           const stateSpan = document.createElement('span');
+          stateSpan.className = 'dashboard-state';
           stateSpan.style.color = 'var(--sc-text-muted)';
           stateSpan.textContent = stateLabel;
           li.appendChild(stateSpan);
@@ -100,6 +124,15 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
           link.textContent = viewPR;
           li.appendChild(document.createTextNode(' '));
           li.appendChild(link);
+          if (c.state === 'open' && !c.merged) {
+            const closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
+            closeBtn.className = 'dashboard-close-btn ml-2 text-sm border rounded px-2 py-1';
+            closeBtn.style.borderColor = 'var(--sc-border)';
+            closeBtn.textContent = closePRLabel;
+            closeBtn.addEventListener('click', () => doClosePR(c.number));
+            li.appendChild(closeBtn);
+          }
           ul.appendChild(li);
         });
       }
