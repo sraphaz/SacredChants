@@ -123,7 +123,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'Invalid JSON body' });
   }
 
-  const parsed = chantSchema.safeParse(body);
+  const raw = body as Record<string, unknown>;
+  const audioBase64 = typeof raw.audioBase64 === 'string' ? raw.audioBase64 : undefined;
+  const audioFilename = typeof raw.audioFilename === 'string' ? raw.audioFilename : undefined;
+  const bodyForSchema = { ...raw };
+  delete (bodyForSchema as Record<string, unknown>).audioBase64;
+  delete (bodyForSchema as Record<string, unknown>).audioFilename;
+
+  const parsed = chantSchema.safeParse(bodyForSchema);
   if (!parsed.success) {
     return res.status(400).json({
       error: 'Validation failed',
@@ -131,7 +138,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
-  const chant = parsed.data;
+  let chant = parsed.data;
+  if (audioBase64 && audioFilename) {
+    chant = { ...chant, audio: `/audio/${audioFilename}` };
+  }
   const chantJson = JSON.stringify(chant, null, 2);
   const contributeOrigin = process.env.CONTRIBUTE_ORIGIN || 'https://app.sacredchants.org';
 
@@ -190,6 +200,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       body: prBody,
       slug: chant.slug,
       chantJson,
+      ...(audioBase64 && audioFilename && { audioBase64, audioFilename }),
     });
 
     return res.status(201).json({

@@ -20,6 +20,10 @@ export interface CreatePRParams {
   slug: string;
   chantJson: string;
   branchFrom?: string;
+  /** Base64-encoded audio file (no data URL prefix). When set, file is committed at public/audio/{audioFilename}. */
+  audioBase64?: string;
+  /** Filename for audio (e.g. slug.mp3). Used only when audioBase64 is set. */
+  audioFilename?: string;
 }
 
 /**
@@ -56,6 +60,18 @@ export async function createContributionPR(params: CreatePRParams): Promise<{ pr
     content,
     branch: branchName,
   });
+
+  if (params.audioBase64 && params.audioFilename) {
+    const audioPath = `public/audio/${params.audioFilename}`;
+    await octokit.rest.repos.createOrUpdateFileContents({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      path: audioPath,
+      message: `chore(audio): add audio for chant ${params.slug} [contribution]`,
+      content: params.audioBase64,
+      branch: branchName,
+    });
+  }
 
   const { data: pr } = await octokit.rest.pulls.create({
     owner: REPO_OWNER,

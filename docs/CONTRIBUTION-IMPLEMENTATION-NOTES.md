@@ -43,6 +43,8 @@ Variável de ambiente no frontend: `PUBLIC_CONTRIBUTE_API_ORIGIN`. Se vazia, usa
 - Criação do **label** `contribution` no repositório (ou tratamento de 404 em `addLabels`).
 - Documentação para o utilizador final (como obter Client ID/Secret do GitHub, configurar callback URL, variáveis de ambiente).
 
+**Deploy da API (subdomínio):** O site em produção está em GitHub Pages (só estático). Para o login e submissão funcionarem, a app + API têm de estar na Vercel. Ver **[DEPLOY-VERCEL-APP.md](./DEPLOY-VERCEL-APP.md)** para passos completos (Vercel, GitHub OAuth callback, DNS no UNIS). Subdomínio usado: **app.sacredchants.org**. O build do GitHub Pages usa `PUBLIC_CONTRIBUTE_APP_URL=https://app.sacredchants.org` para que as páginas Contribute no site principal liguem para a app no subdomínio.
+
 ## Variáveis de ambiente (API)
 
 | Variável | Descrição |
