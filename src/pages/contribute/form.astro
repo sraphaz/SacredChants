@@ -60,7 +60,7 @@ const f = t.contribute.form;
               <div class="contribute-form-section-inner space-y-3">
                 <div>
                   <label for="slug" class="contribute-form-label">{f.slugLabel}</label>
-                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9-]+" placeholder={f.slugPlaceholder} class="contribute-form-input" />
+                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9\-]+" placeholder={f.slugPlaceholder} class="contribute-form-input" />
                 </div>
                 <div>
                   <label for="title" class="contribute-form-label">{f.titleLabel}</label>
@@ -75,12 +75,21 @@ const f = t.contribute.form;
                   <input type="text" id="language" name="language" required placeholder={f.languagePlaceholder} class="contribute-form-input" />
                 </div>
                 <div>
-                  <label for="description_en" class="contribute-form-label">{f.descriptionEnLabel}</label>
-                  <textarea id="description_en" name="description_en" required rows="2" class="contribute-form-input"></textarea>
+                  <label for="content_language" class="contribute-form-label">{f.contentLanguageLabel}</label>
+                  <p class="contribute-form-field-hint" id="content_language-hint">{f.contentLanguageHint}</p>
+                  <select id="content_language" name="content_language" class="contribute-form-input" aria-describedby="content_language-hint">
+                    <option value="other">{f.contentLanguageOther}</option>
+                    <option value="pt">{f.contentLanguagePt}</option>
+                    <option value="en">{f.contentLanguageEn}</option>
+                  </select>
                 </div>
-                <div>
+                <div id="description_en-wrap">
+                  <label for="description_en" class="contribute-form-label">{f.descriptionEnLabel}</label>
+                  <textarea id="description_en" name="description_en" rows="2" class="contribute-form-input"></textarea>
+                </div>
+                <div id="description_pt-wrap">
                   <label for="description_pt" class="contribute-form-label">{f.descriptionPtLabel}</label>
-                  <textarea id="description_pt" name="description_pt" required rows="2" class="contribute-form-input"></textarea>
+                  <textarea id="description_pt" name="description_pt" rows="2" class="contribute-form-input"></textarea>
                 </div>
                 <div>
                   <label for="tags" class="contribute-form-label">{f.tagsLabel}</label>
@@ -104,14 +113,17 @@ const f = t.contribute.form;
                   </div>
                   <div>
                     <label for="v_transliteration" class="contribute-form-label">{f.verseTransliterationLabel}</label>
-                    <input type="text" id="v_transliteration" class="contribute-form-input" />
+                    <p id="v_transliteration-hint" class="contribute-form-field-hint">{f.verseTransliterationHint}</p>
+                    <input type="text" id="v_transliteration" class="contribute-form-input" aria-describedby="v_transliteration-hint" />
                   </div>
-                  <div>
+                  <div id="verse-translation-en-wrap">
                     <label for="v_translation_en" class="contribute-form-label">{f.verseTranslationEnLabel}</label>
+                    <p id="verse-translation-en-optional" class="contribute-form-field-hint hidden"></p>
                     <input type="text" id="v_translation_en" class="contribute-form-input" />
                   </div>
-                  <div>
+                  <div id="verse-translation-pt-wrap">
                     <label for="v_translation_pt" class="contribute-form-label">{f.verseTranslationPtLabel}</label>
+                    <p id="verse-translation-pt-optional" class="contribute-form-field-hint hidden"></p>
                     <input type="text" id="v_translation_pt" class="contribute-form-input" />
                   </div>
                   <button type="button" id="btn-add-verse" class="sc-btn-primary px-5 py-2.5 rounded-lg">{f.addVerse}</button>
@@ -241,8 +253,14 @@ const f = t.contribute.form;
     line-height: 1.4;
   }
   .contribute-verses-list li:last-child { border-bottom: none; }
+  .contribute-form-field-hint {
+    font-size: 0.8125rem;
+    color: var(--sc-text-muted);
+    margin: 0.125rem 0 0.5rem 0;
+    line-height: 1.35;
+  }
   .contribute-review-preview {
-    padding: 1rem;
+    padding: 1.25rem;
     border-radius: 0.5rem;
     border: 1px solid var(--sc-border);
     background: var(--sc-bg);
@@ -252,10 +270,25 @@ const f = t.contribute.form;
     line-height: 1.5;
     color: var(--sc-text);
   }
-  .contribute-review-preview .review-title { font-family: var(--font-serif, serif); font-size: 1.125rem; margin-bottom: 0.25rem; }
-  .contribute-review-preview .review-meta { font-size: 0.8125rem; color: var(--sc-text-muted); margin-bottom: 0.5rem; }
-  .contribute-review-preview .review-verses { list-style: disc; padding-left: 1.25rem; margin: 0; }
-  .contribute-review-preview .review-verses li { margin-bottom: 0.25rem; }
+  .contribute-review-preview .review-block {
+    margin-bottom: 1rem;
+  }
+  .contribute-review-preview .review-block:last-child { margin-bottom: 0; }
+  .contribute-review-preview .review-title { font-family: var(--font-serif, serif); font-size: 1.25rem; font-weight: 600; margin: 0 0 0.25rem 0; }
+  .contribute-review-preview .review-meta { font-size: 0.8125rem; color: var(--sc-text-muted); margin: 0 0 0.5rem 0; }
+  .contribute-review-preview .review-description { padding-top: 0.5rem; border-top: 1px solid var(--sc-border); }
+  .contribute-review-preview .review-desc-text { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+  .contribute-review-preview .review-verses-block { padding-top: 0.75rem; border-top: 1px solid var(--sc-border); }
+  .contribute-review-preview .review-verses-heading { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--sc-text-muted); margin: 0 0 0.5rem 0; }
+  .contribute-review-preview .review-verses { list-style: none; padding-left: 0; margin: 0; }
+  .contribute-review-preview .review-verse-line {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--sc-border);
+  }
+  .contribute-review-preview .review-verse-line:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .contribute-review-preview .review-verse-original { display: block; font-size: 1rem; margin-bottom: 0.125rem; }
+  .contribute-review-preview .review-verse-trans { font-size: 0.875rem; color: var(--sc-text-muted); }
   .contribute-form-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
   .contribute-form-btn-secondary {
     display: inline-flex;
@@ -328,6 +361,32 @@ const f = t.contribute.form;
     return div.innerHTML;
   }
 
+  function getContentLanguage() {
+    return getVal('#content_language') || 'other';
+  }
+
+  function updateDescriptionRequired() {
+    const cl = getContentLanguage();
+    const descEn = document.getElementById('description_en');
+    const descPt = document.getElementById('description_pt');
+    if (descEn) descEn.required = cl !== 'en';
+    if (descPt) descPt.required = cl !== 'pt';
+  }
+
+  function updateVerseTranslationHints() {
+    const cl = getContentLanguage();
+    const optEn = document.getElementById('verse-translation-en-optional');
+    const optPt = document.getElementById('verse-translation-pt-optional');
+    if (optEn) {
+      optEn.textContent = formT.verseTranslationEnOptionalWhen || '';
+      optEn.classList.toggle('hidden', cl !== 'en');
+    }
+    if (optPt) {
+      optPt.textContent = formT.verseTranslationPtOptionalWhen || '';
+      optPt.classList.toggle('hidden', cl !== 'pt');
+    }
+  }
+
   function renderReview() {
     const title = getVal('#title') || '';
     const tradition = getVal('#tradition') || '';
@@ -339,15 +398,22 @@ const f = t.contribute.form;
     const meta = [tradition, language].filter(Boolean).join(' · ') || '—';
     const desc = descEn || descPt || '—';
     let html = '';
+    html += '<div class="review-block review-header">';
     if (title) html += '<p class="review-title">' + escapeHtml(title) + '</p>';
     html += '<p class="review-meta">' + escapeHtml(meta) + '</p>';
-    html += '<p class="review-meta">' + escapeHtml(desc) + '</p>';
+    html += '</div>';
+    html += '<div class="review-block review-description">';
+    html += '<p class="review-desc-text">' + escapeHtml(desc) + '</p>';
+    html += '</div>';
     if (verses.length) {
+      html += '<div class="review-block review-verses-block">';
+      html += '<p class="review-verses-heading">' + escapeHtml(formT.stepVerses) + '</p>';
       html += '<ul class="review-verses">';
       verses.forEach((v) => {
-        html += '<li><span class="font-serif">' + escapeHtml(v.original) + '</span> — ' + escapeHtml(v.transliteration) + '</li>';
+        const transPart = v.transliteration ? ' <span class="review-verse-trans">— ' + escapeHtml(v.transliteration) + '</span>' : '';
+        html += '<li class="review-verse-line"><span class="review-verse-original font-serif">' + escapeHtml(v.original) + '</span>' + transPart + '</li>';
       });
-      html += '</ul>';
+      html += '</ul></div>';
     } else {
       html += '<p class="review-meta">' + escapeHtml(formT.reviewEmptyHint) + '</p>';
     }
@@ -357,7 +423,7 @@ const f = t.contribute.form;
   function addVerse() {
     const original = getVal('#v_original');
     const transliteration = getVal('#v_transliteration');
-    if (!original || !transliteration) {
+    if (!original) {
       if (formError) {
         formError.textContent = formT.verseRequiredError;
         formError.classList.remove('hidden');
@@ -383,7 +449,7 @@ const f = t.contribute.form;
     const listEl = document.getElementById('verses-list');
     if (listEl) {
       const li = document.createElement('li');
-      li.textContent = original + ' — ' + transliteration;
+      li.textContent = transliteration ? original + ' — ' + transliteration : original;
       listEl.appendChild(li);
     }
     const legend = document.getElementById('current-verse-legend');
@@ -395,27 +461,42 @@ const f = t.contribute.form;
     const tagsStr = getVal('#tags');
     const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()).filter(Boolean) : [];
     const slug = getVal('#slug').toLowerCase().replace(/\s+/g, '-') || '';
+    const contentLang = getContentLanguage();
+    let descEn = getVal('#description_en') || '';
+    let descPt = getVal('#description_pt') || '';
+    if (contentLang === 'pt') descPt = descPt || descEn;
+    else if (contentLang === 'en') descEn = descEn || descPt;
     return {
       slug,
       title: getVal('#title') || '',
       tradition: getVal('#tradition') || '',
       language: getVal('#language') || '',
-      description: { en: getVal('#description_en') || '', pt: getVal('#description_pt') || '' },
+      description: { en: descEn, pt: descPt },
       tags,
-      verses: verses.map((v, i) => ({
-        order: i + 1,
-        lines: [{
-          start: 0,
-          original: v.original,
-          transliteration: v.transliteration,
-          translations: { en: v.translation_en, pt: v.translation_pt },
-        }],
-      })),
+      verses: verses.map((v, i) => {
+        let en = v.translation_en;
+        let pt = v.translation_pt;
+        if (contentLang === 'pt') pt = pt || v.original;
+        else if (contentLang === 'en') en = en || v.original;
+        return {
+          order: i + 1,
+          lines: [{
+            start: 0,
+            original: v.original,
+            transliteration: v.transliteration,
+            translations: { en: en || '', pt: pt || '' },
+          }],
+        };
+      }),
     };
   }
 
   function submitPR() {
-    const requiredSelectors = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt'];
+    const contentLang = getContentLanguage();
+    const requiredSelectors = ['#slug', '#title', '#tradition', '#language'];
+    if (contentLang === 'other') requiredSelectors.push('#description_en', '#description_pt');
+    else if (contentLang === 'pt') requiredSelectors.push('#description_en');
+    else requiredSelectors.push('#description_pt');
     const invalidEl = requiredSelectors.map((sel) => document.querySelector(sel)).find(
       (el) => (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) && !el.checkValidity()
     );
@@ -469,11 +550,24 @@ const f = t.contribute.form;
   }
 
   function setupLiveReview() {
-    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags'];
+    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags', '#content_language'];
     fields.forEach((sel) => {
       const el = document.querySelector(sel);
       if (el) el.addEventListener('input', renderReview);
     });
+    const contentLangEl = document.getElementById('content_language');
+    if (contentLangEl) {
+      contentLangEl.addEventListener('change', () => {
+        updateDescriptionRequired();
+        updateVerseTranslationHints();
+        renderReview();
+      });
+    }
+  }
+
+  function setupContentLanguage() {
+    updateDescriptionRequired();
+    updateVerseTranslationHints();
   }
 
   function setupNav() {
@@ -528,6 +622,7 @@ const f = t.contribute.form;
         if (wizard) wizard.classList.remove('hidden');
         renderReview();
         setupLiveReview();
+        setupContentLanguage();
         setupNav();
       }
     })

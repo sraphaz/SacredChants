@@ -76,7 +76,7 @@ function formatChantContentAsMarkdown(chant: Chant): string {
       lines.push(`**Linha ${i + 1}** (start: ${line.start}s)`);
       lines.push('');
       lines.push('- **Original:** `' + escapeForInlineCode(line.original) + '`');
-      lines.push('- **Transliteração:** `' + escapeForInlineCode(line.transliteration) + '`');
+      if (line.transliteration) lines.push('- **Transliteração:** `' + escapeForInlineCode(line.transliteration) + '`');
       if (line.translations.pt) lines.push('- **PT:** `' + escapeForInlineCode(line.translations.pt) + '`');
       if (line.translations.en) lines.push('- **EN:** `' + escapeForInlineCode(line.translations.en) + '`');
       lines.push('');
@@ -200,6 +200,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Failed to create PR';
-    return res.status(500).json({ error: 'Failed to create pull request', details: message });
+    const isConfig = /GITHUB_TOKEN|required for PR/i.test(message);
+    return res.status(500).json({
+      error: 'Failed to create pull request',
+      details: message,
+      hint: isConfig ? 'Check that GITHUB_TOKEN is set in Vercel Environment Variables (repo scope).' : undefined,
+    });
   }
 }
