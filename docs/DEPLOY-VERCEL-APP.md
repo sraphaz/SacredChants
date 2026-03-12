@@ -4,6 +4,24 @@ O site principal está em **GitHub Pages** (sacredchants.org), que só serve est
 
 ---
 
+## Passo a passo rápido (deploy via CI)
+
+Faz isto na ordem para o GitHub Actions fazer deploy automático para a Vercel em cada push à `main`.
+
+| # | Onde | O quê |
+|---|------|--------|
+| 1 | **Vercel (browser)** | Criar token: [vercel.com](https://vercel.com) → teu avatar (canto inferior esq.) → **Settings** → **Tokens** → **Create**. Copia o token (só aparece uma vez). |
+| 2 | **Projeto (terminal)** | Na raiz do repo: `npx vercel login` e depois `npm run vercel:link`. Escolhe o team e o projeto (ou cria um). Isto gera `.vercel/project.json`. |
+| 3 | **Ficheiro local** | Abre `.vercel/project.json`. Vais precisar de `orgId` (→ VERCEL_ORG_ID) e `projectId` (→ VERCEL_PROJECT_ID). |
+| 4 | **GitHub CLI** | Instala [GitHub CLI](https://cli.github.com/) e faz `gh auth login`. Na raiz do repo (ou com `GITHUB_REPO=owner/SacredChants`). |
+| 5a | **Terminal (Bash)** | Exporta os 3 valores e corre o script (troca pelos teus valores):<br>`export VERCEL_TOKEN="o_token_da_etapa_1"`<br>`export VERCEL_ORG_ID="o_orgId_do_project_json"`<br>`export VERCEL_PROJECT_ID="o_projectId_do_project_json"`<br>`bash scripts/setup-github-secrets-vercel.sh` |
+| 5b | **PowerShell** | Define as 3 variáveis e usa `gh secret set` com `--body` (ver secção "Criar os secrets via GitHub CLI" abaixo). |
+| 6 | **Verificar** | Faz push para `main`. Em GitHub → **Actions** o workflow deve correr e o step "Deploy to Vercel (Production)" deve fazer deploy (em vez de "skipping"). |
+
+Se algo falhar: o job de deploy **não quebra** o CI se o token não existir; só fica uma mensagem "skipping". Quando os 3 secrets estiverem definidos, o próximo push à `main` faz o deploy.
+
+---
+
 ## O que podes fazer daqui (comandos no projeto)
 
 Tudo isto corre na raiz do repo, depois de `npm install`.
@@ -71,6 +89,42 @@ O pipeline em `.github/workflows/ci.yml` faz **deploy para a Vercel só depois**
 - **Secrets no GitHub (Settings → Secrets and variables → Actions):**
   - `VERCEL_TOKEN` — token da Vercel (Account/Team → Settings → Tokens).
   - `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` — no projeto Vercel: Settings → General; ou em `.vercel/project.json` depois de `vercel link`.
+- Se `VERCEL_TOKEN` não estiver definido, o job **não falha**: o step de deploy é ignorado e fica uma mensagem no log. Assim o CI continua verde até configurares os secrets.
+
+**Criar os secrets via GitHub CLI (`gh`):**
+
+1. Instala e autentica: [GitHub CLI](https://cli.github.com/) e `gh auth login`.
+2. Obtém os valores:
+   - **VERCEL_TOKEN:** Vercel → Account/Team → Settings → Tokens → Create.
+   - **VERCEL_ORG_ID** e **VERCEL_PROJECT_ID:** Vercel → teu projeto → Settings → General; ou no ficheiro `.vercel/project.json` depois de `vercel link`.
+3. Na raiz do repo, define os três secrets:
+
+   **Bash / Git Bash (Windows):**
+   ```bash
+   # Substitui pelos teus valores; não faças commit destas linhas.
+   export VERCEL_TOKEN="o_teu_token"
+   export VERCEL_ORG_ID="team_xxxx"
+   export VERCEL_PROJECT_ID="prj_xxxx"
+   echo -n "$VERCEL_TOKEN"       | gh secret set VERCEL_TOKEN --repo owner/SacredChants
+   echo -n "$VERCEL_ORG_ID"      | gh secret set VERCEL_ORG_ID --repo owner/SacredChants
+   echo -n "$VERCEL_PROJECT_ID"  | gh secret set VERCEL_PROJECT_ID --repo owner/SacredChants
+   ```
+   Ou usa o script (com as variáveis já exportadas):
+   ```bash
+   bash scripts/setup-github-secrets-vercel.sh
+   ```
+
+   **PowerShell (Windows):**
+   ```powershell
+   # Substitui pelos teus valores; não faças commit.
+   $env:VERCEL_TOKEN = "o_teu_token"
+   $env:VERCEL_ORG_ID = "team_xxxx"
+   $env:VERCEL_PROJECT_ID = "prj_xxxx"
+   gh secret set VERCEL_TOKEN       --body $env:VERCEL_TOKEN       --repo owner/SacredChants
+   gh secret set VERCEL_ORG_ID      --body $env:VERCEL_ORG_ID      --repo owner/SacredChants
+   gh secret set VERCEL_PROJECT_ID  --body $env:VERCEL_PROJECT_ID  --repo owner/SacredChants
+   ```
+   (Troca `owner/SacredChants` pelo teu `owner/repo` se for diferente.)
 
 Para evitar **dois** deploys (o da Vercel por Git e o do nosso workflow), no projeto Vercel: **Settings → Git → Production Branch** pode deixar `main`, mas em **Deploy Hooks** ou em **Ignored Build Step** podes desativar o deploy automático em push e usar só o deploy do CI. Alternativa: deixar a Vercel fazer deploy em cada push; nesse caso o deploy do CI será redundante mas os testes continuam a correr antes do job `deploy-vercel` (que falha sem os secrets até os configurares).
 

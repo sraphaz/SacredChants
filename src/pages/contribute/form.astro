@@ -6,6 +6,9 @@ import { ui, type Locale } from '../../i18n/strings';
 const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
 const t = ui[locale];
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
+const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
+const useAppSubdomain = contributeAppUrl.length > 0;
+const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
 ---
 
 <BaseLayout
@@ -18,7 +21,15 @@ const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
       {t.contribute.newContribution}
     </h1>
 
-    <div id="contribute-form-root" data-api-origin={apiOrigin}>
+    <div id="contribute-form-root" data-api-origin={apiOrigin} data-contribute-app-url={useAppSubdomain ? contributeAppContributeUrl : undefined}>
+      {useAppSubdomain ? (
+        <div class="mb-6">
+          <p style="color: var(--sc-text-muted)">{t.contribute.useContributeApp}</p>
+          <a href={contributeAppContributeUrl + 'form/'} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+            {t.contribute.openContributeApp}
+          </a>
+        </div>
+      ) : (
       <div id="form-login-required" class="mb-6">
         <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
         <a href={`${apiOrigin}/api/auth/github`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
@@ -87,16 +98,19 @@ const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
             <button type="submit" id="form-submit-btn" class="sc-btn-primary px-5 py-2.5 rounded-lg">
               Submit (create pull request)
             </button>
-            <a href="../" class="inline-flex items-center px-5 py-2.5 rounded-lg" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">Cancel</a>
+            <a href="/contribute/" class="inline-flex items-center px-5 py-2.5 rounded-lg" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">Cancel</a>
           </div>
         </form>
       </div>
+      )}
     </div>
   </PageShell>
 </BaseLayout>
 
 <script define:vars={{ apiOrigin }}>
-  const base = (document.getElementById('contribute-form-root')?.getAttribute('data-api-origin') ?? '') || '';
+  const root = document.getElementById('contribute-form-root');
+  if (root?.getAttribute('data-contribute-app-url')) return;
+  const base = (root?.getAttribute('data-api-origin') ?? '') || '';
   const loginRequired = document.getElementById('form-login-required');
   const wizard = document.getElementById('form-wizard');
   const form = document.getElementById('chant-form') as HTMLFormElement;
