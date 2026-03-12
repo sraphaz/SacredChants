@@ -37,6 +37,7 @@
   padding-top: var(--sc-space-verse-custom);
   padding-bottom: var(--sc-space-verse-custom);
   border-bottom: 1px solid var(--sc-border);
+  scroll-margin-top: 14vh;
 }
 
 .prose-chant .verse-block:last-child {

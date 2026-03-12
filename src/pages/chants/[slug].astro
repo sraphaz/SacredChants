@@ -215,7 +215,7 @@ const linesWithMeta = (() => {
             el.classList.remove('verse-block--active', 'verse-block--before', 'verse-block--after');
             if (i === index) {
               el.classList.add('verse-block--active');
-              if (scroll) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              if (scroll) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else if (i < index) {
               el.classList.add('verse-block--before');
             } else {

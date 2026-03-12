@@ -12,6 +12,8 @@ const { src, title = 'Chant audio', id, compact = false } = Astro.props;
 const audioId = id ?? 'chant-audio-player';
 const seekId = audioId + '-seek';
 const playId = audioId + '-play';
+const currentId = audioId + '-current';
+const durationId = audioId + '-duration';
 ---
 
 {src && (
@@ -36,6 +38,7 @@ const playId = audioId + '-play';
         >
           <span aria-hidden="true">▶</span>
         </button>
+        <span id={currentId} class="chant-audio-time text-sm tabular-nums shrink-0" style="color: var(--sc-text-muted); min-width: 2.5rem;" aria-hidden="true">0:00</span>
         <label class="flex-1 min-w-0 flex flex-col gap-0" for={seekId}>
           <input
             type="range"
@@ -49,23 +52,37 @@ const playId = audioId + '-play';
             aria-label="Position"
           />
         </label>
+        <span id={durationId} class="chant-audio-time text-sm tabular-nums shrink-0" style="color: var(--sc-text-muted); min-width: 2.5rem;" aria-hidden="true">0:00</span>
       </div>
     </div>
-    <script is:inline define:vars={{ audioId, seekId, playId }}>
+    <script is:inline define:vars={{ audioId, seekId, playId, currentId, durationId }}>
       (function() {
         var audio = document.getElementById(audioId);
         var seek = document.getElementById(seekId);
         var playBtn = document.getElementById(playId);
+        var currentEl = document.getElementById(currentId);
+        var durationEl = document.getElementById(durationId);
         if (!audio || !seek || !playBtn) return;
+        function fmt(seconds) {
+          if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+          var m = Math.floor(seconds / 60);
+          var s = Math.floor(seconds % 60);
+          return m + ':' + (s < 10 ? '0' : '') + s;
+        }
+        function setTimeDisplay() {
+          if (currentEl) currentEl.textContent = fmt(audio.currentTime);
+          if (durationEl) durationEl.textContent = fmt(audio.duration);
+        }
         function setPlaying(playing) {
           playBtn.innerHTML = playing ? '<span aria-hidden="true">⏸</span>' : '<span aria-hidden="true">▶</span>';
-          playBtn.setAttribute('aria-label', audio.getAttribute('aria-label') + (playing ? ' — pause' : ' — play'));
+          playBtn.setAttribute('aria-label', (audio.getAttribute('aria-label') || '') + (playing ? ' — pause' : ' — play'));
         }
         function updateSeek() {
           var pct = audio.duration ? (100 * audio.currentTime / audio.duration) : 0;
           seek.value = String(pct);
+          setTimeDisplay();
         }
-        audio.addEventListener('loadedmetadata', updateSeek);
+        audio.addEventListener('loadedmetadata', function() { setTimeDisplay(); updateSeek(); });
         audio.addEventListener('timeupdate', updateSeek);
         audio.addEventListener('play', function() { setPlaying(true); });
         audio.addEventListener('pause', function() { setPlaying(false); });
@@ -76,8 +93,10 @@ const playId = audioId + '-play';
         seek.addEventListener('input', function() {
           var t = (audio.duration || 0) * (Number(seek.value) / 100);
           audio.currentTime = t;
+          setTimeDisplay();
         });
         setPlaying(false);
+        setTimeDisplay();
       })();
     </script>
   </div>
