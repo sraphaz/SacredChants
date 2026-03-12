@@ -60,7 +60,7 @@ const f = t.contribute.form;
               <div class="contribute-form-section-inner space-y-3">
                 <div>
                   <label for="slug" class="contribute-form-label">{f.slugLabel}</label>
-                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9\-]+" placeholder={f.slugPlaceholder} class="contribute-form-input" />
+                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9][-a-z0-9]*" placeholder={f.slugPlaceholder} class="contribute-form-input" />
                 </div>
                 <div>
                   <label for="title" class="contribute-form-label">{f.titleLabel}</label>
@@ -95,6 +95,15 @@ const f = t.contribute.form;
                   <label for="tags" class="contribute-form-label">{f.tagsLabel}</label>
                   <input type="text" id="tags" name="tags" placeholder={f.tagsPlaceholder} class="contribute-form-input" />
                 </div>
+                <div>
+                  <label for="audio_url" class="contribute-form-label">{f.audioUrlLabel}</label>
+                  <input type="url" id="audio_url" name="audio_url" placeholder={f.audioUrlPlaceholder} class="contribute-form-input" />
+                </div>
+                <div>
+                  <label for="audio_file" class="contribute-form-label">{f.audioUploadLabel}</label>
+                  <p class="contribute-form-field-hint">{f.audioUploadHint}</p>
+                  <input type="file" id="audio_file" name="audio_file" accept="audio/*" class="contribute-form-input" />
+                </div>
               </div>
             </section>
 
@@ -107,6 +116,11 @@ const f = t.contribute.form;
               <fieldset class="contribute-form-section-inner contribute-verse-fieldset">
                 <legend class="contribute-form-legend" id="current-verse-legend">{f.verseLegend} 1</legend>
                 <div class="space-y-3">
+                  <div>
+                    <label for="v_start" class="contribute-form-label">{f.verseStartLabel}</label>
+                    <p id="v_start-hint" class="contribute-form-field-hint">{f.verseStartHint}</p>
+                    <input type="number" id="v_start" min="0" step="0.1" placeholder={f.verseStartPlaceholder} class="contribute-form-input contribute-form-input-narrow" aria-describedby="v_start-hint" />
+                  </div>
                   <div>
                     <label for="v_original" class="contribute-form-label">{f.verseOriginalLabel}</label>
                     <input type="text" id="v_original" class="contribute-form-input contribute-form-input-serif" />
@@ -232,6 +246,7 @@ const f = t.contribute.form;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
   }
   .contribute-form-input-serif { font-family: var(--font-serif, serif); }
+  .contribute-form-input-narrow { max-width: 7rem; }
   .contribute-verse-fieldset {
     border: 1px solid var(--sc-border);
     border-radius: 0.5rem;
@@ -259,36 +274,24 @@ const f = t.contribute.form;
     margin: 0.125rem 0 0.5rem 0;
     line-height: 1.35;
   }
+  /* Review preview: miniatura da página oficial do cântico (mesmas classes que /chants/[slug]) */
   .contribute-review-preview {
-    padding: 1.25rem;
+    padding: 1rem;
     border-radius: 0.5rem;
     border: 1px solid var(--sc-border);
     background: var(--sc-bg);
     margin-bottom: 1.25rem;
     min-height: 4rem;
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--sc-text);
+    overflow: auto;
   }
-  .contribute-review-preview .review-block {
-    margin-bottom: 1rem;
+  .contribute-review-preview .contribute-review-chant-preview {
+    transform-origin: top left;
+    font-size: 0.9rem;
   }
-  .contribute-review-preview .review-block:last-child { margin-bottom: 0; }
-  .contribute-review-preview .review-title { font-family: var(--font-serif, serif); font-size: 1.25rem; font-weight: 600; margin: 0 0 0.25rem 0; }
-  .contribute-review-preview .review-meta { font-size: 0.8125rem; color: var(--sc-text-muted); margin: 0 0 0.5rem 0; }
-  .contribute-review-preview .review-description { padding-top: 0.5rem; border-top: 1px solid var(--sc-border); }
-  .contribute-review-preview .review-desc-text { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
-  .contribute-review-preview .review-verses-block { padding-top: 0.75rem; border-top: 1px solid var(--sc-border); }
-  .contribute-review-preview .review-verses-heading { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--sc-text-muted); margin: 0 0 0.5rem 0; }
-  .contribute-review-preview .review-verses { list-style: none; padding-left: 0; margin: 0; }
-  .contribute-review-preview .review-verse-line {
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--sc-border);
-  }
-  .contribute-review-preview .review-verse-line:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-  .contribute-review-preview .review-verse-original { display: block; font-size: 1rem; margin-bottom: 0.125rem; }
-  .contribute-review-preview .review-verse-trans { font-size: 0.875rem; color: var(--sc-text-muted); }
+  .contribute-review-preview .chant-header__title { font-size: 1.35rem; }
+  .contribute-review-preview .prose-chant .original { font-size: 1.15rem; }
+  .contribute-review-preview .prose-chant .transliteration { font-size: 1rem; }
+  .contribute-review-preview .prose-chant .translations { font-size: 0.9rem; }
   .contribute-form-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
   .contribute-form-btn-secondary {
     display: inline-flex;
@@ -393,30 +396,61 @@ const f = t.contribute.form;
     const language = getVal('#language') || '';
     const descEn = getVal('#description_en') || '';
     const descPt = getVal('#description_pt') || '';
+    const tagsStr = getVal('#tags') || '';
+    const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()).filter(Boolean) : [];
     const container = document.getElementById('review-preview');
     if (!container) return;
     const meta = [tradition, language].filter(Boolean).join(' · ') || '—';
-    const desc = descEn || descPt || '—';
     let html = '';
-    html += '<div class="review-block review-header">';
-    if (title) html += '<p class="review-title">' + escapeHtml(title) + '</p>';
-    html += '<p class="review-meta">' + escapeHtml(meta) + '</p>';
+    html += '<div class="chant-page chant-page__inner chant-page__inner--measure contribute-review-chant-preview">';
+    html += '<div class="chant-intro flex flex-col gap-3 pb-6">';
+    html += '<header class="chant-header chant-header--centered">';
+    html += '<div class="chant-header__top">';
+    html += '<p class="chant-header__meta" aria-hidden="true">' + escapeHtml(meta) + '</p>';
+    if (title) html += '<h1 class="chant-header__title sc-heading font-serif">' + escapeHtml(title) + '</h1>';
+    if (language) html += '<p class="chant-header__lang" aria-hidden="true">' + escapeHtml(language) + '</p>';
     html += '</div>';
-    html += '<div class="review-block review-description">';
-    html += '<p class="review-desc-text">' + escapeHtml(desc) + '</p>';
-    html += '</div>';
-    if (verses.length) {
-      html += '<div class="review-block review-verses-block">';
-      html += '<p class="review-verses-heading">' + escapeHtml(formT.stepVerses) + '</p>';
-      html += '<ul class="review-verses">';
-      verses.forEach((v) => {
-        const transPart = v.transliteration ? ' <span class="review-verse-trans">— ' + escapeHtml(v.transliteration) + '</span>' : '';
-        html += '<li class="review-verse-line"><span class="review-verse-original font-serif">' + escapeHtml(v.original) + '</span>' + transPart + '</li>';
-      });
-      html += '</ul></div>';
-    } else {
-      html += '<p class="review-meta">' + escapeHtml(formT.reviewEmptyHint) + '</p>';
+    html += '<div class="chant-header__body">';
+    if (descEn || descPt) {
+      html += '<div class="chant-header__desc">';
+      if (descEn) html += '<p class="locale-en mb-0">' + escapeHtml(descEn) + '</p>';
+      if (descPt) html += '<p class="locale-pt mb-0">' + escapeHtml(descPt) + '</p>';
+      html += '</div>';
     }
+    if (tags.length) {
+      html += '<ul class="chant-header__tags" aria-label="Tags">';
+      tags.forEach((tag) => { html += '<li><span class="chant-header__tag">' + escapeHtml(tag) + '</span></li>'; });
+      html += '</ul>';
+    }
+    const audioUrl = (getVal('#audio_url') || '').trim();
+    const hasAudioFile = (() => { const el = document.getElementById('audio_file'); return el instanceof HTMLInputElement && el.files && el.files.length > 0; })();
+    if (audioUrl || hasAudioFile) {
+      html += '<p class="chant-header__meta mt-2">';
+      if (audioUrl) html += 'Audio: <a href="' + escapeHtml(audioUrl) + '" target="_blank" rel="noopener" class="underline">' + escapeHtml(audioUrl) + '</a>';
+      else html += 'Audio: <span class="opacity-90">(file will be included)</span>';
+      html += '</p>';
+    }
+    html += '</div></header></div>';
+    if (verses.length) {
+      html += '<section class="chant-verses" aria-label="Verses">';
+      html += '<div class="chant-verses__list prose-chant" id="review-verses-list">';
+      verses.forEach((v, idx) => {
+        const start = typeof v.start === 'number' && v.start >= 0 ? v.start : 0;
+        const startLabel = start > 0 ? ' · ' + Math.floor(start / 60) + ':' + (Math.floor(start % 60) + '').padStart(2, '0') : '';
+        html += '<div class="verse-block prose-chant" data-verse="' + (idx + 1) + '">';
+        html += '<span class="verse-block__label uppercase tracking-label" aria-hidden="true">Verse ' + (idx + 1) + startLabel + '</span>';
+        html += '<p class="original" dir="auto" lang="und">' + escapeHtml(v.original) + '</p>';
+        if (v.transliteration) html += '<p class="transliteration" dir="ltr">' + escapeHtml(v.transliteration) + '</p>';
+        html += '<div class="translations">';
+        if (v.translation_en) html += '<p class="locale-en" data-lang="en">' + escapeHtml(v.translation_en) + '</p>';
+        if (v.translation_pt) html += '<p class="locale-pt" data-lang="pt">' + escapeHtml(v.translation_pt) + '</p>';
+        html += '</div></div>';
+      });
+      html += '</div></section>';
+    } else {
+      html += '<p class="chant-header__meta">' + escapeHtml(formT.reviewEmptyHint) + '</p>';
+    }
+    html += '</div>';
     container.innerHTML = html;
   }
 
@@ -432,20 +466,25 @@ const f = t.contribute.form;
       return;
     }
     if (formError) formError.classList.add('hidden');
+    const startRaw = getVal('#v_start');
+    const start = startRaw === '' ? 0 : Math.max(0, parseFloat(startRaw) || 0);
     verses.push({
       original,
       transliteration,
       translation_en: getVal('#v_translation_en') || undefined,
       translation_pt: getVal('#v_translation_pt') || undefined,
+      start,
     });
     const vOriginal = document.getElementById('v_original');
     const vTrans = document.getElementById('v_transliteration');
     const vEn = document.getElementById('v_translation_en');
     const vPt = document.getElementById('v_translation_pt');
+    const vStart = document.getElementById('v_start');
     if (vOriginal) vOriginal.value = '';
     if (vTrans) vTrans.value = '';
     if (vEn) vEn.value = '';
     if (vPt) vPt.value = '';
+    if (vStart && vStart instanceof HTMLInputElement) vStart.value = '';
     const listEl = document.getElementById('verses-list');
     if (listEl) {
       const li = document.createElement('li');
@@ -457,7 +496,7 @@ const f = t.contribute.form;
     renderReview();
   }
 
-  function buildPayload() {
+  function buildPayload(audioUrlOrNull) {
     const tagsStr = getVal('#tags');
     const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()).filter(Boolean) : [];
     const slug = getVal('#slug').toLowerCase().replace(/\s+/g, '-') || '';
@@ -466,29 +505,43 @@ const f = t.contribute.form;
     let descPt = getVal('#description_pt') || '';
     if (contentLang === 'pt') descPt = descPt || descEn;
     else if (contentLang === 'en') descEn = descEn || descPt;
-    return {
+    const payload = {
       slug,
       title: getVal('#title') || '',
       tradition: getVal('#tradition') || '',
       language: getVal('#language') || '',
       description: { en: descEn, pt: descPt },
       tags,
+      ...(audioUrlOrNull && { audio: audioUrlOrNull }),
       verses: verses.map((v, i) => {
         let en = v.translation_en;
         let pt = v.translation_pt;
         if (contentLang === 'pt') pt = pt || v.original;
         else if (contentLang === 'en') en = en || v.original;
+        const transliteration = (v.transliteration || '').trim() || undefined;
+        const start = typeof v.start === 'number' && v.start >= 0 ? v.start : 0;
         return {
           order: i + 1,
           lines: [{
-            start: 0,
+            start,
             original: v.original,
-            transliteration: v.transliteration,
+            ...(transliteration !== undefined && { transliteration }),
             translations: { en: en || '', pt: pt || '' },
           }],
         };
       }),
     };
+    return payload;
+  }
+
+  function getAudioForPayload() {
+    const url = (getVal('#audio_url') || '').trim();
+    const fileInput = document.getElementById('audio_file');
+    if (fileInput instanceof HTMLInputElement && fileInput.files && fileInput.files.length > 0) {
+      return { type: 'file', file: fileInput.files[0] };
+    }
+    if (url) return { type: 'url', url };
+    return null;
   }
 
   function submitPR() {
@@ -516,7 +569,33 @@ const f = t.contribute.form;
     const btn = document.getElementById('btn-submit-pr');
     if (btn) btn.disabled = true;
     if (formError) formError.classList.add('hidden');
-    const payload = buildPayload();
+    const audioInfo = getAudioForPayload();
+    if (audioInfo && audioInfo.type === 'file') {
+      const file = audioInfo.file;
+      const reader = new FileReader();
+      reader.onload = function() {
+        const b64 = typeof reader.result === 'string' ? reader.result.replace(/^data:[^;]+;base64,/, '') : null;
+        if (!b64) {
+          if (formError) { formError.textContent = formT.audioReadError; formError.classList.remove('hidden'); }
+          if (btn) btn.disabled = false;
+          return;
+        }
+        const slug = getVal('#slug').toLowerCase().replace(/\s+/g, '-') || '';
+        const ext = file.name.split('.').pop()?.toLowerCase() || 'mp3';
+        const payload = buildPayload(null);
+        payload.audioBase64 = b64;
+        payload.audioFilename = slug + '.' + ext;
+        sendPayload(payload, btn);
+      };
+      reader.readAsDataURL(file);
+      return;
+    }
+    const audioUrl = audioInfo && audioInfo.type === 'url' ? audioInfo.url : null;
+    const payload = buildPayload(audioUrl);
+    sendPayload(payload, btn);
+  }
+
+  function sendPayload(payload, btn) {
     fetch(base + '/api/contribute/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -536,7 +615,8 @@ const f = t.contribute.form;
           formSuccess.classList.remove('hidden');
           formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
-          formError.textContent = data.error || data.details || 'Request failed';
+          const errMsg = data.error || (typeof data.details === 'object' && data.details !== null ? JSON.stringify(data.details) : data.details) || 'Request failed';
+          formError.textContent = errMsg;
           formError.classList.remove('hidden');
           formError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
@@ -550,11 +630,13 @@ const f = t.contribute.form;
   }
 
   function setupLiveReview() {
-    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags', '#content_language'];
+    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags', '#audio_url', '#content_language'];
     fields.forEach((sel) => {
       const el = document.querySelector(sel);
       if (el) el.addEventListener('input', renderReview);
     });
+    const audioFileEl = document.getElementById('audio_file');
+    if (audioFileEl) audioFileEl.addEventListener('change', renderReview);
     const contentLangEl = document.getElementById('content_language');
     if (contentLangEl) {
       contentLangEl.addEventListener('change', () => {

@@ -7,7 +7,7 @@ import { z } from 'zod';
 export const chantLineSchema = z.object({
   start: z.number().min(0),
   original: z.string(),
-  transliteration: z.string(),
+  transliteration: z.string().optional(),
   translations: z.object({
     pt: z.string().optional(),
     en: z.string().optional(),
