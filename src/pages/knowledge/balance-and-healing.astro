@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+const tEn = ui.en;
+const tPt = ui.pt;
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+---
+
+<BaseLayout
+  title={t.knowledge.balanceAndHealing}
+  description="The distinction between momentary balance and deeper healing. Sacred sound, ego dissolution, and contact with integral being."
+  locale={locale}
+>
+  <PageShell>
+    <p class="mb-4">
+      <a href={`${FULL_BASE}knowledge/${langQuery}`} class="text-sm" style="color: var(--sc-text-subtle)">
+        <span class="locale-en">← {tEn.knowledge.backToKnowledge}</span>
+        <span class="locale-pt">← {tPt.knowledge.backToKnowledge}</span>
+      </a>
+    </p>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      <span class="locale-en">{tEn.knowledge.balanceAndHealing}</span>
+      <span class="locale-pt">{tPt.knowledge.balanceAndHealing}</span>
+    </h1>
+
+    <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">Peace and balance can be momentary</span>
+          <span class="locale-pt">Paz e equilíbrio podem ser momentâneos</span>
+        </h2>
+        <p class="locale-en">
+          Sound can bring peace, balance, or relief. This is often <strong>temporary</strong>. Something momentary is not yet “healing” in the deeper sense used here. Recognising this helps us appreciate both the real benefit of sound and the limits of what it can do by itself.
+        </p>
+        <p class="locale-pt">
+          O som pode trazer paz, equilíbrio ou alívio. Isso é muitas vezes <strong>temporário</strong>. Algo momentâneo ainda não é “cura” no sentido mais profundo aqui usado. Reconhecer isto ajuda a apreciar tanto o benefício real do som como os limites do que ele pode fazer por si só.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">What “healing” means here</span>
+          <span class="locale-pt">O que “cura” significa aqui</span>
+        </h2>
+        <p class="locale-en">
+          In this context, <strong>healing</strong> is linked to the <strong>intimate contact of consciousness with the nature of one’s integral being</strong> — beyond the “characters” or roles we carry (ego, self-image). Sacred sound can support <strong>dissolution of the ego</strong> or <strong>contact with a deeper inner universe</strong> (vibrational, mental, experiential) than the “anchored image” of the perceptible ego built over a lifetime. In that sense, such sound can support real healing: it can open a door to that contact.
+        </p>
+        <p class="locale-pt">
+          Neste contexto, <strong>cura</strong> está ligada ao <strong>contacto íntimo da consciência com a natureza do ser integral</strong> — para além dos “personagens” ou papéis que carregamos (ego, auto-imagem). O som sagrado pode apoiar a <strong>dissolução do ego</strong> ou o <strong>contacto com um universo interior mais profundo</strong> (vibratório, mental, experiencial) do que a “imagem ancorada” do ego perceptível construída ao longo da vida. Nesse sentido, esse som pode apoiar uma cura real: pode abrir uma porta a esse contacto.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">Nuance and limits</span>
+          <span class="locale-pt">Nuance e limites</span>
+        </h2>
+        <p class="locale-en">
+          Healing, once genuine, is not something one must “keep coming back to” in the same way — though life and disease can still return. Sound is not the remedy for all causes. It is important to maintain this balance: to acknowledge the power of sacred sound without overclaiming, to respect both tradition and the reader’s autonomy, and to see sound as one support among others on the path of inner experience.
+        </p>
+        <p class="locale-pt">
+          A cura, uma vez genuína, não é algo a que se tenha de “voltar sempre” do mesmo modo — embora a vida e a doença possam ainda regressar. O som não é o remédio para todas as causas. É importante manter este equilíbrio: reconhecer o poder do som sagrado sem exagerar, respeitar tanto a tradição como a autonomia do leitor, e ver o som como um entre outros apoios no caminho da experiência interior.
+        </p>
+      </section>
+    </div>
+  </PageShell>
+</BaseLayout>

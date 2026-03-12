@@ -5,6 +5,22 @@ import { ui, type Locale } from '../../i18n/strings';
 
 const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
 const t = ui[locale];
+const tEn = ui.en;
+const tPt = ui.pt;
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+
+const knowledgeLinks = [
+  { slug: 'sound-and-humanity', titleEn: tEn.knowledge.soundAndHumanity, titlePt: tPt.knowledge.soundAndHumanity },
+  { slug: 'nada-yoga', titleEn: tEn.knowledge.nadaYoga, titlePt: tPt.knowledge.nadaYoga },
+  { slug: 'vibration-mind', titleEn: tEn.knowledge.vibrationMind, titlePt: tPt.knowledge.vibrationMind },
+  { slug: 'elements-and-sound', titleEn: tEn.knowledge.elementsAndSound, titlePt: tPt.knowledge.elementsAndSound },
+  { slug: 'sound-attributes', titleEn: tEn.knowledge.soundAttributes, titlePt: tPt.knowledge.soundAttributes },
+  { slug: 'balance-and-healing', titleEn: tEn.knowledge.balanceAndHealing, titlePt: tPt.knowledge.balanceAndHealing },
+  { slug: 'references', titleEn: tEn.knowledge.references, titlePt: tPt.knowledge.references },
+];
 ---
 
 <BaseLayout
@@ -19,8 +35,21 @@ const t = ui[locale];
     <p class="mb-page-content" style="color: var(--sc-text-muted)">
       {t.knowledge.description}
     </p>
-    <p style="color: var(--sc-text-subtle)">
-      Educational content will be added here (MDX pages in <code class="px-1 rounded" style="color: var(--sc-text-muted); background-color: var(--sc-border)">src/content/knowledge/</code>).
+    <p class="mb-6 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
+      <span class="locale-en">{tEn.knowledge.intro}</span>
+      <span class="locale-pt">{tPt.knowledge.intro}</span>
     </p>
+    <nav class="flex flex-col gap-3 max-w-xl" aria-label="Knowledge sections">
+      {knowledgeLinks.map((item) => (
+        <a
+          href={`${FULL_BASE}knowledge/${item.slug}/${langQuery}`}
+          class="block py-2 font-medium transition-colors rounded px-2 -mx-2 hover:opacity-80"
+          style="color: var(--sc-text-muted)"
+        >
+          <span class="locale-en">{item.titleEn}</span>
+          <span class="locale-pt">{item.titlePt}</span>
+        </a>
+      ))}
+    </nav>
   </PageShell>
 </BaseLayout>

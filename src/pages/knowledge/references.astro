@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+const tEn = ui.en;
+const tPt = ui.pt;
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+---
+
+<BaseLayout
+  title={t.knowledge.references}
+  description="References and further reading for Nada Yoga and the five elements."
+  locale={locale}
+>
+  <PageShell>
+    <p class="mb-4">
+      <a href={`${FULL_BASE}knowledge/${langQuery}`} class="text-sm" style="color: var(--sc-text-subtle)">
+        <span class="locale-en">← {tEn.knowledge.backToKnowledge}</span>
+        <span class="locale-pt">← {tPt.knowledge.backToKnowledge}</span>
+      </a>
+    </p>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      <span class="locale-en">{tEn.knowledge.references}</span>
+      <span class="locale-pt">{tPt.knowledge.references}</span>
+    </h1>
+
+    <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">Classical texts</span>
+          <span class="locale-pt">Textos clássicos</span>
+        </h2>
+        <ul class="list-disc pl-6 space-y-2">
+          <li class="locale-en"><strong>Hatha Yoga Pradīpikā</strong> (Svātmārāma) — Nada Yoga as a central meditation technique to still the mind.</li>
+          <li class="locale-pt"><strong>Hatha Yoga Pradīpikā</strong> (Svātmārāma) — Nada Yoga como técnica central de meditação para aquietar a mente.</li>
+          <li class="locale-en"><strong>Nada Bindu Upanishad</strong> — Classical text on inner sound and the unstruck sound (<em>anāhata</em>).</li>
+          <li class="locale-pt"><strong>Nada Bindu Upanishad</strong> — Texto clássico sobre o som interior e o som não percutido (<em>anāhata</em>).</li>
+          <li class="locale-en"><strong>Panchadasi</strong> (e.g. Ch. 2, Swami Krishnananda) — Discrimination of the elements (Pancha Mahābhūta).</li>
+          <li class="locale-pt"><strong>Panchadasi</strong> (ex. Cap. 2, Swami Krishnananda) — Discriminação dos elementos (Pancha Mahābhūta).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">Online and modern sources</span>
+          <span class="locale-pt">Fontes online e modernas</span>
+        </h2>
+        <ul class="list-disc pl-6 space-y-2">
+          <li class="locale-en"><strong>Wikipedia:</strong> “<a href="https://en.wikipedia.org/wiki/N%C4%81da_yoga" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Nāda yoga</a>”, “<a href="https://en.wikipedia.org/wiki/Pancha_Bhuta" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Pancha Bhuta</a>”, “<a href="https://en.wikipedia.org/wiki/Anahata_(sound)" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Anahata (sound)</a>”.</li>
+          <li class="locale-pt"><strong>Wikipedia:</strong> “Nāda yoga”, “Pancha Bhuta”, “Anahata (sound)”.</li>
+          <li class="locale-en"><strong>Dharmawiki</strong> — “<a href="https://dharmawiki.org/index.php/Panchamahabhutas" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Panchamahabhutas</a>” (five elements, qualities, body and cosmos).</li>
+          <li class="locale-pt"><strong>Dharmawiki</strong> — “Panchamahabhutas” (cinco elementos, qualidades, corpo e cosmos).</li>
+          <li class="locale-en"><strong>The Yoga Institute</strong> — “Pancha Bhoota” (five elements in yoga and health).</li>
+          <li class="locale-pt"><strong>The Yoga Institute</strong> — “Pancha Bhoota” (cinco elementos no yoga e na saúde).</li>
+          <li class="locale-en"><strong>Nada Yoga Society</strong>, <strong>Yoga Basics</strong> — Introductions to Nada Yoga and the yoga of sound.</li>
+          <li class="locale-pt"><strong>Nada Yoga Society</strong>, <strong>Yoga Basics</strong> — Introduções ao Nada Yoga e ao yoga do som.</li>
+        </ul>
+      </section>
+
+      <p class="locale-en text-sm mt-8" style="color: var(--sc-text-subtle)">
+        This list is offered for further study. Sacred Chants does not endorse any single tradition or interpretation; the aim is to preserve and share knowledge as part of humanity’s heritage.
+      </p>
+      <p class="locale-pt text-sm mt-8" style="color: var(--sc-text-subtle)">
+        Esta lista é oferecida para estudo adicional. O Sacred Chants não endossa qualquer tradição ou interpretação única; o objectivo é preservar e partilhar conhecimento como parte do património da humanidade.
+      </p>
+    </div>
+  </PageShell>
+</BaseLayout>

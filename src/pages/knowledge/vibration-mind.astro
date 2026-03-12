@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, type Locale } from '../../i18n/strings';
+
+const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const t = ui[locale];
+const tEn = ui.en;
+const tPt = ui.pt;
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+---
+
+<BaseLayout
+  title={t.knowledge.vibrationMind}
+  description="How sound vibrations affect the mind instrument; resonance, intention, and the audible and inaudible."
+  locale={locale}
+>
+  <PageShell>
+    <p class="mb-4">
+      <a href={`${FULL_BASE}knowledge/${langQuery}`} class="text-sm" style="color: var(--sc-text-subtle)">
+        <span class="locale-en">← {tEn.knowledge.backToKnowledge}</span>
+        <span class="locale-pt">← {tPt.knowledge.backToKnowledge}</span>
+      </a>
+    </p>
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      <span class="locale-en">{tEn.knowledge.vibrationMind}</span>
+      <span class="locale-pt">{tPt.knowledge.vibrationMind}</span>
+    </h1>
+
+    <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">Everything is vibration</span>
+          <span class="locale-pt">Tudo é vibração</span>
+        </h2>
+        <p class="locale-en">
+          Both empirical and traditional views suggest that matter, body, and mind can be understood as patterns of vibration. Sound vibrations act as a direct “key” to the mind–body instrument: they reach the nervous system, attention, and emotional tone in ways that other stimuli do not. In Nada Yoga and related traditions, this is the basis for using sound as a support for inner experience.
+        </p>
+        <p class="locale-pt">
+          Tanto a visão empírica como a tradicional sugerem que matéria, corpo e mente podem ser entendidos como padrões de vibração. As vibrações sonoras actuam como uma “chave” directa para o instrumento corpo-mente: atingem o sistema nervoso, a atenção e o tom emocional de formas que outros estímulos não atingem. No Nada Yoga e tradições afins, esta é a base para usar o som como suporte da experiência interior.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">Resonance and the mind</span>
+          <span class="locale-pt">Ressonância e a mente</span>
+        </h2>
+        <p class="locale-en">
+          <strong>Resonance</strong> is the tendency of the mind — thoughts, neural patterns, emotions — to align with or reflect the quality of a vibration. This can include the intention or origin behind the sound, even when that intention is not visible: for example, the context of a chant, the lineage it comes from, or the state of the one who is chanting. The effect is one of influence and resonance, not magical causation; it fits both traditional description and a careful modern framing (e.g. psychology, neuroscience of sound).
+        </p>
+        <p class="locale-pt">
+          <strong>Ressonância</strong> é a tendência da mente — pensamentos, padrões neurais, emoções — para se alinhar ou reflectir a qualidade de uma vibração. Isso pode incluir a intenção ou origem por trás do som, mesmo quando essa intenção não é visível: por exemplo, o contexto de um cântico, a linhagem de onde vem ou o estado de quem canta. O efeito é de influência e ressonância, não de causalidade mágica; encaixa tanto na descrição tradicional como numa leitura moderna cuidadosa (ex. psicologia, neurociência do som).
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">Audible and inaudible</span>
+          <span class="locale-pt">Audível e inaudível</span>
+        </h2>
+        <p class="locale-en">
+          What is “inaudible” can mean: very low or very high frequencies; the subtle inner sound (<em>anāhata</em>) experienced in meditation; or the intention behind the sound as an invisible dimension that can still affect the listener. Sacred chants and mantras are often said to work at more than one of these levels — the heard sound and the intention or vibration that carries it.
+        </p>
+        <p class="locale-pt">
+          O que é “inaudível” pode significar: frequências muito baixas ou muito altas; o som interior subtil (<em>anāhata</em>) experienciado em meditação; ou a intenção por trás do som como dimensão invisível que ainda assim pode afectar quem ouve. Diz-se frequentemente que os cânticos e mantras sagrados actuam em mais do que um destes níveis — o som ouvido e a intenção ou vibração que o transporta.
+        </p>
+      </section>
+    </div>
+  </PageShell>
+</BaseLayout>
