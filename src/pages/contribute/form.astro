@@ -43,6 +43,11 @@ const f = t.contribute.form;
           <p id="form-error" class="contribute-form-error text-red-600 hidden" role="alert"></p>
           <p id="form-success" class="hidden mb-6" style="color: var(--sc-text-muted)" role="status"></p>
 
+          <div id="drafts-panel" class="contribute-drafts-panel hidden">
+            <h3 class="contribute-drafts-title">{f.myDrafts}</h3>
+            <p id="drafts-empty" class="contribute-drafts-empty">{f.noDrafts}</p>
+            <ul id="drafts-list" class="contribute-drafts-list" aria-label={f.myDrafts}></ul>
+          </div>
           <nav class="contribute-form-nav" aria-label={f.formNavAriaLabel}>
             <a href="#form-section-metadata" class="contribute-form-nav-link" data-section="metadata">{f.stepMetadata}</a>
             <span class="contribute-form-nav-sep" aria-hidden="true">·</span>
@@ -60,7 +65,7 @@ const f = t.contribute.form;
               <div class="contribute-form-section-inner space-y-3">
                 <div>
                   <label for="slug" class="contribute-form-label">{f.slugLabel}</label>
-                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9][-a-z0-9]*" placeholder={f.slugPlaceholder} class="contribute-form-input" />
+                  <input type="text" id="slug" name="slug" required pattern="[a-z0-9][a-z0-9-]*" placeholder={f.slugPlaceholder} class="contribute-form-input" />
                 </div>
                 <div>
                   <label for="title" class="contribute-form-label">{f.titleLabel}</label>
@@ -95,14 +100,20 @@ const f = t.contribute.form;
                   <label for="tags" class="contribute-form-label">{f.tagsLabel}</label>
                   <input type="text" id="tags" name="tags" placeholder={f.tagsPlaceholder} class="contribute-form-input" />
                 </div>
-                <div>
-                  <label for="audio_url" class="contribute-form-label">{f.audioUrlLabel}</label>
-                  <input type="url" id="audio_url" name="audio_url" placeholder={f.audioUrlPlaceholder} class="contribute-form-input" />
-                </div>
-                <div>
-                  <label for="audio_file" class="contribute-form-label">{f.audioUploadLabel}</label>
-                  <p class="contribute-form-field-hint">{f.audioUploadHint}</p>
-                  <input type="file" id="audio_file" name="audio_file" accept="audio/*" class="contribute-form-input" />
+                <div class="contribute-audio-block">
+                  <p class="contribute-audio-block__title" id="audio-block-title">{f.audioSectionTitle}</p>
+                  <p class="contribute-form-field-hint contribute-audio-block__hint" id="audio-block-hint">{f.audioSectionHint}</p>
+                  <div class="contribute-audio-block__fields space-y-3">
+                    <div>
+                      <label for="audio_url" class="contribute-form-label">{f.audioUrlLabel}</label>
+                      <input type="url" id="audio_url" name="audio_url" placeholder={f.audioUrlPlaceholder} class="contribute-form-input" />
+                    </div>
+                    <div>
+                      <label for="audio_file" class="contribute-form-label">{f.audioUploadLabel}</label>
+                      <p class="contribute-form-field-hint">{f.audioUploadHint}</p>
+                      <input type="file" id="audio_file" name="audio_file" accept="audio/*" class="contribute-form-input" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -116,7 +127,7 @@ const f = t.contribute.form;
               <fieldset class="contribute-form-section-inner contribute-verse-fieldset">
                 <legend class="contribute-form-legend" id="current-verse-legend">{f.verseLegend} 1</legend>
                 <div class="space-y-3">
-                  <div>
+                  <div id="v_start-wrap" class="hidden" aria-hidden="true">
                     <label for="v_start" class="contribute-form-label">{f.verseStartLabel}</label>
                     <p id="v_start-hint" class="contribute-form-field-hint">{f.verseStartHint}</p>
                     <input type="number" id="v_start" min="0" step="0.1" placeholder={f.verseStartPlaceholder} class="contribute-form-input contribute-form-input-narrow" aria-describedby="v_start-hint" />
@@ -150,9 +161,11 @@ const f = t.contribute.form;
               <span class="contribute-form-section-badge" aria-hidden="true">3</span>
               <h2 id="section-review-heading" class="contribute-form-section-title">{f.stepReview}</h2>
               <p class="contribute-form-hint">{f.reviewIntro}</p>
+              <p id="review-preview-label" class="contribute-review-preview-label">{f.reviewPreviewLabel}</p>
               <div id="review-preview" class="contribute-review-preview" aria-live="polite"></div>
               <div class="contribute-form-actions">
                 <a href="/contribute/" class="contribute-form-btn-secondary">{f.cancel}</a>
+                <button type="button" id="btn-save-draft" class="contribute-form-btn-secondary">{f.saveDraft}</button>
                 <button type="button" id="btn-submit-pr" class="sc-btn-primary px-5 py-2.5 rounded-lg">{f.createPR}</button>
               </div>
             </section>
@@ -187,6 +200,30 @@ const f = t.contribute.form;
   .contribute-form-nav-link:hover { color: var(--sc-text); background: var(--sc-border); }
   .contribute-form-nav-link.is-current { color: var(--sc-accent); font-weight: 500; }
   .contribute-form-nav-sep { color: var(--sc-text-muted); font-weight: 300; user-select: none; }
+  .contribute-drafts-panel {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--sc-border);
+    border-radius: 0.5rem;
+    background: var(--sc-bg);
+    color: var(--sc-text-muted);
+  }
+  .contribute-drafts-panel.hidden { display: none; }
+  .contribute-drafts-title { font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 0.5rem 0; color: var(--sc-text-muted); }
+  .contribute-drafts-empty { font-size: 0.8125rem; margin: 0; }
+  .contribute-drafts-list { list-style: none; padding: 0; margin: 0; font-size: 0.875rem; }
+  .contribute-drafts-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--sc-border);
+    font-size: 0.875rem;
+  }
+  .contribute-drafts-list li:last-child { border-bottom: none; }
+  .contribute-drafts-list .draft-title { font-weight: 500; color: var(--sc-text); }
+  .contribute-drafts-list .draft-meta { font-size: 0.75rem; opacity: 0.9; }
   .contribute-form-sections { display: flex; flex-direction: column; gap: 0; }
   .contribute-form-section {
     padding: 1.5rem 0;
@@ -247,6 +284,25 @@ const f = t.contribute.form;
   }
   .contribute-form-input-serif { font-family: var(--font-serif, serif); }
   .contribute-form-input-narrow { max-width: 7rem; }
+  .contribute-audio-block {
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--sc-border);
+    margin-top: 0.25rem;
+  }
+  .contribute-audio-block__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--sc-text);
+    margin: 0 0 0.25rem 0;
+  }
+  .contribute-audio-block__hint {
+    margin-bottom: 0.5rem;
+  }
+  .contribute-review-preview-label {
+    font-size: 0.8125rem;
+    color: var(--sc-text-muted);
+    margin: 0 0 0.5rem 0;
+  }
   .contribute-verse-fieldset {
     border: 1px solid var(--sc-border);
     border-radius: 0.5rem;
@@ -352,6 +408,9 @@ const f = t.contribute.form;
   const formSuccess = document.getElementById('form-success');
 
   const verses = [];
+  const DRAFTS_KEY = 'sacredchants_contribute_drafts';
+  const MAX_DRAFTS = 20;
+  let currentDraftId = null;
 
   function getVal(sel) {
     const el = document.querySelector(sel);
@@ -364,8 +423,172 @@ const f = t.contribute.form;
     return div.innerHTML;
   }
 
+  function setVal(sel, value) {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    const v = value ?? '';
+    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+      el.value = String(v);
+    } else if (el instanceof HTMLSelectElement) {
+      el.value = String(v);
+    }
+  }
+
   function getContentLanguage() {
     return getVal('#content_language') || 'other';
+  }
+
+  function hasAudio() {
+    if ((getVal('#audio_url') || '').trim()) return true;
+    const fileEl = document.getElementById('audio_file');
+    return fileEl instanceof HTMLInputElement && fileEl.files && fileEl.files.length > 0;
+  }
+
+  function updateVerseStartVisibility() {
+    const wrap = document.getElementById('v_start-wrap');
+    if (!wrap) return;
+    const show = hasAudio();
+    wrap.classList.toggle('hidden', !show);
+    wrap.setAttribute('aria-hidden', show ? 'false' : 'true');
+  }
+
+  function getDrafts() {
+    try {
+      const raw = localStorage.getItem(DRAFTS_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function setDrafts(list) {
+    try {
+      localStorage.setItem(DRAFTS_KEY, JSON.stringify(list));
+    } catch (_) {}
+  }
+
+  function buildDraftFromForm() {
+    return {
+      id: currentDraftId || 'draft-' + Date.now(),
+      updatedAt: new Date().toISOString(),
+      slug: getVal('#slug') || '',
+      title: getVal('#title') || '',
+      tradition: getVal('#tradition') || '',
+      language: getVal('#language') || '',
+      content_language: getVal('#content_language') || 'other',
+      description_en: getVal('#description_en') || '',
+      description_pt: getVal('#description_pt') || '',
+      tags: getVal('#tags') || '',
+      audio_url: getVal('#audio_url') || '',
+      verses: verses.map((v) => ({
+        original: v.original || '',
+        transliteration: v.transliteration || '',
+        translation_en: v.translation_en || '',
+        translation_pt: v.translation_pt || '',
+        start: typeof v.start === 'number' ? v.start : 0,
+      })),
+    };
+  }
+
+  function saveDraft() {
+    const draft = buildDraftFromForm();
+    const list = getDrafts();
+    if (currentDraftId) {
+      const idx = list.findIndex((d) => d.id === currentDraftId);
+      if (idx !== -1) list[idx] = draft;
+      else list.unshift(draft);
+    } else {
+      list.unshift(draft);
+    }
+    setDrafts(list.slice(0, MAX_DRAFTS));
+    currentDraftId = draft.id;
+    renderDraftsList();
+    if (formSuccess) {
+      formSuccess.textContent = formT.draftSaved;
+      formSuccess.classList.remove('hidden');
+      formError?.classList.add('hidden');
+    }
+  }
+
+  function loadDraftIntoForm(draft) {
+    currentDraftId = draft.id;
+    setVal('#slug', draft.slug);
+    setVal('#title', draft.title);
+    setVal('#tradition', draft.tradition);
+    setVal('#language', draft.language);
+    setVal('#content_language', draft.content_language || 'other');
+    setVal('#description_en', draft.description_en);
+    setVal('#description_pt', draft.description_pt);
+    setVal('#tags', draft.tags);
+    setVal('#audio_url', draft.audio_url);
+    verses.length = 0;
+    (draft.verses || []).forEach((v) => {
+      verses.push({
+        original: v.original || '',
+        transliteration: v.transliteration || '',
+        translation_en: v.translation_en || undefined,
+        translation_pt: v.translation_pt || undefined,
+        start: typeof v.start === 'number' ? v.start : 0,
+      });
+    });
+    refreshVersesList();
+    updateDescriptionRequired();
+    updateVerseTranslationHints();
+    updateVerseStartVisibility();
+    renderReview();
+  }
+
+  function refreshVersesList() {
+    const listEl = document.getElementById('verses-list');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    verses.forEach((v) => {
+      const li = document.createElement('li');
+      li.textContent = v.transliteration ? v.original + ' — ' + v.transliteration : v.original;
+      listEl.appendChild(li);
+    });
+    const legend = document.getElementById('current-verse-legend');
+    if (legend) legend.textContent = formT.verseLegend + ' ' + (verses.length + 1);
+  }
+
+  function renderDraftsList() {
+    const panel = document.getElementById('drafts-panel');
+    const listEl = document.getElementById('drafts-list');
+    const emptyEl = document.getElementById('drafts-empty');
+    if (!panel || !listEl) return;
+    const list = getDrafts();
+    listEl.innerHTML = '';
+    if (list.length === 0) {
+      if (emptyEl) emptyEl.classList.remove('hidden');
+      return;
+    }
+    if (emptyEl) emptyEl.classList.add('hidden');
+    list.forEach((d) => {
+      const li = document.createElement('li');
+      const title = d.title || d.slug || d.id;
+      const dateStr = d.updatedAt ? new Date(d.updatedAt).toLocaleString(undefined, { dateStyle: 'short', timeStyle: 'short' }) : '';
+      li.innerHTML = '<span class="draft-title">' + escapeHtml(title) + '</span><span class="draft-meta">' + escapeHtml(dateStr) + '</span>';
+      const loadBtn = document.createElement('button');
+      loadBtn.type = 'button';
+      loadBtn.className = 'contribute-form-btn-secondary';
+      loadBtn.textContent = formT.loadDraft;
+      loadBtn.addEventListener('click', () => { loadDraftIntoForm(d); document.getElementById('form-section-metadata')?.scrollIntoView({ behavior: 'smooth' }); });
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'contribute-form-btn-secondary';
+      delBtn.textContent = formT.deleteDraft;
+      delBtn.addEventListener('click', () => {
+        if (!confirm(formT.confirmDeleteDraft)) return;
+        const arr = getDrafts().filter((x) => x.id !== d.id);
+        setDrafts(arr);
+        if (currentDraftId === d.id) currentDraftId = null;
+        renderDraftsList();
+        if (formSuccess) { formSuccess.textContent = formT.draftDeleted; formSuccess.classList.remove('hidden'); }
+      });
+      li.appendChild(loadBtn);
+      li.appendChild(delBtn);
+      listEl.appendChild(li);
+    });
   }
 
   function updateDescriptionRequired() {
@@ -633,10 +856,12 @@ const f = t.contribute.form;
     const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags', '#audio_url', '#content_language'];
     fields.forEach((sel) => {
       const el = document.querySelector(sel);
-      if (el) el.addEventListener('input', renderReview);
+      if (el) {
+        el.addEventListener('input', () => { updateVerseStartVisibility(); renderReview(); });
+      }
     });
     const audioFileEl = document.getElementById('audio_file');
-    if (audioFileEl) audioFileEl.addEventListener('change', renderReview);
+    if (audioFileEl) audioFileEl.addEventListener('change', () => { updateVerseStartVisibility(); renderReview(); });
     const contentLangEl = document.getElementById('content_language');
     if (contentLangEl) {
       contentLangEl.addEventListener('change', () => {
@@ -702,9 +927,13 @@ const f = t.contribute.form;
       if (user && user.login) {
         if (loginRequired) loginRequired.classList.add('hidden');
         if (wizard) wizard.classList.remove('hidden');
-        renderReview();
+        const draftsPanel = document.getElementById('drafts-panel');
+        if (draftsPanel) draftsPanel.classList.remove('hidden');
+        renderDraftsList();
         setupLiveReview();
         setupContentLanguage();
+        updateVerseStartVisibility();
+        renderReview();
         setupNav();
       }
     })
@@ -712,4 +941,5 @@ const f = t.contribute.form;
 
   document.getElementById('btn-add-verse')?.addEventListener('click', addVerse);
   document.getElementById('btn-submit-pr')?.addEventListener('click', submitPR);
+  document.getElementById('btn-save-draft')?.addEventListener('click', saveDraft);
 </script>
