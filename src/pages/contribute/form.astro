@@ -75,12 +75,21 @@ const f = t.contribute.form;
                   <input type="text" id="language" name="language" required placeholder={f.languagePlaceholder} class="contribute-form-input" />
                 </div>
                 <div>
-                  <label for="description_en" class="contribute-form-label">{f.descriptionEnLabel}</label>
-                  <textarea id="description_en" name="description_en" required rows="2" class="contribute-form-input"></textarea>
+                  <label for="content_language" class="contribute-form-label">{f.contentLanguageLabel}</label>
+                  <p class="contribute-form-field-hint" id="content_language-hint">{f.contentLanguageHint}</p>
+                  <select id="content_language" name="content_language" class="contribute-form-input" aria-describedby="content_language-hint">
+                    <option value="other">{f.contentLanguageOther}</option>
+                    <option value="pt">{f.contentLanguagePt}</option>
+                    <option value="en">{f.contentLanguageEn}</option>
+                  </select>
                 </div>
-                <div>
+                <div id="description_en-wrap">
+                  <label for="description_en" class="contribute-form-label">{f.descriptionEnLabel}</label>
+                  <textarea id="description_en" name="description_en" rows="2" class="contribute-form-input"></textarea>
+                </div>
+                <div id="description_pt-wrap">
                   <label for="description_pt" class="contribute-form-label">{f.descriptionPtLabel}</label>
-                  <textarea id="description_pt" name="description_pt" required rows="2" class="contribute-form-input"></textarea>
+                  <textarea id="description_pt" name="description_pt" rows="2" class="contribute-form-input"></textarea>
                 </div>
                 <div>
                   <label for="tags" class="contribute-form-label">{f.tagsLabel}</label>
@@ -107,12 +116,14 @@ const f = t.contribute.form;
                     <p id="v_transliteration-hint" class="contribute-form-field-hint">{f.verseTransliterationHint}</p>
                     <input type="text" id="v_transliteration" class="contribute-form-input" aria-describedby="v_transliteration-hint" />
                   </div>
-                  <div>
+                  <div id="verse-translation-en-wrap">
                     <label for="v_translation_en" class="contribute-form-label">{f.verseTranslationEnLabel}</label>
+                    <p id="verse-translation-en-optional" class="contribute-form-field-hint hidden"></p>
                     <input type="text" id="v_translation_en" class="contribute-form-input" />
                   </div>
-                  <div>
+                  <div id="verse-translation-pt-wrap">
                     <label for="v_translation_pt" class="contribute-form-label">{f.verseTranslationPtLabel}</label>
+                    <p id="verse-translation-pt-optional" class="contribute-form-field-hint hidden"></p>
                     <input type="text" id="v_translation_pt" class="contribute-form-input" />
                   </div>
                   <button type="button" id="btn-add-verse" class="sc-btn-primary px-5 py-2.5 rounded-lg">{f.addVerse}</button>
@@ -350,6 +361,32 @@ const f = t.contribute.form;
     return div.innerHTML;
   }
 
+  function getContentLanguage() {
+    return getVal('#content_language') || 'other';
+  }
+
+  function updateDescriptionRequired() {
+    const cl = getContentLanguage();
+    const descEn = document.getElementById('description_en');
+    const descPt = document.getElementById('description_pt');
+    if (descEn) descEn.required = cl !== 'en';
+    if (descPt) descPt.required = cl !== 'pt';
+  }
+
+  function updateVerseTranslationHints() {
+    const cl = getContentLanguage();
+    const optEn = document.getElementById('verse-translation-en-optional');
+    const optPt = document.getElementById('verse-translation-pt-optional');
+    if (optEn) {
+      optEn.textContent = formT.verseTranslationEnOptionalWhen || '';
+      optEn.classList.toggle('hidden', cl !== 'en');
+    }
+    if (optPt) {
+      optPt.textContent = formT.verseTranslationPtOptionalWhen || '';
+      optPt.classList.toggle('hidden', cl !== 'pt');
+    }
+  }
+
   function renderReview() {
     const title = getVal('#title') || '';
     const tradition = getVal('#tradition') || '';
@@ -424,27 +461,42 @@ const f = t.contribute.form;
     const tagsStr = getVal('#tags');
     const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()).filter(Boolean) : [];
     const slug = getVal('#slug').toLowerCase().replace(/\s+/g, '-') || '';
+    const contentLang = getContentLanguage();
+    let descEn = getVal('#description_en') || '';
+    let descPt = getVal('#description_pt') || '';
+    if (contentLang === 'pt') descPt = descPt || descEn;
+    else if (contentLang === 'en') descEn = descEn || descPt;
     return {
       slug,
       title: getVal('#title') || '',
       tradition: getVal('#tradition') || '',
       language: getVal('#language') || '',
-      description: { en: getVal('#description_en') || '', pt: getVal('#description_pt') || '' },
+      description: { en: descEn, pt: descPt },
       tags,
-      verses: verses.map((v, i) => ({
-        order: i + 1,
-        lines: [{
-          start: 0,
-          original: v.original,
-          transliteration: v.transliteration,
-          translations: { en: v.translation_en, pt: v.translation_pt },
-        }],
-      })),
+      verses: verses.map((v, i) => {
+        let en = v.translation_en;
+        let pt = v.translation_pt;
+        if (contentLang === 'pt') pt = pt || v.original;
+        else if (contentLang === 'en') en = en || v.original;
+        return {
+          order: i + 1,
+          lines: [{
+            start: 0,
+            original: v.original,
+            transliteration: v.transliteration,
+            translations: { en: en || '', pt: pt || '' },
+          }],
+        };
+      }),
     };
   }
 
   function submitPR() {
-    const requiredSelectors = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt'];
+    const contentLang = getContentLanguage();
+    const requiredSelectors = ['#slug', '#title', '#tradition', '#language'];
+    if (contentLang === 'other') requiredSelectors.push('#description_en', '#description_pt');
+    else if (contentLang === 'pt') requiredSelectors.push('#description_en');
+    else requiredSelectors.push('#description_pt');
     const invalidEl = requiredSelectors.map((sel) => document.querySelector(sel)).find(
       (el) => (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) && !el.checkValidity()
     );
@@ -498,11 +550,24 @@ const f = t.contribute.form;
   }
 
   function setupLiveReview() {
-    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags'];
+    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags', '#content_language'];
     fields.forEach((sel) => {
       const el = document.querySelector(sel);
       if (el) el.addEventListener('input', renderReview);
     });
+    const contentLangEl = document.getElementById('content_language');
+    if (contentLangEl) {
+      contentLangEl.addEventListener('change', () => {
+        updateDescriptionRequired();
+        updateVerseTranslationHints();
+        renderReview();
+      });
+    }
+  }
+
+  function setupContentLanguage() {
+    updateDescriptionRequired();
+    updateVerseTranslationHints();
   }
 
   function setupNav() {
@@ -557,6 +622,7 @@ const f = t.contribute.form;
         if (wizard) wizard.classList.remove('hidden');
         renderReview();
         setupLiveReview();
+        setupContentLanguage();
         setupNav();
       }
     })
