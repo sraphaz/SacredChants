@@ -1,15 +1,10 @@
-# Deploy to GitHub Pages (https://sraphaz.github.io/SacredChants/)
+# Deploy manual para GitHub Pages (https://sraphaz.github.io/SacredChants/)
 #
-# Fluxo: CI (ci.yml) corre build → lint → e2e → release (só em main).
-#        Quando semantic-release publica uma release, este workflow dispara e faz deploy do TAG dessa release.
-#        Em execução manual (workflow_dispatch) faz deploy de main.
-#
-# ref: tag da release = código exato que foi testado e versionado; main = só em deploy manual.
-name: Deploy to GitHub Pages
+# Uso: apenas workflow_dispatch — para publicar main manualmente (ex.: hotfix).
+# O deploy automático após release está no mesmo pipeline que o CI (ci.yml: job deploy).
+name: Deploy to GitHub Pages (manual)
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -21,10 +16,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout (main)
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'release' && github.event.release.tag_name || 'main' }}
+          ref: main
 
       - name: Install, build, and upload site
         uses: withastro/action@v3

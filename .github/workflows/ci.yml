@@ -1,8 +1,5 @@
-# CI + E2E + Release em sequência correta:
-# 1. Build e Lint (paralelo)
-# 2. E2E (Docker)
-# 3. Release (só em main, só se build + lint + e2e passarem) → cria tag e GitHub Release
-# 4. Deploy (disparado automaticamente por release: published, ver deploy.yml)
+# Pipeline único: Build → Lint → E2E → Release (só main) → Deploy (só se houve release)
+# Tudo no mesmo fluxo; deploy só corre depois da release e usa o tag criado por ela.
 name: CI
 
 on:
@@ -14,6 +11,11 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
@@ -65,14 +67,16 @@ jobs:
       - name: Run E2E tests
         run: docker run --rm --ipc=host sacred-chants-e2e
 
-  # Só corre em push para main e só depois de build, lint e e2e passarem.
-  # Cria tag + GitHub Release (semantic-release); deploy.yml dispara em release: published.
+  # Só em main, depois de build + lint + e2e. Cria tag e GitHub Release; expõe tag para o deploy.
   release:
     needs: [build, lint, e2e]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      released: ${{ steps.release_meta.outputs.released }}
+      tag: ${{ steps.release_meta.outputs.tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -88,7 +92,49 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Get tag before release
+        id: before
+        run: echo "tag=$(git describe --tags --abbrev=0 2>/dev/null || echo '')" >> $GITHUB_OUTPUT
+
       - name: Semantic Release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set release outputs (tag + released)
+        id: release_meta
+        run: |
+          NEW_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo '')
+          OLD_TAG="${{ steps.before.outputs.tag }}"
+          if [ -n "$NEW_TAG" ] && [ "$NEW_TAG" != "$OLD_TAG" ]; then
+            echo "released=true" >> $GITHUB_OUTPUT
+            echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          else
+            echo "released=false" >> $GITHUB_OUTPUT
+            echo "tag=" >> $GITHUB_OUTPUT
+          fi
+
+  # Só corre após release e só se semantic-release criou uma nova release (tag). Deploy do tag para GitHub Pages.
+  deploy:
+    needs: [release]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.release.outputs.released == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout (release tag)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release.outputs.tag }}
+
+      - name: Install, build, and upload site
+        uses: withastro/action@v3
+        with:
+          path: .
+          node-version: 20
+          package-manager: npm
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
