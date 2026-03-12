@@ -8,7 +8,9 @@ const t = ui[locale];
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
-const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
+const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
+const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + (locale === 'pt' ? '?lang=pt' : '') : '';
+const returnToContribute = locale === 'pt' ? '/contribute/?lang=pt' : '/contribute/';
 ---
 
 <BaseLayout
@@ -21,7 +23,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
       {t.contribute.title}
     </h1>
 
-    <div id="contribute-root" class:list={['space-y-6', !useAppSubdomain && 'contribute-auth-pending']} data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl}>
+    <div id="contribute-root" class:list={['space-y-6', !useAppSubdomain && 'contribute-auth-pending']} data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl || undefined}>
       {useAppSubdomain ? (
         <div class="mb-page-content">
           <p class="mb-3" style="color: var(--sc-text-muted)">
@@ -47,7 +49,7 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
           </p>
           <div id="contribute-login-cta">
             <a
-              href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent('/contribute/')}`}
+              href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(returnToContribute)}`}
               class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition"
             >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -64,14 +66,14 @@ const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace
         </div>
         <div id="panel-new" role="tabpanel" aria-labelledby="tab-new" class="contribute-panel">
           <p class="mb-3" style="color: var(--sc-text-muted)">{t.contribute.newContributionIntro}</p>
-          <a href="/contribute/form/" class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition">
+          <a href={locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/'} class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition">
             {t.contribute.newContribution}
           </a>
         </div>
         <div id="panel-mine" role="tabpanel" aria-labelledby="tab-mine" class="contribute-panel hidden" aria-hidden="true">
           <p id="contribute-empty" class="hidden mb-3" style="color: var(--sc-text-muted)">{t.contribute.noContributionsYet}</p>
           <ul id="contribute-list" class="space-y-3 mb-4" aria-label={t.contribute.myContributions}></ul>
-          <a href="/contribute/form/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">{t.contribute.newContribution}</a>
+          <a href={locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/'} class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">{t.contribute.newContribution}</a>
         </div>
         <form id="contribute-logout-form" action={`${apiOrigin}/api/logout`} method="post" class="inline mt-4 block">
           <button type="submit" class="inline text-sm" style="color: var(--sc-text-muted)">

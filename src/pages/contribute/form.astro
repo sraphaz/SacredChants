@@ -8,7 +8,8 @@ const t = ui[locale];
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
-const contributeAppContributeUrl = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
+const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
+const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'form/' + (locale === 'pt' ? '?lang=pt' : '') : '';
 const f = t.contribute.form;
 ---
 
@@ -26,7 +27,7 @@ const f = t.contribute.form;
       {useAppSubdomain ? (
         <div class="mb-6">
           <p style="color: var(--sc-text-muted)">{t.contribute.useContributeApp}</p>
-          <a href={contributeAppContributeUrl + 'form/'} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+          <a href={contributeAppContributeUrl} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
             {t.contribute.openContributeApp}
           </a>
         </div>
@@ -34,7 +35,7 @@ const f = t.contribute.form;
       <>
         <div id="form-login-required" class="mb-6">
           <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
-          <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent('/contribute/form/')}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+          <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/')}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
             {t.contribute.signInWithGitHub}
           </a>
         </div>
@@ -164,7 +165,7 @@ const f = t.contribute.form;
               <p id="review-preview-label" class="contribute-review-preview-label">{f.reviewPreviewLabel}</p>
               <div id="review-preview" class="contribute-review-preview" aria-live="polite"></div>
               <div class="contribute-form-actions">
-                <a href="/contribute/" class="contribute-form-btn-secondary">{f.cancel}</a>
+                <a href={locale === 'pt' ? '/contribute/?lang=pt' : '/contribute/'} class="contribute-form-btn-secondary">{f.cancel}</a>
                 <button type="button" id="btn-save-draft" class="contribute-form-btn-secondary">{f.saveDraft}</button>
                 <button type="button" id="btn-submit-pr" class="sc-btn-primary px-5 py-2.5 rounded-lg">{f.createPR}</button>
               </div>
@@ -930,6 +931,15 @@ const f = t.contribute.form;
         const draftsPanel = document.getElementById('drafts-panel');
         if (draftsPanel) draftsPanel.classList.remove('hidden');
         renderDraftsList();
+        const draftId = new URLSearchParams(window.location.search).get('draft');
+        if (draftId) {
+          const list = getDrafts();
+          const d = list.find((x) => x.id === draftId);
+          if (d) {
+            loadDraftIntoForm(d);
+            document.getElementById('form-section-metadata')?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
         setupLiveReview();
         setupContentLanguage();
         updateVerseStartVisibility();
