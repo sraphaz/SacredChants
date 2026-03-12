@@ -172,7 +172,7 @@ Se preferires criar o projeto na Vercel pelo browser (em vez de `vercel link` a 
 | `CONTRIBUTE_ORIGIN` | `https://app.sacredchants.org` |
 | `GITHUB_CLIENT_ID` | Da OAuth App (GitHub) |
 | `GITHUB_CLIENT_SECRET` | Da OAuth App (GitHub) |
-| `GITHUB_TOKEN` | Personal Access Token com permissão `repo` |
+| `GITHUB_TOKEN` | Personal Access Token com permissão de **escrita** no repositório (criar branch, ficheiros e PR). **Fine-grained:** Repository → Contents (Read and write), Pull requests (Read and write). **Classic:** scope `repo` (ou `contents` + `pull_requests`). Sem isto, "Create pull request" devolve 500. |
 | `SESSION_SECRET` | String aleatória longa (JWT) |
 | `GITHUB_REPO_OWNER` | ex. `sraphaz` |
 | `GITHUB_REPO_NAME` | `SacredChants` |
@@ -189,6 +189,16 @@ Se preferires criar o projeto na Vercel pelo browser (em vez de `vercel link` a 
 | **GitHub** | OAuth App: Callback URL = `https://app.sacredchants.org/api/auth/callback` |
 
 Depois do DNS ativo, **https://app.sacredchants.org/contribute/** deve ter login e submissão a funcionar; em sacredchants.org o botão “Open contribution app” leva para aí.
+
+---
+
+## Se "Create pull request" devolver 500
+
+1. **Variável em falta:** Confirma que `GITHUB_TOKEN` está definida nas Environment Variables do projeto na Vercel (Production e Preview se usares).
+2. **Permissões do token:** O token tem de poder criar branch (`git/refs`), escrever ficheiros no repo e criar pull requests. No GitHub:
+   - **Fine-grained PAT:** no repositório, em "Repository permissions" escolhe **Contents** → Read and write, **Pull requests** → Read and write.
+   - **Classic PAT:** scope `repo` (acesso total) ou, no mínimo, `contents` e `pull_requests`.
+3. Nos logs da Vercel (Functions), o erro pode aparecer como `403 Forbidden` ou "Resource not accessible by personal access token". Corrige as permissões do token e faz redeploy.
 
 ---
 

@@ -29,8 +29,9 @@ Avaliação do fluxo de contribuição (formulário, rascunhos, dashboard) com f
 ### 1.5 Rascunhos mais discretos
 - O painel "Os seus rascunhos guardados" foi tornado **secundário** em peso visual:
   - Título em uppercase, tamanho menor, cor muted.
-  - Lista com tipo mais pequeno; apenas o título do rascunho em cor de texto principal.
+  - Lista com tipo mais pequeno; apenas o título do rascunho em cor de texto principal; botões **Abrir** e **Apagar** com espaçamento claro (classe `.draft-actions`).
 - O percurso principal continua a ser 1 → 2 → 3; os rascunhos apoiam sem competir.
+- **Onde aparecem os rascunhos:** (1) Nesta página, no painel "Os seus rascunhos guardados"; (2) Em **As minhas contribuições** (dashboard), na mesma lista que os PRs (primeiro os rascunhos, depois os PRs). São guardados só neste browser (localStorage); noutro dispositivo ou browser não aparecem.
 
 ---
 
