@@ -131,12 +131,22 @@ jobs:
         with:
           ref: ${{ needs.release.outputs.released == 'true' && needs.release.outputs.tag || 'main' }}
 
-      - name: Install, build, and upload site
-        uses: withastro/action@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: .
-          node-version: 20
-          package-manager: npm
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
