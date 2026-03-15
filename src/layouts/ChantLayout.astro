@@ -11,11 +11,11 @@ interface Props {
 const { chant, locale } = Astro.props;
 const desc = chant.description;
 const descriptionForMeta =
-  (locale && desc && typeof desc === 'object' && (desc as Record<string, string>)[locale]) ||
-  desc?.en ||
-  desc?.pt ||
-  desc?.es ||
-  desc?.it ||
+  (locale && desc ? (desc as Record<string, string>)[locale] : undefined) ??
+  desc?.en ??
+  desc?.pt ??
+  desc?.es ??
+  desc?.it ??
   '';
 ---
 
