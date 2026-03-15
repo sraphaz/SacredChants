@@ -16,6 +16,15 @@ interface Props {
 const { verse, line, syncIndex, showVerseLabel = true, showExplanation = false } = Astro.props;
 const tEn = ui.en;
 const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
+const VERSE_LOCALES = ['en', 'pt', 'es', 'it'] as const;
+const verseLabelByLocale: Record<(typeof VERSE_LOCALES)[number], string> = {
+  en: tEn.chant.verse,
+  pt: tPt.chant.verse,
+  es: tEs.chant.verse,
+  it: tIt.chant.verse,
+};
 ---
 
 <div
@@ -26,8 +35,9 @@ const tPt = ui.pt;
 >
   {showVerseLabel && (
     <span class="verse-block__label uppercase tracking-label" aria-hidden="true">
-      <span class="locale-en">{tEn.chant.verse} {verse.order}</span>
-      <span class="locale-pt">{tPt.chant.verse} {verse.order}</span>
+      {VERSE_LOCALES.map((loc) => (
+        <span class={`locale-${loc}`}>{verseLabelByLocale[loc]} {verse.order}</span>
+      ))}
     </span>
   )}
   <p class="original" dir="auto" lang="und">
@@ -37,25 +47,21 @@ const tPt = ui.pt;
     {line.transliteration}
   </p>
   <div class="translations">
-    {line.translations.en && (
-      <p class="locale-en" data-lang="en">{line.translations.en}</p>
-    )}
-    {line.translations.pt && (
-      <p class="locale-pt" data-lang="pt">{line.translations.pt}</p>
-    )}
+    {VERSE_LOCALES.map((loc) => {
+      const text = line.translations[loc] ?? line.translations.en ?? line.translations.pt ?? '';
+      return text ? <p class={`locale-${loc}`} data-lang={loc}>{text}</p> : null;
+    })}
   </div>
-  {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt) && (
+  {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt || verse.explanation.es || verse.explanation.it) && (
     <>
-      {verse.explanation.en && (
-        <div class="verse-block__explanation locale-en">
-          <p>{verse.explanation.en}</p>
-        </div>
-      )}
-      {verse.explanation.pt && (
-        <div class="verse-block__explanation locale-pt">
-          <p>{verse.explanation.pt}</p>
-        </div>
-      )}
+      {VERSE_LOCALES.map((loc) => {
+        const explanationText = verse.explanation?.[loc] ?? verse.explanation?.en ?? verse.explanation?.pt ?? '';
+        return explanationText ? (
+          <div class={`verse-block__explanation locale-${loc}`}>
+            <p>{explanationText}</p>
+          </div>
+        ) : null;
+      })}
     </>
   )}
 </div>
