@@ -59,6 +59,13 @@
 
     root.dataset.locale = locale;
     root.lang = locale;
+
+    /* URL wins: if page has ?lang=, ensure data-locale matches so the correct .locale-* block is shown (es vs it). */
+    if (urlLang && allowedLocales.indexOf(urlLang) !== -1) {
+      var urlLocale = urlLang === 'pt-br' ? 'pt' : urlLang;
+      root.dataset.locale = urlLocale;
+      root.lang = urlLocale;
+    }
   }
 
   applyThemeFromStorage();

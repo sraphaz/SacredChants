@@ -56,6 +56,7 @@ export const ui = {
       aboutTitle: 'About this chant',
       shareWithAutoplay: 'Share link (autoplay + sync)',
       interpretedBy: 'Interpreted by',
+      translationFallback: 'Verse translations in this language are not yet available; showing English.',
     },
     traditions: {
       title: 'Traditions',
@@ -284,6 +285,7 @@ export const ui = {
       aboutTitle: 'Sobre este cântico',
       shareWithAutoplay: 'Partilhar link (autoplay + sync)',
       interpretedBy: 'Interpretado por',
+      translationFallback: 'As traduções dos versos neste idioma ainda não estão disponíveis; é mostrada a versão em inglês.',
     },
     traditions: {
       title: 'Tradições',
@@ -512,6 +514,7 @@ export const ui = {
       aboutTitle: 'Sobre este cántico',
       shareWithAutoplay: 'Compartir enlace (autoplay + sync)',
       interpretedBy: 'Interpretado por',
+      translationFallback: 'Las traducciones de los versos al español no están disponibles aún; se muestra la versión en inglés.',
     },
     traditions: {
       title: 'Tradiciones',
@@ -735,6 +738,7 @@ export const ui = {
       aboutTitle: 'Su questo canto',
       shareWithAutoplay: 'Condividi link (autoplay + sync)',
       interpretedBy: 'Interpretato da',
+      translationFallback: 'Le traduzioni dei versi in italiano non sono ancora disponibili; viene mostrata la versione in inglese.',
     },
     traditions: {
       title: 'Tradizioni',

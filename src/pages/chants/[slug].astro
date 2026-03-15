@@ -64,6 +64,10 @@ const linesWithMeta = (() => {
   });
 })();
 
+/** Whether this chant has any verse line with ES or IT translation (used to show fallback notice). */
+const hasEs = sortedVerses.some((v) => v.lines?.some((l) => (l.translations as Record<string, string>)?.es));
+const hasIt = sortedVerses.some((v) => v.lines?.some((l) => (l.translations as Record<string, string>)?.it));
+
 ---
 
 <ChantLayout chant={chant} locale={locale}>
@@ -172,6 +176,12 @@ const linesWithMeta = (() => {
       )}
     </nav>
   </div>
+  {(locale === 'es' && !hasEs) || (locale === 'it' && !hasIt) ? (
+    <p class="chant-translation-fallback mb-4 px-2 py-2 rounded text-sm" style="background: var(--sc-bg-muted, #f0f0f0); color: var(--sc-text-muted, #666);" role="status">
+      <span class="locale-es">{tEs.chant.translationFallback}</span>
+      <span class="locale-it">{tIt.chant.translationFallback}</span>
+    </p>
+  ) : null}
   <section class="chant-verses" aria-label="Verses">
       <div class="chant-verses__list" id="chant-verses-list" data-sync-lines={JSON.stringify(syncLines)}>
         {linesWithMeta.map(({ verse, line, syncIndex, showVerseLabel, showExplanation }) => (
@@ -180,7 +190,7 @@ const linesWithMeta = (() => {
       </div>
     </section>
 
-    {(chant.about?.en || chant.about?.pt) && (
+    {(chant.about?.en || chant.about?.pt || chant.about?.es || chant.about?.it) && (
     <section class="chant-about mt-section-gap mb-section" aria-labelledby="chant-about-title">
       <h2 id="chant-about-title" class="chant-about__title sc-heading font-serif mb-4">
         <span class="locale-en">{tEn.chant.aboutTitle}</span>
@@ -196,6 +206,16 @@ const linesWithMeta = (() => {
       {chant.about?.pt && (
         <div class="chant-about__body locale-pt mt-4">
           {chant.about.pt}
+        </div>
+      )}
+      {chant.about?.es && (
+        <div class="chant-about__body locale-es mt-4">
+          {chant.about.es}
+        </div>
+      )}
+      {chant.about?.it && (
+        <div class="chant-about__body locale-it mt-4">
+          {chant.about.it}
         </div>
       )}
     </section>
