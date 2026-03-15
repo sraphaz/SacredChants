@@ -4,11 +4,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ——— Locale switch (PT/EN) — show one language based on data-locale ——— */
-[data-locale="en"] .locale-pt {
+/* ——— Locale switch (EN / PT / ES / IT) — show one language based on data-locale ——— */
+[data-locale="en"] .locale-pt,
+[data-locale="en"] .locale-es,
+[data-locale="en"] .locale-it {
   display: none !important;
 }
-[data-locale="pt"] .locale-en {
+[data-locale="pt"] .locale-en,
+[data-locale="pt"] .locale-es,
+[data-locale="pt"] .locale-it {
+  display: none !important;
+}
+[data-locale="es"] .locale-en,
+[data-locale="es"] .locale-pt,
+[data-locale="es"] .locale-it {
+  display: none !important;
+}
+[data-locale="it"] .locale-en,
+[data-locale="it"] .locale-pt,
+[data-locale="it"] .locale-es {
   display: none !important;
 }
 
@@ -367,6 +381,23 @@
   align-items: center;
   flex-wrap: nowrap;
   gap: 0.35rem;
+}
+.sc-locale-select {
+  font-size: 0.875rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--sc-border);
+  background: var(--sc-bg-elevated);
+  color: var(--sc-text);
+  cursor: pointer;
+  font-family: inherit;
+}
+.sc-locale-select:hover {
+  border-color: var(--sc-text-subtle);
+}
+.sc-locale-select:focus {
+  outline: 2px solid var(--sc-text-muted);
+  outline-offset: 2px;
 }
 
 /* Body: no scroll when mobile drawer is open (removes page scrollbar) */

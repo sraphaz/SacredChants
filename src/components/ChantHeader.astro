@@ -1,11 +1,17 @@
 ---
 import type { Chant } from '../content/schemas/chant';
+import { ui } from '../i18n/strings';
 
 interface Props {
   chant: Chant;
 }
 
 const { chant } = Astro.props;
+const tEn = ui.en;
+const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
+const desc = chant.description && typeof chant.description === 'object' ? chant.description as { en?: string; pt?: string; es?: string; it?: string } : {};
 ---
 
 <header class="chant-header chant-header--centered">
@@ -14,9 +20,24 @@ const { chant } = Astro.props;
       {chant.tradition}
       {chant.origin ? ` · ${chant.origin}` : ''}
     </p>
-    <h1 class="chant-header__title sc-heading font-serif">
-      {chant.title}
-    </h1>
+    <div class="chant-header__title-row flex flex-wrap items-baseline gap-x-2 gap-y-1">
+      <h1 class="chant-header__title sc-heading font-serif">
+        {chant.title}
+      </h1>
+      {chant.audio && chant.interpreter && (
+        <span class="chant-header__interpreter text-sm" style="color: var(--sc-text-muted)">
+          <span class="locale-en">{tEn.chant.interpretedBy} {chant.interpreter}</span>
+          <span class="locale-pt">{tPt.chant.interpretedBy} {chant.interpreter}</span>
+          <span class="locale-es">{tEs.chant.interpretedBy} {chant.interpreter}</span>
+          <span class="locale-it">{tIt.chant.interpretedBy} {chant.interpreter}</span>
+        </span>
+      )}
+      {chant.audio && (
+        <span class="chant-header__audio-icon flex-shrink-0" aria-hidden="true" title="Audio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--sc-text-muted)"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="16" r="2.5"/></svg>
+        </span>
+      )}
+    </div>
     {chant.language && (
       <p class="chant-header__lang" aria-hidden="true">
         {chant.language}
@@ -25,14 +46,12 @@ const { chant } = Astro.props;
     )}
   </div>
   <div class="chant-header__body">
-    {(chant.description?.en || chant.description?.pt) && (
+    {(desc.en || desc.pt || desc.es || desc.it) && (
       <div class="chant-header__desc">
-        {chant.description.en && (
-          <p class="locale-en mb-0">{chant.description.en}</p>
-        )}
-        {chant.description.pt && (
-          <p class="locale-pt mb-0">{chant.description.pt}</p>
-        )}
+        {desc.en && <p class="locale-en mb-0">{desc.en}</p>}
+        {desc.pt && <p class="locale-pt mb-0">{desc.pt}</p>}
+        {desc.es && <p class="locale-es mb-0">{desc.es}</p>}
+        {desc.it && <p class="locale-it mb-0">{desc.it}</p>}
       </div>
     )}
     {chant.tags && chant.tags.length > 0 && (

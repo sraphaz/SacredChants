@@ -1,15 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
 const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
-const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'form/' + (locale === 'pt' ? '?lang=pt' : '') : '';
+const q = langQuery(locale);
+const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'form/' + (q ? q : '') : '';
+const returnToForm = '/contribute/form/' + (q ? q : '');
 const f = t.contribute.form;
 ---
 
@@ -35,7 +37,7 @@ const f = t.contribute.form;
       <>
         <div id="form-login-required" class="mb-6">
           <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
-          <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/')}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+          <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(returnToForm)}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
             {t.contribute.signInWithGitHub}
           </a>
         </div>
@@ -113,6 +115,10 @@ const f = t.contribute.form;
                       <label for="audio_file" class="contribute-form-label">{f.audioUploadLabel}</label>
                       <p class="contribute-form-field-hint">{f.audioUploadHint}</p>
                       <input type="file" id="audio_file" name="audio_file" accept="audio/*" class="contribute-form-input" />
+                    </div>
+                    <div>
+                      <label for="interpreter" class="contribute-form-label">{f.interpreterLabel}</label>
+                      <input type="text" id="interpreter" name="interpreter" placeholder={f.interpreterPlaceholder} class="contribute-form-input" />
                     </div>
                   </div>
                 </div>
@@ -483,6 +489,7 @@ const f = t.contribute.form;
       description_pt: getVal('#description_pt') || '',
       tags: getVal('#tags') || '',
       audio_url: getVal('#audio_url') || '',
+      interpreter: getVal('#interpreter') || '',
       verses: verses.map((v) => ({
         original: v.original || '',
         transliteration: v.transliteration || '',
@@ -524,6 +531,7 @@ const f = t.contribute.form;
     setVal('#description_pt', draft.description_pt);
     setVal('#tags', draft.tags);
     setVal('#audio_url', draft.audio_url);
+    setVal('#interpreter', draft.interpreter || '');
     verses.length = 0;
     (draft.verses || []).forEach((v) => {
       verses.push({
@@ -658,6 +666,8 @@ const f = t.contribute.form;
       if (audioUrl) html += 'Audio: <a href="' + escapeHtml(audioUrl) + '" target="_blank" rel="noopener" class="underline">' + escapeHtml(audioUrl) + '</a>';
       else html += 'Audio: <span class="opacity-90">(file will be included)</span>';
       html += '</p>';
+      const interpreter = (getVal('#interpreter') || '').trim();
+      if (interpreter) html += '<p class="chant-header__meta mt-1">' + escapeHtml(formT.interpretedBy) + ' ' + escapeHtml(interpreter) + '</p>';
     }
     html += '</div></header></div>';
     if (verses.length) {
@@ -742,6 +752,7 @@ const f = t.contribute.form;
       description: { en: descEn, pt: descPt },
       tags,
       ...(audioUrlOrNull && { audio: audioUrlOrNull }),
+      ...(getVal('#interpreter')?.trim() && { interpreter: getVal('#interpreter').trim() }),
       verses: verses.map((v, i) => {
         let en = v.translation_en;
         let pt = v.translation_pt;
@@ -859,7 +870,7 @@ const f = t.contribute.form;
   }
 
   function setupLiveReview() {
-    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags', '#audio_url', '#content_language'];
+    const fields = ['#slug', '#title', '#tradition', '#language', '#description_en', '#description_pt', '#tags', '#audio_url', '#interpreter', '#content_language'];
     fields.forEach((sel) => {
       const el = document.querySelector(sel);
       if (el) {

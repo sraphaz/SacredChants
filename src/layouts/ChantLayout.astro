@@ -1,15 +1,17 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import type { Chant } from '../content/schemas/chant';
+import type { Locale } from '../i18n/strings';
 
 interface Props {
   chant: Chant;
+  locale?: Locale;
 }
 
-const { chant } = Astro.props;
+const { chant, locale } = Astro.props;
 ---
 
-<BaseLayout title={chant.title} description={chant.description?.en ?? chant.description?.pt ?? ''}>
+<BaseLayout title={chant.title} description={chant.description?.en ?? chant.description?.pt ?? ''} locale={locale}>
   <article class="chant-page py-page px-page-x" role="article" aria-label={chant.title}>
     <div class="chant-page__inner chant-page__inner--measure mx-auto">
       <slot />

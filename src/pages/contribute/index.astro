@@ -1,16 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
+const tEn = ui.en;
+const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
 const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
-const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + (locale === 'pt' ? '?lang=pt' : '') : '';
-const returnToContribute = locale === 'pt' ? '/contribute/?lang=pt' : '/contribute/';
+const q = langQuery(locale);
+const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + (q ? q : '') : '';
+const returnToContribute = '/contribute/' + (q ? (q.startsWith('?') ? q : '?' + q) : '');
 ---
 
 <BaseLayout
@@ -20,76 +25,131 @@ const returnToContribute = locale === 'pt' ? '/contribute/?lang=pt' : '/contribu
 >
   <PageShell>
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
-      {t.contribute.title}
+      <span class="locale-en">{tEn.contribute.title}</span>
+      <span class="locale-pt">{tPt.contribute.title}</span>
+      <span class="locale-es">{tEs.contribute.title}</span>
+      <span class="locale-it">{tIt.contribute.title}</span>
     </h1>
 
-    <div id="contribute-root" class:list={['space-y-6', !useAppSubdomain && 'contribute-auth-pending']} data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl || undefined}>
-      {useAppSubdomain ? (
-        <div class="mb-page-content">
-          <p class="mb-3" style="color: var(--sc-text-muted)">
-            {t.contribute.useContributeApp}
-          </p>
-          <a
-            href={contributeAppContributeUrl}
-            class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition"
-            aria-label={t.contribute.openContributeApp}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-            <span>{t.contribute.openContributeApp}</span>
-          </a>
-        </div>
-      ) : (
-        <>
-          <p class="mb-page-content" style="color: var(--sc-text-muted)">
-            {t.contribute.loginToContribute}
-          </p>
-          <div id="contribute-login-cta">
-            <a
-              href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(returnToContribute)}`}
-              class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition"
-            >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-          <span>{t.contribute.signInWithGitHub}</span>
-        </a>
-      </div>
-      <div id="contribute-authenticated" class="hidden">
-        <p class="mb-3" style="color: var(--sc-text)" id="contribute-welcome-msg"></p>
-        <div role="tablist" class="flex gap-1 mb-4 border-b" style="border-color: var(--sc-border)" aria-label={t.contribute.title}>
-          <button type="button" role="tab" id="tab-new" aria-selected="true" aria-controls="panel-new" class="contribute-tab px-4 py-2 rounded-t text-sm font-medium transition" style="color: var(--sc-text-muted)">{t.contribute.newContribution}</button>
-          <button type="button" role="tab" id="tab-mine" aria-selected="false" aria-controls="panel-mine" class="contribute-tab px-4 py-2 rounded-t text-sm font-medium transition" style="color: var(--sc-text-muted)">{t.contribute.myContributions}</button>
-        </div>
-        <div id="panel-new" role="tabpanel" aria-labelledby="tab-new" class="contribute-panel">
-          <p class="mb-3" style="color: var(--sc-text-muted)">{t.contribute.newContributionIntro}</p>
-          <a href={locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/'} class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition">
-            {t.contribute.newContribution}
-          </a>
-        </div>
-        <div id="panel-mine" role="tabpanel" aria-labelledby="tab-mine" class="contribute-panel hidden" aria-hidden="true">
-          <p id="contribute-empty" class="hidden mb-3" style="color: var(--sc-text-muted)">{t.contribute.noContributionsYet}</p>
-          <ul id="contribute-list" class="space-y-3 mb-4" aria-label={t.contribute.myContributions}></ul>
-          <a href={locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/'} class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">{t.contribute.newContribution}</a>
-        </div>
-        <form id="contribute-logout-form" action={`${apiOrigin}/api/logout`} method="post" class="inline mt-4 block">
-          <button type="submit" class="inline text-sm" style="color: var(--sc-text-muted)">
-            {t.contribute.signOut}
-          </button>
-        </form>
-      </div>
-      </>
-      )}
+    <div class="contribute-intro mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
+      <p class="mb-4">
+        <span class="locale-en">{tEn.contribute.intro}</span>
+        <span class="locale-pt">{tPt.contribute.intro}</span>
+        <span class="locale-es">{tEs.contribute.intro}</span>
+        <span class="locale-it">{tIt.contribute.intro}</span>
+      </p>
+      <p>
+        <span class="locale-en">{tEn.contribute.process}</span>
+        <span class="locale-pt">{tPt.contribute.process}</span>
+        <span class="locale-es">{tEs.contribute.process}</span>
+        <span class="locale-it">{tIt.contribute.process}</span>
+      </p>
     </div>
 
-    <div class="mt-section-gap pt-6 border-t" style="border-color: var(--sc-border)">
-      <h2 class="font-serif text-sc-xl sc-heading mb-4" style="color: var(--sc-text)">Developer option</h2>
-      <p class="mb-4" style="color: var(--sc-text-muted)">
-        You can also add a chant by creating a JSON file and opening a pull request. See the schema in <code class="px-1 rounded" style="background-color: var(--sc-border)">src/content/schemas/chant.ts</code>.
-      </p>
+    <h2 class="font-serif text-sc-xl sc-heading mb-4" style="color: var(--sc-text)">
+      <span class="locale-en">{tEn.contribute.chooseHow}</span>
+      <span class="locale-pt">{tPt.contribute.chooseHow}</span>
+      <span class="locale-es">{tEs.contribute.chooseHow}</span>
+      <span class="locale-it">{tIt.contribute.chooseHow}</span>
+    </h2>
+
+    <div class="contribute-options grid gap-6 md:grid-cols-2 mb-10">
+      <section class="contribute-option border rounded-xl p-6" style="border-color: var(--sc-border); background: var(--sc-bg-elevated)">
+        <h3 class="font-serif text-lg font-medium mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.contribute.viaSiteTitle}</span>
+          <span class="locale-pt">{tPt.contribute.viaSiteTitle}</span>
+          <span class="locale-es">{tEs.contribute.viaSiteTitle}</span>
+          <span class="locale-it">{tIt.contribute.viaSiteTitle}</span>
+        </h3>
+        <p class="mb-4 text-sm" style="color: var(--sc-text-muted)">
+          <span class="locale-en">{tEn.contribute.viaSiteDesc}</span>
+          <span class="locale-pt">{tPt.contribute.viaSiteDesc}</span>
+          <span class="locale-es">{tEs.contribute.viaSiteDesc}</span>
+          <span class="locale-it">{tIt.contribute.viaSiteDesc}</span>
+        </p>
+        <div id="contribute-root" class:list={['space-y-4', !useAppSubdomain && 'contribute-auth-pending']} data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl || undefined}>
+          {useAppSubdomain ? (
+            <a
+              href={contributeAppContributeUrl}
+              class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition"
+              aria-label={t.contribute.openContributeApp}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span>{t.contribute.openContributeApp}</span>
+            </a>
+          ) : (
+            <>
+              <div id="contribute-login-cta">
+                <a
+                  href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(returnToContribute)}`}
+                  class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  <span>{t.contribute.signInWithGitHub}</span>
+                </a>
+              </div>
+              <div id="contribute-authenticated" class="hidden">
+                <p class="mb-3 text-sm" style="color: var(--sc-text)" id="contribute-welcome-msg"></p>
+                <div role="tablist" class="flex gap-1 mb-4 border-b" style="border-color: var(--sc-border)" aria-label={t.contribute.title}>
+                  <button type="button" role="tab" id="tab-new" aria-selected="true" aria-controls="panel-new" class="contribute-tab px-4 py-2 rounded-t text-sm font-medium transition" style="color: var(--sc-text-muted)">{t.contribute.newContribution}</button>
+                  <button type="button" role="tab" id="tab-mine" aria-selected="false" aria-controls="panel-mine" class="contribute-tab px-4 py-2 rounded-t text-sm font-medium transition" style="color: var(--sc-text-muted)">{t.contribute.myContributions}</button>
+                </div>
+                <div id="panel-new" role="tabpanel" aria-labelledby="tab-new" class="contribute-panel">
+                  <p class="mb-3 text-sm" style="color: var(--sc-text-muted)">{t.contribute.newContributionIntro}</p>
+                  <a href={`/contribute/form/${q ? q : ''}`} class="sc-btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition">
+                    {t.contribute.newContribution}
+                  </a>
+                </div>
+                <div id="panel-mine" role="tabpanel" aria-labelledby="tab-mine" class="contribute-panel hidden" aria-hidden="true">
+                  <p id="contribute-empty" class="hidden mb-3 text-sm" style="color: var(--sc-text-muted)">{t.contribute.noContributionsYet}</p>
+                  <ul id="contribute-list" class="space-y-3 mb-4" aria-label={t.contribute.myContributions}></ul>
+                  <a href={`/contribute/form/${q ? q : ''}`} class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition text-sm" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">{t.contribute.newContribution}</a>
+                </div>
+                <form id="contribute-logout-form" action={`${apiOrigin}/api/logout`} method="post" class="inline mt-4 block">
+                  <button type="submit" class="inline text-sm" style="color: var(--sc-text-muted)">
+                    {t.contribute.signOut}
+                  </button>
+                </form>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      <section class="contribute-option border rounded-xl p-6" style="border-color: var(--sc-border); background: var(--sc-bg-elevated)">
+        <h3 class="font-serif text-lg font-medium mb-2" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.contribute.viaGitHubTitle}</span>
+          <span class="locale-pt">{tPt.contribute.viaGitHubTitle}</span>
+          <span class="locale-es">{tEs.contribute.viaGitHubTitle}</span>
+          <span class="locale-it">{tIt.contribute.viaGitHubTitle}</span>
+        </h3>
+        <p class="mb-4 text-sm" style="color: var(--sc-text-muted)">
+          <span class="locale-en">{tEn.contribute.viaGitHubDesc}</span>
+          <span class="locale-pt">{tPt.contribute.viaGitHubDesc}</span>
+          <span class="locale-es">{tEs.contribute.viaGitHubDesc}</span>
+          <span class="locale-it">{tIt.contribute.viaGitHubDesc}</span>
+        </p>
+        <a
+          href={`/contribute/guide/${q ? q : ''}`}
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition border-2"
+          style="border-color: var(--sc-border); color: var(--sc-text)"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <span>{t.contribute.guideCta}</span>
+        </a>
+      </section>
     </div>
   </PageShell>
     <style>
@@ -156,7 +216,11 @@ const returnToContribute = locale === 'pt' ? '/contribute/?lang=pt' : '/contribu
       if (user && user.login) {
         if (loginCta) loginCta.classList.add('hidden');
         if (authenticated) authenticated.classList.remove('hidden');
-        if (welcomeMsg) welcomeMsg.textContent = `${document.documentElement.lang === 'pt' ? 'Bem-vindo(a)' : 'Welcome'}, @${user.login}`;
+        if (welcomeMsg) {
+          const lang = document.documentElement.lang || 'en';
+          const welcome = lang === 'pt' ? 'Bem-vindo(a)' : lang === 'es' ? 'Bienvenido(a)' : lang === 'it' ? 'Benvenuto(a)' : 'Welcome';
+          welcomeMsg.textContent = `${welcome}, @${user.login}`;
+        }
         return fetch(base + '/api/contribute/list', { credentials: 'include' });
       }
     })

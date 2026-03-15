@@ -1,15 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
 const tEn = ui.en;
 const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
 const BASE = import.meta.env.BASE_URL || '/';
 const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const q = langQuery(locale);
 const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
 ---
 
@@ -20,14 +22,18 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
 >
   <PageShell>
     <p class="mb-4">
-      <a href={`${FULL_BASE}knowledge/${langQuery}`} class="text-sm" style="color: var(--sc-text-subtle)">
+      <a href={`${FULL_BASE}knowledge/${q}`} class="text-sm" style="color: var(--sc-text-subtle)">
         <span class="locale-en">← {tEn.knowledge.backToKnowledge}</span>
         <span class="locale-pt">← {tPt.knowledge.backToKnowledge}</span>
+        <span class="locale-es">← {tEs.knowledge.backToKnowledge}</span>
+        <span class="locale-it">← {tIt.knowledge.backToKnowledge}</span>
       </a>
     </p>
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       <span class="locale-en">{tEn.knowledge.nadaYoga}</span>
       <span class="locale-pt">{tPt.knowledge.nadaYoga}</span>
+      <span class="locale-es">{tEs.knowledge.nadaYoga}</span>
+      <span class="locale-it">{tIt.knowledge.nadaYoga}</span>
     </h1>
 
     <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
@@ -35,6 +41,8 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Definition and scope</span>
           <span class="locale-pt">Definição e âmbito</span>
+          <span class="locale-es">Definición y alcance</span>
+          <span class="locale-it">Definizione e ambito</span>
         </h2>
         <p class="locale-en">
           In Sanskrit, <em>nāda</em> means sound, tone, or vibration. <strong>Nada Yoga</strong> is the yoga of sound and vibration — union (<em>yoga</em>) through sound. In this tradition, the entire cosmos is understood as vibration (<em>nāda</em>). A classical idea found in Vedic and Upanishadic thought is that creation arises from pure vibration, sometimes called <em>Nada Brahman</em> (sound as the absolute), and linked to the syllable <em>Om</em> as the primordial cosmic sound.
@@ -42,12 +50,20 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <p class="locale-pt">
           Em sânscrito, <em>nāda</em> significa som, tom ou vibração. <strong>Nada Yoga</strong> é o yoga do som e da vibração — união (<em>yoga</em>) através do som. Nesta tradição, todo o cosmos é entendido como vibração (<em>nāda</em>). Uma ideia clássica do pensamento védico e upanishádico é que a criação surge da vibração pura, por vezes designada <em>Nada Brahman</em> (som como absoluto), ligada à sílaba <em>Om</em> como som cósmico primordial.
         </p>
+        <p class="locale-es">
+          En sánscrito, <em>nāda</em> significa sonido, tono o vibración. <strong>Nada Yoga</strong> es el yoga del sonido y la vibración — unión (<em>yoga</em>) a través del sonido. En esta tradición, todo el cosmos se entiende como vibración (<em>nāda</em>). Una idea clásica del pensamiento védico y upanishádico es que la creación surge de la vibración pura, a veces llamada <em>Nada Brahman</em> (el sonido como absoluto), ligada a la sílaba <em>Om</em> como sonido cósmico primordial.
+        </p>
+        <p class="locale-it">
+          In sanscrito, <em>nāda</em> significa suono, tono o vibrazione. <strong>Nada Yoga</strong> è lo yoga del suono e della vibrazione — unione (<em>yoga</em>) attraverso il suono. In questa tradizione, l'intero cosmo è inteso come vibrazione (<em>nāda</em>). Un'idea classica del pensiero vedico e upanishadico è che la creazione sorge dalla vibrazione pura, talvolta chiamata <em>Nada Brahman</em> (il suono come assoluto), legata alla sillaba <em>Om</em> come suono cosmico primordiale.
+        </p>
       </section>
 
       <section>
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Two kinds of sound</span>
           <span class="locale-pt">Dois tipos de som</span>
+          <span class="locale-es">Dos tipos de sonido</span>
+          <span class="locale-it">Due tipi di suono</span>
         </h2>
         <p class="locale-en">
           Nada Yoga distinguishes two types of sound:
@@ -55,11 +71,21 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <p class="locale-pt">
           O Nada Yoga distingue dois tipos de som:
         </p>
+        <p class="locale-es">
+          El Nada Yoga distingue dos tipos de sonido:
+        </p>
+        <p class="locale-it">
+          Il Nada Yoga distingue due tipi di suono:
+        </p>
         <ul class="list-disc pl-6 space-y-2 my-3">
           <li class="locale-en"><strong>Āhata nāda</strong> (struck or audible sound): external sound — mantras, chanting, instruments, music — perceived by the ear.</li>
           <li class="locale-pt"><strong>Āhata nāda</strong> (som percutido ou audível): som externo — mantras, canto, instrumentos, música — percebido pelo ouvido.</li>
+          <li class="locale-es"><strong>Āhata nāda</strong> (sonido golpeado o audible): sonido externo — mantras, canto, instrumentos, música — percibido por el oído.</li>
+          <li class="locale-it"><strong>Āhata nāda</strong> (suono percosso o udibile): suono esterno — mantra, canto, strumenti, musica — percepito dall'orecchio.</li>
           <li class="locale-en"><strong>Anāhata nāda</strong> (unstruck sound): internal, subtle sound; often experienced in deep meditation; inaudible to others and unique to the practitioner. It is considered a gateway to deeper consciousness.</li>
           <li class="locale-pt"><strong>Anāhata nāda</strong> (som não percutido): som interno e subtil; muitas vezes experienciado em meditação profunda; inaudível para outros e único para o praticante. É considerado uma porta para consciência mais profunda.</li>
+          <li class="locale-es"><strong>Anāhata nāda</strong> (sonido no golpeado): sonido interno y sutil; a menudo experimentado en meditación profunda; inaudible para otros y único para el practicante. Se considera una puerta a una consciencia más profunda.</li>
+          <li class="locale-it"><strong>Anāhata nāda</strong> (suono non percosso): suono interno e sottile; spesso sperimentato in meditazione profonda; inudibile agli altri e unico per il praticante. È considerato una porta verso una coscienza più profonda.</li>
         </ul>
         <p class="locale-en">
           The direction of practice is from external, audible sound toward the inner, unstruck sound — using the former as a support to reach the latter.
@@ -67,18 +93,32 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <p class="locale-pt">
           A direção da prática é do som externo e audível para o som interior e não percutido — usando o primeiro como suporte para alcançar o segundo.
         </p>
+        <p class="locale-es">
+          La dirección de la práctica es del sonido externo y audible hacia el sonido interior no golpeado — usando el primero como apoyo para alcanzar el segundo.
+        </p>
+        <p class="locale-it">
+          La direzione della pratica è dal suono esterno e udibile verso il suono interiore non percosso — usando il primo come sostegno per raggiungere il secondo.
+        </p>
       </section>
 
       <section>
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Classical references</span>
           <span class="locale-pt">Referências clássicas</span>
+          <span class="locale-es">Referencias clásicas</span>
+          <span class="locale-it">Riferimenti classici</span>
         </h2>
         <p class="locale-en">
           Nada Yoga is described in detail in the <strong>Hatha Yoga Pradīpikā</strong> (by Svātmārāma), where it is presented as one of the most powerful meditation techniques to still the mind. The <strong>Nada Bindu Upanishad</strong> is a classical text on inner sound and the unstruck sound. These references anchor the practice in the broader heritage of yoga and Vedanta.
         </p>
         <p class="locale-pt">
           O Nada Yoga é descrito em pormenor na <strong>Hatha Yoga Pradīpikā</strong> (de Svātmārāma), onde é apresentado como uma das técnicas de meditação mais poderosas para aquietar a mente. A <strong>Nada Bindu Upanishad</strong> é um texto clássico sobre o som interior e o som não percutido. Estas referências ancoram a prática no património mais vasto do yoga e do Vedanta.
+        </p>
+        <p class="locale-es">
+          El Nada Yoga se describe con detalle en la <strong>Hatha Yoga Pradīpikā</strong> (de Svātmārāma), donde se presenta como una de las técnicas de meditación más poderosas para aquietar la mente. La <strong>Nada Bindu Upanishad</strong> es un texto clásico sobre el sonido interior y el sonido no golpeado. Estas referencias anclan la práctica en el patrimonio más amplio del yoga y el Vedanta.
+        </p>
+        <p class="locale-it">
+          Il Nada Yoga è descritto in dettaglio nell'<strong>Hatha Yoga Pradīpikā</strong> (di Svātmārāma), dove è presentato come una delle tecniche di meditazione più potenti per quietare la mente. La <strong>Nada Bindu Upanishad</strong> è un testo classico sul suono interiore e il suono non percosso. Questi riferimenti ancorano la pratica nel più ampio patrimonio dello yoga e del Vedanta.
         </p>
       </section>
     </div>

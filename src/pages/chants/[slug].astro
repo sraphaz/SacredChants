@@ -4,7 +4,7 @@ import ChantHeader from '../../components/ChantHeader.astro';
 import ChantVerse from '../../components/ChantVerse.astro';
 import ChantPlayerBar from '../../components/ChantPlayerBar.astro';
 import { getEntry, getCollection } from 'astro:content';
-import { ui } from '../../i18n/strings';
+import { ui, getLocaleFromUrl } from '../../i18n/strings';
 import { getBandcampArtUrl } from '../../utils/bandcamp';
 
 export async function getStaticPaths() {
@@ -16,8 +16,11 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const tEn = ui.en;
 const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
 
 const entry = await getEntry('chants', slug!);
 if (!entry) {
@@ -63,7 +66,7 @@ const linesWithMeta = (() => {
 
 ---
 
-<ChantLayout chant={chant}>
+<ChantLayout chant={chant} locale={locale}>
   {chant.audio && audioUrlForPlayer && (
     <>
       <ChantPlayerBar
@@ -72,15 +75,23 @@ const linesWithMeta = (() => {
         hasSync={hasSync}
         syncLabelEn={tEn.chant.syncLabel}
         syncLabelPt={tPt.chant.syncLabel}
+        syncLabelEs={tEs.chant.syncLabel}
+        syncLabelIt={tIt.chant.syncLabel}
         syncOnEn={tEn.chant.syncOn}
         syncOffEn={tEn.chant.syncOff}
         syncOnPt={tPt.chant.syncOn}
         syncOffPt={tPt.chant.syncOff}
+        syncOnEs={tEs.chant.syncOn}
+        syncOffEs={tEs.chant.syncOff}
+        syncOnIt={tIt.chant.syncOn}
+        syncOffIt={tIt.chant.syncOff}
         bandcampUrl={chant.bandcampUrl}
         bandcampEmbedSrc={chant.bandcampEmbedSrc}
         bandcampArtImage={bandcampArtImage}
         bandcampTooltipEn="Listen on Bandcamp"
         bandcampTooltipPt="Ouvir no Bandcamp"
+        bandcampTooltipEs="Escuchar en Bandcamp"
+        bandcampTooltipIt="Ascolta su Bandcamp"
       />
       <div class="chant-player-bar-spacer hidden md:block"></div>
       <script is:inline>
@@ -119,6 +130,8 @@ const linesWithMeta = (() => {
         <span aria-hidden="true">📄</span>
         <span class="locale-en">{tEn.chant.downloadPdf}</span>
         <span class="locale-pt">{tPt.chant.downloadPdf}</span>
+        <span class="locale-es">{tEs.chant.downloadPdf}</span>
+        <span class="locale-it">{tIt.chant.downloadPdf}</span>
       </button>
       {chant.spotifyUrl && (
         <a
@@ -131,6 +144,8 @@ const linesWithMeta = (() => {
           <span aria-hidden="true">♫</span>
           <span class="locale-en">{tEn.chant.listenOnSpotify}</span>
           <span class="locale-pt">{tPt.chant.listenOnSpotify}</span>
+          <span class="locale-es">{tEs.chant.listenOnSpotify}</span>
+          <span class="locale-it">{tIt.chant.listenOnSpotify}</span>
         </a>
       )}
       {!chant.audio && chant.bandcampUrl && (
@@ -151,6 +166,8 @@ const linesWithMeta = (() => {
           <span aria-hidden="true">🔗</span>
           <span class="locale-en">{tEn.chant.shareWithAutoplay}</span>
           <span class="locale-pt">{tPt.chant.shareWithAutoplay}</span>
+          <span class="locale-es">{tEs.chant.shareWithAutoplay}</span>
+          <span class="locale-it">{tIt.chant.shareWithAutoplay}</span>
         </a>
       )}
     </nav>
@@ -168,6 +185,8 @@ const linesWithMeta = (() => {
       <h2 id="chant-about-title" class="chant-about__title sc-heading font-serif mb-4">
         <span class="locale-en">{tEn.chant.aboutTitle}</span>
         <span class="locale-pt">{tPt.chant.aboutTitle}</span>
+        <span class="locale-es">{tEs.chant.aboutTitle}</span>
+        <span class="locale-it">{tIt.chant.aboutTitle}</span>
       </h2>
       {chant.about?.en && (
         <div class="chant-about__body locale-en">
@@ -194,6 +213,8 @@ const linesWithMeta = (() => {
         var toggleBtn = document.getElementById('chant-sync-toggle');
         var stateEl = document.getElementById('chant-sync-toggle-state');
         var stateElPt = document.getElementById('chant-sync-toggle-state-pt');
+        var stateElEs = document.getElementById('chant-sync-toggle-state-es');
+        var stateElIt = document.getElementById('chant-sync-toggle-state-it');
         var syncLinesRaw = list && list.getAttribute('data-sync-lines');
         var syncLines = [];
         try { if (syncLinesRaw) syncLines = JSON.parse(syncLinesRaw); } catch (e) {}
@@ -204,6 +225,10 @@ const linesWithMeta = (() => {
         var syncOffEn = (toggleBtn && toggleBtn.getAttribute('data-sync-off-en')) || 'Off';
         var syncOnPt = (toggleBtn && toggleBtn.getAttribute('data-sync-on-pt')) || 'Ligado';
         var syncOffPt = (toggleBtn && toggleBtn.getAttribute('data-sync-off-pt')) || 'Desligado';
+        var syncOnEs = (toggleBtn && toggleBtn.getAttribute('data-sync-on-es')) || 'On';
+        var syncOffEs = (toggleBtn && toggleBtn.getAttribute('data-sync-off-es')) || 'Off';
+        var syncOnIt = (toggleBtn && toggleBtn.getAttribute('data-sync-on-it')) || 'On';
+        var syncOffIt = (toggleBtn && toggleBtn.getAttribute('data-sync-off-it')) || 'Off';
 
         function getSyncEnabled() {
           try {
@@ -214,8 +239,10 @@ const linesWithMeta = (() => {
         function updateSyncAriaLabel(on) {
           if (!toggleBtn) return;
           var locale = (document.documentElement.dataset && document.documentElement.dataset.locale) || 'en';
-          var label = locale === 'pt' ? (toggleBtn.getAttribute('data-sync-label-pt') || 'Sinc') : (toggleBtn.getAttribute('data-sync-label-en') || 'Sync');
-          var state = on ? (locale === 'pt' ? syncOnPt : syncOnEn) : (locale === 'pt' ? syncOffPt : syncOffEn);
+          var label = (locale === 'pt' && toggleBtn.getAttribute('data-sync-label-pt')) || (locale === 'es' && toggleBtn.getAttribute('data-sync-label-es')) || (locale === 'it' && toggleBtn.getAttribute('data-sync-label-it')) || (toggleBtn.getAttribute('data-sync-label-en') || 'Sync');
+          var state = on
+            ? (locale === 'pt' ? syncOnPt : locale === 'es' ? syncOnEs : locale === 'it' ? syncOnIt : syncOnEn)
+            : (locale === 'pt' ? syncOffPt : locale === 'es' ? syncOffEs : locale === 'it' ? syncOffIt : syncOffEn);
           toggleBtn.setAttribute('aria-label', label + ' — ' + state);
         }
         function updateCylindrical() {
@@ -230,6 +257,8 @@ const linesWithMeta = (() => {
             toggleBtn.setAttribute('data-sync-on', on ? 'true' : '');
             if (stateEl) stateEl.textContent = on ? syncOnEn : syncOffEn;
             if (stateElPt) stateElPt.textContent = on ? syncOnPt : syncOffPt;
+            if (stateElEs) stateElEs.textContent = on ? syncOnEs : syncOffEs;
+            if (stateElIt) stateElIt.textContent = on ? syncOnIt : syncOffIt;
             updateSyncAriaLabel(on);
           }
           if (!on) clearActive();

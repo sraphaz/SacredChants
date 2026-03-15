@@ -8,6 +8,8 @@ const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
 const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
 const tEn = ui.en;
 const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
 ---
 
 <BaseLayout
@@ -22,24 +24,24 @@ const tPt = ui.pt;
       <p class="text-xl mb-6" style="color: var(--sc-text-muted)">
         <span class="locale-en">{tEn.home.tagline}</span>
         <span class="locale-pt">{tPt.home.tagline}</span>
+        <span class="locale-es">{tEs.home.tagline}</span>
+        <span class="locale-it">{tIt.home.tagline}</span>
       </p>
       <p class="mb-page-content max-w-lg mx-auto" style="color: var(--sc-text-muted)">
         <span class="locale-en">{tEn.home.subtitle}</span>
         <span class="locale-pt">{tPt.home.subtitle}</span>
+        <span class="locale-es">{tEs.home.subtitle}</span>
+        <span class="locale-it">{tIt.home.subtitle}</span>
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={`${FULL_BASE}chants/`} class="locale-en sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
-          {tEn.home.browseChants}
-        </a>
-        <a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
-          {tPt.home.browseChants}
-        </a>
-        <a href={`${FULL_BASE}traditions/`} class="locale-en sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
-          {tEn.home.exploreTraditions}
-        </a>
-        <a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">
-          {tPt.home.exploreTraditions}
-        </a>
+        <a href={`${FULL_BASE}chants/`} class="locale-en sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEn.home.browseChants}</a>
+        <a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tPt.home.browseChants}</a>
+        <a href={`${FULL_BASE}chants/?lang=es`} class="locale-es sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEs.home.browseChants}</a>
+        <a href={`${FULL_BASE}chants/?lang=it`} class="locale-it sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tIt.home.browseChants}</a>
+        <a href={`${FULL_BASE}traditions/`} class="locale-en sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEn.home.exploreTraditions}</a>
+        <a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tPt.home.exploreTraditions}</a>
+        <a href={`${FULL_BASE}traditions/?lang=es`} class="locale-es sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEs.home.exploreTraditions}</a>
+        <a href={`${FULL_BASE}traditions/?lang=it`} class="locale-it sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tIt.home.exploreTraditions}</a>
       </div>
     </section>
   </PageShell>

@@ -7,15 +7,23 @@ interface Props {
   hasSync: boolean;
   syncLabelEn: string;
   syncLabelPt: string;
+  syncLabelEs?: string;
+  syncLabelIt?: string;
   syncOnEn: string;
   syncOffEn: string;
   syncOnPt: string;
   syncOffPt: string;
+  syncOnEs?: string;
+  syncOffEs?: string;
+  syncOnIt?: string;
+  syncOffIt?: string;
   bandcampUrl?: string;
   bandcampEmbedSrc?: string;
   bandcampArtImage?: string;
   bandcampTooltipEn?: string;
   bandcampTooltipPt?: string;
+  bandcampTooltipEs?: string;
+  bandcampTooltipIt?: string;
 }
 
 const {
@@ -24,15 +32,23 @@ const {
   hasSync,
   syncLabelEn,
   syncLabelPt,
+  syncLabelEs = 'Sync',
+  syncLabelIt = 'Sync',
   syncOnEn,
   syncOffEn,
   syncOnPt,
   syncOffPt,
+  syncOnEs = 'On',
+  syncOffEs = 'Off',
+  syncOnIt = 'On',
+  syncOffIt = 'Off',
   bandcampUrl,
   bandcampEmbedSrc,
   bandcampArtImage,
   bandcampTooltipEn = 'Listen on Bandcamp',
   bandcampTooltipPt = 'Ouvir no Bandcamp',
+  bandcampTooltipEs = 'Escuchar en Bandcamp',
+  bandcampTooltipIt = 'Ascolta su Bandcamp',
 } = Astro.props;
 ---
 
@@ -47,6 +63,8 @@ const {
     <div class="flex items-center gap-2 shrink-0">
       <span class="locale-en text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelEn}</span>
       <span class="locale-pt text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelPt}</span>
+      <span class="locale-es text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelEs}</span>
+      <span class="locale-it text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelIt}</span>
       <button
         type="button"
         id="chant-sync-toggle"
@@ -58,14 +76,22 @@ const {
         data-sync-off-en={syncOffEn}
         data-sync-on-pt={syncOnPt}
         data-sync-off-pt={syncOffPt}
+        data-sync-on-es={syncOnEs}
+        data-sync-off-es={syncOffEs}
+        data-sync-on-it={syncOnIt}
+        data-sync-off-it={syncOffIt}
         data-sync-label-en={syncLabelEn}
         data-sync-label-pt={syncLabelPt}
+        data-sync-label-es={syncLabelEs}
+        data-sync-label-it={syncLabelIt}
         aria-label={`${syncLabelEn} — ${syncOnEn}`}
       >
         <span class="chant-sync-switch-thumb absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform" style="background-color: var(--sc-accent);"></span>
       </button>
       <span id="chant-sync-toggle-state" class="locale-en text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnEn}</span>
       <span id="chant-sync-toggle-state-pt" class="locale-pt text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnPt}</span>
+      <span id="chant-sync-toggle-state-es" class="locale-es text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnEs}</span>
+      <span id="chant-sync-toggle-state-it" class="locale-it text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnIt}</span>
     </div>
   )}
 

@@ -1,219 +1,320 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
-const t = ui[locale];
+const locale = getLocaleFromUrl(Astro.url.searchParams);
+const tEn = ui.en;
+const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
+const titleMap = { en: tEn.settings.title, pt: tPt.settings.title, es: tEs.settings.title, it: tIt.settings.title };
+const descMap = { en: tEn.settings.description, pt: tPt.settings.description, es: tEs.settings.description, it: tIt.settings.description };
 ---
 
 <BaseLayout
-  title={t.settings.title}
-  description={t.settings.description}
+  title={titleMap[locale]}
+  description={descMap[locale]}
   locale={locale}
 >
   <PageShell>
     <h1 class="font-serif text-sc-3xl md:text-sc-4xl sc-heading mb-page-heading">
-      {t.settings.title}
+      <span class="locale-en">{tEn.settings.title}</span>
+      <span class="locale-pt">{tPt.settings.title}</span>
+      <span class="locale-es">{tEs.settings.title}</span>
+      <span class="locale-it">{tIt.settings.title}</span>
     </h1>
     <p class="mb-page-content text-sm" style="color: var(--sc-text-muted)">
-      {t.settings.description}
+      <span class="locale-en">{tEn.settings.description}</span>
+      <span class="locale-pt">{tPt.settings.description}</span>
+      <span class="locale-es">{tEs.settings.description}</span>
+      <span class="locale-it">{tIt.settings.description}</span>
     </p>
 
-    <form id="settings-form" class="space-y-10" autocomplete="off" aria-label={t.settings.title}>
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.theme}
+    <form id="settings-form" class="settings-form space-y-10" autocomplete="off" aria-label={titleMap[locale]}>
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.theme}</span>
+          <span class="locale-pt">{tPt.settings.theme}</span>
+          <span class="locale-es">{tEs.settings.theme}</span>
+          <span class="locale-it">{tIt.settings.theme}</span>
         </label>
-        <div class="flex gap-4">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-theme-dark">
-            <input type="radio" id="settings-theme-dark" name="theme" value="dark" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.themeDark}</span>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-theme-dark">
+            <input type="radio" id="settings-theme-dark" name="theme" value="dark" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.themeDark}</span><span class="locale-pt">{tPt.settings.themeDark}</span><span class="locale-es">{tEs.settings.themeDark}</span><span class="locale-it">{tIt.settings.themeDark}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-theme-light">
-            <input type="radio" id="settings-theme-light" name="theme" value="light" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.themeLight}</span>
+          <label class="settings-option" for="settings-theme-light">
+            <input type="radio" id="settings-theme-light" name="theme" value="light" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.themeLight}</span><span class="locale-pt">{tPt.settings.themeLight}</span><span class="locale-es">{tEs.settings.themeLight}</span><span class="locale-it">{tIt.settings.themeLight}</span></span>
           </label>
         </div>
       </fieldset>
 
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.language}
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.language}</span>
+          <span class="locale-pt">{tPt.settings.language}</span>
+          <span class="locale-es">{tEs.settings.language}</span>
+          <span class="locale-it">{tIt.settings.language}</span>
         </label>
-        <div class="flex gap-4">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-lang-en">
-            <input type="radio" id="settings-lang-en" name="lang" value="en" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.languageEn}</span>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-lang-en">
+            <input type="radio" id="settings-lang-en" name="lang" value="en" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageEn}</span><span class="locale-pt">{tPt.settings.languageEn}</span><span class="locale-es">{tEs.settings.languageEn}</span><span class="locale-it">{tIt.settings.languageEn}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-lang-pt">
-            <input type="radio" id="settings-lang-pt" name="lang" value="pt" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.languagePt}</span>
+          <label class="settings-option" for="settings-lang-pt">
+            <input type="radio" id="settings-lang-pt" name="lang" value="pt" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languagePt}</span><span class="locale-pt">{tPt.settings.languagePt}</span><span class="locale-es">{tEs.settings.languagePt}</span><span class="locale-it">{tIt.settings.languagePt}</span></span>
+          </label>
+          <label class="settings-option" for="settings-lang-es">
+            <input type="radio" id="settings-lang-es" name="lang" value="es" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageEs}</span><span class="locale-pt">{tPt.settings.languageEs}</span><span class="locale-es">{tEs.settings.languageEs}</span><span class="locale-it">{tIt.settings.languageEs}</span></span>
+          </label>
+          <label class="settings-option" for="settings-lang-it">
+            <input type="radio" id="settings-lang-it" name="lang" value="it" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageIt}</span><span class="locale-pt">{tPt.settings.languageIt}</span><span class="locale-es">{tEs.settings.languageIt}</span><span class="locale-it">{tIt.settings.languageIt}</span></span>
           </label>
         </div>
       </fieldset>
 
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.fontSize}
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.fontSize}</span>
+          <span class="locale-pt">{tPt.settings.fontSize}</span>
+          <span class="locale-es">{tEs.settings.fontSize}</span>
+          <span class="locale-it">{tIt.settings.fontSize}</span>
         </label>
-        <div class="flex gap-4 flex-wrap">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontSize-small">
-            <input type="radio" id="settings-fontSize-small" name="fontSize" value="small" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.fontSizeSmall}</span>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-fontSize-small">
+            <input type="radio" id="settings-fontSize-small" name="fontSize" value="small" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeSmall}</span><span class="locale-pt">{tPt.settings.fontSizeSmall}</span><span class="locale-es">{tEs.settings.fontSizeSmall}</span><span class="locale-it">{tIt.settings.fontSizeSmall}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontSize-medium">
-            <input type="radio" id="settings-fontSize-medium" name="fontSize" value="medium" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.fontSizeMedium}</span>
+          <label class="settings-option" for="settings-fontSize-medium">
+            <input type="radio" id="settings-fontSize-medium" name="fontSize" value="medium" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeMedium}</span><span class="locale-pt">{tPt.settings.fontSizeMedium}</span><span class="locale-es">{tEs.settings.fontSizeMedium}</span><span class="locale-it">{tIt.settings.fontSizeMedium}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontSize-large">
-            <input type="radio" id="settings-fontSize-large" name="fontSize" value="large" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.fontSizeLarge}</span>
+          <label class="settings-option" for="settings-fontSize-large">
+            <input type="radio" id="settings-fontSize-large" name="fontSize" value="large" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeLarge}</span><span class="locale-pt">{tPt.settings.fontSizeLarge}</span><span class="locale-es">{tEs.settings.fontSizeLarge}</span><span class="locale-it">{tIt.settings.fontSizeLarge}</span></span>
           </label>
         </div>
       </fieldset>
 
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.fontFamily}
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.fontFamily}</span>
+          <span class="locale-pt">{tPt.settings.fontFamily}</span>
+          <span class="locale-es">{tEs.settings.fontFamily}</span>
+          <span class="locale-it">{tIt.settings.fontFamily}</span>
         </label>
-        <div class="flex gap-4 flex-wrap">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontFamily-sans">
-            <input type="radio" id="settings-fontFamily-sans" name="fontFamily" value="sans" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.fontFamilySans}</span>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-fontFamily-sans">
+            <input type="radio" id="settings-fontFamily-sans" name="fontFamily" value="sans" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontFamilySans}</span><span class="locale-pt">{tPt.settings.fontFamilySans}</span><span class="locale-es">{tEs.settings.fontFamilySans}</span><span class="locale-it">{tIt.settings.fontFamilySans}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-fontFamily-serif">
-            <input type="radio" id="settings-fontFamily-serif" name="fontFamily" value="serif" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.fontFamilySerif}</span>
+          <label class="settings-option" for="settings-fontFamily-serif">
+            <input type="radio" id="settings-fontFamily-serif" name="fontFamily" value="serif" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontFamilySerif}</span><span class="locale-pt">{tPt.settings.fontFamilySerif}</span><span class="locale-es">{tEs.settings.fontFamilySerif}</span><span class="locale-it">{tIt.settings.fontFamilySerif}</span></span>
           </label>
         </div>
       </fieldset>
 
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.spacing}
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.spacing}</span>
+          <span class="locale-pt">{tPt.settings.spacing}</span>
+          <span class="locale-es">{tEs.settings.spacing}</span>
+          <span class="locale-it">{tIt.settings.spacing}</span>
         </label>
-        <div class="flex gap-4 flex-wrap">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-spacing-tight">
-            <input type="radio" id="settings-spacing-tight" name="spacing" value="tight" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.spacingTight}</span>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-spacing-tight">
+            <input type="radio" id="settings-spacing-tight" name="spacing" value="tight" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingTight}</span><span class="locale-pt">{tPt.settings.spacingTight}</span><span class="locale-es">{tEs.settings.spacingTight}</span><span class="locale-it">{tIt.settings.spacingTight}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-spacing-normal">
-            <input type="radio" id="settings-spacing-normal" name="spacing" value="normal" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.spacingNormal}</span>
+          <label class="settings-option" for="settings-spacing-normal">
+            <input type="radio" id="settings-spacing-normal" name="spacing" value="normal" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingNormal}</span><span class="locale-pt">{tPt.settings.spacingNormal}</span><span class="locale-es">{tEs.settings.spacingNormal}</span><span class="locale-it">{tIt.settings.spacingNormal}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-spacing-relaxed">
-            <input type="radio" id="settings-spacing-relaxed" name="spacing" value="relaxed" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.spacingRelaxed}</span>
+          <label class="settings-option" for="settings-spacing-relaxed">
+            <input type="radio" id="settings-spacing-relaxed" name="spacing" value="relaxed" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingRelaxed}</span><span class="locale-pt">{tPt.settings.spacingRelaxed}</span><span class="locale-es">{tEs.settings.spacingRelaxed}</span><span class="locale-it">{tIt.settings.spacingRelaxed}</span></span>
           </label>
         </div>
       </fieldset>
 
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.verseTint}
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.verseTint}</span>
+          <span class="locale-pt">{tPt.settings.verseTint}</span>
+          <span class="locale-es">{tEs.settings.verseTint}</span>
+          <span class="locale-it">{tIt.settings.verseTint}</span>
         </label>
-        <p class="text-xs mb-3" style="color: var(--sc-text-subtle)">
+        <p class="settings-field-hint" style="color: var(--sc-text-subtle)">
           <span class="locale-en">One colour and its variations for original script, transliteration, and translation.</span>
           <span class="locale-pt">Uma cor e as suas variações para o texto original, transliteração e tradução.</span>
+          <span class="locale-es">Un color y sus variaciones para el texto original, transliteración y traducción.</span>
+          <span class="locale-it">Un colore e le sue variazioni per testo originale, traslitterazione e traduzione.</span>
         </p>
-        <div class="flex gap-4 flex-wrap">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-default">
-            <input type="radio" id="settings-verseTint-default" name="verseTint" value="default" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.verseTintDefault}</span>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-verseTint-default">
+            <input type="radio" id="settings-verseTint-default" name="verseTint" value="default" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.verseTintDefault}</span><span class="locale-pt">{tPt.settings.verseTintDefault}</span><span class="locale-es">{tEs.settings.verseTintDefault}</span><span class="locale-it">{tIt.settings.verseTintDefault}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-green">
-            <input type="radio" id="settings-verseTint-green" name="verseTint" value="green" class="rounded-full border-2" />
-            <span style="color: #4a6b5c">{t.settings.verseTintGreen}</span>
+          <label class="settings-option" for="settings-verseTint-green">
+            <input type="radio" id="settings-verseTint-green" name="verseTint" value="green" class="settings-option-input" />
+            <span class="settings-option-text" style="color: #4a6b5c"><span class="locale-en">{tEn.settings.verseTintGreen}</span><span class="locale-pt">{tPt.settings.verseTintGreen}</span><span class="locale-es">{tEs.settings.verseTintGreen}</span><span class="locale-it">{tIt.settings.verseTintGreen}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-blue">
-            <input type="radio" id="settings-verseTint-blue" name="verseTint" value="blue" class="rounded-full border-2" />
-            <span style="color: #526b7a">{t.settings.verseTintBlue}</span>
+          <label class="settings-option" for="settings-verseTint-blue">
+            <input type="radio" id="settings-verseTint-blue" name="verseTint" value="blue" class="settings-option-input" />
+            <span class="settings-option-text" style="color: #526b7a"><span class="locale-en">{tEn.settings.verseTintBlue}</span><span class="locale-pt">{tPt.settings.verseTintBlue}</span><span class="locale-es">{tEs.settings.verseTintBlue}</span><span class="locale-it">{tIt.settings.verseTintBlue}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-amber">
-            <input type="radio" id="settings-verseTint-amber" name="verseTint" value="amber" class="rounded-full border-2" />
-            <span style="color: #7a6b58">{t.settings.verseTintAmber}</span>
+          <label class="settings-option" for="settings-verseTint-amber">
+            <input type="radio" id="settings-verseTint-amber" name="verseTint" value="amber" class="settings-option-input" />
+            <span class="settings-option-text" style="color: #7a6b58"><span class="locale-en">{tEn.settings.verseTintAmber}</span><span class="locale-pt">{tPt.settings.verseTintAmber}</span><span class="locale-es">{tEs.settings.verseTintAmber}</span><span class="locale-it">{tIt.settings.verseTintAmber}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-rose">
-            <input type="radio" id="settings-verseTint-rose" name="verseTint" value="rose" class="rounded-full border-2" />
-            <span style="color: #7a6068">{t.settings.verseTintRose}</span>
+          <label class="settings-option" for="settings-verseTint-rose">
+            <input type="radio" id="settings-verseTint-rose" name="verseTint" value="rose" class="settings-option-input" />
+            <span class="settings-option-text" style="color: #7a6068"><span class="locale-en">{tEn.settings.verseTintRose}</span><span class="locale-pt">{tPt.settings.verseTintRose}</span><span class="locale-es">{tEs.settings.verseTintRose}</span><span class="locale-it">{tIt.settings.verseTintRose}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-verseTint-violet">
-            <input type="radio" id="settings-verseTint-violet" name="verseTint" value="violet" class="rounded-full border-2" />
-            <span style="color: #6a6278">{t.settings.verseTintViolet}</span>
-          </label>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.textColor}
-        </label>
-        <div class="flex gap-4 flex-wrap">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-default">
-            <input type="radio" id="settings-textColor-default" name="textColor" value="default" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.textColorDefault}</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-moss">
-            <input type="radio" id="settings-textColor-moss" name="textColor" value="moss" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.textColorMoss}</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-sepia">
-            <input type="radio" id="settings-textColor-sepia" name="textColor" value="sepia" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.textColorSepia}</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-soft">
-            <input type="radio" id="settings-textColor-soft" name="textColor" value="soft" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.textColorSoft}</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-textColor-ink">
-            <input type="radio" id="settings-textColor-ink" name="textColor" value="ink" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.textColorInk}</span>
+          <label class="settings-option" for="settings-verseTint-violet">
+            <input type="radio" id="settings-verseTint-violet" name="verseTint" value="violet" class="settings-option-input" />
+            <span class="settings-option-text" style="color: #6a6278"><span class="locale-en">{tEn.settings.verseTintViolet}</span><span class="locale-pt">{tPt.settings.verseTintViolet}</span><span class="locale-es">{tEs.settings.verseTintViolet}</span><span class="locale-it">{tIt.settings.verseTintViolet}</span></span>
           </label>
         </div>
       </fieldset>
 
-      <fieldset>
-        <label class="block text-sm font-medium mb-2" style="color: var(--sc-text)">
-          {t.settings.bgColor}
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.textColor}</span>
+          <span class="locale-pt">{tPt.settings.textColor}</span>
+          <span class="locale-es">{tEs.settings.textColor}</span>
+          <span class="locale-it">{tIt.settings.textColor}</span>
         </label>
-        <div class="flex gap-4 flex-wrap">
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-default">
-            <input type="radio" id="settings-bg-default" name="bg" value="default" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.bgColorDefault}</span>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-textColor-default">
+            <input type="radio" id="settings-textColor-default" name="textColor" value="default" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorDefault}</span><span class="locale-pt">{tPt.settings.textColorDefault}</span><span class="locale-es">{tEs.settings.textColorDefault}</span><span class="locale-it">{tIt.settings.textColorDefault}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-cream">
-            <input type="radio" id="settings-bg-cream" name="bg" value="cream" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.bgColorCream}</span>
+          <label class="settings-option" for="settings-textColor-moss">
+            <input type="radio" id="settings-textColor-moss" name="textColor" value="moss" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorMoss}</span><span class="locale-pt">{tPt.settings.textColorMoss}</span><span class="locale-es">{tEs.settings.textColorMoss}</span><span class="locale-it">{tIt.settings.textColorMoss}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-paper">
-            <input type="radio" id="settings-bg-paper" name="bg" value="paper" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.bgColorPaper}</span>
+          <label class="settings-option" for="settings-textColor-sepia">
+            <input type="radio" id="settings-textColor-sepia" name="textColor" value="sepia" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorSepia}</span><span class="locale-pt">{tPt.settings.textColorSepia}</span><span class="locale-es">{tEs.settings.textColorSepia}</span><span class="locale-it">{tIt.settings.textColorSepia}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-snow">
-            <input type="radio" id="settings-bg-snow" name="bg" value="snow" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.bgColorSnow}</span>
+          <label class="settings-option" for="settings-textColor-soft">
+            <input type="radio" id="settings-textColor-soft" name="textColor" value="soft" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorSoft}</span><span class="locale-pt">{tPt.settings.textColorSoft}</span><span class="locale-es">{tEs.settings.textColorSoft}</span><span class="locale-it">{tIt.settings.textColorSoft}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-mint">
-            <input type="radio" id="settings-bg-mint" name="bg" value="mint" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.bgColorMint}</span>
+          <label class="settings-option" for="settings-textColor-ink">
+            <input type="radio" id="settings-textColor-ink" name="textColor" value="ink" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorInk}</span><span class="locale-pt">{tPt.settings.textColorInk}</span><span class="locale-es">{tEs.settings.textColorInk}</span><span class="locale-it">{tIt.settings.textColorInk}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-charcoal">
-            <input type="radio" id="settings-bg-charcoal" name="bg" value="charcoal" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.bgColorCharcoal}</span>
+        </div>
+      </fieldset>
+
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.bgColor}</span>
+          <span class="locale-pt">{tPt.settings.bgColor}</span>
+          <span class="locale-es">{tEs.settings.bgColor}</span>
+          <span class="locale-it">{tIt.settings.bgColor}</span>
+        </label>
+        <div class="settings-options">
+          <label class="settings-option" for="settings-bg-default">
+            <input type="radio" id="settings-bg-default" name="bg" value="default" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorDefault}</span><span class="locale-pt">{tPt.settings.bgColorDefault}</span><span class="locale-es">{tEs.settings.bgColorDefault}</span><span class="locale-it">{tIt.settings.bgColorDefault}</span></span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer" for="settings-bg-navy">
-            <input type="radio" id="settings-bg-navy" name="bg" value="navy" class="rounded-full border-2" />
-            <span style="color: var(--sc-text-muted)">{t.settings.bgColorNavy}</span>
+          <label class="settings-option" for="settings-bg-cream">
+            <input type="radio" id="settings-bg-cream" name="bg" value="cream" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorCream}</span><span class="locale-pt">{tPt.settings.bgColorCream}</span><span class="locale-es">{tEs.settings.bgColorCream}</span><span class="locale-it">{tIt.settings.bgColorCream}</span></span>
+          </label>
+          <label class="settings-option" for="settings-bg-paper">
+            <input type="radio" id="settings-bg-paper" name="bg" value="paper" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorPaper}</span><span class="locale-pt">{tPt.settings.bgColorPaper}</span><span class="locale-es">{tEs.settings.bgColorPaper}</span><span class="locale-it">{tIt.settings.bgColorPaper}</span></span>
+          </label>
+          <label class="settings-option" for="settings-bg-snow">
+            <input type="radio" id="settings-bg-snow" name="bg" value="snow" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorSnow}</span><span class="locale-pt">{tPt.settings.bgColorSnow}</span><span class="locale-es">{tEs.settings.bgColorSnow}</span><span class="locale-it">{tIt.settings.bgColorSnow}</span></span>
+          </label>
+          <label class="settings-option" for="settings-bg-mint">
+            <input type="radio" id="settings-bg-mint" name="bg" value="mint" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorMint}</span><span class="locale-pt">{tPt.settings.bgColorMint}</span><span class="locale-es">{tEs.settings.bgColorMint}</span><span class="locale-it">{tIt.settings.bgColorMint}</span></span>
+          </label>
+          <label class="settings-option" for="settings-bg-charcoal">
+            <input type="radio" id="settings-bg-charcoal" name="bg" value="charcoal" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorCharcoal}</span><span class="locale-pt">{tPt.settings.bgColorCharcoal}</span><span class="locale-es">{tEs.settings.bgColorCharcoal}</span><span class="locale-it">{tIt.settings.bgColorCharcoal}</span></span>
+          </label>
+          <label class="settings-option" for="settings-bg-navy">
+            <input type="radio" id="settings-bg-navy" name="bg" value="navy" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorNavy}</span><span class="locale-pt">{tPt.settings.bgColorNavy}</span><span class="locale-es">{tEs.settings.bgColorNavy}</span><span class="locale-it">{tIt.settings.bgColorNavy}</span></span>
           </label>
         </div>
       </fieldset>
 
       <p id="settings-toast" class="text-sm hidden" style="color: var(--sc-text-muted)" aria-live="polite">
-        {t.settings.saved}
+        <span class="locale-en">{tEn.settings.saved}</span>
+        <span class="locale-pt">{tPt.settings.saved}</span>
+        <span class="locale-es">{tEs.settings.saved}</span>
+        <span class="locale-it">{tIt.settings.saved}</span>
       </p>
     </form>
   </PageShell>
+
+  <style>
+    .settings-field-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .settings-field-hint {
+      font-size: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .settings-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .settings-option {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid var(--sc-border);
+      background: var(--sc-bg-elevated);
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+    .settings-option:hover {
+      border-color: var(--sc-text-muted);
+    }
+    .settings-option:has(.settings-option-input:checked) {
+      border-color: var(--sc-accent);
+      background: var(--sc-accent-soft);
+      box-shadow: 0 0 0 1px var(--sc-accent);
+    }
+    .settings-option-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .settings-option-text {
+      color: var(--sc-text-muted);
+    }
+    .settings-option:has(.settings-option-input:checked) .settings-option-text {
+      color: var(--sc-text);
+    }
+  </style>
 
   <script is:inline>
     (function() {
@@ -238,7 +339,8 @@ const t = ui[locale];
           window.location.replace(window.location.pathname + (q.toString() ? '?' + q.toString() : ''));
           return;
         }
-        var currentLang = urlLang || savedLang || 'en';
+        var allowed = ['en', 'pt', 'es', 'it'];
+        var currentLang = (urlLang && allowed.indexOf(urlLang) !== -1) ? (urlLang === 'pt-br' ? 'pt' : urlLang) : (savedLang && allowed.indexOf(savedLang) !== -1 ? savedLang : 'en');
         var themeEl = form.querySelector('input[name="theme"][value="' + root.dataset.theme + '"]');
         if (themeEl) themeEl.checked = true;
         var langEl = form.querySelector('input[name="lang"][value="' + currentLang + '"]');
