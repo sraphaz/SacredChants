@@ -8,9 +8,6 @@ type Chant = z.infer<typeof chantSchema>;
 
 /**
  * Escapes a string for safe use inside Markdown inline code (backticks).
- * Escapes backslash and backtick, and normalizes newlines to space.
- * @param s - Raw string (e.g. verse line or translation)
- * @returns Escaped string safe for wrapping in `...`
  */
 function escapeForInlineCode(s: string): string {
   return s.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\n/g, ' ');
@@ -18,9 +15,6 @@ function escapeForInlineCode(s: string): string {
 
 /**
  * Escapes a string for safe use in a Markdown table cell.
- * Escapes backslash first, then pipe; newlines become space.
- * @param s - Raw string (e.g. title, tradition, description)
- * @returns Escaped string safe for use between | delimiters
  */
 function escapeTableCell(s: string): string {
   return s.replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\n/g, ' ');
@@ -28,10 +22,6 @@ function escapeTableCell(s: string): string {
 
 /**
  * Formats chant payload as Markdown for the contribution PR body.
- * Outputs metadata table, description, about (if present), and all verses with
- * original, transliteration, and translations per line.
- * @param chant - Validated chant payload (schema-inferred type)
- * @returns Markdown string for the "Conteúdo adicionado pelo contribuidor" section
  */
 function formatChantContentAsMarkdown(chant: Chant): string {
   const lines: string[] = [];
@@ -92,71 +82,26 @@ function formatChantContentAsMarkdown(chant: Chant): string {
   return lines.join('\n');
 }
 
-export const config = { maxDuration: 30 };
-
 /**
- * POST /api/contribute/submit — creates a GitHub PR from a validated chant submission.
- * Requires authenticated session (GitHub OAuth). Body must be valid chant JSON (chantSchema).
- * Creates a branch, adds src/content/chants/{slug}.json, opens a PR with a detailed body.
- * @param req - Vercel request; body = chant JSON
- * @param res - Vercel response; 201 with prNumber, prUrl, branch on success
+ * Builds the full PR body string for a contribution.
+ * Single responsibility: assemble sections (summary, description, content, checklist).
  */
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const token = getSessionCookie(req);
-  if (!token) {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
-  const user = await verifySession(token);
-  if (!user) {
-    return res.status(401).json({ error: 'Invalid or expired session' });
-  }
-
-  let body: unknown;
-  try {
-    body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-  } catch {
-    return res.status(400).json({ error: 'Invalid JSON body' });
-  }
-
-  const raw = body as Record<string, unknown>;
-  const audioBase64 = typeof raw.audioBase64 === 'string' ? raw.audioBase64 : undefined;
-  const audioFilename = typeof raw.audioFilename === 'string' ? raw.audioFilename : undefined;
-  const bodyForSchema = { ...raw };
-  delete (bodyForSchema as Record<string, unknown>).audioBase64;
-  delete (bodyForSchema as Record<string, unknown>).audioFilename;
-
-  const parsed = chantSchema.safeParse(bodyForSchema);
-  if (!parsed.success) {
-    return res.status(400).json({
-      error: 'Validation failed',
-      details: parsed.error.flatten().fieldErrors,
-    });
-  }
-
-  let chant = parsed.data;
-  if (audioBase64 && audioFilename) {
-    chant = { ...chant, audio: `/audio/${audioFilename}` };
-  }
-  const chantJson = JSON.stringify(chant, null, 2);
-  const contributeOrigin = process.env.CONTRIBUTE_ORIGIN || 'https://app.sacredchants.org';
-
-  const contentAddedMd = formatChantContentAsMarkdown(chant);
-
-  const prBody = [
+function buildContributionPRBody(
+  chant: Chant,
+  userLogin: string,
+  contentAddedMd: string,
+  contributeOrigin: string
+): string {
+  return [
     '## Summary',
     '',
-    `New chant: **${chant.title}** (\`${chant.slug}\`). Contributed by @${user.login} via the [contribute form](${contributeOrigin}/contribute/).`,
+    `New chant: **${chant.title}** (\`${chant.slug}\`). Contributed by @${userLogin} via the [contribute form](${contributeOrigin}/contribute/).`,
     '',
     '## Description',
     '',
     '- **What changed:** New JSON file in `src/content/chants/' + chant.slug + '.json`.',
     '- **Why:** Contribution submitted through the web form.',
-    `- **Contributed by:** @${user.login}`,
+    `- **Contributed by:** @${userLogin}`,
     '',
     '---',
     '',
@@ -193,6 +138,68 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     '- [x] Description above is filled.',
     '',
   ].join('\n');
+}
+
+/**
+ * Returns a user-facing hint for submit errors (config or permissions).
+ */
+function buildSubmitErrorHint(message: string, status: number | undefined): string | undefined {
+  const isConfig = /GITHUB_TOKEN|required for PR/i.test(message);
+  const isForbidden =
+    status === 403 ||
+    /forbidden|resource not accessible|insufficient/i.test(String(message).toLowerCase());
+  if (isConfig) return 'Check that GITHUB_TOKEN is set in Vercel Environment Variables.';
+  if (isForbidden)
+    return 'GITHUB_TOKEN needs write access: Contents (Read and write) and Pull requests (Read and write). See docs/DEPLOY-VERCEL-APP.md.';
+  return undefined;
+}
+
+export const config = { maxDuration: 30 };
+
+/**
+ * POST /api/contribute/submit — creates a GitHub PR from a validated chant submission.
+ */
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const token = getSessionCookie(req);
+  if (!token) return res.status(401).json({ error: 'Not authenticated' });
+
+  const user = await verifySession(token);
+  if (!user) return res.status(401).json({ error: 'Invalid or expired session' });
+
+  let body: unknown;
+  try {
+    body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+  } catch {
+    return res.status(400).json({ error: 'Invalid JSON body' });
+  }
+
+  const raw = body as Record<string, unknown>;
+  const audioBase64 = typeof raw.audioBase64 === 'string' ? raw.audioBase64 : undefined;
+  const audioFilename = typeof raw.audioFilename === 'string' ? raw.audioFilename : undefined;
+  const bodyForSchema = { ...raw };
+  delete (bodyForSchema as Record<string, unknown>).audioBase64;
+  delete (bodyForSchema as Record<string, unknown>).audioFilename;
+
+  const parsed = chantSchema.safeParse(bodyForSchema);
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: 'Validation failed',
+      details: parsed.error.flatten().fieldErrors,
+    });
+  }
+
+  let chant = parsed.data;
+  if (audioBase64 && audioFilename) chant = { ...chant, audio: `/audio/${audioFilename}` };
+
+  const chantJson = JSON.stringify(chant, null, 2);
+  const contributeOrigin = process.env.CONTRIBUTE_ORIGIN || 'https://app.sacredchants.org';
+  const contentAddedMd = formatChantContentAsMarkdown(chant);
+  const prBody = buildContributionPRBody(chant, user.login, contentAddedMd, contributeOrigin);
 
   try {
     const result = await createContributionPR({
@@ -212,13 +219,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Failed to create PR';
     const status = err && typeof err === 'object' && 'status' in err ? (err as { status: number }).status : 0;
-    const isConfig = /GITHUB_TOKEN|required for PR/i.test(message);
-    const isForbidden = status === 403 || /forbidden|resource not accessible|insufficient/i.test(String(message).toLowerCase());
-    const hint = isConfig
-      ? 'Check that GITHUB_TOKEN is set in Vercel Environment Variables.'
-      : isForbidden
-        ? 'GITHUB_TOKEN needs write access: Contents (Read and write) and Pull requests (Read and write). See docs/DEPLOY-VERCEL-APP.md.'
-        : undefined;
+    const hint = buildSubmitErrorHint(message, status);
     return res.status(500).json({
       error: 'Failed to create pull request',
       details: message,

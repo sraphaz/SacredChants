@@ -258,7 +258,7 @@ export const ui = {
     },
     home: {
       tagline: 'Patrimônio da humanidade — uma biblioteca viva de cânticos sagrados.',
-      subtitle: 'O som sagrado abre acesso a estados internos de consciência. Para além do texto, preservamos este património para proteger a experiência que estes cânticos concedem: reveladora e próxima do que verdadeiramente somos.',
+      subtitle: 'O som sagrado abre acesso a estados internos de consciência. Para além do texto, preservamos este patrimônio para proteger a experiência que estes cânticos concedem: reveladora e próxima do que verdadeiramente somos.',
       browseChants: 'Explorar cânticos',
       exploreTraditions: 'Explorar tradições',
     },
@@ -292,9 +292,9 @@ export const ui = {
     },
     knowledge: {
       title: 'Conhecimento',
-      description: 'Nada Yoga, som e vibração, os cinco elementos e como o som sagrado apoia a experiência interior — como património da humanidade.',
-      intro: 'Consciência sobre som, vibração e experiência interior. Nada Yoga é o nosso primeiro pilar; este conteúdo faz parte do património que preservamos.',
-      soundAndHumanity: 'Som e humanidade — um património vivo',
+      description: 'Nada Yoga, som e vibração, os cinco elementos e como o som sagrado apoia a experiência interior — como patrimônio da humanidade.',
+      intro: 'Consciência sobre som, vibração e experiência interior. Nada Yoga é o nosso primeiro pilar; este conteúdo faz parte do patrimônio que preservamos.',
+      soundAndHumanity: 'Som e humanidade — um patrimônio vivo',
       nadaYoga: 'Nada Yoga — o yoga do som e da vibração',
       vibrationMind: 'Vibração, mente e ressonância',
       elementsAndSound: 'Os cinco elementos e o som',
@@ -311,7 +311,7 @@ export const ui = {
     contribute: {
       title: 'Contribuir',
       description: 'Como adicionar um novo cântico à biblioteca.',
-      intro: 'O Sacred Chants é uma biblioteca viva feita pela e para a comunidade do som sagrado. Quer pratique cântico, estude tradições ou queira preservar um pouco deste património, as suas contribuições são bem-vindas. Cada cântico acrescentado passa a fazer parte de um recurso partilhado que mantém estas práticas acessíveis a todos.',
+      intro: 'O Sacred Chants é uma biblioteca viva feita pela e para a comunidade do som sagrado. Quer pratique cântico, estude tradições ou queira preservar um pouco deste patrimônio, as suas contribuições são bem-vindas. Cada cântico acrescentado passa a fazer parte de um recurso partilhado que mantém estas práticas acessíveis a todos.',
       process: 'Pode contribuir de duas formas: usar o site para submeter um cântico (nós criamos o pull request por si), ou adicionar um cântico diretamente no GitHub seguindo um guia passo a passo. Em ambos os casos resulta um pull request que os mantenedores revêm antes de publicar.',
       chooseHow: 'Escolha como contribuir',
       viaSiteTitle: 'Pelo site',
