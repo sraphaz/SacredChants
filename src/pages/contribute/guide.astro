@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+
+const locale = getLocaleFromUrl(Astro.url.searchParams);
+const tEn = ui.en;
+const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
+const localeQuery = langQuery(locale);
+const BASE = import.meta.env.BASE_URL || '/';
+const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
+const contributeUrl = `${BASE_SLASH}contribute/${localeQuery}`.replace(/(\/)+/g, '/');
+const titleMap = { en: tEn.contribute.guideTitle, pt: tPt.contribute.guideTitle, es: tEs.contribute.guideTitle, it: tIt.contribute.guideTitle };
+const descMap = { en: tEn.contribute.guideDescription, pt: tPt.contribute.guideDescription, es: tEs.contribute.guideDescription, it: tIt.contribute.guideDescription };
+---
+
+<BaseLayout
+  title={titleMap[locale]}
+  description={descMap[locale]}
+  locale={locale}
+>
+  <PageShell>
+    <a href={contributeUrl} class="inline-flex items-center gap-2 text-sm mb-6" style="color: var(--sc-text-muted)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      <span class="locale-en">{tEn.contribute.guideBack}</span>
+      <span class="locale-pt">{tPt.contribute.guideBack}</span>
+      <span class="locale-es">{tEs.contribute.guideBack}</span>
+      <span class="locale-it">{tIt.contribute.guideBack}</span>
+    </a>
+
+    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+      <span class="locale-en">{tEn.contribute.guideTitle}</span>
+      <span class="locale-pt">{tPt.contribute.guideTitle}</span>
+      <span class="locale-es">{tEs.contribute.guideTitle}</span>
+      <span class="locale-it">{tIt.contribute.guideTitle}</span>
+    </h1>
+    <p class="mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
+      <span class="locale-en">{tEn.contribute.guideDescription}</span>
+      <span class="locale-pt">{tPt.contribute.guideDescription}</span>
+      <span class="locale-es">{tEs.contribute.guideDescription}</span>
+      <span class="locale-it">{tIt.contribute.guideDescription}</span>
+    </p>
+
+    <ol class="contribute-guide-steps space-y-8 list-none pl-0">
+      <li class="flex gap-4">
+        <span class="contribute-guide-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-serif text-lg font-medium" style="background: var(--sc-accent-soft); color: var(--sc-accent)">1</span>
+        <div>
+          <h2 class="font-serif text-xl font-medium mb-2" style="color: var(--sc-text)">
+            <span class="locale-en">{tEn.contribute.guideStep1Title}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep1Title}</span>
+            <span class="locale-es">{tEs.contribute.guideStep1Title}</span>
+            <span class="locale-it">{tIt.contribute.guideStep1Title}</span>
+          </h2>
+          <p style="color: var(--sc-text-muted)">
+            <span class="locale-en">{tEn.contribute.guideStep1Body}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep1Body}</span>
+            <span class="locale-es">{tEs.contribute.guideStep1Body}</span>
+            <span class="locale-it">{tIt.contribute.guideStep1Body}</span>
+          </p>
+        </div>
+      </li>
+      <li class="flex gap-4">
+        <span class="contribute-guide-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-serif text-lg font-medium" style="background: var(--sc-accent-soft); color: var(--sc-accent)">2</span>
+        <div>
+          <h2 class="font-serif text-xl font-medium mb-2" style="color: var(--sc-text)">
+            <span class="locale-en">{tEn.contribute.guideStep2Title}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep2Title}</span>
+            <span class="locale-es">{tEs.contribute.guideStep2Title}</span>
+            <span class="locale-it">{tIt.contribute.guideStep2Title}</span>
+          </h2>
+          <p style="color: var(--sc-text-muted)">
+            <span class="locale-en">{tEn.contribute.guideStep2Body}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep2Body}</span>
+            <span class="locale-es">{tEs.contribute.guideStep2Body}</span>
+            <span class="locale-it">{tIt.contribute.guideStep2Body}</span>
+          </p>
+        </div>
+      </li>
+      <li class="flex gap-4">
+        <span class="contribute-guide-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-serif text-lg font-medium" style="background: var(--sc-accent-soft); color: var(--sc-accent)">3</span>
+        <div>
+          <h2 class="font-serif text-xl font-medium mb-2" style="color: var(--sc-text)">
+            <span class="locale-en">{tEn.contribute.guideStep3Title}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep3Title}</span>
+            <span class="locale-es">{tEs.contribute.guideStep3Title}</span>
+            <span class="locale-it">{tIt.contribute.guideStep3Title}</span>
+          </h2>
+          <p style="color: var(--sc-text-muted)">
+            <span class="locale-en">{tEn.contribute.guideStep3Body}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep3Body}</span>
+            <span class="locale-es">{tEs.contribute.guideStep3Body}</span>
+            <span class="locale-it">{tIt.contribute.guideStep3Body}</span>
+          </p>
+        </div>
+      </li>
+      <li class="flex gap-4">
+        <span class="contribute-guide-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-serif text-lg font-medium" style="background: var(--sc-accent-soft); color: var(--sc-accent)">4</span>
+        <div>
+          <h2 class="font-serif text-xl font-medium mb-2" style="color: var(--sc-text)">
+            <span class="locale-en">{tEn.contribute.guideStep4Title}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep4Title}</span>
+            <span class="locale-es">{tEs.contribute.guideStep4Title}</span>
+            <span class="locale-it">{tIt.contribute.guideStep4Title}</span>
+          </h2>
+          <p style="color: var(--sc-text-muted)">
+            <span class="locale-en">{tEn.contribute.guideStep4Body}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep4Body}</span>
+            <span class="locale-es">{tEs.contribute.guideStep4Body}</span>
+            <span class="locale-it">{tIt.contribute.guideStep4Body}</span>
+          </p>
+          <p class="mt-2 text-sm" style="color: var(--sc-text-subtle)">
+            <code class="px-1.5 py-0.5 rounded" style="background: var(--sc-border)">src/content/schemas/chant.ts</code>
+            <span class="locale-en"> · </span>
+            <span class="locale-pt"> · </span>
+            <span class="locale-es"> · </span>
+            <span class="locale-it"> · </span>
+            <code class="px-1.5 py-0.5 rounded" style="background: var(--sc-border)">src/content/chants/</code>
+          </p>
+        </div>
+      </li>
+      <li class="flex gap-4">
+        <span class="contribute-guide-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-serif text-lg font-medium" style="background: var(--sc-accent-soft); color: var(--sc-accent)">5</span>
+        <div>
+          <h2 class="font-serif text-xl font-medium mb-2" style="color: var(--sc-text)">
+            <span class="locale-en">{tEn.contribute.guideStep5Title}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep5Title}</span>
+            <span class="locale-es">{tEs.contribute.guideStep5Title}</span>
+            <span class="locale-it">{tIt.contribute.guideStep5Title}</span>
+          </h2>
+          <p style="color: var(--sc-text-muted)">
+            <span class="locale-en">{tEn.contribute.guideStep5Body}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep5Body}</span>
+            <span class="locale-es">{tEs.contribute.guideStep5Body}</span>
+            <span class="locale-it">{tIt.contribute.guideStep5Body}</span>
+          </p>
+        </div>
+      </li>
+      <li class="flex gap-4">
+        <span class="contribute-guide-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-serif text-lg font-medium" style="background: var(--sc-accent-soft); color: var(--sc-accent)">6</span>
+        <div>
+          <h2 class="font-serif text-xl font-medium mb-2" style="color: var(--sc-text)">
+            <span class="locale-en">{tEn.contribute.guideStep6Title}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep6Title}</span>
+            <span class="locale-es">{tEs.contribute.guideStep6Title}</span>
+            <span class="locale-it">{tIt.contribute.guideStep6Title}</span>
+          </h2>
+          <p style="color: var(--sc-text-muted)">
+            <span class="locale-en">{tEn.contribute.guideStep6Body}</span>
+            <span class="locale-pt">{tPt.contribute.guideStep6Body}</span>
+            <span class="locale-es">{tEs.contribute.guideStep6Body}</span>
+            <span class="locale-it">{tIt.contribute.guideStep6Body}</span>
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="mt-12 pt-8 border-t" style="border-color: var(--sc-border)">
+      <a href={contributeUrl} class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg transition" style="color: var(--sc-text-muted); border: 1px solid var(--sc-border)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        <span class="locale-en">{tEn.contribute.guideBack}</span>
+        <span class="locale-pt">{tPt.contribute.guideBack}</span>
+        <span class="locale-es">{tEs.contribute.guideBack}</span>
+        <span class="locale-it">{tIt.contribute.guideBack}</span>
+      </a>
+    </div>
+  </PageShell>
+</BaseLayout>
