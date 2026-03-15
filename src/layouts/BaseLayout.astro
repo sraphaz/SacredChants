@@ -136,7 +136,10 @@ const initialLocale: Locale = resolvedLocale === 'pt' || resolvedLocale === 'es'
         var STORAGE_LANG_KEY = 'sacred-chants-lang';
         function onLocaleChange() {
           var lang = this.value;
-          try { localStorage.setItem(STORAGE_LANG_KEY, lang); } catch (e) {}
+          try {
+            if (lang === 'en') localStorage.removeItem(STORAGE_LANG_KEY);
+            else localStorage.setItem(STORAGE_LANG_KEY, lang);
+          } catch (e) {}
           var params = new URLSearchParams(window.location.search);
           if (lang === 'en') params.delete('lang'); else params.set('lang', lang);
           var qs = params.toString();
