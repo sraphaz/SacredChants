@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import KnowledgePageHeader from '../../components/KnowledgePageHeader.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { getFullBase } from '../../utils/base';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -10,10 +11,8 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
 const localeQuery = langQuery(locale);
-const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const FULL_BASE = getFullBase(Astro.url);
 ---
 
 <BaseLayout
