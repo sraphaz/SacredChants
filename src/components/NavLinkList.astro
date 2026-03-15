@@ -1,0 +1,27 @@
+---
+/**
+ * Renders a list of nav items, each as one row of locale-specific links.
+ * Used for both header inline menu and drawer menu. DRY: add/change items
+ * or locales in one place (i18n + nav items array in BaseLayout).
+ */
+import LocaleNavLinks from './LocaleNavLinks.astro';
+import type { Locale } from '../i18n/strings';
+
+export interface NavItem {
+  path: string;
+  labelByLocale: Record<Locale, string>;
+}
+
+interface Props {
+  fullBase: string;
+  items: NavItem[];
+}
+
+const { fullBase, items } = Astro.props;
+---
+
+{items.map((item) => (
+  <li>
+    <LocaleNavLinks fullBase={fullBase} path={item.path} labelByLocale={item.labelByLocale} />
+  </li>
+))}

@@ -1,0 +1,17 @@
+---
+/**
+ * Renders one paragraph per supported locale for the footer tagline.
+ * Single source for locale iteration; labels come from layout/parent.
+ */
+import { SUPPORTED_LOCALES, type Locale } from '../i18n/strings';
+
+interface Props {
+  taglineByLocale: Record<Locale, string>;
+}
+
+const { taglineByLocale } = Astro.props;
+---
+
+{SUPPORTED_LOCALES.map((locale) => (
+  <p class={`locale-${locale}`}>Sacred Chants — {taglineByLocale[locale]}</p>
+))}

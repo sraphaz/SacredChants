@@ -1,6 +1,9 @@
 /** Locales suportados pela UI e conteúdo. Ver docs/I18N-LOCALIZATION.md. */
 export type Locale = 'en' | 'pt' | 'es' | 'it';
 
+/** Single source of truth for supported UI locales. Use in BaseLayout, scripts, and any locale iteration. */
+export const SUPPORTED_LOCALES: readonly Locale[] = ['en', 'pt', 'es', 'it'];
+
 const LOCALE_PARAM_VALUES = ['en', 'pt', 'pt-br', 'es', 'it'] as const;
 type LocaleParam = (typeof LOCALE_PARAM_VALUES)[number];
 
@@ -66,8 +69,12 @@ export const ui = {
     },
     knowledge: {
       title: 'Knowledge',
-      description: 'Nada Yoga, sound and vibration, the five elements, and how sacred sound supports inner experience — as part of humanity’s heritage.',
-      intro: 'Awareness about sound, vibration, and inner experience. Nada Yoga is our first pillar; this content is part of the heritage we preserve.',
+      description: 'Consciousness about sound, vibration, and inner experience. From the human voice to Nada Yoga and ancestral chants — knowledge we preserve as human heritage.',
+      intro: 'Sound and vibration are not only heard: they are felt in the body, they act on the mind, and they can open a direct path to inner experience. Across cultures and time, the human voice has been the first and most universal instrument — breath given form, intention made audible. From that intimacy arise the great sound traditions: the practice of Nada Yoga, the yoga of inner and outer sound; the mantras and sacred syllables that focus attention and quiet the mind; and the ancestral chants of indigenous and contemplative traditions, which carry cosmology, healing, and belonging. These are not curiosities of the past: they are living paths to presence and to the states of consciousness that sacred sound can unlock.',
+      intro2: 'In this section we lay foundations: how vibration and resonance work in the body and in relationship; how the five elements appear in sound and in many of these traditions; and how intentional sound supports balance and healing. All of this belongs to the heritage that Sacred Chants preserves and makes accessible — so that the knowledge and the inner dimensions these practices open remain available to everyone. The project is open source: you can suggest new topics or contribute to this knowledge base via GitHub.',
+      suggestTopicIntro: 'Missing a topic? This knowledge base grows with the community.',
+      suggestTopicCta: 'Suggest a new topic',
+      suggestTopicGitHub: 'Open source on GitHub — propose new articles or improvements.',
       soundAndHumanity: 'Sound and humanity — a living heritage',
       nadaYoga: 'Nada Yoga — the yoga of sound and vibration',
       vibrationMind: 'Vibration, mind, and resonance',
@@ -295,8 +302,12 @@ export const ui = {
     },
     knowledge: {
       title: 'Conhecimento',
-      description: 'Nada Yoga, som e vibração, os cinco elementos e como o som sagrado apoia a experiência interior — como patrimônio da humanidade.',
-      intro: 'Consciência sobre som, vibração e experiência interior. Nada Yoga é o nosso primeiro pilar; este conteúdo faz parte do patrimônio que preservamos.',
+      description: 'Consciência sobre som, vibração e experiência interior. Da voz humana ao Nada Yoga e aos cantos originários — conhecimento que preservamos como patrimônio da humanidade.',
+      intro: 'O som e a vibração não são apenas ouvidos: sentem-se no corpo, atuam na mente e podem abrir um caminho direto para a experiência interior. Em todas as culturas e épocas, a voz humana foi o primeiro e mais universal instrumento — o sopro em forma, a intenção feita audível. Dessa intimidade nascem as grandes tradições sonoras: a prática do Nada Yoga, o yoga do som interior e exterior; os mantras e sílabas sagradas que concentram a atenção e acalmam o pensamento; e os cantos ancestrais das tradições originárias e contemplativas, que carregam cosmologia, cura e pertença. Não são relíquias do passado: são caminhos vivos para a presença e para os estados de consciência que o som sagrado pode despertar.',
+      intro2: 'Nesta secção assentamos bases: como a vibração e a ressonância atuam no corpo e na relação; como os cinco elementos aparecem no som e em muitas dessas tradições; e como o som intencional apoia o equilíbrio e a cura. Tudo isto faz parte do patrimônio que o Sacred Chants preserva e torna acessível — para que o conhecimento e as dimensões interiores que estas práticas abrem continuem ao alcance de todos. O projeto é open source: pode sugerir novos tópicos ou contribuir para esta base de conhecimento através do GitHub.',
+      suggestTopicIntro: 'Falta um tópico? Esta base de conhecimento cresce com a comunidade.',
+      suggestTopicCta: 'Sugerir um novo tópico',
+      suggestTopicGitHub: 'Open source no GitHub — proponha novos artigos ou melhorias.',
       soundAndHumanity: 'Som e humanidade — um patrimônio vivo',
       nadaYoga: 'Nada Yoga — o yoga do som e da vibração',
       vibrationMind: 'Vibração, mente e ressonância',
@@ -524,8 +535,12 @@ export const ui = {
     },
     knowledge: {
       title: 'Conocimiento',
-      description: 'Nada Yoga, sonido y vibración, los cinco elementos y cómo el sonido sagrado sostiene la experiencia interior — como patrimonio de la humanidad.',
-      intro: 'Conciencia sobre el sonido, la vibración y la experiencia interior. Nada Yoga es nuestro primer pilar; este contenido forma parte del patrimonio que preservamos.',
+      description: 'Conciencia sobre el sonido, la vibración y la experiencia interior. Desde la voz humana hasta el Nada Yoga y los cantos originarios — conocimiento que preservamos como patrimonio de la humanidad.',
+      intro: 'El sonido y la vibración no solo se oyen: se sienten en el cuerpo, actúan sobre la mente y pueden abrir un camino directo a la experiencia interior. En todas las culturas y épocas, la voz humana ha sido el primer y más universal instrumento — el aliento en forma, la intención hecha audible. De esa intimidad surgen las grandes tradiciones sonoras: la práctica del Nada Yoga, el yoga del sonido interior y exterior; los mantras y sílabas sagradas que enfocan la atención y serenan la mente; y los cantos ancestrales de las tradiciones originarias y contemplativas, que portan cosmología, curación y pertenencia. No son curiosidades del pasado: son caminos vivos hacia la presencia y hacia los estados de consciencia que el sonido sagrado puede despertar.',
+      intro2: 'En esta sección sentamos bases: cómo actúan la vibración y la resonancia en el cuerpo y en la relación; cómo aparecen los cinco elementos en el sonido y en muchas de estas tradiciones; y cómo el sonido intencional sostiene el equilibrio y la curación. Todo ello forma parte del patrimonio que Sacred Chants preserva y hace accesible — para que el conocimiento y las dimensiones interiores que estas prácticas abren sigan al alcance de todos. El proyecto es open source: puedes sugerir nuevos temas o contribuir a esta base de conocimiento a través de GitHub.',
+      suggestTopicIntro: '¿Echas en falta un tema? Esta base de conocimiento crece con la comunidad.',
+      suggestTopicCta: 'Sugerir un nuevo tema',
+      suggestTopicGitHub: 'Open source en GitHub — propón nuevos artículos o mejoras.',
       soundAndHumanity: 'Sonido y humanidad — un patrimonio vivo',
       nadaYoga: 'Nada Yoga — el yoga del sonido y la vibración',
       vibrationMind: 'Vibración, mente y resonancia',
@@ -748,8 +763,12 @@ export const ui = {
     },
     knowledge: {
       title: 'Conoscenza',
-      description: 'Nada Yoga, suono e vibrazione, i cinque elementi e come il suono sacro sostiene l\'esperienza interiore — come patrimonio dell\'umanità.',
-      intro: 'Consapevolezza su suono, vibrazione ed esperienza interiore. Nada Yoga è il nostro primo pilastro; questo contenuto fa parte del patrimonio che preserviamo.',
+      description: 'Consapevolezza su suono, vibrazione ed esperienza interiore. Dalla voce umana al Nada Yoga e ai canti originari — conoscenza che preserviamo come patrimonio dell\'umanità.',
+      intro: 'Il suono e la vibrazione non si limitano a essere uditi: si sentono nel corpo, agiscono sulla mente e possono aprire un cammino diretto all\'esperienza interiore. In ogni cultura e tempo, la voce umana è stata il primo e più universale strumento — il respiro in forma, l\'intenzione resa udibile. Da quella intimità nascono le grandi tradizioni sonore: la pratica dello Nada Yoga, lo yoga del suono interiore ed esteriore; i mantra e le sillabe sacre che focalizzano l\'attenzione e quietano la mente; e i canti ancestrali delle tradizioni originarie e contemplative, che portano cosmologia, guarigione e appartenenza. Non sono curiosità del passato: sono cammini vivi verso la presenza e verso gli stati di coscienza che il suono sacro può dischiudere.',
+      intro2: 'In questa sezione poniamo le basi: come vibrazione e risonanza agiscono nel corpo e nella relazione; come i cinque elementi compaiono nel suono e in molte di queste tradizioni; e come il suono intenzionale sostenga equilibrio e guarigione. Tutto questo fa parte del patrimonio vivo che Sacred Chants preserva e rende accessibile — perché la conoscenza e le dimensioni interiori che queste pratiche aprono restino alla portata di tutti. Il progetto è open source: puoi suggerire nuovi temi o contribuire a questa base di conoscenza tramite GitHub.',
+      suggestTopicIntro: 'Manca un tema? Questa base di conoscenza cresce con la comunità.',
+      suggestTopicCta: 'Suggerisci un nuovo tema',
+      suggestTopicGitHub: 'Open source su GitHub — proponi nuovi articoli o miglioramenti.',
       soundAndHumanity: 'Suono e umanità — un patrimonio vivo',
       nadaYoga: 'Nada Yoga — lo yoga del suono e della vibrazione',
       vibrationMind: 'Vibrazione, mente e risonanza',
