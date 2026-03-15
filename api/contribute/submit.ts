@@ -211,11 +211,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Failed to create PR';
+    const status = err && typeof err === 'object' && 'status' in err ? (err as { status: number }).status : 0;
     const isConfig = /GITHUB_TOKEN|required for PR/i.test(message);
+    const isForbidden = status === 403 || /forbidden|resource not accessible|insufficient/i.test(String(message).toLowerCase());
+    const hint = isConfig
+      ? 'Check that GITHUB_TOKEN is set in Vercel Environment Variables.'
+      : isForbidden
+        ? 'GITHUB_TOKEN needs write access: Contents (Read and write) and Pull requests (Read and write). See docs/DEPLOY-VERCEL-APP.md.'
+        : undefined;
     return res.status(500).json({
       error: 'Failed to create pull request',
       details: message,
-      hint: isConfig ? 'Check that GITHUB_TOKEN is set in Vercel Environment Variables (repo scope).' : undefined,
+      hint,
     });
   }
 }

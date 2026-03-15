@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { ui, type Locale } from '../i18n/strings';
+import { ui, getLocaleFromUrl, type Locale } from '../i18n/strings';
 
 const BASE = import.meta.env.BASE_URL || '/';
 const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
@@ -16,12 +16,13 @@ interface Props {
   locale?: Locale;
 }
 
-const { title, description = 'Human heritage in sound. A living library of sacred chant — preserving access to the inner states of consciousness that sacred sound opens.' } = Astro.props;
+const { title, description = 'Human heritage in sound. A living library of sacred chant — preserving access to the inner states of consciousness that sacred sound opens.', locale: propsLocale } = Astro.props;
 const tEn = ui.en;
 const tPt = ui.pt;
-/** Initial locale from URL so the correct language shows on first paint (no flash of EN). */
-const urlLang = Astro.url.searchParams.get('lang');
-const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
+const tEs = ui.es;
+const tIt = ui.it;
+const initialLocale: Locale = propsLocale ?? getLocaleFromUrl(Astro.url.searchParams);
+const q = (l: Locale) => l === 'en' ? '' : `?lang=${l}`;
 ---
 
 <!doctype html>
@@ -55,12 +56,13 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
           window.location.replace(window.location.pathname + (q.toString() ? '?' + q.toString() : ''));
           return;
         }
-        if (urlLang === 'pt' || urlLang === 'en') {
-          try { localStorage.setItem(STORAGE + 'lang', urlLang); } catch (e) {}
+        var allowed = ['en', 'pt', 'pt-br', 'es', 'it'];
+        if (urlLang && allowed.indexOf(urlLang) !== -1) {
+          try { localStorage.setItem(STORAGE + 'lang', urlLang === 'pt-br' ? 'pt' : urlLang); } catch (e) {}
         }
-        var locale = urlLang === 'pt' ? 'pt' : (savedLang === 'pt' ? 'pt' : 'en');
+        var locale = urlLang === 'pt-br' || urlLang === 'pt' ? 'pt' : (urlLang === 'es' ? 'es' : (urlLang === 'it' ? 'it' : (savedLang === 'pt' ? 'pt' : (savedLang === 'es' ? 'es' : (savedLang === 'it' ? 'it' : 'en')))));
         root.dataset.locale = locale;
-        root.lang = locale === 'pt' ? 'pt' : 'en';
+        root.lang = locale;
       })();
     </script>
   </head>
@@ -70,16 +72,26 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
         <div class="sc-header__brand shrink-0">
           <a href={FULL_BASE} class="locale-en font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-en">Sacred Chants</span></a>
           <a href={`${FULL_BASE}?lang=pt`} class="locale-pt font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-pt">Sacred Chants</span></a>
+          <a href={`${FULL_BASE}?lang=es`} class="locale-es font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-es">Sacred Chants</span></a>
+          <a href={`${FULL_BASE}?lang=it`} class="locale-it font-serif text-base sc-header-a whitespace-nowrap"><span class="locale-it">Sacred Chants</span></a>
         </div>
         <div class="sc-header__menu-inline">
           <ul class="sc-header__menu">
-          <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
-          <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
-          <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a></li>
-          <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
-          <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
-          <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
-          <li class="sc-header__menu-lang-row"><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span> <a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
+          <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a><a href={`${FULL_BASE}?lang=es`} class="locale-es">{tEs.nav.home}</a><a href={`${FULL_BASE}?lang=it`} class="locale-it">{tIt.nav.home}</a></li>
+          <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a><a href={`${FULL_BASE}chants/${q('es')}`} class="locale-es">{tEs.nav.chants}</a><a href={`${FULL_BASE}chants/${q('it')}`} class="locale-it">{tIt.nav.chants}</a></li>
+          <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a><a href={`${FULL_BASE}traditions/${q('es')}`} class="locale-es">{tEs.nav.traditions}</a><a href={`${FULL_BASE}traditions/${q('it')}`} class="locale-it">{tIt.nav.traditions}</a></li>
+          <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${q('es')}`} class="locale-es">{tEs.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${q('it')}`} class="locale-it">{tIt.nav.knowledge}</a></li>
+          <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a><a href={`${FULL_BASE}contribute/${q('es')}`} class="locale-es">{tEs.nav.contribute}</a><a href={`${FULL_BASE}contribute/${q('it')}`} class="locale-it">{tIt.nav.contribute}</a></li>
+          <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a><a href={`${FULL_BASE}settings/${q('es')}`} class="locale-es">{tEs.nav.settings}</a><a href={`${FULL_BASE}settings/${q('it')}`} class="locale-it">{tIt.nav.settings}</a></li>
+          <li class="sc-header__menu-lang-row">
+            <label for="sc-locale-select" class="sr-only">Language</label>
+            <select id="sc-locale-select" class="sc-locale-select" aria-label="Language">
+              <option value="en" selected={initialLocale === 'en'}>EN</option>
+              <option value="pt" selected={initialLocale === 'pt'}>PT</option>
+              <option value="es" selected={initialLocale === 'es'}>ES</option>
+              <option value="it" selected={initialLocale === 'it'}>IT</option>
+            </select>
+          </li>
           </ul>
         </div>
         <button
@@ -97,13 +109,21 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
     <div class="sc-header__drawer-backdrop" id="sc-header-drawer-backdrop" aria-hidden="true"></div>
     <div class="sc-header__drawer" id="sc-header-drawer" role="navigation" aria-label="Site menu">
       <ul class="sc-header__drawer-menu">
-      <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a></li>
-      <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a></li>
-      <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a></li>
-      <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a></li>
-      <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a></li>
-      <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a></li>
-      <li class="sc-header__menu-lang-row"><span style="color: var(--sc-text-subtle)" aria-hidden="true">|</span> <a href={`${FULL_PATH}?lang=pt`} class="locale-en text-sm sc-header-a">{tEn.lang.pt}</a><a href={`${FULL_PATH}?lang=en`} class="locale-pt text-sm sc-header-a">{tPt.lang.en}</a></li>
+      <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a><a href={`${FULL_BASE}?lang=es`} class="locale-es">{tEs.nav.home}</a><a href={`${FULL_BASE}?lang=it`} class="locale-it">{tIt.nav.home}</a></li>
+      <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a><a href={`${FULL_BASE}chants/${q('es')}`} class="locale-es">{tEs.nav.chants}</a><a href={`${FULL_BASE}chants/${q('it')}`} class="locale-it">{tIt.nav.chants}</a></li>
+      <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a><a href={`${FULL_BASE}traditions/${q('es')}`} class="locale-es">{tEs.nav.traditions}</a><a href={`${FULL_BASE}traditions/${q('it')}`} class="locale-it">{tIt.nav.traditions}</a></li>
+      <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${q('es')}`} class="locale-es">{tEs.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${q('it')}`} class="locale-it">{tIt.nav.knowledge}</a></li>
+      <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a><a href={`${FULL_BASE}contribute/${q('es')}`} class="locale-es">{tEs.nav.contribute}</a><a href={`${FULL_BASE}contribute/${q('it')}`} class="locale-it">{tIt.nav.contribute}</a></li>
+      <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a><a href={`${FULL_BASE}settings/${q('es')}`} class="locale-es">{tEs.nav.settings}</a><a href={`${FULL_BASE}settings/${q('it')}`} class="locale-it">{tIt.nav.settings}</a></li>
+      <li class="sc-header__menu-lang-row">
+        <label for="sc-locale-select-drawer" class="sr-only">Language</label>
+        <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label="Language">
+          <option value="en" selected={initialLocale === 'en'}>EN</option>
+          <option value="pt" selected={initialLocale === 'pt'}>PT</option>
+          <option value="es" selected={initialLocale === 'es'}>ES</option>
+          <option value="it" selected={initialLocale === 'it'}>IT</option>
+        </select>
+      </li>
       </ul>
     </div>
     <script is:inline>
@@ -141,6 +161,19 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
         });
       })();
     </script>
+    <script is:inline>
+      (function() {
+        function onLocaleChange() {
+          var lang = this.value;
+          var path = window.location.pathname;
+          window.location.href = path + (lang === 'en' ? '' : '?lang=' + lang);
+        }
+        var sel = document.getElementById('sc-locale-select');
+        var selDrawer = document.getElementById('sc-locale-select-drawer');
+        if (sel) sel.addEventListener('change', onLocaleChange);
+        if (selDrawer) selDrawer.addEventListener('change', onLocaleChange);
+      })();
+    </script>
     <main class="flex-1 sc-main-with-header">
       <slot />
     </main>
@@ -148,7 +181,12 @@ const initialLocale: Locale = urlLang === 'pt' ? 'pt' : 'en';
       <div class="max-w-content mx-auto px-page-x text-center text-sm">
         <p class="locale-en">Sacred Chants — {tEn.home.tagline}</p>
         <p class="locale-pt">Sacred Chants — {tPt.home.tagline}</p>
-        <p class="mt-1" style="color: var(--sc-text-subtle)">Open source · No ads · Human heritage · Contemplative</p>
+        <p class="locale-es">Sacred Chants — {tEs.home.tagline}</p>
+        <p class="locale-it">Sacred Chants — {tIt.home.tagline}</p>
+        <p class="mt-1" style="color: var(--sc-text-subtle)">
+          <a href="https://github.com/sraphaz/SacredChants" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--sc-text-subtle)">GitHub</a>
+          <span class="mx-1">·</span> Open source · No ads · Human heritage · Contemplative
+        </p>
       </div>
     </footer>
   </body>

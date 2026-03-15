@@ -1,15 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
 const tEn = ui.en;
 const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
 const BASE = import.meta.env.BASE_URL || '/';
 const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const q = langQuery(locale);
 const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
 ---
 
@@ -20,14 +22,18 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
 >
   <PageShell>
     <p class="mb-4">
-      <a href={`${FULL_BASE}knowledge/${langQuery}`} class="text-sm" style="color: var(--sc-text-subtle)">
+      <a href={`${FULL_BASE}knowledge/${q}`} class="text-sm" style="color: var(--sc-text-subtle)">
         <span class="locale-en">← {tEn.knowledge.backToKnowledge}</span>
         <span class="locale-pt">← {tPt.knowledge.backToKnowledge}</span>
+        <span class="locale-es">← {tEs.knowledge.backToKnowledge}</span>
+        <span class="locale-it">← {tIt.knowledge.backToKnowledge}</span>
       </a>
     </p>
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       <span class="locale-en">{tEn.knowledge.elementsAndSound}</span>
       <span class="locale-pt">{tPt.knowledge.elementsAndSound}</span>
+      <span class="locale-es">{tEs.knowledge.elementsAndSound}</span>
+      <span class="locale-it">{tIt.knowledge.elementsAndSound}</span>
     </h1>
 
     <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
@@ -35,6 +41,8 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">The five great elements (Pañca Mahābhūta)</span>
           <span class="locale-pt">Os cinco grandes elementos (Pañca Mahābhūta)</span>
+          <span class="locale-es">Los cinco grandes elementos (Pañca Mahābhūta)</span>
+          <span class="locale-it">I cinque grandi elementi (Pañca Mahābhūta)</span>
         </h2>
         <p class="locale-en">
           In Indian philosophy and Ayurveda, the five fundamental elements are <strong>Ākāśa</strong> (space/ether), <strong>Vāyu</strong> (air), <strong>Agni</strong> (fire), <strong>Jala</strong> (water), and <strong>Pṛthvī</strong> (earth). They are present in the body, in the cosmos, and in experience; they participate in how we perceive and are affected by sound.
@@ -42,12 +50,20 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <p class="locale-pt">
           Na filosofia indiana e no Ayurveda, os cinco elementos fundamentais são <strong>Ākāśa</strong> (espaço/éter), <strong>Vāyu</strong> (ar), <strong>Agni</strong> (fogo), <strong>Jala</strong> (água) e <strong>Pṛthvī</strong> (terra). Estão presentes no corpo, no cosmos e na experiência; participam na forma como percebemos e somos afectados pelo som.
         </p>
+        <p class="locale-es">
+          En la filosofía india y el Ayurveda, los cinco elementos fundamentales son <strong>Ākāśa</strong> (espacio/éter), <strong>Vāyu</strong> (aire), <strong>Agni</strong> (fuego), <strong>Jala</strong> (agua) y <strong>Pṛthvī</strong> (tierra). Están presentes en el cuerpo, en el cosmos y en la experiencia; participan en cómo percibimos y nos afecta el sonido.
+        </p>
+        <p class="locale-it">
+          Nella filosofia indiana e nell'Ayurveda, i cinque elementi fondamentali sono <strong>Ākāśa</strong> (spazio/etere), <strong>Vāyu</strong> (aria), <strong>Agni</strong> (fuoco), <strong>Jala</strong> (acqua) e <strong>Pṛthvī</strong> (terra). Sono presenti nel corpo, nel cosmo e nell'esperienza; partecipano al modo in cui percepiamo e siamo influenzati dal suono.
+        </p>
       </section>
 
       <section>
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Sound and space (Ākāśa)</span>
           <span class="locale-pt">Som e espaço (Ākāśa)</span>
+          <span class="locale-es">Sonido y espacio (Ākāśa)</span>
+          <span class="locale-it">Suono e spazio (Ākāśa)</span>
         </h2>
         <p class="locale-en">
           <strong>Ākāśa</strong> (space) is uniquely associated with <strong>sound (śabda)</strong> as its defining quality (<em>tanmātra</em>). Space allows vibration and the propagation of sound; the other elements are associated with touch, form, taste, and smell. So in this framework, sound is the quality of space — and listening or chanting can be understood as engaging that element in ourselves and in the environment.
@@ -55,18 +71,32 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <p class="locale-pt">
           <strong>Ākāśa</strong> (espaço) está exclusivamente associado ao <strong>som (śabda)</strong> como sua qualidade definidora (<em>tanmātra</em>). O espaço permite a vibração e a propagação do som; os outros elementos estão associados ao tacto, forma, sabor e olfacto. Neste quadro, o som é a qualidade do espaço — e ouvir ou cantar pode ser entendido como engagement com esse elemento em nós e no ambiente.
         </p>
+        <p class="locale-es">
+          <strong>Ākāśa</strong> (espacio) se asocia de forma única con el <strong>sonido (śabda)</strong> como su cualidad definitoria (<em>tanmātra</em>). El espacio permite la vibración y la propagación del sonido; los demás elementos se asocian al tacto, la forma, el sabor y el olfato. En este marco, el sonido es la cualidad del espacio — y escuchar o cantar puede entenderse como engagement con ese elemento en nosotros y en el entorno.
+        </p>
+        <p class="locale-it">
+          <strong>Ākāśa</strong> (spazio) è associato in modo univoco al <strong>suono (śabda)</strong> come sua qualità definitoria (<em>tanmātra</em>). Lo spazio permette la vibrazione e la propagazione del suono; gli altri elementi sono associati al tatto, alla forma, al gusto e all'olfatto. In questo quadro, il suono è la qualità dello spazio — e ascoltare o cantare può intendersi come engagement con quell'elemento in noi e nell'ambiente.
+        </p>
       </section>
 
       <section>
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Sound for balance and harmony</span>
           <span class="locale-pt">Som para equilíbrio e harmonia</span>
+          <span class="locale-es">Sonido para equilibrio y armonía</span>
+          <span class="locale-it">Suono per equilibrio e armonia</span>
         </h2>
         <p class="locale-en">
           Different sounds (or their attributes) can be related to the five elements in traditional practice. Listening or chanting may support <strong>balance</strong> among the elements in inner experience — for example calming, grounding, or clarifying. This is presented as experiential and traditional knowledge, not as a fixed prescription; different schools and lineages may describe the mapping differently. The aim here is awareness and support for inner experience, not medical or therapeutic claims.
         </p>
         <p class="locale-pt">
           Diferentes sons (ou os seus atributos) podem ser relacionados com os cinco elementos na prática tradicional. Ouvir ou cantar pode apoiar o <strong>equilíbrio</strong> entre os elementos na experiência interior — por exemplo acalmar, enraizar ou clarificar. Isto é apresentado como conhecimento experiencial e tradicional, não como prescrição fixa; diferentes escolas e linhagens podem descrever o mapeamento de forma diferente. O objectivo aqui é consciência e suporte à experiência interior, não alegações médicas ou terapêuticas.
+        </p>
+        <p class="locale-es">
+          Diferentes sonidos (o sus atributos) pueden relacionarse con los cinco elementos en la práctica tradicional. Escuchar o cantar puede apoyar el <strong>equilibrio</strong> entre los elementos en la experiencia interior — por ejemplo calmar, enraizar o clarificar. Se presenta como conocimiento experiencial y tradicional, no como prescripción fija; distintas escuelas y linajes pueden describir el mapeo de forma diferente. El objetivo aquí es conciencia y apoyo a la experiencia interior, no afirmaciones médicas o terapéuticas.
+        </p>
+        <p class="locale-it">
+          Suoni diversi (o i loro attributi) possono essere messi in relazione con i cinque elementi nella pratica tradizionale. Ascoltare o cantare può favorire l'<strong>equilibrio</strong> tra gli elementi nell'esperienza interiore — ad esempio calmare, radicare o chiarificare. Si presenta come conoscenza esperienziale e tradizionale, non come prescrizione fissa; scuole e lignaggi diversi possono descrivere il mapping in modo diverso. L'obiettivo qui è consapevolezza e sostegno all'esperienza interiore, non affermazioni mediche o terapeutiche.
         </p>
       </section>
     </div>

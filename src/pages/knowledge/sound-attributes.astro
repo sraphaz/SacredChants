@@ -1,15 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
 const tEn = ui.en;
 const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
 const BASE = import.meta.env.BASE_URL || '/';
 const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const q = langQuery(locale);
 const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
 ---
 
@@ -20,14 +22,18 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
 >
   <PageShell>
     <p class="mb-4">
-      <a href={`${FULL_BASE}knowledge/${langQuery}`} class="text-sm" style="color: var(--sc-text-subtle)">
+      <a href={`${FULL_BASE}knowledge/${q}`} class="text-sm" style="color: var(--sc-text-subtle)">
         <span class="locale-en">← {tEn.knowledge.backToKnowledge}</span>
         <span class="locale-pt">← {tPt.knowledge.backToKnowledge}</span>
+        <span class="locale-es">← {tEs.knowledge.backToKnowledge}</span>
+        <span class="locale-it">← {tIt.knowledge.backToKnowledge}</span>
       </a>
     </p>
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       <span class="locale-en">{tEn.knowledge.soundAttributes}</span>
       <span class="locale-pt">{tPt.knowledge.soundAttributes}</span>
+      <span class="locale-es">{tEs.knowledge.soundAttributes}</span>
+      <span class="locale-it">{tIt.knowledge.soundAttributes}</span>
     </h1>
 
     <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
@@ -35,6 +41,8 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Characteristics of sound</span>
           <span class="locale-pt">Características do som</span>
+          <span class="locale-es">Características del sonido</span>
+          <span class="locale-it">Caratteristiche del suono</span>
         </h2>
         <p class="locale-en">
           The main attributes considered in Nada Yoga and related traditions include <strong>pitch</strong> (high/acute vs low/grave), <strong>volume</strong> or intensity, <strong>timbre</strong> (quality of the tone), and <strong>rhythm</strong>, duration, and silence. Each of these can influence how the listener or chanter is affected — the “instrument” of the person (body and mind) responds to these qualities.
@@ -42,12 +50,20 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <p class="locale-pt">
           Os principais atributos considerados no Nada Yoga e tradições afins incluem a <strong>altura</strong> (agudo vs grave), o <strong>volume</strong> ou intensidade, o <strong>timbre</strong> (qualidade do tom), e o <strong>ritmo</strong>, duração e silêncio. Cada um pode influenciar a forma como quem ouve ou canta é afectado — o “instrumento” da pessoa (corpo e mente) responde a estas qualidades.
         </p>
+        <p class="locale-es">
+          Los principales atributos considerados en el Nada Yoga y tradiciones afines incluyen la <strong>altura</strong> (agudo vs grave), el volumen o intensidad, el <strong>timbre</strong> (calidad del tono), y el <strong>ritmo</strong>, duración y silencio. Cada uno puede influir en cómo se afecta quien escucha o canta — el "instrumento" de la persona (cuerpo y mente) responde a estas cualidades.
+        </p>
+        <p class="locale-it">
+          I principali attributi considerati nel Nada Yoga e nelle tradizioni affini includono l'<strong>altezza</strong> (acuto vs grave), il <strong>volume</strong> o intensità, il <strong>timbro</strong> (qualità del tono), e il <strong>ritmo</strong>, durata e silenzio. Ciascuno può influenzare il modo in cui chi ascolta o canta è influenzato — lo "strumento" della persona (corpo e mente) risponde a queste qualità.
+        </p>
       </section>
 
       <section>
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Relation to the elements</span>
           <span class="locale-pt">Relação com os elementos</span>
+          <span class="locale-es">Relación con los elementos</span>
+          <span class="locale-it">Relazione con gli elementi</span>
         </h2>
         <p class="locale-en">
           In some traditions, lower, heavier sounds are associated with the earth element (Pṛthvī), while higher, lighter sounds are associated with space (Ākāśa). Other mappings exist for air, fire, and water. The idea is that by choosing or encountering certain sound qualities, we can support the <strong>harmonisation</strong> of the elements in our inner experience — not as a rigid rule, but as a lens through which to understand how sound may support balance.
@@ -55,18 +71,32 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
         <p class="locale-pt">
           Em algumas tradições, sons mais graves e pesados são associados ao elemento terra (Pṛthvī), enquanto sons mais agudos e leves são associados ao espaço (Ākāśa). Existem outros mapeamentos para ar, fogo e água. A ideia é que, ao escolher ou encontrar certas qualidades sonoras, podemos apoiar a <strong>harmonização</strong> dos elementos na nossa experiência interior — não como regra rígida, mas como lente para entender como o som pode apoiar o equilíbrio.
         </p>
+        <p class="locale-es">
+          En algunas tradiciones, los sonidos más graves y pesados se asocian al elemento tierra (Pṛthvī), mientras que los más agudos y ligeros al espacio (Ākāśa). Existen otros mapeos para aire, fuego y agua. La idea es que al elegir o encontrar ciertas cualidades sonoras, podemos apoyar la <strong>armonización</strong> de los elementos en nuestra experiencia interior — no como regla rígida, sino como lente para entender cómo el sonido puede apoyar el equilibrio.
+        </p>
+        <p class="locale-it">
+          In alcune tradizioni, i suoni più gravi e pesanti sono associati all'elemento terra (Pṛthvī), mentre i più acuti e leggeri allo spazio (Ākāśa). Esistono altri mappaggi per aria, fuoco e acqua. L'idea è che scegliendo o incontrando certe qualità sonore possiamo favorire l'<strong>armonizzazione</strong> degli elementi nella nostra esperienza interiore — non come regola rigida, ma come lente per capire come il suono può sostenere l'equilibrio.
+        </p>
       </section>
 
       <section>
         <h2 class="font-serif text-xl sc-heading mb-2" style="color: var(--sc-text)">
           <span class="locale-en">Balance, not prescription</span>
           <span class="locale-pt">Equilíbrio, não prescrição</span>
+          <span class="locale-es">Equilibrio, no prescripción</span>
+          <span class="locale-it">Equilibrio, non prescrizione</span>
         </h2>
         <p class="locale-en">
           This knowledge is presented as experiential and traditional. Different schools and lineages may describe the link between sound attributes and elements differently. The aim is to offer a framework for reflection and practice, not a fixed prescription. Listening to your own response — and to teachers or traditions you trust — remains essential.
         </p>
         <p class="locale-pt">
           Este conhecimento é apresentado como experiencial e tradicional. Diferentes escolas e linhagens podem descrever de forma diferente a ligação entre atributos do som e elementos. O objectivo é oferecer um quadro de reflexão e prática, não uma prescrição fixa. Ouvir a própria resposta — e os professores ou tradições em que confia — continua essencial.
+        </p>
+        <p class="locale-es">
+          Este conocimiento se presenta como experiencial y tradicional. Diferentes escuelas y linajes pueden describir de forma distinta el vínculo entre atributos del sonido y elementos. El objetivo es ofrecer un marco de reflexión y práctica, no una prescripción fija. Escuchar la propia respuesta — y a maestros o tradiciones en quienes se confía — sigue siendo esencial.
+        </p>
+        <p class="locale-it">
+          Questa conoscenza è presentata come esperienziale e tradizionale. Scuole e lignaggi diversi possono descrivere in modo diverso il legame tra attributi del suono ed elementi. L'obiettivo è offrire una cornice di riflessione e pratica, non una prescrizione fissa. Ascoltare la propria risposta — e i maestri o le tradizioni in cui si ha fiducia — resta essenziale.
         </p>
       </section>
     </div>

@@ -1,47 +1,49 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
 const tEn = ui.en;
 const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
 const BASE = import.meta.env.BASE_URL || '/';
 const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const langQuery = locale === 'pt' ? '?lang=pt' : '';
+const q = langQuery(locale);
 const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
 
 /** Single nav item for a knowledge page */
-function item(slug: string, titleEn: string, titlePt: string) {
-  return { slug, titleEn, titlePt };
+function item(slug: string, titleEn: string, titlePt: string, titleEs: string, titleIt: string) {
+  return { slug, titleEn, titlePt, titleEs, titleIt };
 }
 
-/** Sections: label key (in tEn/tPt.knowledge) + items. Order defines page hierarchy. */
+/** Sections: label key (in tEn/tPt/tEs/tIt.knowledge) + items. Order defines page hierarchy. */
 const sections = [
   {
     labelKey: 'sectionStartHere' as const,
-    items: [item('sound-and-humanity', tEn.knowledge.soundAndHumanity, tPt.knowledge.soundAndHumanity)],
+    items: [item('sound-and-humanity', tEn.knowledge.soundAndHumanity, tPt.knowledge.soundAndHumanity, tEs.knowledge.soundAndHumanity, tIt.knowledge.soundAndHumanity)],
   },
   {
     labelKey: 'sectionFirstPillar' as const,
-    items: [item('nada-yoga', tEn.knowledge.nadaYoga, tPt.knowledge.nadaYoga)],
+    items: [item('nada-yoga', tEn.knowledge.nadaYoga, tPt.knowledge.nadaYoga, tEs.knowledge.nadaYoga, tIt.knowledge.nadaYoga)],
   },
   {
     labelKey: 'sectionConcepts' as const,
     items: [
-      item('vibration-mind', tEn.knowledge.vibrationMind, tPt.knowledge.vibrationMind),
-      item('elements-and-sound', tEn.knowledge.elementsAndSound, tPt.knowledge.elementsAndSound),
-      item('sound-attributes', tEn.knowledge.soundAttributes, tPt.knowledge.soundAttributes),
+      item('vibration-mind', tEn.knowledge.vibrationMind, tPt.knowledge.vibrationMind, tEs.knowledge.vibrationMind, tIt.knowledge.vibrationMind),
+      item('elements-and-sound', tEn.knowledge.elementsAndSound, tPt.knowledge.elementsAndSound, tEs.knowledge.elementsAndSound, tIt.knowledge.elementsAndSound),
+      item('sound-attributes', tEn.knowledge.soundAttributes, tPt.knowledge.soundAttributes, tEs.knowledge.soundAttributes, tIt.knowledge.soundAttributes),
     ],
   },
   {
     labelKey: 'sectionGoDeeper' as const,
-    items: [item('balance-and-healing', tEn.knowledge.balanceAndHealing, tPt.knowledge.balanceAndHealing)],
+    items: [item('balance-and-healing', tEn.knowledge.balanceAndHealing, tPt.knowledge.balanceAndHealing, tEs.knowledge.balanceAndHealing, tIt.knowledge.balanceAndHealing)],
   },
   {
     labelKey: 'sectionReferences' as const,
-    items: [item('references', tEn.knowledge.references, tPt.knowledge.references)],
+    items: [item('references', tEn.knowledge.references, tPt.knowledge.references, tEs.knowledge.references, tIt.knowledge.references)],
   },
 ];
 ---
@@ -55,45 +57,49 @@ const sections = [
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       <span class="locale-en">{tEn.knowledge.title}</span>
       <span class="locale-pt">{tPt.knowledge.title}</span>
+      <span class="locale-es">{tEs.knowledge.title}</span>
+      <span class="locale-it">{tIt.knowledge.title}</span>
     </h1>
     <p class="mb-page-content" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.knowledge.description}</span>
       <span class="locale-pt">{tPt.knowledge.description}</span>
+      <span class="locale-es">{tEs.knowledge.description}</span>
+      <span class="locale-it">{tIt.knowledge.description}</span>
     </p>
     <p class="mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.knowledge.intro}</span>
       <span class="locale-pt">{tPt.knowledge.intro}</span>
+      <span class="locale-es">{tEs.knowledge.intro}</span>
+      <span class="locale-it">{tIt.knowledge.intro}</span>
     </p>
 
-    <nav class="flex flex-col max-w-2xl" style="gap: var(--sc-space-section-gap)" aria-label="Knowledge sections">
+    <nav class="knowledge-gallery" aria-label="Knowledge sections">
       {sections.map((section) => (
-        <section class="flex flex-col gap-3" aria-labelledby={`knowledge-heading-${section.labelKey}`}>
+        <section class="knowledge-block" aria-labelledby={`knowledge-heading-${section.labelKey}`}>
           <h2
             id={`knowledge-heading-${section.labelKey}`}
-            class="text-xs font-medium tracking-wider uppercase"
+            class="knowledge-block-title"
             style="color: var(--sc-text-subtle)"
           >
             <span class="locale-en">{tEn.knowledge[section.labelKey]}</span>
             <span class="locale-pt">{tPt.knowledge[section.labelKey]}</span>
+            <span class="locale-es">{tEs.knowledge[section.labelKey]}</span>
+            <span class="locale-it">{tIt.knowledge[section.labelKey]}</span>
           </h2>
-          <ul class="flex flex-col gap-2 list-none p-0 m-0">
+          <ul class="knowledge-block-grid list-none p-0 m-0">
             {section.items.map((item) => {
-              const href = `${FULL_BASE}knowledge/${item.slug}/${langQuery}`;
-              const isFirstPillar = section.labelKey === 'sectionFirstPillar';
+              const href = `${FULL_BASE}knowledge/${item.slug}/${q}`;
               return (
                 <li>
                   <a
                     href={href}
-                    class:list={[
-                      'block w-full text-left rounded-xl transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sc-accent)]',
-                      isFirstPillar
-                        ? 'sc-btn-primary py-3 px-5 font-medium'
-                        : 'py-3 px-4 border border-[var(--sc-border)] bg-[var(--sc-bg-elevated)] hover:border-[var(--sc-text-subtle)] hover:bg-[var(--sc-accent-soft)]',
-                    ]}
-                    style={!isFirstPillar ? { color: 'var(--sc-text)' } : undefined}
+                    class="knowledge-card"
+                    style="color: var(--sc-text)"
                   >
                     <span class="locale-en">{item.titleEn}</span>
                     <span class="locale-pt">{item.titlePt}</span>
+                    <span class="locale-es">{item.titleEs}</span>
+                    <span class="locale-it">{item.titleIt}</span>
                   </a>
                 </li>
               );
@@ -103,4 +109,41 @@ const sections = [
       ))}
     </nav>
   </PageShell>
+
+  <style>
+    .knowledge-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sc-space-section-gap);
+    }
+    .knowledge-block-title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .knowledge-block-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+    }
+    .knowledge-card {
+      display: block;
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+      border: 1px solid var(--sc-border);
+      background: var(--sc-bg-elevated);
+      transition: border-color 0.15s ease, background 0.15s ease;
+      text-align: left;
+    }
+    .knowledge-card:hover {
+      border-color: var(--sc-text-subtle);
+      background: var(--sc-accent-soft);
+    }
+    .knowledge-card:focus-visible {
+      outline: 2px solid var(--sc-accent);
+      outline-offset: 2px;
+    }
+  </style>
 </BaseLayout>

@@ -9,6 +9,8 @@ export const chantLineSchema = z.object({
   translations: z.object({
     pt: z.string().optional(),
     en: z.string().optional(),
+    es: z.string().optional(),
+    it: z.string().optional(),
   }),
 });
 
@@ -21,6 +23,8 @@ export const chantVerseSchema = z.object({
     .object({
       pt: z.string().optional(),
       en: z.string().optional(),
+      es: z.string().optional(),
+      it: z.string().optional(),
     })
     .optional(),
 });
@@ -36,9 +40,13 @@ export const chantSchema = z.object({
   description: z.object({
     en: z.string(),
     pt: z.string(),
+    es: z.string().optional(),
+    it: z.string().optional(),
   }),
   tags: z.array(z.string()).default([]),
   audio: z.string().url().optional(),
+  /** Interpreter or performer name for the audio recording. Optional; shown when audio is set. */
+  interpreter: z.string().optional(),
   /** Total duration in seconds (for reference / future UI). Optional. */
   duration: z.number().min(0).optional(),
   /** Spotify track/album URL for "Listen on Spotify". No playback sync (Spotify does not expose position). */
@@ -54,6 +62,8 @@ export const chantSchema = z.object({
     .object({
       pt: z.string().optional(),
       en: z.string().optional(),
+      es: z.string().optional(),
+      it: z.string().optional(),
     })
     .optional(),
   verses: z.array(chantVerseSchema),
