@@ -27,14 +27,18 @@
     if (savedLang && !urlLang) {
       urlSearchParams.set('lang', savedLang);
       var queryString = urlSearchParams.toString();
-      window.location.replace(window.location.pathname + (queryString ? '?' + queryString : ''));
-      return;
+      var newUrl = window.location.pathname + (queryString ? '?' + queryString : '') + (window.location.hash || '');
+      if (newUrl !== window.location.pathname + (window.location.search || '') + (window.location.hash || '')) {
+        window.location.replace(newUrl);
+        return;
+      }
     }
 
     var allowedLocales = ['en', 'pt', 'pt-br', 'es', 'it'];
+    var normalizedLang = urlLang === 'pt-br' ? 'pt' : urlLang;
     if (urlLang && allowedLocales.indexOf(urlLang) !== -1) {
       try {
-        localStorage.setItem(STORAGE_PREFIX + 'lang', urlLang === 'pt-br' ? 'pt' : urlLang);
+        localStorage.setItem(STORAGE_PREFIX + 'lang', normalizedLang);
       } catch (e) {}
     }
 

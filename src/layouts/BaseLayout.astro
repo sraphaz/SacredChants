@@ -21,7 +21,8 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
-const initialLocale: Locale = propsLocale ?? getLocaleFromUrl(Astro.url.searchParams);
+const resolvedLocale = propsLocale ?? getLocaleFromUrl(Astro.url.searchParams);
+const initialLocale: Locale = resolvedLocale === 'pt' || resolvedLocale === 'es' || resolvedLocale === 'it' ? resolvedLocale : 'en';
 ---
 
 <!doctype html>
@@ -54,11 +55,11 @@ const initialLocale: Locale = propsLocale ?? getLocaleFromUrl(Astro.url.searchPa
           <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('es')}`} class="locale-es">{tEs.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('it')}`} class="locale-it">{tIt.nav.settings}</a></li>
           <li class="sc-header__menu-lang-row">
             <label for="sc-locale-select" class="sr-only">Language</label>
-            <select id="sc-locale-select" class="sc-locale-select" aria-label="Language">
-              <option value="en" selected={initialLocale === 'en'}>EN</option>
-              <option value="pt" selected={initialLocale === 'pt'}>PT</option>
-              <option value="es" selected={initialLocale === 'es'}>ES</option>
-              <option value="it" selected={initialLocale === 'it'}>IT</option>
+            <select id="sc-locale-select" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale}>
+              <option value="en" selected={initialLocale === 'en' ? true : undefined}>EN</option>
+              <option value="pt" selected={initialLocale === 'pt' ? true : undefined}>PT</option>
+              <option value="es" selected={initialLocale === 'es' ? true : undefined}>ES</option>
+              <option value="it" selected={initialLocale === 'it' ? true : undefined}>IT</option>
             </select>
           </li>
           </ul>
@@ -86,11 +87,11 @@ const initialLocale: Locale = propsLocale ?? getLocaleFromUrl(Astro.url.searchPa
       <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('es')}`} class="locale-es">{tEs.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('it')}`} class="locale-it">{tIt.nav.settings}</a></li>
       <li class="sc-header__menu-lang-row">
         <label for="sc-locale-select-drawer" class="sr-only">Language</label>
-        <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label="Language">
-          <option value="en" selected={initialLocale === 'en'}>EN</option>
-          <option value="pt" selected={initialLocale === 'pt'}>PT</option>
-          <option value="es" selected={initialLocale === 'es'}>ES</option>
-          <option value="it" selected={initialLocale === 'it'}>IT</option>
+        <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale}>
+          <option value="en" selected={initialLocale === 'en' ? true : undefined}>EN</option>
+          <option value="pt" selected={initialLocale === 'pt' ? true : undefined}>PT</option>
+          <option value="es" selected={initialLocale === 'es' ? true : undefined}>ES</option>
+          <option value="it" selected={initialLocale === 'it' ? true : undefined}>IT</option>
         </select>
       </li>
       </ul>
@@ -134,11 +135,25 @@ const initialLocale: Locale = propsLocale ?? getLocaleFromUrl(Astro.url.searchPa
       (function() {
         function onLocaleChange() {
           var lang = this.value;
-          var path = window.location.pathname;
-          window.location.href = path + (lang === 'en' ? '' : '?lang=' + lang);
+          var params = new URLSearchParams(window.location.search);
+          if (lang === 'en') params.delete('lang'); else params.set('lang', lang);
+          var qs = params.toString();
+          var url = window.location.pathname + (qs ? '?' + qs : '') + (window.location.hash || '');
+          window.location.href = url;
         }
         var sel = document.getElementById('sc-locale-select');
         var selDrawer = document.getElementById('sc-locale-select-drawer');
+        var valid = ['en', 'pt', 'es', 'it'];
+        var locale = document.documentElement.dataset.locale;
+        if (!locale || valid.indexOf(locale) === -1) locale = 'en';
+        if (sel) {
+          if (valid.indexOf(sel.value) === -1) sel.value = 'en';
+          else if (sel.value !== locale) sel.value = locale;
+        }
+        if (selDrawer) {
+          if (valid.indexOf(selDrawer.value) === -1) selDrawer.value = 'en';
+          else if (selDrawer.value !== locale) selDrawer.value = locale;
+        }
         if (sel) sel.addEventListener('change', onLocaleChange);
         if (selDrawer) selDrawer.addEventListener('change', onLocaleChange);
       })();
