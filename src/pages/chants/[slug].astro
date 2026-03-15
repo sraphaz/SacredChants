@@ -176,12 +176,12 @@ const hasIt = sortedVerses.some((v) => v.lines?.some((l) => (l.translations as R
       )}
     </nav>
   </div>
-  {(locale === 'es' && !hasEs) || (locale === 'it' && !hasIt) ? (
+  {(!hasEs || !hasIt) && (
     <p class="chant-translation-fallback mb-4 px-2 py-2 rounded text-sm" style="background: var(--sc-bg-muted, #f0f0f0); color: var(--sc-text-muted, #666);" role="status">
-      <span class="locale-es">{tEs.chant.translationFallback}</span>
-      <span class="locale-it">{tIt.chant.translationFallback}</span>
+      {!hasEs && <span class="locale-es">{tEs.chant.translationFallback}</span>}
+      {!hasIt && <span class="locale-it">{tIt.chant.translationFallback}</span>}
     </p>
-  ) : null}
+  )}
   <section class="chant-verses" aria-label="Verses">
       <div class="chant-verses__list" id="chant-verses-list" data-sync-lines={JSON.stringify(syncLines)}>
         {linesWithMeta.map(({ verse, line, syncIndex, showVerseLabel, showExplanation }) => (
