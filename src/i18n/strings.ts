@@ -664,7 +664,7 @@ export const ui = {
       themeLight: 'Claro',
       language: 'Idioma de la interfaz y del contenido',
       languageEn: 'Inglés',
-      languagePt: 'Português',
+      languagePt: 'Portugués',
       languageEs: 'Español',
       languageIt: 'Italiano',
       fontSize: 'Tamaño de fuente',
