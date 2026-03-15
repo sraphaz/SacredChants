@@ -1,3 +1,4 @@
+/** Locales suportados pela UI e conteúdo. Ver docs/I18N-LOCALIZATION.md. */
 export type Locale = 'en' | 'pt' | 'es' | 'it';
 
 const LOCALE_PARAM_VALUES = ['en', 'pt', 'pt-br', 'es', 'it'] as const;

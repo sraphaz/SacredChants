@@ -73,4 +73,37 @@ test.describe('Locale / idioma', () => {
     await expect(translationsBlock).toBeVisible({ timeout: 5000 });
     await expect(translationsBlock).not.toBeEmpty();
   });
+
+  test('Hanuman Chalisa: select ES then PT then EN — verse text matches locale', async ({ page }) => {
+    await page.goto('/chants/hanuman-chalisa/?lang=es');
+    await expect(page).toHaveURL(/\/chants\/hanuman-chalisa\/.*lang=es/);
+    await expect(page.locator('html')).toHaveAttribute('data-locale', 'es');
+    const verse1Es = page.locator('.verse-block .translations .locale-es').first();
+    await expect(verse1Es).toBeVisible({ timeout: 5000 });
+    await expect(verse1Es).not.toBeEmpty();
+
+    const headerSelect = page.locator('#sc-locale-select');
+    const drawerSelect = page.locator('#sc-locale-select-drawer');
+    const selectLocale = async (value: string) => {
+      if (await headerSelect.isVisible()) {
+        await headerSelect.selectOption(value);
+      } else {
+        await page.locator('#sc-header-menu-toggle').click();
+        await drawerSelect.selectOption(value);
+      }
+    };
+
+    await selectLocale('pt');
+    await expect(page).toHaveURL(/\/chants\/hanuman-chalisa\/.*lang=pt/);
+    await expect(page.locator('html')).toHaveAttribute('data-locale', 'pt', { timeout: 5000 });
+    const verse1Pt = page.locator('.verse-block .translations .locale-pt').first();
+    await expect(verse1Pt).toBeVisible({ timeout: 5000 });
+    await expect(verse1Pt).toContainText(/Tendo polido|Canto a glória|glória imaculada/i);
+
+    await selectLocale('en');
+    await expect(page.locator('html')).toHaveAttribute('data-locale', 'en', { timeout: 5000 });
+    const verse1En = page.locator('.verse-block .translations .locale-en').first();
+    await expect(verse1En).toBeVisible({ timeout: 5000 });
+    await expect(verse1En).toContainText(/Having polished|I sing the spotless/i);
+  });
 });

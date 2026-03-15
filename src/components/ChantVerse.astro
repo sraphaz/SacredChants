@@ -18,6 +18,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+/** Locales de tradução (alinhado com src/i18n/strings e schema chant). */
 const VERSE_LOCALES = ['en', 'pt', 'es', 'it'] as const;
 const verseLabelByLocale: Record<(typeof VERSE_LOCALES)[number], string> = {
   en: tEn.chant.verse,
