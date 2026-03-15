@@ -49,9 +49,9 @@ const verseLabelByLocale: Record<(typeof VERSE_LOCALES)[number], string> = {
   <div class="translations">
     {VERSE_LOCALES.map((loc) => {
       const fromLocale = line.translations[loc];
-      const text = fromLocale ?? line.translations.en ?? line.translations.pt ?? '';
+      const text = fromLocale ?? line.translations.en ?? '';
       if (!text) return null;
-      const contentLang = fromLocale ? loc : (line.translations.en ? 'en' : 'pt');
+      const contentLang = fromLocale ? loc : 'en';
       return <p class={`locale-${loc}`} data-lang={loc} lang={contentLang}>{text}</p>;
     })}
   </div>
