@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { getFullBase } from '../../utils/base';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -9,10 +10,8 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const q = langQuery(locale);
-const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const localeQuery = langQuery(locale);
+const FULL_BASE = getFullBase(Astro.url);
 
 /** Single nav item for a knowledge page */
 function item(slug: string, titleEn: string, titlePt: string, titleEs: string, titleIt: string) {
@@ -66,12 +65,20 @@ const sections = [
       <span class="locale-es">{tEs.knowledge.description}</span>
       <span class="locale-it">{tIt.knowledge.description}</span>
     </p>
-    <p class="mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
-      <span class="locale-en">{tEn.knowledge.intro}</span>
-      <span class="locale-pt">{tPt.knowledge.intro}</span>
-      <span class="locale-es">{tEs.knowledge.intro}</span>
-      <span class="locale-it">{tIt.knowledge.intro}</span>
-    </p>
+    <div class="mb-10 max-w-[var(--sc-measure-reading)] space-y-4" style="color: var(--sc-text-muted)">
+      <p>
+        <span class="locale-en">{tEn.knowledge.intro}</span>
+        <span class="locale-pt">{tPt.knowledge.intro}</span>
+        <span class="locale-es">{tEs.knowledge.intro}</span>
+        <span class="locale-it">{tIt.knowledge.intro}</span>
+      </p>
+      <p>
+        <span class="locale-en">{tEn.knowledge.intro2}</span>
+        <span class="locale-pt">{tPt.knowledge.intro2}</span>
+        <span class="locale-es">{tEs.knowledge.intro2}</span>
+        <span class="locale-it">{tIt.knowledge.intro2}</span>
+      </p>
+    </div>
 
     <nav class="knowledge-gallery" aria-label="Knowledge sections">
       {sections.map((section) => (
@@ -88,7 +95,7 @@ const sections = [
           </h2>
           <ul class="knowledge-block-grid list-none p-0 m-0">
             {section.items.map((item) => {
-              const href = `${FULL_BASE}knowledge/${item.slug}/${q}`;
+              const href = `${FULL_BASE}knowledge/${item.slug}/${localeQuery}`;
               return (
                 <li>
                   <a

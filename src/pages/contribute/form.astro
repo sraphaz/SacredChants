@@ -9,9 +9,9 @@ const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
 const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
-const q = langQuery(locale);
-const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'form/' + (q ? q : '') : '';
-const returnToForm = '/contribute/form/' + (q ? q : '');
+const localeQuery = langQuery(locale);
+const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'form/' + (localeQuery || '') : '';
+const returnToForm = '/contribute/form/' + (localeQuery || '');
 const f = t.contribute.form;
 ---
 

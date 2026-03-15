@@ -50,6 +50,10 @@ const {
   bandcampTooltipEs = 'Escuchar en Bandcamp',
   bandcampTooltipIt = 'Ascolta su Bandcamp',
 } = Astro.props;
+
+const PLAYER_LOCALES = ['en', 'pt', 'es', 'it'] as const;
+const syncLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: syncLabelEn, pt: syncLabelPt, es: syncLabelEs, it: syncLabelIt };
+const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: syncOnEn, pt: syncOnPt, es: syncOnEs, it: syncOnIt };
 ---
 
 <div class="chant-player-bar chant-player-bar--fixed w-full flex flex-wrap items-center gap-3 chant-player-bar__sized">
@@ -61,10 +65,9 @@ const {
   <!-- Lyrics sync toggle -->
   {hasSync && (
     <div class="flex items-center gap-2 shrink-0">
-      <span class="locale-en text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelEn}</span>
-      <span class="locale-pt text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelPt}</span>
-      <span class="locale-es text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelEs}</span>
-      <span class="locale-it text-sm whitespace-nowrap" style="color: var(--sc-text-muted);">{syncLabelIt}</span>
+      {PLAYER_LOCALES.map((loc) => (
+        <span class={`locale-${loc} text-sm whitespace-nowrap`} style="color: var(--sc-text-muted);">{syncLabels[loc]}</span>
+      ))}
       <button
         type="button"
         id="chant-sync-toggle"
@@ -88,10 +91,9 @@ const {
       >
         <span class="chant-sync-switch-thumb absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform" style="background-color: var(--sc-accent);"></span>
       </button>
-      <span id="chant-sync-toggle-state" class="locale-en text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnEn}</span>
-      <span id="chant-sync-toggle-state-pt" class="locale-pt text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnPt}</span>
-      <span id="chant-sync-toggle-state-es" class="locale-es text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnEs}</span>
-      <span id="chant-sync-toggle-state-it" class="locale-it text-sm font-medium" style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnIt}</span>
+      {PLAYER_LOCALES.map((loc) => (
+        <span id={loc === 'en' ? 'chant-sync-toggle-state' : `chant-sync-toggle-state-${loc}`} class={`locale-${loc} text-sm font-medium`} style="color: var(--sc-text-muted);" aria-hidden="true">{syncOnLabels[loc]}</span>
+      ))}
     </div>
   )}
 

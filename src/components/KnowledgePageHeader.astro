@@ -1,0 +1,30 @@
+---
+/**
+ * Shared header for knowledge pages: back link + page title, one block per locale (DRY).
+ * Clean Code: single place for this pattern; new locale added in one place.
+ */
+const KNOWLEDGE_HEADER_LOCALES = ['en', 'pt', 'es', 'it'] as const;
+
+interface Props {
+  backHref: string;
+  /** Page title per locale (e.g. tEn.knowledge.nadaYoga, tPt.knowledge.nadaYoga, ...). */
+  titleByLocale: Record<(typeof KNOWLEDGE_HEADER_LOCALES)[number], string>;
+  /** Back link label per locale (e.g. tEn.knowledge.backToKnowledge, ...). */
+  backLabelByLocale: Record<(typeof KNOWLEDGE_HEADER_LOCALES)[number], string>;
+}
+
+const { backHref, titleByLocale, backLabelByLocale } = Astro.props;
+---
+
+<p class="mb-4">
+  <a href={backHref} class="text-sm" style="color: var(--sc-text-subtle)">
+    {KNOWLEDGE_HEADER_LOCALES.map((loc) => (
+      <span class={`locale-${loc}`}>← {backLabelByLocale[loc]}</span>
+    ))}
+  </a>
+</p>
+<h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+  {KNOWLEDGE_HEADER_LOCALES.map((loc) => (
+    <span class={`locale-${loc}`}>{titleByLocale[loc]}</span>
+  ))}
+</h1>

@@ -4,11 +4,10 @@ import PageShell from '../../components/PageShell.astro';
 import { getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+import { getFullBase } from '../../utils/base';
+const FULL_BASE = getFullBase(Astro.url);
 const locale = getLocaleFromUrl(Astro.url.searchParams);
-const q = langQuery(locale);
+const localeQuery = langQuery(locale);
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -42,7 +41,7 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
         {traditions.map((tradition) => (
           <li>
             <a
-              href={`${FULL_BASE}chants/?tradition=${encodeURIComponent(tradition)}${q ? '&' + q.slice(1) : ''}`}
+              href={`${FULL_BASE}chants/?tradition=${encodeURIComponent(tradition)}${localeQuery ? '&' + localeQuery.slice(1) : ''}`}
               class="block py-2 font-medium transition-colors"
               style="color: var(--sc-text-muted)"
             >
