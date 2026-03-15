@@ -43,10 +43,13 @@ test.describe('Locale / idioma', () => {
     await page.goto('/?lang=pt');
     await expect(page).toHaveURL(/\?lang=pt/);
     await expect(page.locator('html')).toHaveAttribute('data-locale', 'pt');
-    const select = page.locator('#sc-locale-select');
+    // Use drawer select so test works on mobile (header select is hidden in drawer)
+    const menuToggle = page.locator('#sc-header-menu-toggle');
+    await menuToggle.click();
+    const select = page.locator('#sc-locale-select-drawer');
     await select.selectOption('en');
     await expect(page.locator('html')).toHaveAttribute('data-locale', 'en', { timeout: 8000 });
-    await expect(select).toHaveValue('en');
+    await expect(page.locator('#sc-locale-select')).toHaveValue('en');
     expect(page.url()).not.toMatch(/\?lang=pt/);
   });
 
