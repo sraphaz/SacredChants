@@ -9,9 +9,17 @@ interface Props {
 }
 
 const { chant, locale } = Astro.props;
+const desc = chant.description;
+const descriptionForMeta =
+  (locale && desc && typeof desc === 'object' && (desc as Record<string, string>)[locale]) ||
+  desc?.en ||
+  desc?.pt ||
+  desc?.es ||
+  desc?.it ||
+  '';
 ---
 
-<BaseLayout title={chant.title} description={chant.description?.en ?? chant.description?.pt ?? ''} locale={locale}>
+<BaseLayout title={chant.title} description={descriptionForMeta} locale={locale}>
   <article class="chant-page py-page px-page-x" role="article" aria-label={chant.title}>
     <div class="chant-page__inner chant-page__inner--measure mx-auto">
       <slot />
