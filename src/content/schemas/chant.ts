@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+/**
+ * Chant content schema — localização em en, pt, es, it.
+ * Ver docs/I18N-LOCALIZATION.md para detalhes da implementação.
+ */
+
 /** Single synchronized line: start time + original, transliteration, translations. */
 export const chantLineSchema = z.object({
   /** Start time in seconds for audio sync (karaoke-style highlighting, scroll). */
