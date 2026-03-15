@@ -23,8 +23,9 @@
     var savedLang = localStorage.getItem(STORAGE_PREFIX + 'lang');
     var urlSearchParams = new URLSearchParams(window.location.search);
     var urlLang = urlSearchParams.get('lang');
+    var normalizedUrlLang = urlLang ? urlLang.toLowerCase() : null;
 
-    if (savedLang && !urlLang) {
+    if (savedLang && !normalizedUrlLang) {
       urlSearchParams.set('lang', savedLang);
       var queryString = urlSearchParams.toString();
       var newUrl = window.location.pathname + (queryString ? '?' + queryString : '') + (window.location.hash || '');
@@ -35,19 +36,19 @@
     }
 
     var allowedLocales = ['en', 'pt', 'pt-br', 'es', 'it'];
-    var normalizedLang = urlLang === 'pt-br' ? 'pt' : urlLang;
-    if (urlLang && allowedLocales.indexOf(urlLang) !== -1) {
+    var normalizedLang = normalizedUrlLang === 'pt-br' ? 'pt' : normalizedUrlLang;
+    if (normalizedUrlLang && allowedLocales.indexOf(normalizedUrlLang) !== -1) {
       try {
         localStorage.setItem(STORAGE_PREFIX + 'lang', normalizedLang);
       } catch (e) {}
     }
 
     var locale =
-      urlLang === 'pt-br' || urlLang === 'pt'
+      normalizedUrlLang === 'pt-br' || normalizedUrlLang === 'pt'
         ? 'pt'
-        : urlLang === 'es'
+        : normalizedUrlLang === 'es'
           ? 'es'
-          : urlLang === 'it'
+          : normalizedUrlLang === 'it'
             ? 'it'
             : savedLang === 'pt'
               ? 'pt'
@@ -59,6 +60,13 @@
 
     root.dataset.locale = locale;
     root.lang = locale;
+
+    /* URL wins: if page has ?lang=, ensure data-locale matches so the correct .locale-* block is shown (es vs it). */
+    if (normalizedUrlLang && allowedLocales.indexOf(normalizedUrlLang) !== -1) {
+      var urlLocale = normalizedUrlLang === 'pt-br' ? 'pt' : normalizedUrlLang;
+      root.dataset.locale = urlLocale;
+      root.lang = urlLocale;
+    }
   }
 
   applyThemeFromStorage();
