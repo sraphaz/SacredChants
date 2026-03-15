@@ -228,6 +228,14 @@
   content: 'EN — ';
 }
 
+.prose-chant .translations [data-lang="es"]::before {
+  content: 'ES — ';
+}
+
+.prose-chant .translations [data-lang="it"]::before {
+  content: 'IT — ';
+}
+
 .prose-chant .verse-block__explanation {
   margin-top: var(--sc-space-verse-inner);
   padding: 0.75rem 1rem;
