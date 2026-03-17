@@ -46,6 +46,21 @@ const sections = [
     items: [item('references', tEn.knowledge.references, tPt.knowledge.references, tEs.knowledge.references, tIt.knowledge.references)],
   },
 ];
+
+/** Intro text split into paragraphs (\n\n) for proper rendering */
+const introParagraphs = (() => {
+  const en = tEn.knowledge.intro.split('\n\n');
+  const pt = tPt.knowledge.intro.split('\n\n');
+  const es = tEs.knowledge.intro.split('\n\n');
+  const it = tIt.knowledge.intro.split('\n\n');
+  const n = Math.max(en.length, pt.length, es.length, it.length);
+  return Array.from({ length: n }, (_, i) => ({
+    en: en[i] ?? '',
+    pt: pt[i] ?? '',
+    es: es[i] ?? '',
+    it: it[i] ?? '',
+  }));
+})();
 ---
 
 <BaseLayout
@@ -66,12 +81,16 @@ const sections = [
       <span class="locale-es">{tEs.knowledge.description}</span>
       <span class="locale-it">{tIt.knowledge.description}</span>
     </p>
-    <p class="mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
-      <span class="locale-en">{tEn.knowledge.intro}</span>
-      <span class="locale-pt">{tPt.knowledge.intro}</span>
-      <span class="locale-es">{tEs.knowledge.intro}</span>
-      <span class="locale-it">{tIt.knowledge.intro}</span>
-    </p>
+    <div class="mb-10 max-w-[var(--sc-measure-reading)] space-y-4" style="color: var(--sc-text-muted)">
+      {introParagraphs.map((para) => (
+        <p>
+          <span class="locale-en">{para.en}</span>
+          <span class="locale-pt">{para.pt}</span>
+          <span class="locale-es">{para.es}</span>
+          <span class="locale-it">{para.it}</span>
+        </p>
+      ))}
+    </div>
 
     <nav class="knowledge-gallery" aria-label="Knowledge sections">
       {sections.map((section) => (
