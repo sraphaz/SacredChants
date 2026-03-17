@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { getFullBase } from '../../utils/base';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -9,10 +10,8 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const q = langQuery(locale);
-const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const localeQuery = langQuery(locale);
+const FULL_BASE = getFullBase(Astro.url);
 
 /** Single nav item for a knowledge page */
 function item(slug: string, titleEn: string, titlePt: string, titleEs: string, titleIt: string) {
@@ -107,7 +106,7 @@ const introParagraphs = (() => {
           </h2>
           <ul class="knowledge-block-grid list-none p-0 m-0">
             {section.items.map((item) => {
-              const href = `${FULL_BASE}knowledge/${item.slug}/${q}`;
+              const href = `${FULL_BASE}knowledge/${item.slug}/${localeQuery}`;
               return (
                 <li>
                   <a

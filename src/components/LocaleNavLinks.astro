@@ -1,0 +1,22 @@
+---
+/**
+ * Renders one link per supported locale (for nav items). Single source for
+ * href and class pattern; used by NavLinkList. Template Method–style: same
+ * structure, labels and path vary by caller.
+ */
+import { SUPPORTED_LOCALES, langQuery, type Locale } from '../i18n/strings';
+
+interface Props {
+  fullBase: string;
+  path: string;
+  labelByLocale: Record<Locale, string>;
+}
+
+const { fullBase, path, labelByLocale } = Astro.props;
+---
+
+{SUPPORTED_LOCALES.map((locale) => (
+  <a href={`${fullBase}${path}${langQuery(locale)}`} class={`locale-${locale}`}>
+    {labelByLocale[locale]}
+  </a>
+))}

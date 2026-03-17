@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import KnowledgePageHeader from '../../components/KnowledgePageHeader.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { getFullBase } from '../../utils/base';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -9,10 +11,8 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const q = langQuery(locale);
-const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const localeQuery = langQuery(locale);
+const FULL_BASE = getFullBase(Astro.url);
 ---
 
 <BaseLayout
@@ -21,20 +21,11 @@ const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : 
   locale={locale}
 >
   <PageShell>
-    <p class="mb-4">
-      <a href={`${FULL_BASE}knowledge/${q}`} class="text-sm" style="color: var(--sc-text-subtle)">
-        <span class="locale-en">← {tEn.knowledge.backToKnowledge}</span>
-        <span class="locale-pt">← {tPt.knowledge.backToKnowledge}</span>
-        <span class="locale-es">← {tEs.knowledge.backToKnowledge}</span>
-        <span class="locale-it">← {tIt.knowledge.backToKnowledge}</span>
-      </a>
-    </p>
-    <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
-      <span class="locale-en">{tEn.knowledge.nadaYoga}</span>
-      <span class="locale-pt">{tPt.knowledge.nadaYoga}</span>
-      <span class="locale-es">{tEs.knowledge.nadaYoga}</span>
-      <span class="locale-it">{tIt.knowledge.nadaYoga}</span>
-    </h1>
+    <KnowledgePageHeader
+      backHref={`${FULL_BASE}knowledge/${localeQuery}`}
+      titleByLocale={{ en: tEn.knowledge.nadaYoga, pt: tPt.knowledge.nadaYoga, es: tEs.knowledge.nadaYoga, it: tIt.knowledge.nadaYoga }}
+      backLabelByLocale={{ en: tEn.knowledge.backToKnowledge, pt: tPt.knowledge.backToKnowledge, es: tEs.knowledge.backToKnowledge, it: tIt.knowledge.backToKnowledge }}
+    />
 
     <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
       <section>

@@ -2,10 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageShell from '../components/PageShell.astro';
 import { ui } from '../i18n/strings';
+import { getFullBase } from '../utils/base';
 
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const FULL_BASE = getFullBase(Astro.url);
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -14,35 +13,114 @@ const tIt = ui.it;
 
 <BaseLayout
   title="Sacred Chants"
-  description="Human heritage in sound. A living library of sacred chant — preserving access to the inner states of consciousness that sacred sound opens."
+  description="A living library of humanity's spiritual sound heritage. Sacred chants, mantras, hymns and prayers from different traditions — preserved and shared for listening, reflection and reconnection."
 >
   <PageShell variant="hero">
-    <section class="text-center max-w-[var(--sc-measure-narrow)] mx-auto">
-      <h1 class="font-serif text-sc-4xl md:text-sc-5xl sc-heading mb-page-heading">
+    <!-- 1. Hero -->
+    <section class="home-hero" aria-labelledby="home-title">
+      <h1 id="home-title" class="home-hero__title sc-heading">
         Sacred Chants
       </h1>
-      <p class="text-xl mb-6" style="color: var(--sc-text-muted)">
+      <p class="home-hero__tagline">
         <span class="locale-en">{tEn.home.tagline}</span>
         <span class="locale-pt">{tPt.home.tagline}</span>
         <span class="locale-es">{tEs.home.tagline}</span>
         <span class="locale-it">{tIt.home.tagline}</span>
       </p>
-      <p class="mb-page-content max-w-lg mx-auto" style="color: var(--sc-text-muted)">
-        <span class="locale-en">{tEn.home.subtitle}</span>
-        <span class="locale-pt">{tPt.home.subtitle}</span>
-        <span class="locale-es">{tEs.home.subtitle}</span>
-        <span class="locale-it">{tIt.home.subtitle}</span>
+      <p class="home-hero__intro">
+        <span class="locale-en">{tEn.home.intro}</span>
+        <span class="locale-pt">{tPt.home.intro}</span>
+        <span class="locale-es">{tEs.home.intro}</span>
+        <span class="locale-it">{tIt.home.intro}</span>
       </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href={`${FULL_BASE}chants/`} class="locale-en sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEn.home.browseChants}</a>
-        <a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tPt.home.browseChants}</a>
-        <a href={`${FULL_BASE}chants/?lang=es`} class="locale-es sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEs.home.browseChants}</a>
-        <a href={`${FULL_BASE}chants/?lang=it`} class="locale-it sc-btn-primary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tIt.home.browseChants}</a>
-        <a href={`${FULL_BASE}traditions/`} class="locale-en sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEn.home.exploreTraditions}</a>
-        <a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tPt.home.exploreTraditions}</a>
-        <a href={`${FULL_BASE}traditions/?lang=es`} class="locale-es sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tEs.home.exploreTraditions}</a>
-        <a href={`${FULL_BASE}traditions/?lang=it`} class="locale-it sc-btn-secondary inline-flex items-center justify-center px-5 py-2.5 rounded-lg transition">{tIt.home.exploreTraditions}</a>
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href={`${FULL_BASE}chants/`} class="locale-en sc-btn-primary home-hero__cta">{tEn.home.ctaChants}</a>
+          <a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt sc-btn-primary home-hero__cta">{tPt.home.ctaChants}</a>
+          <a href={`${FULL_BASE}chants/?lang=es`} class="locale-es sc-btn-primary home-hero__cta">{tEs.home.ctaChants}</a>
+          <a href={`${FULL_BASE}chants/?lang=it`} class="locale-it sc-btn-primary home-hero__cta">{tIt.home.ctaChants}</a>
+        </div>
+        <a href={`${FULL_BASE}traditions/`} class="locale-en text-sm hover:underline" style="color: var(--sc-text-muted);">{tEn.home.exploreTraditions}</a>
+        <a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt text-sm hover:underline" style="color: var(--sc-text-muted);">{tPt.home.exploreTraditions}</a>
+        <a href={`${FULL_BASE}traditions/?lang=es`} class="locale-es text-sm hover:underline" style="color: var(--sc-text-muted);">{tEs.home.exploreTraditions}</a>
+        <a href={`${FULL_BASE}traditions/?lang=it`} class="locale-it text-sm hover:underline" style="color: var(--sc-text-muted);">{tIt.home.exploreTraditions}</a>
       </div>
+    </section>
+
+    <!-- 2. Manifesto / vision -->
+    <section class="home-section home-prose" aria-labelledby="manifesto-heading">
+      <h2 id="manifesto-heading" class="home-section__heading sc-heading">
+        <span class="locale-en">{tEn.home.manifestoHeading}</span>
+        <span class="locale-pt">{tPt.home.manifestoHeading}</span>
+        <span class="locale-es">{tEs.home.manifestoHeading}</span>
+        <span class="locale-it">{tIt.home.manifestoHeading}</span>
+      </h2>
+      <p>
+        <span class="locale-en">{tEn.home.manifestoP1}</span>
+        <span class="locale-pt">{tPt.home.manifestoP1}</span>
+        <span class="locale-es">{tEs.home.manifestoP1}</span>
+        <span class="locale-it">{tIt.home.manifestoP1}</span>
+      </p>
+      <p>
+        <span class="locale-en">{tEn.home.manifestoP2}</span>
+        <span class="locale-pt">{tPt.home.manifestoP2}</span>
+        <span class="locale-es">{tEs.home.manifestoP2}</span>
+        <span class="locale-it">{tIt.home.manifestoP2}</span>
+      </p>
+      <p>
+        <span class="locale-en">{tEn.home.manifestoP3}</span>
+        <span class="locale-pt">{tPt.home.manifestoP3}</span>
+        <span class="locale-es">{tEs.home.manifestoP3}</span>
+        <span class="locale-it">{tIt.home.manifestoP3}</span>
+      </p>
+    </section>
+
+    <!-- 3. Living library -->
+    <section class="home-section home-prose" aria-labelledby="library-heading">
+      <h2 id="library-heading" class="home-section__heading sc-heading">
+        <span class="locale-en">{tEn.home.libraryHeading}</span>
+        <span class="locale-pt">{tPt.home.libraryHeading}</span>
+        <span class="locale-es">{tEs.home.libraryHeading}</span>
+        <span class="locale-it">{tIt.home.libraryHeading}</span>
+      </h2>
+      <p>
+        <span class="locale-en">{tEn.home.libraryBody}</span>
+        <span class="locale-pt">{tPt.home.libraryBody}</span>
+        <span class="locale-es">{tEs.home.libraryBody}</span>
+        <span class="locale-it">{tIt.home.libraryBody}</span>
+      </p>
+    </section>
+
+    <!-- 4. Shared heritage -->
+    <section class="home-section home-prose" aria-labelledby="heritage-heading">
+      <h2 id="heritage-heading" class="home-section__heading sc-heading">
+        <span class="locale-en">{tEn.home.heritageHeading}</span>
+        <span class="locale-pt">{tPt.home.heritageHeading}</span>
+        <span class="locale-es">{tEs.home.heritageHeading}</span>
+        <span class="locale-it">{tIt.home.heritageHeading}</span>
+      </h2>
+      <p>
+        <span class="locale-en">{tEn.home.heritageBody}</span>
+        <span class="locale-pt">{tPt.home.heritageBody}</span>
+        <span class="locale-es">{tEs.home.heritageBody}</span>
+        <span class="locale-it">{tIt.home.heritageBody}</span>
+      </p>
+    </section>
+
+    <!-- 5. Closing invitation -->
+    <section class="home-closing" aria-labelledby="closing-heading">
+      <h2 id="closing-heading" class="home-closing__heading sc-heading">
+        <span class="locale-en">{tEn.home.closingHeading}</span>
+        <span class="locale-pt">{tPt.home.closingHeading}</span>
+        <span class="locale-es">{tEs.home.closingHeading}</span>
+        <span class="locale-it">{tIt.home.closingHeading}</span>
+      </h2>
+      <p class="home-closing__body">
+        <span class="locale-en">{tEn.home.closingBody}</span>
+        <span class="locale-pt">{tPt.home.closingBody}</span>
+        <span class="locale-es">{tEs.home.closingBody}</span>
+        <span class="locale-it">{tIt.home.closingBody}</span>
+      </p>
     </section>
   </PageShell>
 </BaseLayout>

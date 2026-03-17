@@ -6,6 +6,13 @@ import ChantPlayerBar from '../../components/ChantPlayerBar.astro';
 import { getEntry, getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl } from '../../i18n/strings';
 import { getBandcampArtUrl } from '../../utils/bandcamp';
+import { getFullBase } from '../../utils/base';
+import {
+  getAudioUrl,
+  getSyncLines,
+  getLinesWithMeta,
+  hasTranslation,
+} from '../../utils/chant-page';
 
 export async function getStaticPaths() {
   const chants = await getCollection('chants');
@@ -29,44 +36,18 @@ if (!entry) {
 
 const chant = { ...entry.data, slug: entry.id };
 
-/** Resolve audio URL with base path so it works on GitHub Pages (content uses paths like /audio/chant.mp3). */
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const FULL_BASE = Astro.url.origin + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
-const audioUrlForPlayer = chant.audio?.startsWith('http')
-  ? chant.audio
-  : chant.audio
-    ? FULL_BASE + chant.audio.replace(/^\//, '')
-    : '';
+const FULL_BASE = getFullBase(Astro.url);
+const audioUrlForPlayer = getAudioUrl(chant, FULL_BASE);
 
-/** Resolve Bandcamp art from page when not set in content (so editors don't need to manage the image). */
 const bandcampArtImage =
   chant.bandcampArtImage ??
   (chant.bandcampUrl ? await getBandcampArtUrl(chant.bandcampUrl) : undefined);
 
-const sortedVerses = [...chant.verses].sort((a, b) => a.order - b.order);
-/** Flat list of line start times (one per rendered line) for audio sync. */
-const syncLines = sortedVerses.flatMap((v) => v.lines.map((l) => ({ start: l.start })));
+const syncLines = getSyncLines(chant);
 const hasSync = Boolean(chant.audio && syncLines.length > 0);
-
-/** Flat list of { verse, line, syncIndex, showVerseLabel, showExplanation } for rendering. */
-const linesWithMeta = (() => {
-  let syncIndex = 0;
-  return sortedVerses.flatMap((verse) => {
-    const lineList = verse.lines;
-    return lineList.map((line, i) => {
-      const showVerseLabel = i === 0;
-      const showExplanation = i === lineList.length - 1;
-      const out = { verse, line, syncIndex, showVerseLabel, showExplanation };
-      syncIndex += 1;
-      return out;
-    });
-  });
-})();
-
-/** Whether this chant has any verse line with ES or IT translation (used to show fallback notice). */
-const hasEs = sortedVerses.some((v) => v.lines?.some((l) => (l.translations as Record<string, string>)?.es));
-const hasIt = sortedVerses.some((v) => v.lines?.some((l) => (l.translations as Record<string, string>)?.it));
+const linesWithMeta = getLinesWithMeta(chant);
+const hasEs = hasTranslation(chant, 'es');
+const hasIt = hasTranslation(chant, 'it');
 
 ---
 

@@ -1,14 +1,15 @@
 ---
 import '../styles/global.css';
-import { ui, getLocaleFromUrl, langQuery, type Locale } from '../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery, SUPPORTED_LOCALES, type Locale } from '../i18n/strings';
+import { getFullBase, getBasePath } from '../utils/base';
+import NavLinkList from '../components/NavLinkList.astro';
+import FooterTaglines from '../components/FooterTaglines.astro';
 
-const BASE = import.meta.env.BASE_URL || '/';
-const BASE_SLASH = BASE.endsWith('/') ? BASE : BASE + '/';
-const ORIGIN = Astro.url.origin;
-const FULL_BASE = ORIGIN + (BASE_SLASH.startsWith('/') ? BASE_SLASH : '/' + BASE_SLASH);
+const FULL_BASE = getFullBase(Astro.url);
+const basePath = getBasePath();
 const pathname = Astro.url.pathname;
-const pathWithBase = pathname.startsWith(BASE_SLASH) || pathname === BASE_SLASH.replace(/\/$/, '') ? pathname : BASE_SLASH.replace(/\/$/, '') + (pathname.startsWith('/') ? pathname : '/' + pathname);
-const FULL_PATH = ORIGIN + (pathWithBase.startsWith('/') ? pathWithBase : '/' + pathWithBase);
+const pathWithBase = pathname.startsWith(basePath) || pathname === basePath.replace(/\/$/, '') ? pathname : basePath.replace(/\/$/, '') + (pathname.startsWith('/') ? pathname : '/' + pathname);
+const FULL_PATH = Astro.url.origin + (pathWithBase.startsWith('/') ? pathWithBase : '/' + pathWithBase);
 
 interface Props {
   title: string;
@@ -23,6 +24,15 @@ const tEs = ui.es;
 const tIt = ui.it;
 const resolvedLocale = propsLocale ?? getLocaleFromUrl(Astro.url.searchParams);
 const initialLocale: Locale = resolvedLocale === 'pt' || resolvedLocale === 'es' || resolvedLocale === 'it' ? resolvedLocale : 'en';
+
+const navItems = [
+  { path: '', labelByLocale: { en: tEn.nav.home, pt: tPt.nav.home, es: tEs.nav.home, it: tIt.nav.home } },
+  { path: 'chants/', labelByLocale: { en: tEn.nav.chants, pt: tPt.nav.chants, es: tEs.nav.chants, it: tIt.nav.chants } },
+  { path: 'traditions/', labelByLocale: { en: tEn.nav.traditions, pt: tPt.nav.traditions, es: tEs.nav.traditions, it: tIt.nav.traditions } },
+  { path: 'knowledge/', labelByLocale: { en: tEn.nav.knowledge, pt: tPt.nav.knowledge, es: tEs.nav.knowledge, it: tIt.nav.knowledge } },
+  { path: 'contribute/', labelByLocale: { en: tEn.nav.contribute, pt: tPt.nav.contribute, es: tEs.nav.contribute, it: tIt.nav.contribute } },
+  { path: 'settings/', labelByLocale: { en: tEn.nav.settings, pt: tPt.nav.settings, es: tEs.nav.settings, it: tIt.nav.settings } },
+];
 ---
 
 <!doctype html>
@@ -47,21 +57,16 @@ const initialLocale: Locale = resolvedLocale === 'pt' || resolvedLocale === 'es'
         </div>
         <div class="sc-header__menu-inline">
           <ul class="sc-header__menu">
-          <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a><a href={`${FULL_BASE}?lang=es`} class="locale-es">{tEs.nav.home}</a><a href={`${FULL_BASE}?lang=it`} class="locale-it">{tIt.nav.home}</a></li>
-          <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a><a href={`${FULL_BASE}chants/${langQuery('es')}`} class="locale-es">{tEs.nav.chants}</a><a href={`${FULL_BASE}chants/${langQuery('it')}`} class="locale-it">{tIt.nav.chants}</a></li>
-          <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a><a href={`${FULL_BASE}traditions/${langQuery('es')}`} class="locale-es">{tEs.nav.traditions}</a><a href={`${FULL_BASE}traditions/${langQuery('it')}`} class="locale-it">{tIt.nav.traditions}</a></li>
-          <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${langQuery('es')}`} class="locale-es">{tEs.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${langQuery('it')}`} class="locale-it">{tIt.nav.knowledge}</a></li>
-          <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a><a href={`${FULL_BASE}contribute/${langQuery('es')}`} class="locale-es">{tEs.nav.contribute}</a><a href={`${FULL_BASE}contribute/${langQuery('it')}`} class="locale-it">{tIt.nav.contribute}</a></li>
-          <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('es')}`} class="locale-es">{tEs.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('it')}`} class="locale-it">{tIt.nav.settings}</a></li>
-          <li class="sc-header__menu-lang-row">
-            <label for="sc-locale-select" class="sr-only">Language</label>
-            <select id="sc-locale-select" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale}>
-              <option value="en" selected={initialLocale === 'en' ? true : undefined}>EN</option>
-              <option value="pt" selected={initialLocale === 'pt' ? true : undefined}>PT</option>
-              <option value="es" selected={initialLocale === 'es' ? true : undefined}>ES</option>
-              <option value="it" selected={initialLocale === 'it' ? true : undefined}>IT</option>
-            </select>
-          </li>
+            <NavLinkList fullBase={FULL_BASE} items={navItems} />
+            <li class="sc-header__menu-lang-row">
+              <label for="sc-locale-select" class="sr-only">Language</label>
+              <select id="sc-locale-select" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
+                <option value="en" selected={initialLocale === 'en' ? true : undefined}>EN</option>
+                <option value="pt" selected={initialLocale === 'pt' ? true : undefined}>PT</option>
+                <option value="es" selected={initialLocale === 'es' ? true : undefined}>ES</option>
+                <option value="it" selected={initialLocale === 'it' ? true : undefined}>IT</option>
+              </select>
+            </li>
           </ul>
         </div>
         <button
@@ -79,99 +84,26 @@ const initialLocale: Locale = resolvedLocale === 'pt' || resolvedLocale === 'es'
     <div class="sc-header__drawer-backdrop" id="sc-header-drawer-backdrop" aria-hidden="true"></div>
     <div class="sc-header__drawer" id="sc-header-drawer" role="navigation" aria-label="Site menu">
       <ul class="sc-header__drawer-menu">
-      <li><a href={FULL_BASE} class="locale-en">{tEn.nav.home}</a><a href={`${FULL_BASE}?lang=pt`} class="locale-pt">{tPt.nav.home}</a><a href={`${FULL_BASE}?lang=es`} class="locale-es">{tEs.nav.home}</a><a href={`${FULL_BASE}?lang=it`} class="locale-it">{tIt.nav.home}</a></li>
-      <li><a href={`${FULL_BASE}chants/`} class="locale-en">{tEn.nav.chants}</a><a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt">{tPt.nav.chants}</a><a href={`${FULL_BASE}chants/${langQuery('es')}`} class="locale-es">{tEs.nav.chants}</a><a href={`${FULL_BASE}chants/${langQuery('it')}`} class="locale-it">{tIt.nav.chants}</a></li>
-      <li><a href={`${FULL_BASE}traditions/`} class="locale-en">{tEn.nav.traditions}</a><a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt">{tPt.nav.traditions}</a><a href={`${FULL_BASE}traditions/${langQuery('es')}`} class="locale-es">{tEs.nav.traditions}</a><a href={`${FULL_BASE}traditions/${langQuery('it')}`} class="locale-it">{tIt.nav.traditions}</a></li>
-      <li><a href={`${FULL_BASE}knowledge/`} class="locale-en">{tEn.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/?lang=pt`} class="locale-pt">{tPt.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${langQuery('es')}`} class="locale-es">{tEs.nav.knowledge}</a><a href={`${FULL_BASE}knowledge/${langQuery('it')}`} class="locale-it">{tIt.nav.knowledge}</a></li>
-      <li><a href={`${FULL_BASE}contribute/`} class="locale-en">{tEn.nav.contribute}</a><a href={`${FULL_BASE}contribute/?lang=pt`} class="locale-pt">{tPt.nav.contribute}</a><a href={`${FULL_BASE}contribute/${langQuery('es')}`} class="locale-es">{tEs.nav.contribute}</a><a href={`${FULL_BASE}contribute/${langQuery('it')}`} class="locale-it">{tIt.nav.contribute}</a></li>
-      <li><a href={`${FULL_BASE}settings/`} class="locale-en">{tEn.nav.settings}</a><a href={`${FULL_BASE}settings/?lang=pt`} class="locale-pt">{tPt.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('es')}`} class="locale-es">{tEs.nav.settings}</a><a href={`${FULL_BASE}settings/${langQuery('it')}`} class="locale-it">{tIt.nav.settings}</a></li>
-      <li class="sc-header__menu-lang-row">
-        <label for="sc-locale-select-drawer" class="sr-only">Language</label>
-        <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale}>
-          <option value="en" selected={initialLocale === 'en' ? true : undefined}>EN</option>
-          <option value="pt" selected={initialLocale === 'pt' ? true : undefined}>PT</option>
-          <option value="es" selected={initialLocale === 'es' ? true : undefined}>ES</option>
-          <option value="it" selected={initialLocale === 'it' ? true : undefined}>IT</option>
-        </select>
-      </li>
+        <NavLinkList fullBase={FULL_BASE} items={navItems} />
+        <li class="sc-header__menu-lang-row">
+          <label for="sc-locale-select-drawer" class="sr-only">Language</label>
+          <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
+            <option value="en" selected={initialLocale === 'en' ? true : undefined}>EN</option>
+            <option value="pt" selected={initialLocale === 'pt' ? true : undefined}>PT</option>
+            <option value="es" selected={initialLocale === 'es' ? true : undefined}>ES</option>
+            <option value="it" selected={initialLocale === 'it' ? true : undefined}>IT</option>
+          </select>
+        </li>
       </ul>
     </div>
-    <script is:inline>
-      (function() {
-        var header = document.getElementById('sc-header');
-        var toggle = document.getElementById('sc-header-menu-toggle');
-        var drawer = document.getElementById('sc-header-drawer');
-        var backdrop = document.getElementById('sc-header-drawer-backdrop');
-        if (!header || !toggle || !drawer) return;
-        function open() {
-          document.body.classList.add('sc-drawer-open');
-          header.classList.add('sc-header--open');
-          drawer.classList.add('sc-header__drawer--open');
-          if (backdrop) backdrop.classList.add('sc-header__drawer-backdrop--open');
-          toggle.setAttribute('aria-expanded', 'true');
-          toggle.setAttribute('aria-label', 'Close menu');
-        }
-        function close() {
-          document.body.classList.remove('sc-drawer-open');
-          header.classList.remove('sc-header--open');
-          drawer.classList.remove('sc-header__drawer--open');
-          if (backdrop) backdrop.classList.remove('sc-header__drawer-backdrop--open');
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.setAttribute('aria-label', 'Open menu');
-        }
-        toggle.addEventListener('click', function() {
-          if (drawer.classList.contains('sc-header__drawer--open')) close(); else open();
-        });
-        if (backdrop) backdrop.addEventListener('click', close);
-        drawer.querySelectorAll('a').forEach(function(a) {
-          a.addEventListener('click', close);
-        });
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && drawer.classList.contains('sc-header__drawer--open')) close();
-        });
-      })();
-    </script>
-    <script is:inline>
-      (function() {
-        var STORAGE_LANG_KEY = 'sacred-chants-lang';
-        function onLocaleChange() {
-          var lang = this.value;
-          try {
-            if (lang === 'en') localStorage.removeItem(STORAGE_LANG_KEY);
-            else localStorage.setItem(STORAGE_LANG_KEY, lang);
-          } catch (e) {}
-          var params = new URLSearchParams(window.location.search);
-          if (lang === 'en') params.delete('lang'); else params.set('lang', lang);
-          var qs = params.toString();
-          var url = window.location.pathname + (qs ? '?' + qs : '') + (window.location.hash || '');
-          window.location.href = url;
-        }
-        var sel = document.getElementById('sc-locale-select');
-        var selDrawer = document.getElementById('sc-locale-select-drawer');
-        var valid = ['en', 'pt', 'es', 'it'];
-        var locale = document.documentElement.dataset.locale;
-        if (!locale || valid.indexOf(locale) === -1) locale = 'en';
-        if (sel) {
-          if (valid.indexOf(sel.value) === -1) sel.value = 'en';
-          else if (sel.value !== locale) sel.value = locale;
-        }
-        if (selDrawer) {
-          if (valid.indexOf(selDrawer.value) === -1) selDrawer.value = 'en';
-          else if (selDrawer.value !== locale) selDrawer.value = locale;
-        }
-        if (sel) sel.addEventListener('change', onLocaleChange);
-        if (selDrawer) selDrawer.addEventListener('change', onLocaleChange);
-      })();
-    </script>
+    <script src={`${FULL_BASE}scripts/drawer.js`}></script>
+    <script src={`${FULL_BASE}scripts/locale-select.js`}></script>
     <main class="flex-1 sc-main-with-header">
       <slot />
     </main>
     <footer class="sc-footer border-t py-8 mt-auto">
       <div class="max-w-content mx-auto px-page-x text-center text-sm">
-        <p class="locale-en">Sacred Chants — {tEn.home.tagline}</p>
-        <p class="locale-pt">Sacred Chants — {tPt.home.tagline}</p>
-        <p class="locale-es">Sacred Chants — {tEs.home.tagline}</p>
-        <p class="locale-it">Sacred Chants — {tIt.home.tagline}</p>
+        <FooterTaglines taglineByLocale={{ en: tEn.home.tagline, pt: tPt.home.tagline, es: tEs.home.tagline, it: tIt.home.tagline }} />
         <p class="mt-1" style="color: var(--sc-text-subtle)">
           <a href="https://github.com/sraphaz/SacredChants" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--sc-text-subtle)">GitHub</a>
           <span class="mx-1">·</span> Open source · No ads · Human heritage · Contemplative

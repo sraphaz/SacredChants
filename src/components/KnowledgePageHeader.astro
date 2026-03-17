@@ -1,0 +1,31 @@
+---
+/**
+ * Shared header for knowledge pages: back link + page title, one block per locale (DRY).
+ * Uses canonical SUPPORTED_LOCALES so new locales are added in one place.
+ */
+import type { Locale } from '../i18n/strings';
+import { SUPPORTED_LOCALES } from '../i18n/strings';
+
+interface Props {
+  backHref: string;
+  /** Page title per locale (e.g. tEn.knowledge.nadaYoga, tPt.knowledge.nadaYoga, ...). */
+  titleByLocale: Record<Locale, string>;
+  /** Back link label per locale (e.g. tEn.knowledge.backToKnowledge, ...). */
+  backLabelByLocale: Record<Locale, string>;
+}
+
+const { backHref, titleByLocale, backLabelByLocale } = Astro.props;
+---
+
+<p class="mb-4">
+  <a href={backHref} class="text-sm" style="color: var(--sc-text-subtle)">
+    {SUPPORTED_LOCALES.map((loc) => (
+      <span class={`locale-${loc}`}>← {backLabelByLocale[loc]}</span>
+    ))}
+  </a>
+</p>
+<h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
+  {SUPPORTED_LOCALES.map((loc) => (
+    <span class={`locale-${loc}`}>{titleByLocale[loc]}</span>
+  ))}
+</h1>
