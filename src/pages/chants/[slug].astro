@@ -7,6 +7,7 @@ import { getEntry, getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl } from '../../i18n/strings';
 import { getBandcampArtUrl } from '../../utils/bandcamp';
 import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 import {
   getAudioUrl,
   getSyncLines,
@@ -37,10 +38,11 @@ if (!entry) {
 const chant = { ...entry.data, slug: entry.id };
 
 const FULL_BASE = getFullBase(Astro.url);
-const pageUrlForOffline = new URL(
-  Astro.url.pathname + Astro.url.search,
-  Astro.site ?? Astro.url
-).href;
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 const audioUrlForPlayer = getAudioUrl(chant, FULL_BASE);
 
 const bandcampArtImage =
@@ -132,7 +134,15 @@ const hasIt = hasTranslation(chant, 'it');
         data-page-url={pageUrlForOffline}
         data-audio-url={audioUrlForPlayer || undefined}
         aria-pressed="false"
-        aria-label="Save for offline"
+        aria-describedby="chant-offline-feedback"
+        data-offline-fail-en={tEn.chant.saveOfflineError}
+        data-offline-fail-pt={tPt.chant.saveOfflineError}
+        data-offline-fail-es={tEs.chant.saveOfflineError}
+        data-offline-fail-it={tIt.chant.saveOfflineError}
+        data-offline-partial-en={tEn.chant.saveOfflinePartial}
+        data-offline-partial-pt={tPt.chant.saveOfflinePartial}
+        data-offline-partial-es={tEs.chant.saveOfflinePartial}
+        data-offline-partial-it={tIt.chant.saveOfflinePartial}
       >
         <span aria-hidden="true">⬇</span>
         <span class="locale-en">
@@ -189,6 +199,7 @@ const hasIt = hasTranslation(chant, 'it');
           <span class="locale-it">{tIt.chant.shareWithAutoplay}</span>
         </a>
       )}
+      <p id="chant-offline-feedback" class="chant-offline-feedback w-full basis-full text-center text-sm min-h-[1.25rem]" style="color: var(--sc-text-muted)" role="status" aria-live="polite" hidden></p>
     </nav>
   </div>
   {(!hasEs || !hasIt) && (
@@ -236,7 +247,7 @@ const hasIt = hasTranslation(chant, 'it');
     </section>
     )}
 
-  <script src={`${FULL_BASE}scripts/save-offline.js`} defer></script>
+  <script type="module" src={`${FULL_BASE}scripts/save-offline.js`}></script>
   <script is:inline>
     document.getElementById('chant-download-pdf-btn')?.addEventListener('click', function() { window.print(); });
   </script>

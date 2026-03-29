@@ -3,8 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import ChantCard from '../../components/ChantCard.astro';
 import { getCollection } from 'astro:content';
-import { ui } from '../../i18n/strings';
+import { ui, getLocaleFromUrl } from '../../i18n/strings';
+import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -14,11 +17,19 @@ const chants = await getCollection('chants');
 const sortedChants = chants
   .map((entry) => ({ ...entry.data, slug: entry.id }))
   .sort((a, b) => a.title.localeCompare(b.title));
+
+const FULL_BASE = getFullBase(Astro.url);
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
   title={tEn.chants.title}
   description="Browse all sacred chants in the library."
+  locale={locale}
 >
   <PageShell>
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
@@ -33,6 +44,56 @@ const sortedChants = chants
       <span class="locale-es">{tEs.chants.title}</span>
       <span class="locale-it">{tIt.chants.title}</span>
     </p>
+    <nav
+      class="chants-index-offline mb-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm"
+      aria-label="Offline"
+    >
+      <button
+        type="button"
+        id="chants-index-save-offline-btn"
+        class="chant-save-offline chant-action-link inline-flex items-center gap-1.5 py-1 cursor-pointer border-0 bg-transparent transition-colors hover:opacity-90"
+        style="color: var(--sc-text-muted);"
+        data-save-offline
+        data-slug="__chants-index__"
+        data-page-url={pageUrlForOffline}
+        aria-pressed="false"
+        aria-describedby="chants-index-offline-feedback"
+        data-offline-fail-en={tEn.chant.saveOfflineError}
+        data-offline-fail-pt={tPt.chant.saveOfflineError}
+        data-offline-fail-es={tEs.chant.saveOfflineError}
+        data-offline-fail-it={tIt.chant.saveOfflineError}
+        data-offline-partial-en={tEn.chant.saveOfflinePartial}
+        data-offline-partial-pt={tPt.chant.saveOfflinePartial}
+        data-offline-partial-es={tEs.chant.saveOfflinePartial}
+        data-offline-partial-it={tIt.chant.saveOfflinePartial}
+      >
+        <span aria-hidden="true">⬇</span>
+        <span class="locale-en">
+          <span class="chant-save-offline__label-off">{tEn.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tEn.chant.removeOffline}</span>
+        </span>
+        <span class="locale-pt">
+          <span class="chant-save-offline__label-off">{tPt.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tPt.chant.removeOffline}</span>
+        </span>
+        <span class="locale-es">
+          <span class="chant-save-offline__label-off">{tEs.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tEs.chant.removeOffline}</span>
+        </span>
+        <span class="locale-it">
+          <span class="chant-save-offline__label-off">{tIt.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tIt.chant.removeOffline}</span>
+        </span>
+      </button>
+      <p
+        id="chants-index-offline-feedback"
+        class="w-full basis-full text-center text-sm min-h-[1.25rem]"
+        style="color: var(--sc-text-muted)"
+        role="status"
+        aria-live="polite"
+        hidden
+      />
+    </nav>
     {sortedChants.length > 0 ? (
       <ul class="space-y-4">
         {sortedChants.map((chant) => (
@@ -50,4 +111,5 @@ const sortedChants = chants
       </p>
     )}
   </PageShell>
+  <script type="module" src={`${FULL_BASE}scripts/save-offline.js`}></script>
 </BaseLayout>

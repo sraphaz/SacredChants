@@ -949,7 +949,8 @@ body.sc-drawer-open {
   .sc-footer,
   .chant-player-bar,
   .chant-player-bar-spacer,
-  .chant-actions {
+  .chant-actions,
+  .chants-index-offline {
     display: none !important;
   }
   body {

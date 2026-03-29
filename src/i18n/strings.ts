@@ -70,6 +70,10 @@ export const ui = {
       saveOffline: 'Save offline',
       removeOffline: 'Remove offline',
       saveOfflineBusy: 'Saving…',
+      saveOfflineError:
+        'Could not save this page for offline. Check your connection and try again.',
+      saveOfflinePartial:
+        'Page saved, but some files could not be cached (for example external audio).',
       aboutTitle: 'About this chant',
       shareWithAutoplay: 'Share link (autoplay + sync)',
       interpretedBy: 'Interpreted by',
@@ -266,6 +270,15 @@ export const ui = {
       bgColorCharcoal: 'Charcoal',
       bgColorNavy: 'Navy',
       saved: 'Settings saved.',
+      offlineTitle: 'Offline',
+      offlineIntro:
+        'While online, save a chant page or the full chant list. If you lose signal, open the same address from history — cached pages and same-site audio can still work.',
+      offlineSavedHeading: 'Saved on this device',
+      offlineEmpty:
+        'Nothing saved for offline yet. Open a chant and use “Save offline”, or save the all-chants list.',
+      offlineNotSupported:
+        'This browser does not support the storage used for offline saving.',
+      offlineChantsIndexLabel: 'All chants (list)',
     },
   },
   pt: {
@@ -315,6 +328,10 @@ export const ui = {
       saveOffline: 'Guardar offline',
       removeOffline: 'Remover do offline',
       saveOfflineBusy: 'A guardar…',
+      saveOfflineError:
+        'Não foi possível guardar esta página para offline. Verifique a ligação e tente novamente.',
+      saveOfflinePartial:
+        'Página guardada, mas alguns ficheiros não ficaram em cache (por exemplo áudio externo).',
       aboutTitle: 'Sobre este cântico',
       shareWithAutoplay: 'Partilhar link (autoplay + sync)',
       interpretedBy: 'Interpretado por',
@@ -511,6 +528,15 @@ export const ui = {
       bgColorCharcoal: 'Carvão',
       bgColorNavy: 'Azul-marinho',
       saved: 'Configurações salvas.',
+      offlineTitle: 'Offline',
+      offlineIntro:
+        'Em linha, guarde uma página de cântico ou a lista completa. Se perder o sinal, abra o mesmo endereço do histórico — a página em cache e o áudio no mesmo site podem continuar a funcionar.',
+      offlineSavedHeading: 'Guardado neste dispositivo',
+      offlineEmpty:
+        'Ainda não há nada guardado para offline. Abra um cântico e use «Guardar offline», ou guarde a lista de cânticos.',
+      offlineNotSupported:
+        'Este navegador não suporta o armazenamento usado para guardar offline.',
+      offlineChantsIndexLabel: 'Todos os cânticos (lista)',
     },
   },
   es: {
@@ -560,6 +586,10 @@ export const ui = {
       saveOffline: 'Guardar sin conexión',
       removeOffline: 'Quitar sin conexión',
       saveOfflineBusy: 'Guardando…',
+      saveOfflineError:
+        'No se pudo guardar esta página sin conexión. Comprueba la conexión e inténtalo de nuevo.',
+      saveOfflinePartial:
+        'Página guardada, pero algunos archivos no se pudieron almacenar en caché (p. ej. audio externo).',
       aboutTitle: 'Sobre este cántico',
       shareWithAutoplay: 'Compartir enlace (autoplay + sync)',
       interpretedBy: 'Interpretado por',
@@ -751,6 +781,15 @@ export const ui = {
       bgColorCharcoal: 'Carbón',
       bgColorNavy: 'Marino',
       saved: 'Ajustes guardados.',
+      offlineTitle: 'Sin conexión',
+      offlineIntro:
+        'En línea, guarda una página de cántico o la lista completa. Si pierdes la señal, abre la misma dirección desde el historial: la página en caché y el audio del mismo sitio pueden seguir funcionando.',
+      offlineSavedHeading: 'Guardado en este dispositivo',
+      offlineEmpty:
+        'Aún no hay nada guardado sin conexión. Abre un cántico y usa «Guardar sin conexión», o guarda la lista de cánticos.',
+      offlineNotSupported:
+        'Este navegador no admite el almacenamiento necesario para guardar sin conexión.',
+      offlineChantsIndexLabel: 'Todos los cánticos (lista)',
     },
   },
   it: {
@@ -800,6 +839,10 @@ export const ui = {
       saveOffline: 'Salva offline',
       removeOffline: 'Rimuovi offline',
       saveOfflineBusy: 'Salvataggio…',
+      saveOfflineError:
+        'Impossibile salvare questa pagina per l’offline. Controlla la connessione e riprova.',
+      saveOfflinePartial:
+        'Pagina salvata, ma alcuni file non sono stati memorizzati in cache (ad es. audio esterno).',
       aboutTitle: 'Su questo canto',
       shareWithAutoplay: 'Condividi link (autoplay + sync)',
       interpretedBy: 'Interpretato da',
@@ -991,6 +1034,15 @@ export const ui = {
       bgColorCharcoal: 'Carbone',
       bgColorNavy: 'Blu marino',
       saved: 'Impostazioni salvate.',
+      offlineTitle: 'Offline',
+      offlineIntro:
+        'Online, salva una pagina di canto o l’elenco completo. Se perdi la connessione, apri lo stesso indirizzo dalla cronologia: la pagina in cache e l’audio sullo stesso sito possono ancora funzionare.',
+      offlineSavedHeading: 'Salvato su questo dispositivo',
+      offlineEmpty:
+        'Non è ancora stato salvato nulla per l’offline. Apri un canto e usa «Salva offline», oppure salva l’elenco dei canti.',
+      offlineNotSupported:
+        'Questo browser non supporta l’archiviazione usata per il salvataggio offline.',
+      offlineChantsIndexLabel: 'Tutti i canti (lista)',
     },
   },
 } as const;
