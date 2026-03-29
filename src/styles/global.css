@@ -902,6 +902,16 @@ body.sc-drawer-open {
   margin-top: 0.75rem;
 }
 
+.chant-save-offline .chant-save-offline__label-on {
+  display: none;
+}
+.chant-save-offline[data-saved='true'] .chant-save-offline__label-on {
+  display: inline;
+}
+.chant-save-offline[data-saved='true'] .chant-save-offline__label-off {
+  display: none;
+}
+
 /* ——— Chant: fixed player bar (desktop only); inline on mobile ——— */
 .chant-player-bar {
   border-bottom: 1px solid var(--sc-border);

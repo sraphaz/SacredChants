@@ -37,6 +37,10 @@ if (!entry) {
 const chant = { ...entry.data, slug: entry.id };
 
 const FULL_BASE = getFullBase(Astro.url);
+const pageUrlForOffline = new URL(
+  Astro.url.pathname + Astro.url.search,
+  Astro.site ?? Astro.url
+).href;
 const audioUrlForPlayer = getAudioUrl(chant, FULL_BASE);
 
 const bandcampArtImage =
@@ -117,6 +121,36 @@ const hasIt = hasTranslation(chant, 'it');
         <span class="locale-pt">{tPt.chant.downloadPdf}</span>
         <span class="locale-es">{tEs.chant.downloadPdf}</span>
         <span class="locale-it">{tIt.chant.downloadPdf}</span>
+      </button>
+      <button
+        type="button"
+        id="chant-save-offline-btn"
+        class="chant-save-offline chant-action-link inline-flex items-center gap-1.5 py-1 cursor-pointer border-0 bg-transparent transition-colors hover:opacity-90"
+        style="color: var(--sc-text-muted);"
+        data-save-offline
+        data-slug={chant.slug}
+        data-page-url={pageUrlForOffline}
+        data-audio-url={audioUrlForPlayer || undefined}
+        aria-pressed="false"
+        aria-label="Save for offline"
+      >
+        <span aria-hidden="true">⬇</span>
+        <span class="locale-en">
+          <span class="chant-save-offline__label-off">{tEn.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tEn.chant.removeOffline}</span>
+        </span>
+        <span class="locale-pt">
+          <span class="chant-save-offline__label-off">{tPt.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tPt.chant.removeOffline}</span>
+        </span>
+        <span class="locale-es">
+          <span class="chant-save-offline__label-off">{tEs.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tEs.chant.removeOffline}</span>
+        </span>
+        <span class="locale-it">
+          <span class="chant-save-offline__label-off">{tIt.chant.saveOffline}</span>
+          <span class="chant-save-offline__label-on">{tIt.chant.removeOffline}</span>
+        </span>
       </button>
       {chant.spotifyUrl && (
         <a
@@ -202,6 +236,7 @@ const hasIt = hasTranslation(chant, 'it');
     </section>
     )}
 
+  <script src={`${FULL_BASE}scripts/save-offline.js`} defer></script>
   <script is:inline>
     document.getElementById('chant-download-pdf-btn')?.addEventListener('click', function() { window.print(); });
   </script>
