@@ -1,10 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageShell from '../components/PageShell.astro';
-import { ui } from '../i18n/strings';
+import SaveOfflineToggle from '../components/SaveOfflineToggle.astro';
+import { ui, getLocaleFromUrl } from '../i18n/strings';
 import { getFullBase } from '../utils/base';
+import { buildCanonicalPageUrl } from '../utils/offline-page-url';
 
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const FULL_BASE = getFullBase(Astro.url);
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -14,6 +22,7 @@ const tIt = ui.it;
 <BaseLayout
   title="Sacred Chants"
   description="A living library of humanity's spiritual sound heritage. Sacred chants, mantras, hymns and prayers from different traditions — preserved and shared for listening, reflection and reconnection."
+  locale={locale}
 >
   <PageShell variant="hero">
     <!-- 1. Hero -->
@@ -46,6 +55,13 @@ const tIt = ui.it;
         <a href={`${FULL_BASE}traditions/?lang=it`} class="locale-it text-sm hover:underline" style="color: var(--sc-text-muted);">{tIt.home.exploreTraditions}</a>
       </div>
     </section>
+
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-8"
+      storageSlug="__home__"
+      pageUrl={pageUrlForOffline}
+    />
 
     <!-- 2. Manifesto / vision -->
     <section class="home-section home-prose" aria-labelledby="manifesto-heading">

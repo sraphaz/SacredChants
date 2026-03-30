@@ -29,9 +29,21 @@ function messageForLocale(button, kind) {
   return button.getAttribute(`data-offline-${kind}-en`) || '';
 }
 
+function updateAccessibleLabel(button) {
+  const saved = button.getAttribute('data-saved') === SAVED;
+  const locale = document.documentElement.dataset.locale || 'en';
+  const key = saved ? 'on' : 'off';
+  const label =
+    button.getAttribute(`data-a11y-${key}-${locale}`) ||
+    button.getAttribute(`data-a11y-${key}-en`) ||
+    '';
+  if (label) button.setAttribute('aria-label', label);
+}
+
 function setSavedAppearance(button, saved) {
   button.setAttribute('data-saved', saved ? SAVED : 'false');
   button.setAttribute('aria-pressed', saved ? SAVED : 'false');
+  updateAccessibleLabel(button);
 }
 
 function setBusyAppearance(button, busy) {
@@ -97,7 +109,11 @@ async function removeBundle(button) {
 
 function restoreSavedAppearance(button) {
   const slug = slugFromButton(button);
-  if (readStoredUrlList(slug)) setSavedAppearance(button, true);
+  if (readStoredUrlList(slug)) {
+    setSavedAppearance(button, true);
+  } else {
+    updateAccessibleLabel(button);
+  }
 }
 
 function onToggleClick(button) {

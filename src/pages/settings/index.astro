@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl } from '../../i18n/strings';
 import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const FULL_BASE = getFullBase(Astro.url);
@@ -12,6 +14,11 @@ const tEs = ui.es;
 const tIt = ui.it;
 const titleMap = { en: tEn.settings.title, pt: tPt.settings.title, es: tEs.settings.title, it: tIt.settings.title };
 const descMap = { en: tEn.settings.description, pt: tPt.settings.description, es: tEs.settings.description, it: tIt.settings.description };
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -269,6 +276,12 @@ const descMap = { en: tEn.settings.description, pt: tPt.settings.description, es
           <span class="locale-es">{tEs.settings.offlineIntro}</span>
           <span class="locale-it">{tIt.settings.offlineIntro}</span>
         </p>
+        <SaveOfflineToggle
+          mode="toolbar"
+          class="mt-2 mb-6"
+          storageSlug="__settings__"
+          pageUrl={pageUrlForOffline}
+        />
         <p class="settings-field-label text-sm mt-4 mb-2" style="color: var(--sc-text-muted)">
           <span class="locale-en">{tEn.settings.offlineSavedHeading}</span>
           <span class="locale-pt">{tPt.settings.offlineSavedHeading}</span>

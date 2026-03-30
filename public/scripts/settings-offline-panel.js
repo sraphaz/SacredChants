@@ -5,8 +5,18 @@
 import { listStoredOfflineSlugs } from './offline/cache-layer.js';
 import { documentBaseHref, toAbsoluteUrl } from './offline/document-assets.js';
 
-function chantPathForSlug(slug) {
+function pathForOfflineSlug(slug) {
   if (slug === '__chants-index__') return 'chants/';
+  if (slug === '__home__') return '';
+  if (slug === '__traditions__') return 'traditions/';
+  if (slug === '__knowledge-index__') return 'knowledge/';
+  if (slug === '__settings__') return 'settings/';
+  if (slug === '__contribute-index__') return 'contribute/';
+  if (slug === '__contribute-guide__') return 'contribute/guide/';
+  if (slug === '__contribute-form__') return 'contribute/form/';
+  if (slug === '__contribute-dashboard__') return 'contribute/dashboard/';
+  const knowledgeArticle = /^__knowledge-(.+)__$/.exec(slug);
+  if (knowledgeArticle) return `knowledge/${knowledgeArticle[1]}/`;
   return `chants/${slug}/`;
 }
 
@@ -19,9 +29,19 @@ function localizedChantsIndexLabel() {
   return span && span.textContent ? span.textContent.trim() : 'All chants (list)';
 }
 
-function linkLabelForSlug(slug) {
+function humanizeListLabelFromHref(href) {
+  try {
+    const path = new URL(href).pathname.replace(/^\/+|\/+$/g, '');
+    return path || 'home';
+  } catch {
+    return href;
+  }
+}
+
+function linkLabelForSlug(slug, href) {
   if (slug === '__chants-index__') return localizedChantsIndexLabel();
-  return slug;
+  if (!slug.startsWith('__')) return slug;
+  return humanizeListLabelFromHref(href);
 }
 
 export function renderOfflineSavedList(listEl, emptyEl, baseHref) {
@@ -40,8 +60,10 @@ export function renderOfflineSavedList(listEl, emptyEl, baseHref) {
   slugs.forEach((slugItem) => {
     const li = document.createElement('li');
     const a = document.createElement('a');
-    a.href = toAbsoluteUrl(chantPathForSlug(slugItem), baseHref);
-    a.textContent = linkLabelForSlug(slugItem);
+    const path = pathForOfflineSlug(slugItem);
+    const href = toAbsoluteUrl(path, baseHref);
+    a.href = href;
+    a.textContent = linkLabelForSlug(slugItem, href);
     a.className = 'underline hover:opacity-90';
     a.style.color = 'var(--sc-text-muted)';
     li.appendChild(a);

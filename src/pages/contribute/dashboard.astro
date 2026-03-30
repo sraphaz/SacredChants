@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, type Locale } from '../../i18n/strings';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
 const t = ui[locale];
@@ -10,6 +12,11 @@ const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.
 const useAppSubdomain = contributeAppUrl.length > 0;
 const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
 const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'dashboard/' + (locale === 'pt' ? '?lang=pt' : '') : '';
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -21,6 +28,13 @@ const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'dashbo
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       {t.contribute.myContributions}
     </h1>
+
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-8"
+      storageSlug="__contribute-dashboard__"
+      pageUrl={pageUrlForOffline}
+    />
 
     <div id="dashboard-root" data-api-origin={apiOrigin} data-contribute-app-url={useAppSubdomain ? contributeAppContributeUrl : undefined}>
       {useAppSubdomain ? (

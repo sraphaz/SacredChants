@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -12,6 +14,11 @@ const tEs = ui.es;
 const tIt = ui.it;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 
 /** Single nav item for a knowledge page */
 function item(slug: string, titleEn: string, titlePt: string, titleEs: string, titleIt: string) {
@@ -80,6 +87,12 @@ const introParagraphs = (() => {
       <span class="locale-es">{tEs.knowledge.description}</span>
       <span class="locale-it">{tIt.knowledge.description}</span>
     </p>
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-6"
+      storageSlug="__knowledge-index__"
+      pageUrl={pageUrlForOffline}
+    />
     <div class="mb-10 max-w-[var(--sc-measure-reading)] space-y-4" style="color: var(--sc-text-muted)">
       {introParagraphs.map((para) => (
         <p>

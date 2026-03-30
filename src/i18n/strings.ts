@@ -325,13 +325,13 @@ export const ui = {
       syncOn: 'On',
       syncOff: 'Off',
       downloadPdf: 'Imprimir / Guardar como PDF',
-      saveOffline: 'Guardar offline',
-      removeOffline: 'Remover do offline',
-      saveOfflineBusy: 'A guardar…',
+      saveOffline: 'Salvar Offline',
+      removeOffline: 'Remover Offline',
+      saveOfflineBusy: 'A salvar…',
       saveOfflineError:
-        'Não foi possível guardar esta página para offline. Verifique a ligação e tente novamente.',
+        'Não foi possível salvar esta página para offline. Verifique a ligação e tente novamente.',
       saveOfflinePartial:
-        'Página guardada, mas alguns ficheiros não ficaram em cache (por exemplo áudio externo).',
+        'Página salva, mas alguns ficheiros não ficaram em cache (por exemplo áudio externo).',
       aboutTitle: 'Sobre este cântico',
       shareWithAutoplay: 'Partilhar link (autoplay + sync)',
       interpretedBy: 'Interpretado por',
@@ -530,12 +530,12 @@ export const ui = {
       saved: 'Configurações salvas.',
       offlineTitle: 'Offline',
       offlineIntro:
-        'Em linha, guarde uma página de cântico ou a lista completa. Se perder o sinal, abra o mesmo endereço do histórico — a página em cache e o áudio no mesmo site podem continuar a funcionar.',
-      offlineSavedHeading: 'Guardado neste dispositivo',
+        'Em linha, salve uma página de cântico ou a lista completa. Se perder o sinal, abra o mesmo endereço do histórico — a página em cache e o áudio no mesmo site podem continuar a funcionar.',
+      offlineSavedHeading: 'Salvo neste dispositivo',
       offlineEmpty:
-        'Ainda não há nada guardado para offline. Abra um cântico e use «Guardar offline», ou guarde a lista de cânticos.',
+        'Ainda não há nada salvo para offline. Abra um cântico e use «Salvar Offline», ou salve a lista de cânticos.',
       offlineNotSupported:
-        'Este navegador não suporta o armazenamento usado para guardar offline.',
+        'Este navegador não suporta o armazenamento usado para salvar offline.',
       offlineChantsIndexLabel: 'Todos os cânticos (lista)',
     },
   },

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -16,6 +18,11 @@ const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '
 const localeQuery = langQuery(locale);
 const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + (localeQuery || '') : '';
 const returnToContribute = '/contribute/' + (localeQuery ? (localeQuery.startsWith('?') ? localeQuery : '?' + localeQuery) : '');
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -30,6 +37,13 @@ const returnToContribute = '/contribute/' + (localeQuery ? (localeQuery.startsWi
       <span class="locale-es">{tEs.contribute.title}</span>
       <span class="locale-it">{tIt.contribute.title}</span>
     </h1>
+
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-8"
+      storageSlug="__contribute-index__"
+      pageUrl={pageUrlForOffline}
+    />
 
     <div class="contribute-intro mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
       <p class="mb-4">

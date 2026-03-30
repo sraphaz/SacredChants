@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -13,6 +15,11 @@ const localeQuery = langQuery(locale);
 const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'form/' + (localeQuery || '') : '';
 const returnToForm = '/contribute/form/' + (localeQuery || '');
 const f = t.contribute.form;
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -24,6 +31,13 @@ const f = t.contribute.form;
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
       {t.contribute.newContribution}
     </h1>
+
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-8"
+      storageSlug="__contribute-form__"
+      pageUrl={pageUrlForOffline}
+    />
 
     <div id="contribute-form-root" data-api-origin={apiOrigin} data-contribute-app-url={useAppSubdomain ? contributeAppContributeUrl : undefined}>
       {useAppSubdomain ? (

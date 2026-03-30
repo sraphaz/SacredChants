@@ -2,8 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import KnowledgePageHeader from '../../components/KnowledgePageHeader.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const t = ui[locale];
@@ -13,6 +15,11 @@ const tEs = ui.es;
 const tIt = ui.it;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.site,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -25,6 +32,13 @@ const FULL_BASE = getFullBase(Astro.url);
       backHref={`${FULL_BASE}knowledge/${localeQuery}`}
       titleByLocale={{ en: tEn.knowledge.soundAndHumanity, pt: tPt.knowledge.soundAndHumanity, es: tEs.knowledge.soundAndHumanity, it: tIt.knowledge.soundAndHumanity }}
       backLabelByLocale={{ en: tEn.knowledge.backToKnowledge, pt: tPt.knowledge.backToKnowledge, es: tEs.knowledge.backToKnowledge, it: tIt.knowledge.backToKnowledge }}
+    />
+
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-8"
+      storageSlug="__knowledge-sound-and-humanity__"
+      pageUrl={pageUrlForOffline}
     />
 
     <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">
