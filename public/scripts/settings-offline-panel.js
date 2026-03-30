@@ -2,7 +2,7 @@
  * Renders the list of offline bundle slugs on the settings page.
  */
 
-import { listStoredOfflineSlugs } from './offline/cache-layer.js';
+import { listStoredOfflineSlugs, readStoredBundle } from './offline/cache-layer.js';
 import { documentBaseHref, toAbsoluteUrl } from './offline/document-assets.js';
 
 function pathForOfflineSlug(slug) {
@@ -44,6 +44,18 @@ function linkLabelForSlug(slug, href) {
   return humanizeListLabelFromHref(href);
 }
 
+function hrefForSavedSlug(slugItem, baseHref) {
+  const { documentUrl } = readStoredBundle(slugItem);
+  if (documentUrl) {
+    try {
+      return new URL(documentUrl).href;
+    } catch {
+      return toAbsoluteUrl(documentUrl, baseHref);
+    }
+  }
+  return toAbsoluteUrl(pathForOfflineSlug(slugItem), baseHref);
+}
+
 export function renderOfflineSavedList(listEl, emptyEl, baseHref) {
   if (!listEl || !emptyEl) return;
   const slugs = listStoredOfflineSlugs().sort();
@@ -60,8 +72,7 @@ export function renderOfflineSavedList(listEl, emptyEl, baseHref) {
   slugs.forEach((slugItem) => {
     const li = document.createElement('li');
     const a = document.createElement('a');
-    const path = pathForOfflineSlug(slugItem);
-    const href = toAbsoluteUrl(path, baseHref);
+    const href = hrefForSavedSlug(slugItem, baseHref);
     a.href = href;
     a.textContent = linkLabelForSlug(slugItem, href);
     a.className = 'underline hover:opacity-90';

@@ -25,26 +25,71 @@ export function storageKeyForSlug(slug) {
 }
 
 /**
- * @param {string} slug
- * @returns {string[] | null}
+ * @typedef {{ documentUrl: string | null; urls: string[] | null }} StoredBundle
  */
-export function readStoredUrlList(slug) {
+
+/**
+ * Reads bundle index: v2 `{ documentUrl, urls }` or legacy `string[]` (urls only).
+ * @param {string} slug
+ * @returns {StoredBundle}
+ */
+export function readStoredBundle(slug) {
   try {
     const raw = localStorage.getItem(storageKeyForSlug(slug));
-    if (!raw) return null;
+    if (!raw) return { documentUrl: null, urls: null };
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : null;
+    if (Array.isArray(parsed)) {
+      return { documentUrl: null, urls: parsed };
+    }
+    if (parsed && typeof parsed === 'object' && Array.isArray(parsed.urls)) {
+      const documentUrl =
+        typeof parsed.documentUrl === 'string' && parsed.documentUrl.length > 0
+          ? parsed.documentUrl
+          : null;
+      return { documentUrl, urls: parsed.urls };
+    }
+    return { documentUrl: null, urls: null };
   } catch {
-    return null;
+    return { documentUrl: null, urls: null };
   }
 }
 
 /**
  * @param {string} slug
+ * @returns {string[] | null}
+ */
+export function readStoredUrlList(slug) {
+  return readStoredBundle(slug).urls;
+}
+
+/**
+ * @param {string} slug
+ * @param {string} documentUrl canonical page URL (search/hash) used when caching
  * @param {string[]} urls
  */
-export function writeStoredUrlList(slug, urls) {
-  localStorage.setItem(storageKeyForSlug(slug), JSON.stringify(urls));
+export function writeStoredBundle(slug, documentUrl, urls) {
+  localStorage.setItem(
+    storageKeyForSlug(slug),
+    JSON.stringify({ documentUrl, urls })
+  );
+}
+
+/**
+ * URLs from `urls` that are not listed in any other stored bundle (avoids deleting shared assets).
+ * @param {string} removedSlug
+ * @param {string[]} urls
+ * @returns {string[]}
+ */
+export function urlsSafeToRemoveFromCache(removedSlug, urls) {
+  if (!urls?.length) return [];
+  const referencedElsewhere = new Set();
+  for (const other of listStoredOfflineSlugs()) {
+    if (other === removedSlug) continue;
+    const list = readStoredUrlList(other);
+    if (!list) continue;
+    for (const u of list) referencedElsewhere.add(u);
+  }
+  return urls.filter((u) => !referencedElsewhere.has(u));
 }
 
 /**

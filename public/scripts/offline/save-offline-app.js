@@ -13,7 +13,8 @@ import {
   ensureServiceWorkerActivated,
   readStoredUrlList,
   storeUrlsInOfflineCache,
-  writeStoredUrlList,
+  urlsSafeToRemoveFromCache,
+  writeStoredBundle,
 } from './cache-layer.js';
 
 const SAVED = 'true';
@@ -79,7 +80,7 @@ async function saveBundle(button) {
       clearFeedbackSoon(button, 6000);
       return;
     }
-    writeStoredUrlList(slug, urls);
+    writeStoredBundle(slug, pageUrl, urls);
     setSavedAppearance(button, true);
     if (failedCount > 0) {
       setFeedback(button, messageForLocale(button, 'partial'));
@@ -99,7 +100,10 @@ async function removeBundle(button) {
   setBusyAppearance(button, true);
   setFeedback(button, '');
   try {
-    if (urls?.length) await deleteUrlsFromOfflineCache(urls);
+    if (urls?.length) {
+      const toDelete = urlsSafeToRemoveFromCache(slug, urls);
+      if (toDelete.length) await deleteUrlsFromOfflineCache(toDelete);
+    }
     clearStoredUrlList(slug);
     setSavedAppearance(button, false);
   } finally {
