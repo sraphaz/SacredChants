@@ -1,15 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl } from '../../i18n/strings';
+import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
+const FULL_BASE = getFullBase(Astro.url);
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const titleMap = { en: tEn.settings.title, pt: tPt.settings.title, es: tEs.settings.title, it: tIt.settings.title };
 const descMap = { en: tEn.settings.description, pt: tPt.settings.description, es: tEs.settings.description, it: tIt.settings.description };
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.url.origin,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -254,6 +263,53 @@ const descMap = { en: tEn.settings.description, pt: tPt.settings.description, es
         </div>
       </fieldset>
 
+      <fieldset class="settings-field">
+        <label class="settings-field-label" style="color: var(--sc-text)">
+          <span class="locale-en">{tEn.settings.offlineTitle}</span>
+          <span class="locale-pt">{tPt.settings.offlineTitle}</span>
+          <span class="locale-es">{tEs.settings.offlineTitle}</span>
+          <span class="locale-it">{tIt.settings.offlineTitle}</span>
+        </label>
+        <p class="settings-field-hint" style="color: var(--sc-text-subtle)">
+          <span class="locale-en">{tEn.settings.offlineIntro}</span>
+          <span class="locale-pt">{tPt.settings.offlineIntro}</span>
+          <span class="locale-es">{tEs.settings.offlineIntro}</span>
+          <span class="locale-it">{tIt.settings.offlineIntro}</span>
+        </p>
+        <SaveOfflineToggle
+          mode="toolbar"
+          class="mt-2 mb-6"
+          storageSlug="__settings__"
+          pageUrl={pageUrlForOffline}
+          toolbarAriaLabel={ui[locale].settings.offlineTitle}
+        />
+        <p class="settings-field-label text-sm mt-4 mb-2" style="color: var(--sc-text-muted)">
+          <span class="locale-en">{tEn.settings.offlineSavedHeading}</span>
+          <span class="locale-pt">{tPt.settings.offlineSavedHeading}</span>
+          <span class="locale-es">{tEs.settings.offlineSavedHeading}</span>
+          <span class="locale-it">{tIt.settings.offlineSavedHeading}</span>
+        </p>
+        <div id="settings-offline-saved-list" class="min-h-[1rem]"></div>
+        <p id="settings-offline-empty" class="text-sm" style="color: var(--sc-text-muted)" hidden>
+          <span class="locale-en">{tEn.settings.offlineEmpty}</span>
+          <span class="locale-pt">{tPt.settings.offlineEmpty}</span>
+          <span class="locale-es">{tEs.settings.offlineEmpty}</span>
+          <span class="locale-it">{tIt.settings.offlineEmpty}</span>
+        </p>
+        <p id="settings-offline-unsupported" class="text-sm" style="color: var(--sc-text-muted)" hidden>
+          <span class="locale-en">{tEn.settings.offlineNotSupported}</span>
+          <span class="locale-pt">{tPt.settings.offlineNotSupported}</span>
+          <span class="locale-es">{tEs.settings.offlineNotSupported}</span>
+          <span class="locale-it">{tIt.settings.offlineNotSupported}</span>
+        </p>
+        <div id="settings-offline-chants-index-label" class="sr-only" aria-hidden="true">
+          <span class="locale-en">{tEn.settings.offlineChantsIndexLabel}</span>
+          <span class="locale-pt">{tPt.settings.offlineChantsIndexLabel}</span>
+          <span class="locale-es">{tEs.settings.offlineChantsIndexLabel}</span>
+          <span class="locale-it">{tIt.settings.offlineChantsIndexLabel}</span>
+        </div>
+      </fieldset>
+
       <p id="settings-toast" class="text-sm hidden" style="color: var(--sc-text-muted)" aria-live="polite">
         <span class="locale-en">{tEn.settings.saved}</span>
         <span class="locale-pt">{tPt.settings.saved}</span>
@@ -316,6 +372,7 @@ const descMap = { en: tEn.settings.description, pt: tPt.settings.description, es
     }
   </style>
 
+  <script type="module" src={`${FULL_BASE}scripts/settings-offline-panel.js`}></script>
   <script is:inline>
     (function() {
       var STORAGE = 'sacred-chants-';

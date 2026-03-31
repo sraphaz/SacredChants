@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 
 import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 const FULL_BASE = getFullBase(Astro.url);
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const localeQuery = langQuery(locale);
@@ -16,6 +18,11 @@ const titleMap = { en: tEn.traditions.title, pt: tPt.traditions.title, es: tEs.t
 const descMap = { en: tEn.traditions.description, pt: tPt.traditions.description, es: tEs.traditions.description, it: tIt.traditions.description };
 const chants = await getCollection('chants');
 const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.url.origin,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -36,6 +43,13 @@ const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
       <span class="locale-es">{tEs.traditions.description}</span>
       <span class="locale-it">{tIt.traditions.description}</span>
     </p>
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-6"
+      storageSlug="__traditions__"
+      pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={ui[locale].settings.offlineTitle}
+    />
     {traditions.length > 0 ? (
       <ul class="space-y-3">
         {traditions.map((tradition) => (

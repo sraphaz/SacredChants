@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
 import { getBasePath } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const tEn = ui.en;
@@ -14,6 +16,11 @@ const basePath = getBasePath();
 const contributeUrl = `${basePath}contribute/${localeQuery}`.replace(/(\/)+/g, '/');
 const titleMap = { en: tEn.contribute.guideTitle, pt: tPt.contribute.guideTitle, es: tEs.contribute.guideTitle, it: tIt.contribute.guideTitle };
 const descMap = { en: tEn.contribute.guideDescription, pt: tPt.contribute.guideDescription, es: tEs.contribute.guideDescription, it: tIt.contribute.guideDescription };
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.url.origin,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
@@ -39,6 +46,14 @@ const descMap = { en: tEn.contribute.guideDescription, pt: tPt.contribute.guideD
       <span class="locale-es">{tEs.contribute.guideTitle}</span>
       <span class="locale-it">{tIt.contribute.guideTitle}</span>
     </h1>
+
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-8"
+      storageSlug="__contribute-guide__"
+      pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={ui[locale].settings.offlineTitle}
+    />
     <p class="mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.contribute.guideDescription}</span>
       <span class="locale-pt">{tPt.contribute.guideDescription}</span>

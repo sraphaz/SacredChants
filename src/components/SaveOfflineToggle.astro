@@ -1,0 +1,103 @@
+---
+/**
+ * Offline bundle toggle: one storage slug per page, shared with settings list (path resolver in settings-offline-panel.js).
+ */
+import { ui } from '../i18n/strings';
+import OfflineSaveButton from './OfflineSaveButton.astro';
+
+export type SaveOfflineMode = 'toolbar' | 'chantButton' | 'chantFeedback';
+
+export interface Props {
+  mode: SaveOfflineMode;
+  storageSlug: string;
+  pageUrl?: string;
+  audioUrl?: string;
+  /** Localized `aria-label` for toolbar `<nav>` (toolbar mode only). */
+  toolbarAriaLabel?: string;
+  /** Optional stable id for tests or legacy selectors (default: sc-offline-btn-{storageSlug}) */
+  buttonId?: string;
+  /** Override feedback paragraph id (default: sc-offline-fb-{storageSlug}) */
+  feedbackElementId?: string;
+  class?: string;
+}
+
+function safeIdPart(s: string) {
+  return s.replace(/[^a-zA-Z0-9_-]/g, '-');
+}
+
+const {
+  mode,
+  storageSlug,
+  pageUrl,
+  audioUrl,
+  toolbarAriaLabel,
+  buttonId,
+  feedbackElementId,
+  class: className = '',
+} = Astro.props;
+const tEn = ui.en;
+const sid = safeIdPart(storageSlug);
+const feedbackId = feedbackElementId ?? `sc-offline-fb-${sid}`;
+const resolvedButtonId = buttonId ?? `sc-offline-btn-${sid}`;
+
+const buttonClass =
+  'chant-action-link inline-flex items-center justify-center min-w-[2.25rem] min-h-[2.25rem] shrink-0 rounded-md border-0 bg-transparent cursor-pointer transition-[opacity,background-color] hover:opacity-90 hover:bg-[var(--sc-bg-muted)]';
+---
+
+{
+  mode === 'chantFeedback' && (
+    <p
+      id={feedbackId}
+      class:list={[
+        'sc-offline-feedback chant-offline-feedback w-full basis-full text-center text-sm min-h-[1.25rem]',
+        className,
+      ]}
+      style="color: var(--sc-text-muted)"
+      role="status"
+      aria-live="polite"
+      hidden
+    />
+  )
+}
+
+{
+  mode === 'chantButton' && (
+    <OfflineSaveButton
+      id={resolvedButtonId}
+      storageSlug={storageSlug}
+      pageUrl={pageUrl}
+      audioUrl={audioUrl}
+      feedbackId={feedbackId}
+      class:list={[buttonClass, className]}
+    />
+  )
+}
+
+{
+  mode === 'toolbar' && (
+    <nav
+      class:list={[
+        'sc-save-offline-toolbar flex flex-wrap flex-col items-center justify-center gap-y-2 text-sm',
+        className,
+      ]}
+      aria-label={toolbarAriaLabel ?? tEn.settings.offlineTitle}
+    >
+      <OfflineSaveButton
+        id={resolvedButtonId}
+        storageSlug={storageSlug}
+        pageUrl={pageUrl}
+        audioUrl={audioUrl}
+        feedbackId={feedbackId}
+        class={buttonClass}
+      />
+      <p
+        id={feedbackId}
+        class="sc-offline-feedback w-full basis-full text-center text-sm min-h-[1.25rem]"
+        style="color: var(--sc-text-muted)"
+        role="status"
+        aria-live="polite"
+        hidden
+      />
+    </nav>
+  )
+}

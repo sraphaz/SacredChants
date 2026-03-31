@@ -3,10 +3,12 @@ import ChantLayout from '../../layouts/ChantLayout.astro';
 import ChantHeader from '../../components/ChantHeader.astro';
 import ChantVerse from '../../components/ChantVerse.astro';
 import ChantPlayerBar from '../../components/ChantPlayerBar.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getEntry, getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl } from '../../i18n/strings';
 import { getBandcampArtUrl } from '../../utils/bandcamp';
 import { getFullBase } from '../../utils/base';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 import {
   getAudioUrl,
   getSyncLines,
@@ -37,6 +39,11 @@ if (!entry) {
 const chant = { ...entry.data, slug: entry.id };
 
 const FULL_BASE = getFullBase(Astro.url);
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.url.origin,
+  Astro.url.pathname,
+  Astro.url.search
+);
 const audioUrlForPlayer = getAudioUrl(chant, FULL_BASE);
 
 const bandcampArtImage =
@@ -118,6 +125,14 @@ const hasIt = hasTranslation(chant, 'it');
         <span class="locale-es">{tEs.chant.downloadPdf}</span>
         <span class="locale-it">{tIt.chant.downloadPdf}</span>
       </button>
+      <SaveOfflineToggle
+        mode="chantButton"
+        storageSlug={chant.slug}
+        pageUrl={pageUrlForOffline}
+        audioUrl={audioUrlForPlayer || undefined}
+        buttonId="chant-save-offline-btn"
+        feedbackElementId="chant-offline-feedback"
+      />
       {chant.spotifyUrl && (
         <a
           href={chant.spotifyUrl}
@@ -155,6 +170,11 @@ const hasIt = hasTranslation(chant, 'it');
           <span class="locale-it">{tIt.chant.shareWithAutoplay}</span>
         </a>
       )}
+      <SaveOfflineToggle
+        mode="chantFeedback"
+        storageSlug={chant.slug}
+        feedbackElementId="chant-offline-feedback"
+      />
     </nav>
   </div>
   {(!hasEs || !hasIt) && (

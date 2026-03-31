@@ -1,0 +1,91 @@
+---
+/**
+ * Icon-only offline toggle; labels appear in a tooltip on hover / keyboard focus.
+ */
+import { ui } from '../i18n/strings';
+
+interface Props {
+  id: string;
+  storageSlug: string;
+  pageUrl?: string;
+  audioUrl?: string;
+  feedbackId: string;
+  class?: string;
+}
+
+const { id, storageSlug, pageUrl, audioUrl, feedbackId, class: className = '' } = Astro.props;
+const tEn = ui.en;
+const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
+
+const iconAttrs = {
+  xmlns: 'http://www.w3.org/2000/svg',
+  width: '20',
+  height: '20',
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  'stroke-width': '2',
+  'stroke-linecap': 'round' as const,
+  'stroke-linejoin': 'round' as const,
+};
+---
+
+<button
+  type="button"
+  id={id}
+  class:list={['chant-save-offline', 'sc-save-offline-toggle', className]}
+  style="color: var(--sc-text-muted);"
+  data-save-offline
+  data-slug={storageSlug}
+  data-page-url={pageUrl}
+  data-audio-url={audioUrl || undefined}
+  aria-pressed="false"
+  aria-describedby={feedbackId}
+  data-offline-fail-en={tEn.chant.saveOfflineError}
+  data-offline-fail-pt={tPt.chant.saveOfflineError}
+  data-offline-fail-es={tEs.chant.saveOfflineError}
+  data-offline-fail-it={tIt.chant.saveOfflineError}
+  data-offline-partial-en={tEn.chant.saveOfflinePartial}
+  data-offline-partial-pt={tPt.chant.saveOfflinePartial}
+  data-offline-partial-es={tEs.chant.saveOfflinePartial}
+  data-offline-partial-it={tIt.chant.saveOfflinePartial}
+  data-a11y-off-en={tEn.chant.saveOffline}
+  data-a11y-off-pt={tPt.chant.saveOffline}
+  data-a11y-off-es={tEs.chant.saveOffline}
+  data-a11y-off-it={tIt.chant.saveOffline}
+  data-a11y-on-en={tEn.chant.removeOffline}
+  data-a11y-on-pt={tPt.chant.removeOffline}
+  data-a11y-on-es={tEs.chant.removeOffline}
+  data-a11y-on-it={tIt.chant.removeOffline}
+>
+  <span class="chant-save-offline__icon-wrap" aria-hidden="true">
+    <svg {...iconAttrs} class="chant-save-offline__icon chant-save-offline__icon--off">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    <svg {...iconAttrs} class="chant-save-offline__icon chant-save-offline__icon--on">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </span>
+  <span class="chant-save-offline__tooltip">
+    <span class="locale-en">
+      <span class="chant-save-offline__label-off">{tEn.chant.saveOffline}</span>
+      <span class="chant-save-offline__label-on">{tEn.chant.removeOffline}</span>
+    </span>
+    <span class="locale-pt">
+      <span class="chant-save-offline__label-off">{tPt.chant.saveOffline}</span>
+      <span class="chant-save-offline__label-on">{tPt.chant.removeOffline}</span>
+    </span>
+    <span class="locale-es">
+      <span class="chant-save-offline__label-off">{tEs.chant.saveOffline}</span>
+      <span class="chant-save-offline__label-on">{tEs.chant.removeOffline}</span>
+    </span>
+    <span class="locale-it">
+      <span class="chant-save-offline__label-off">{tIt.chant.saveOffline}</span>
+      <span class="chant-save-offline__label-on">{tIt.chant.removeOffline}</span>
+    </span>
+  </span>
+</button>

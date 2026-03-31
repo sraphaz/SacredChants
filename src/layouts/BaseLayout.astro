@@ -42,6 +42,8 @@ const navItems = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href={FULL_BASE} />
     <link rel="icon" type="image/svg+xml" href={`${FULL_BASE}favicon.svg`} />
+    <link rel="manifest" href={`${FULL_BASE}manifest.webmanifest`} />
+    <meta name="theme-color" content="#1a1a1a" />
     <meta name="description" content={description} />
     <title>{title} | Sacred Chants</title>
     <script is:inline src={`${FULL_BASE}scripts/init-theme-locale.js`}></script>
@@ -98,6 +100,17 @@ const navItems = [
     </div>
     <script src={`${FULL_BASE}scripts/drawer.js`}></script>
     <script src={`${FULL_BASE}scripts/locale-select.js`}></script>
+    <script is:inline>
+      (function () {
+        if (!('serviceWorker' in navigator)) return;
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
+        var base = document.querySelector('base');
+        var swUrl = base ? new URL('sw.js', base.href).href : '/sw.js';
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register(swUrl).catch(function () {});
+        });
+      })();
+    </script>
     <main class="flex-1 sc-main-with-header">
       <slot />
     </main>
@@ -110,5 +123,6 @@ const navItems = [
         </p>
       </div>
     </footer>
+    <script type="module" src={`${FULL_BASE}scripts/save-offline.js`}></script>
   </body>
 </html>

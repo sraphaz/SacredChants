@@ -2,9 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import ChantCard from '../../components/ChantCard.astro';
+import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getCollection } from 'astro:content';
-import { ui } from '../../i18n/strings';
+import { ui, getLocaleFromUrl } from '../../i18n/strings';
+import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
+const locale = getLocaleFromUrl(Astro.url.searchParams);
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -14,11 +17,18 @@ const chants = await getCollection('chants');
 const sortedChants = chants
   .map((entry) => ({ ...entry.data, slug: entry.id }))
   .sort((a, b) => a.title.localeCompare(b.title));
+
+const pageUrlForOffline = buildCanonicalPageUrl(
+  Astro.url.origin,
+  Astro.url.pathname,
+  Astro.url.search
+);
 ---
 
 <BaseLayout
   title={tEn.chants.title}
   description="Browse all sacred chants in the library."
+  locale={locale}
 >
   <PageShell>
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
@@ -33,6 +43,15 @@ const sortedChants = chants
       <span class="locale-es">{tEs.chants.title}</span>
       <span class="locale-it">{tIt.chants.title}</span>
     </p>
+    <SaveOfflineToggle
+      mode="toolbar"
+      class="mb-6"
+      storageSlug="__chants-index__"
+      pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={ui[locale].settings.offlineTitle}
+      buttonId="chants-index-save-offline-btn"
+      feedbackElementId="chants-index-offline-feedback"
+    />
     {sortedChants.length > 0 ? (
       <ul class="space-y-4">
         {sortedChants.map((chant) => (

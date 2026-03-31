@@ -1,0 +1,18 @@
+{
+  "name": "Sacred Chants",
+  "short_name": "Sacred Chants",
+  "description": "A living library of sacred sound traditions.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
