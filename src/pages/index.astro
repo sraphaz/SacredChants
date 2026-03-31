@@ -9,7 +9,7 @@ import { buildCanonicalPageUrl } from '../utils/offline-page-url';
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -61,6 +61,7 @@ const tIt = ui.it;
       class="mb-8"
       storageSlug="__home__"
       pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={ui[locale].settings.offlineTitle}
     />
 
     <!-- 2. Manifesto / vision -->

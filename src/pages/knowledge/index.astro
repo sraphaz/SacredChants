@@ -15,7 +15,7 @@ const tIt = ui.it;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -92,6 +92,7 @@ const introParagraphs = (() => {
       class="mb-6"
       storageSlug="__knowledge-index__"
       pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={t.settings.offlineTitle}
     />
     <div class="mb-10 max-w-[var(--sc-measure-reading)] space-y-4" style="color: var(--sc-text-muted)">
       {introParagraphs.map((para) => (

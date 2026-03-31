@@ -13,7 +13,7 @@ const useAppSubdomain = contributeAppUrl.length > 0;
 const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
 const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'dashboard/' + (locale === 'pt' ? '?lang=pt' : '') : '';
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -34,6 +34,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       class="mb-8"
       storageSlug="__contribute-dashboard__"
       pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={t.settings.offlineTitle}
     />
 
     <div id="dashboard-root" data-api-origin={apiOrigin} data-contribute-app-url={useAppSubdomain ? contributeAppContributeUrl : undefined}>

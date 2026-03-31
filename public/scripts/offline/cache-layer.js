@@ -187,7 +187,17 @@ export async function deleteUrlsFromOfflineCache(urls) {
   await Promise.all(urls.map((u) => cache.delete(u)));
 }
 
+const SW_READY_TIMEOUT_MS = 12_000;
+
+/**
+ * Waits for an active service worker, but does not block the UI indefinitely.
+ */
 export function ensureServiceWorkerActivated() {
   if (!('serviceWorker' in navigator)) return Promise.resolve();
-  return navigator.serviceWorker.ready;
+  return Promise.race([
+    navigator.serviceWorker.ready,
+    new Promise((resolve) => {
+      setTimeout(resolve, SW_READY_TIMEOUT_MS);
+    }),
+  ]).then(() => undefined);
 }

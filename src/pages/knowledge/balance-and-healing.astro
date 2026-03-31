@@ -16,7 +16,7 @@ const tIt = ui.it;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -39,6 +39,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       class="mb-8"
       storageSlug="__knowledge-balance-and-healing__"
       pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={t.settings.offlineTitle}
     />
 
     <div class="prose prose-neutral max-w-[var(--sc-measure-reading)] space-y-6" style="color: var(--sc-text-muted)">

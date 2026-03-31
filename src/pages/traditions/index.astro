@@ -19,7 +19,7 @@ const descMap = { en: tEn.traditions.description, pt: tPt.traditions.description
 const chants = await getCollection('chants');
 const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -48,6 +48,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       class="mb-6"
       storageSlug="__traditions__"
       pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={ui[locale].settings.offlineTitle}
     />
     {traditions.length > 0 ? (
       <ul class="space-y-3">

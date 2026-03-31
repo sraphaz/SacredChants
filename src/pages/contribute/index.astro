@@ -19,7 +19,7 @@ const localeQuery = langQuery(locale);
 const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + (localeQuery || '') : '';
 const returnToContribute = '/contribute/' + (localeQuery ? (localeQuery.startsWith('?') ? localeQuery : '?' + localeQuery) : '');
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -43,6 +43,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       class="mb-8"
       storageSlug="__contribute-index__"
       pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={t.settings.offlineTitle}
     />
 
     <div class="contribute-intro mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">

@@ -37,6 +37,7 @@ export function collectDomLinkedAssetUrls(baseHref) {
     const raw = el.getAttribute('href') || el.getAttribute('src');
     if (!raw) return;
     const absolute = toAbsoluteUrl(raw, baseHref);
+    if (!isSameOrigin(absolute)) return;
     seen[absolute] = true;
   });
   return Object.keys(seen);

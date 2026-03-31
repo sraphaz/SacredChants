@@ -12,6 +12,8 @@ export interface Props {
   storageSlug: string;
   pageUrl?: string;
   audioUrl?: string;
+  /** Localized `aria-label` for toolbar `<nav>` (toolbar mode only). */
+  toolbarAriaLabel?: string;
   /** Optional stable id for tests or legacy selectors (default: sc-offline-btn-{storageSlug}) */
   buttonId?: string;
   /** Override feedback paragraph id (default: sc-offline-fb-{storageSlug}) */
@@ -28,6 +30,7 @@ const {
   storageSlug,
   pageUrl,
   audioUrl,
+  toolbarAriaLabel,
   buttonId,
   feedbackElementId,
   class: className = '',
@@ -77,7 +80,7 @@ const buttonClass =
         'sc-save-offline-toolbar flex flex-wrap flex-col items-center justify-center gap-y-2 text-sm',
         className,
       ]}
-      aria-label={tEn.settings.offlineTitle}
+      aria-label={toolbarAriaLabel ?? tEn.settings.offlineTitle}
     >
       <OfflineSaveButton
         id={resolvedButtonId}

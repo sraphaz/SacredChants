@@ -17,7 +17,7 @@ const contributeUrl = `${basePath}contribute/${localeQuery}`.replace(/(\/)+/g, '
 const titleMap = { en: tEn.contribute.guideTitle, pt: tPt.contribute.guideTitle, es: tEs.contribute.guideTitle, it: tIt.contribute.guideTitle };
 const descMap = { en: tEn.contribute.guideDescription, pt: tPt.contribute.guideDescription, es: tEs.contribute.guideDescription, it: tIt.contribute.guideDescription };
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -52,6 +52,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       class="mb-8"
       storageSlug="__contribute-guide__"
       pageUrl={pageUrlForOffline}
+      toolbarAriaLabel={ui[locale].settings.offlineTitle}
     />
     <p class="mb-10 max-w-[var(--sc-measure-reading)]" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.contribute.guideDescription}</span>

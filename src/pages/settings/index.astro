@@ -15,7 +15,7 @@ const tIt = ui.it;
 const titleMap = { en: tEn.settings.title, pt: tPt.settings.title, es: tEs.settings.title, it: tIt.settings.title };
 const descMap = { en: tEn.settings.description, pt: tPt.settings.description, es: tEs.settings.description, it: tIt.settings.description };
 const pageUrlForOffline = buildCanonicalPageUrl(
-  Astro.site,
+  Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
@@ -281,6 +281,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           class="mt-2 mb-6"
           storageSlug="__settings__"
           pageUrl={pageUrlForOffline}
+          toolbarAriaLabel={ui[locale].settings.offlineTitle}
         />
         <p class="settings-field-label text-sm mt-4 mb-2" style="color: var(--sc-text-muted)">
           <span class="locale-en">{tEn.settings.offlineSavedHeading}</span>

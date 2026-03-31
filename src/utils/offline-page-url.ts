@@ -1,12 +1,13 @@
 /**
- * Canonical absolute URL for offline bundles (stable across build hosts when `site` is set).
+ * Absolute URL for the current path+search using the request origin (e.g. `Astro.url.origin`).
+ * Ties offline cache keys to the environment that served the page (localhost vs production).
  */
 
 export function buildCanonicalPageUrl(
-  site: URL | undefined,
+  requestOrigin: string,
   pathname: string,
   search: string
 ): string {
-  const originAndPath = site ?? new URL('https://example.com');
-  return new URL(pathname + search, originAndPath).href;
+  const base = requestOrigin.endsWith('/') ? requestOrigin : `${requestOrigin}/`;
+  return new URL(pathname + search, base).href;
 }
