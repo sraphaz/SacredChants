@@ -22,12 +22,17 @@ async function main() {
 
   const base = sharp(src).png();
 
-  await base.clone().resize(32, 32).toFile(join(root, 'public/favicon.png'));
-  await base.clone().resize(180, 180).toFile(join(root, 'public/apple-touch-icon.png'));
-  await base.clone().resize(192, 192).toFile(join(root, 'public/brand/icon-192.png'));
-  await base.clone().resize(512, 512).toFile(join(root, 'public/brand/icon-512.png'));
+  await Promise.all([
+    base.clone().resize(32, 32).toFile(join(root, 'public/favicon.png')),
+    base.clone().resize(180, 180).toFile(join(root, 'public/apple-touch-icon.png')),
+    base.clone().resize(192, 192).toFile(join(root, 'public/brand/icon-192.png')),
+    base.clone().resize(512, 512).toFile(join(root, 'public/brand/icon-512.png')),
+  ]);
 
   console.log('App icons generated from public/brand/app-icon.png');
 }
 
-main();
+main().catch((err) => {
+  console.error('Icon generation failed:', err?.message ?? err);
+  process.exit(1);
+});
