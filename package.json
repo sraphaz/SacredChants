@@ -50,7 +50,7 @@
     "@types/node": "^20.0.0",
     "vercel": "^39.0.0",
     "@vercel/node": "^3.0.0",
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.59.0",
     "vitest": "^2.0.0",
     "@semantic-release/commit-analyzer": "^11.0.0",
     "@semantic-release/github": "^10.0.2",
