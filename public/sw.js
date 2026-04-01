@@ -2,7 +2,7 @@
  * Service worker: prefer network; when offline, serve cached GET responses (filled by save-offline flow).
  * Cache name must match public/scripts/offline/constants.js (OFFLINE_CACHE_NAME).
  */
-const ACTIVE_OFFLINE_CACHE = 'sc-offline-v9';
+const ACTIVE_OFFLINE_CACHE = 'sc-offline-v10';
 const OFFLINE_CACHE_PATTERN = /^sc-offline-v\d+$/;
 
 self.addEventListener('install', (event) => {

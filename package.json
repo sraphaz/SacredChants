@@ -25,7 +25,8 @@
     "dev": "astro dev",
     "dev:vercel": "vercel dev",
     "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite', { recursive: true, force: true })\" && astro dev",
-    "build": "astro build",
+    "icons:generate": "node scripts/generate-app-icons.mjs",
+    "build": "node scripts/generate-app-icons.mjs && astro build",
     "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -47,17 +48,18 @@
     "zod": "^3.23.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "vercel": "^39.0.0",
-    "@vercel/node": "^3.0.0",
-    "@playwright/test": "^1.58.2",
-    "vitest": "^2.0.0",
-    "@semantic-release/commit-analyzer": "^11.0.0",
+    "@playwright/test": "^1.59.0",
+    "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/github": "^10.0.2",
     "@semantic-release/release-notes-generator": "^12.0.0",
+    "@types/node": "^25.5.0",
+    "@vercel/node": "^5.6.23",
     "cross-env": "^10.1.0",
     "semantic-release": "^24.0.0",
     "serve": "^14.2.6",
-    "typescript": "^5.6.0"
+    "sharp": "^0.34.5",
+    "typescript": "^6.0.2",
+    "vercel": "^39.0.0",
+    "vitest": "^2.0.0"
   }
 }

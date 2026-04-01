@@ -7,6 +7,7 @@ const LINKED_ASSET_SELECTOR = [
   'link[rel="preload"][href]',
   'script[src]',
   'link[rel="icon"][href]',
+  'link[rel="apple-touch-icon"][href]',
   'link[rel="manifest"][href]',
 ].join(', ');
 
@@ -53,7 +54,14 @@ export function collectMainImageUrls(baseHref, intoSet) {
 }
 
 export function coreShellUrls(baseHref) {
-  const names = ['favicon.svg', 'manifest.webmanifest', 'sw.js'];
+  const names = [
+    'favicon.png',
+    'apple-touch-icon.png',
+    'brand/icon-192.png',
+    'brand/icon-512.png',
+    'manifest.webmanifest',
+    'sw.js',
+  ];
   return names.map((name) => toAbsoluteUrl(name, baseHref));
 }
 
