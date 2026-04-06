@@ -47,7 +47,7 @@ if (skipBuild) {
   });
 
   build.on('close', (code) => {
-    if (code !== 0) process.exit(code);
+    if (code !== 0) process.exit(code ?? 1);
     startPreview();
   });
 
