@@ -24,7 +24,7 @@
   var valid =
     sel && sel.getAttribute('data-supported-locales')
       ? JSON.parse(sel.getAttribute('data-supported-locales'))
-      : ['en', 'pt', 'es', 'it'];
+      : ['en', 'pt', 'es', 'it', 'hi'];
   var locale = document.documentElement.dataset.locale;
   if (!locale || valid.indexOf(locale) === -1) locale = 'en';
 

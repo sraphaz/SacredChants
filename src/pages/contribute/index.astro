@@ -11,6 +11,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
@@ -36,6 +37,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-pt">{tPt.contribute.title}</span>
       <span class="locale-es">{tEs.contribute.title}</span>
       <span class="locale-it">{tIt.contribute.title}</span>
+      <span class="locale-hi">{tHi.contribute.title}</span>
     </h1>
 
     <SaveOfflineToggle
@@ -52,12 +54,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <span class="locale-pt">{tPt.contribute.intro}</span>
         <span class="locale-es">{tEs.contribute.intro}</span>
         <span class="locale-it">{tIt.contribute.intro}</span>
+        <span class="locale-hi">{tHi.contribute.intro}</span>
       </p>
       <p>
         <span class="locale-en">{tEn.contribute.process}</span>
         <span class="locale-pt">{tPt.contribute.process}</span>
         <span class="locale-es">{tEs.contribute.process}</span>
         <span class="locale-it">{tIt.contribute.process}</span>
+        <span class="locale-hi">{tHi.contribute.process}</span>
       </p>
     </div>
 
@@ -66,6 +70,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-pt">{tPt.contribute.chooseHow}</span>
       <span class="locale-es">{tEs.contribute.chooseHow}</span>
       <span class="locale-it">{tIt.contribute.chooseHow}</span>
+      <span class="locale-hi">{tHi.contribute.chooseHow}</span>
     </h2>
 
     <div class="contribute-options grid gap-6 md:grid-cols-2 mb-10">
@@ -75,12 +80,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">{tPt.contribute.viaSiteTitle}</span>
           <span class="locale-es">{tEs.contribute.viaSiteTitle}</span>
           <span class="locale-it">{tIt.contribute.viaSiteTitle}</span>
+          <span class="locale-hi">{tHi.contribute.viaSiteTitle}</span>
         </h3>
         <p class="mb-4 text-sm" style="color: var(--sc-text-muted)">
           <span class="locale-en">{tEn.contribute.viaSiteDesc}</span>
           <span class="locale-pt">{tPt.contribute.viaSiteDesc}</span>
           <span class="locale-es">{tEs.contribute.viaSiteDesc}</span>
           <span class="locale-it">{tIt.contribute.viaSiteDesc}</span>
+          <span class="locale-hi">{tHi.contribute.viaSiteDesc}</span>
         </p>
         <div id="contribute-root" class:list={['space-y-4', !useAppSubdomain && 'contribute-auth-pending']} data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl || undefined}>
           {useAppSubdomain ? (
@@ -143,12 +150,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">{tPt.contribute.viaGitHubTitle}</span>
           <span class="locale-es">{tEs.contribute.viaGitHubTitle}</span>
           <span class="locale-it">{tIt.contribute.viaGitHubTitle}</span>
+          <span class="locale-hi">{tHi.contribute.viaGitHubTitle}</span>
         </h3>
         <p class="mb-4 text-sm" style="color: var(--sc-text-muted)">
           <span class="locale-en">{tEn.contribute.viaGitHubDesc}</span>
           <span class="locale-pt">{tPt.contribute.viaGitHubDesc}</span>
           <span class="locale-es">{tEs.contribute.viaGitHubDesc}</span>
           <span class="locale-it">{tIt.contribute.viaGitHubDesc}</span>
+          <span class="locale-hi">{tHi.contribute.viaGitHubDesc}</span>
         </p>
         <a
           href={`/contribute/guide/${localeQuery || ''}`}
@@ -192,7 +201,21 @@ const pageUrlForOffline = buildCanonicalPageUrl(
     </style>
 </BaseLayout>
 
-<script define:vars={{ apiOrigin, stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, noContributionsYet: t.contribute.noContributionsYet }}>
+<script define:vars={{
+  apiOrigin,
+  stateOpen: t.contribute.stateOpen,
+  stateMerged: t.contribute.stateMerged,
+  stateClosed: t.contribute.stateClosed,
+  viewPR: t.contribute.viewPR,
+  noContributionsYet: t.contribute.noContributionsYet,
+  welcomeByLocale: {
+    en: tEn.contribute.welcome,
+    pt: tPt.contribute.welcome,
+    es: tEs.contribute.welcome,
+    it: tIt.contribute.welcome,
+    hi: tHi.contribute.welcome,
+  },
+}}>
   const root = document.getElementById('contribute-root');
   if (root?.getAttribute('data-contribute-app-url')) return;
   const loginCta = document.getElementById('contribute-login-cta');
@@ -232,8 +255,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         if (loginCta) loginCta.classList.add('hidden');
         if (authenticated) authenticated.classList.remove('hidden');
         if (welcomeMsg) {
-          const lang = document.documentElement.lang || 'en';
-          const welcome = lang === 'pt' ? 'Bem-vindo(a)' : lang === 'es' ? 'Bienvenido(a)' : lang === 'it' ? 'Benvenuto(a)' : 'Welcome';
+          const rawLoc = (
+            document.documentElement.getAttribute('data-locale') ||
+            document.documentElement.lang ||
+            'en'
+          ).toLowerCase();
+          const normalizedLoc = rawLoc in welcomeByLocale ? rawLoc : rawLoc.split(/[-_]/)[0];
+          const welcome =
+            (welcomeByLocale && welcomeByLocale[normalizedLoc]) || welcomeByLocale.en;
           welcomeMsg.textContent = `${welcome}, @${user.login}`;
         }
         return fetch(base + '/api/contribute/list', { credentials: 'include' });

@@ -2,16 +2,22 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
-import { ui, type Locale } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { getFullBase } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
-const locale = (Astro.url.searchParams.get('lang') === 'pt' ? 'pt' : 'en') as Locale;
+const locale = getLocaleFromUrl(Astro.url.searchParams);
+const FULL_BASE = getFullBase(Astro.url);
+const dashboardUrl = new URL(`contribute/dashboard/${langQuery(locale)}`, FULL_BASE);
+const authReturnTo = dashboardUrl.pathname + dashboardUrl.search;
+const newContributionUrl = new URL(`contribute/form/${langQuery(locale)}`, FULL_BASE);
+const formPathPrefix = new URL('contribute/form/', FULL_BASE).pathname;
 const t = ui[locale];
 const apiOrigin = import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN ?? '';
 const contributeAppUrl = (import.meta.env.PUBLIC_CONTRIBUTE_APP_URL as string)?.trim() ?? '';
 const useAppSubdomain = contributeAppUrl.length > 0;
 const contributeAppBase = useAppSubdomain ? `${contributeAppUrl.replace(/\/$/, '')}/contribute/` : '';
-const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'dashboard/' + (locale === 'pt' ? '?lang=pt' : '') : '';
+const contributeAppContributeUrl = useAppSubdomain ? contributeAppBase + 'dashboard/' + langQuery(locale) : '';
 const pageUrlForOffline = buildCanonicalPageUrl(
   Astro.url.origin,
   Astro.url.pathname,
@@ -48,7 +54,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       ) : (
       <div id="dashboard-login-required" class="mb-6">
         <p style="color: var(--sc-text-muted)">{t.contribute.loginToContribute}</p>
-        <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(locale === 'pt' ? '/contribute/dashboard/?lang=pt' : '/contribute/dashboard/')}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
+        <a href={`${apiOrigin}/api/auth/github?returnTo=${encodeURIComponent(authReturnTo)}`} class="sc-btn-primary inline-flex mt-2 px-5 py-2.5 rounded-lg">
           {t.contribute.signInWithGitHub}
         </a>
       </div>
@@ -56,7 +62,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p id="dashboard-empty" class="hidden" style="color: var(--sc-text-muted)">{t.contribute.noContributionsYet}</p>
         <ul id="dashboard-contributions" class="space-y-3" aria-label={t.contribute.myContributions}></ul>
         <p class="mt-4">
-          <a href={locale === 'pt' ? '/contribute/form/?lang=pt' : '/contribute/form/'} class="sc-btn-primary inline-flex px-5 py-2.5 rounded-lg">{t.contribute.newContribution}</a>
+          <a href={newContributionUrl.pathname + newContributionUrl.search} class="sc-btn-primary inline-flex px-5 py-2.5 rounded-lg">{t.contribute.newContribution}</a>
         </p>
       </div>
       )}
@@ -82,7 +88,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
   </style>
 </BaseLayout>
 
-<script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, closePRLabel: t.contribute.closePR, confirmClosePR: t.contribute.confirmClosePR, prClosed: t.contribute.prClosed, noContributionsYet: t.contribute.noContributionsYet, draftBadge: t.contribute.draftBadge, continueDraft: t.contribute.continueDraft, currentLocale: locale }}>
+<script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, closePRLabel: t.contribute.closePR, confirmClosePR: t.contribute.confirmClosePR, prClosed: t.contribute.prClosed, noContributionsYet: t.contribute.noContributionsYet, draftBadge: t.contribute.draftBadge, continueDraft: t.contribute.continueDraft, currentLocale: locale, formPathPrefix }}>
   const root = document.getElementById('dashboard-root');
   if (root?.getAttribute('data-contribute-app-url')) return;
   const base = root?.getAttribute('data-api-origin') ?? '';
@@ -141,9 +147,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       li.appendChild(document.createTextNode(' ' + title + (dateStr ? ' — ' + dateStr : '') + ' '));
       const continueLink = document.createElement('a');
       const q = [];
-      if (currentLocale === 'pt') q.push('lang=pt');
+      if (currentLocale !== 'en') q.push('lang=' + encodeURIComponent(currentLocale));
       if (d.id) q.push('draft=' + encodeURIComponent(d.id));
-      continueLink.href = '/contribute/form/' + (q.length ? '?' + q.join('&') : '');
+      continueLink.href = formPathPrefix + (q.length ? '?' + q.join('&') : '');
       continueLink.className = 'underline';
       continueLink.textContent = continueDraft;
       li.appendChild(continueLink);

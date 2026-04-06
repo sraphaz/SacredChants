@@ -1,6 +1,6 @@
 ---
 import type { ChantVerse as ChantVerseType, ChantLine } from '../content/schemas/chant';
-import { ui } from '../i18n/strings';
+import { ui, SUPPORTED_LOCALES } from '../i18n/strings';
 
 interface Props {
   verse: ChantVerseType;
@@ -18,13 +18,15 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
-/** Locales de tradução (alinhado com src/i18n/strings e schema chant). */
-const VERSE_LOCALES = ['en', 'pt', 'es', 'it'] as const;
+const tHi = ui.hi;
+/** Locales de tradução (mesma ordem que SUPPORTED_LOCALES / schema chant). */
+const VERSE_LOCALES = [...SUPPORTED_LOCALES] as const;
 const verseLabelByLocale: Record<(typeof VERSE_LOCALES)[number], string> = {
   en: tEn.chant.verse,
   pt: tPt.chant.verse,
   es: tEs.chant.verse,
   it: tIt.chant.verse,
+  hi: tHi.chant.verse,
 };
 ---
 
@@ -56,7 +58,7 @@ const verseLabelByLocale: Record<(typeof VERSE_LOCALES)[number], string> = {
       return <p class={`locale-${loc}`} data-lang={loc} lang={contentLang}>{text}</p>;
     })}
   </div>
-  {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt || verse.explanation.es || verse.explanation.it) && (
+  {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt || verse.explanation.es || verse.explanation.it || verse.explanation.hi) && (
     <>
       {VERSE_LOCALES.map((loc) => {
         const explanationText = verse.explanation?.[loc] ?? verse.explanation?.en ?? verse.explanation?.pt ?? '';

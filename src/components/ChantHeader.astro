@@ -11,7 +11,11 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
-const desc = chant.description && typeof chant.description === 'object' ? chant.description as { en?: string; pt?: string; es?: string; it?: string } : {};
+const tHi = ui.hi;
+const desc =
+  chant.description && typeof chant.description === 'object'
+    ? (chant.description as { en?: string; pt?: string; es?: string; it?: string; hi?: string })
+    : {};
 ---
 
 <header class="chant-header chant-header--centered">
@@ -30,6 +34,7 @@ const desc = chant.description && typeof chant.description === 'object' ? chant.
           <span class="locale-pt">{tPt.chant.interpretedBy} {chant.interpreter}</span>
           <span class="locale-es">{tEs.chant.interpretedBy} {chant.interpreter}</span>
           <span class="locale-it">{tIt.chant.interpretedBy} {chant.interpreter}</span>
+          <span class="locale-hi">{tHi.chant.interpretedBy} {chant.interpreter}</span>
         </span>
       )}
       {chant.audio && (
@@ -46,12 +51,13 @@ const desc = chant.description && typeof chant.description === 'object' ? chant.
     )}
   </div>
   <div class="chant-header__body">
-    {(desc.en || desc.pt || desc.es || desc.it) && (
+    {(desc.en || desc.pt || desc.es || desc.it || desc.hi) && (
       <div class="chant-header__desc">
         {desc.en && <p class="locale-en mb-0">{desc.en}</p>}
         {desc.pt && <p class="locale-pt mb-0">{desc.pt}</p>}
         {desc.es && <p class="locale-es mb-0">{desc.es}</p>}
         {desc.it && <p class="locale-it mb-0">{desc.it}</p>}
+        {desc.hi && <p class="locale-hi mb-0">{desc.hi}</p>}
       </div>
     )}
     {chant.tags && chant.tags.length > 0 && (

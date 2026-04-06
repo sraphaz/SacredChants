@@ -4,6 +4,7 @@ import PageShell from '../../components/PageShell.astro';
 import KnowledgePageHeader from '../../components/KnowledgePageHeader.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { PAGE_SEO } from '../../i18n/page-seo';
 import { getFullBase } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
@@ -13,6 +14,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -24,14 +26,26 @@ const pageUrlForOffline = buildCanonicalPageUrl(
 
 <BaseLayout
   title={t.knowledge.soundAndHumanity}
-  description="Sound and humanity: how cultures across the world have cultivated song; sound in nature; the sacred and inner states channelled through sound."
+  description={PAGE_SEO[locale].knowledge.soundAndHumanity}
   locale={locale}
 >
   <PageShell>
     <KnowledgePageHeader
       backHref={`${FULL_BASE}knowledge/${localeQuery}`}
-      titleByLocale={{ en: tEn.knowledge.soundAndHumanity, pt: tPt.knowledge.soundAndHumanity, es: tEs.knowledge.soundAndHumanity, it: tIt.knowledge.soundAndHumanity }}
-      backLabelByLocale={{ en: tEn.knowledge.backToKnowledge, pt: tPt.knowledge.backToKnowledge, es: tEs.knowledge.backToKnowledge, it: tIt.knowledge.backToKnowledge }}
+      titleByLocale={{
+        en: tEn.knowledge.soundAndHumanity,
+        pt: tPt.knowledge.soundAndHumanity,
+        es: tEs.knowledge.soundAndHumanity,
+        it: tIt.knowledge.soundAndHumanity,
+        hi: tHi.knowledge.soundAndHumanity,
+      }}
+      backLabelByLocale={{
+        en: tEn.knowledge.backToKnowledge,
+        pt: tPt.knowledge.backToKnowledge,
+        es: tEs.knowledge.backToKnowledge,
+        it: tIt.knowledge.backToKnowledge,
+        hi: tHi.knowledge.backToKnowledge,
+      }}
     />
 
     <SaveOfflineToggle
@@ -49,6 +63,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">O som através das culturas e do tempo</span>
           <span class="locale-es">El sonido a través de las culturas y el tiempo</span>
           <span class="locale-it">Il suono attraverso le culture e il tempo</span>
+          <span class="locale-hi">ध्वनि — संस्कृतियों और काल में</span>
         </h2>
         <p class="locale-en">
           Across the world and throughout history, humanity has cultivated sound and song as a central part of social and spiritual life. In the Indian subcontinent, Vedic chant and Nada Yoga; in Tibet, overtone chanting and mantra; in the Middle East and North Africa, the call to prayer and devotional song; in sub-Saharan Africa, polyphonic song and drum as the pulse of community and ritual; in the Americas, the songs of Indigenous peoples tied to land, ancestors, and ceremony; in Europe, plainchant, polyphony, and the sacred music of cathedrals; in East Asia, the disciplined tone of Buddhist chant and the resonance of temple bells. In every culture, sound has been used to mark the sacred, to bind community, to pass on memory, and to open the door to inner experience. This is not the property of one tradition but a <strong>shared heritage of humanity</strong>: a living sound culture that has been refined, elaborated, and cherished in countless ways.
@@ -62,6 +77,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-it">
           In tutto il mondo e nella storia, l'umanità ha coltivato il suono e il canto come parte centrale della vita sociale e spirituale. Nel subcontinente indiano, il canto vedico e il Nada Yoga; in Tibet, il canto degli armonici e il mantra; in Medio Oriente e Nord Africa, la chiamata alla preghiera e il canto devozionale; nell'Africa subsahariana, il canto polifonico e il tamburo come pulsazione della comunità e del rituale; nelle Americhe, i canti dei popoli indigeni legati alla terra, agli antenati e alla cerimonia; in Europa, il canto gregoriano, la polifonia e la musica sacra delle cattedrali; in Asia orientale, il tono disciplinato del canto buddhista e la risonanza dei templi. In ogni cultura il suono è stato usato per segnare il sacro, unire la comunità, tramandare la memoria e aprire la porta all'esperienza interiore. Non è proprietà di una tradizione ma un <strong>patrimonio condiviso dell'umanità</strong>: una cultura sonora viva raffinata, elaborata e custodita in innumerevoli modi.
         </p>
+        <p class="locale-hi">
+          विश्वभर में और इतिहास भर में, मानव ने ध्वनि और गीत को सामाजिक व आध्यात्मिक जीवन का केंद्र बनाया है — वैदिक कीर्तन व नाद योग से लेकर तिब्बती ध्वनि-कला और मंत्र, अज़ान व भक्ति-गीत, अफ़्रीकी बहुस्वरता व ढोल, अमेरिकी मूलनिवासी गीत, यूरोपीय गिरजाघर संगीत, पूर्व एशिया के मंदिर-घंटे तक। ध्वनि ने पवित्रता चिह्नित की, समुदाय जोड़ा, स्मृति संजोई और अंतर्दृष्टि का द्वार खोला। यह किसी एक परंपरा की संपत्ति नहीं, बल्कि <strong>मानवता की साझा विरासत</strong> है — जीवंत ध्वनि-संस्कृति जिसे अनगिनत रूपों में संवारा गया।
+        </p>
       </section>
 
       <section>
@@ -70,6 +88,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Tudo canta — o som na natureza</span>
           <span class="locale-es">Todo canta — el sonido en la naturaleza</span>
           <span class="locale-it">Tutto canta — il suono nella natura</span>
+          <span class="locale-hi">सब कुछ गाता है — प्रकृति में ध्वनि</span>
         </h2>
         <p class="locale-en">
           Long before human ritual, the world was already full of sound. Rivers and wind, thunder and rain, the calls of animals and birds, the hum of insects, the crack of fire — nature is not silent. Many traditions speak of the cosmos as a kind of song or vibration: the “music of the spheres,” the primordial hum, the voice of the elements. Humanity did not invent sacred sound from nothing; it <strong>listened</strong> to what was already there and learned to join in, to echo, to channel it. Chant and song, in this light, are a way of aligning with the larger “song” of nature and the forces that move through it — a dialogue between the human and the more-than-human, between the inner state and the outer world.
@@ -83,6 +102,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-pt">
           Muito antes do ritual humano, o mundo já estava cheio de som. Rios e vento, trovão e chuva, os chamamentos dos animais e das aves, o zumbido dos insectos, o estalar do fogo — a natureza não é silenciosa. Muitas tradições falam do cosmos como uma espécie de canto ou vibração: a “música das esferas”, o zumbido primordial, a voz dos elementos. A humanidade não inventou o som sagrado do nada; <strong>escutou</strong> o que já estava lá e aprendeu a participar, a ecoar, a canalizá-lo. O canto e a canção, nesta luz, são uma forma de se alinhar com o “canto” mais vasto da natureza e as forças que a atravessam — um diálogo entre o humano e o mais-que-humano, entre o estado interior e o mundo exterior.
         </p>
+        <p class="locale-hi">
+          मानव अनुष्ठान से पहले ही संसार ध्वनि से भरा था — नदियाँ, वायु, गर्जना, पशु-पक्षियों की पुकार, कीटों का गुनगुनाना, अग्नि की चटखार। कई परंपराएँ ब्रह्मांड को गीत या कंपन मानती हैं। पवित्र ध्वनि शून्य से नहीं बनी; मानव ने जो पहले से था उसे <strong>सुना</strong>, उसमें मिला, प्रतिध्वनित किया। इस रोशनी में गाना सुनना प्रकृति के व्यापक «गीत» से तालमेल है — मानव और उससे परे के बीच संवाद।
+        </p>
       </section>
 
       <section>
@@ -91,6 +113,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">O canto esquecido</span>
           <span class="locale-es">El canto olvidado</span>
           <span class="locale-it">Il canto dimenticato</span>
+          <span class="locale-hi">भूला हुआ गीत</span>
         </h2>
         <p class="locale-en">
           In many societies today, the place once held by collective song, ritual sound, and the cultivation of the voice has shrunk or been crowded out. We listen to recorded sound through earbuds; we speak in fragments and screens. The idea that life itself is in some sense a “song,” and that human beings can participate in it through their own sound, has for many become distant or forgotten. Some would say that this forgetting is not innocent: that the loss of a living sound culture — of moments when communities sing together, when the sacred is invoked by voice, when the inner state is given a channel through vibration — is linked to the dis-ease of modern life: isolation, anxiety, a sense of being cut off from nature and from each other. Whether or not one goes that far, it is clear that <strong>recovering and preserving</strong> the knowledge and practice of sound as heritage is a way of keeping a door open: to the sacred, to nature, to the internal states of consciousness that sound can channel and activate.
@@ -104,6 +127,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-it">
           In molte società odierne, il posto un tempo occupato dal canto collettivo, dal suono rituale e dalla coltivazione della voce si è ridotto o è stato messo in ombra. Ascoltiamo suono registrato con gli auricolari; parliamo in frammenti e schermi. L'idea che la vita stessa sia in un certo senso un "canto" e che l'essere umano possa parteciparvi con il proprio suono è diventata per molti lontana o dimenticata. Qualcuno direbbe che questa dimenticanza non è innocente: che la perdita di una cultura sonora viva — di momenti in cui le comunità cantano insieme, in cui il sacro è invocato dalla voce, in cui lo stato interiore riceve un canale attraverso la vibrazione — è legata al malessere della vita moderna: isolamento, ansia, il senso di essere tagliati dalla natura e gli uni dagli altri. Che si arrivi o meno a tanto, è chiaro che <strong>recuperare e preservare</strong> la conoscenza e la pratica del suono come patrimonio è un modo di tenere una porta aperta: al sacro, alla natura, agli stati interni di coscienza che il suono può canalizzare e attivare.
         </p>
+        <p class="locale-hi">
+          आज कई समाजों में सामूहिक गीत, अनुष्ठानिक ध्वनि और स्वर-साधना की जगह सिकुड़ गई है। हम रिकॉर्ड सुनते हैं, टूटे संवाद में जीते हैं। जीवन स्वयं एक «गीत» है और अपनी ध्वनि से उसमें भाग ले सकते हैं — यह विचार कई के लिए दूर हो गया। जीवंत ध्वनि-संस्कृति का ह्रास आधुनिक अलगाव और चिंता से जुड़ा माना जा सकता है। किसी भी सीमा तक, <strong>पुनर्प्राप्ति और संरक्षण</strong> पवित्र, प्रकृति और उन अंतर्गत अवस्थाओं के लिए द्वार खोले रखता है जिन्हें ध्वनि सक्रिय कर सकती है।
+        </p>
       </section>
 
       <section>
@@ -112,6 +138,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">O sagrado, a natureza e os estados interiores — canalizados pelo som</span>
           <span class="locale-es">Lo sagrado, la naturaleza y los estados interiores — canalizados por el sonido</span>
           <span class="locale-it">Il sacro, la natura e gli stati interiori — canalizzati dal suono</span>
+          <span class="locale-hi">पवित्रता, प्रकृति और अंतर्गत अवस्थाएँ — ध्वनि द्वारा</span>
         </h2>
         <p class="locale-en">
           In traditions the world over, sound is not merely decoration. It is a <strong>bridge</strong>: between the visible and the invisible, the individual and the collective, the human and the divine or the natural. The sacred is invoked by mantra, hymn, and call; the elements — earth, water, fire, air, space — are honoured or balanced through specific tones, rhythms, and intentions; the forces of nature and the internal states of consciousness are <strong>channelled and activated</strong> through sound. To sing or to listen with full presence is, in these frameworks, to participate in something larger: to align with the “song” of creation, to allow the mind and body to resonate with a vibration that can bring clarity, peace, or a glimpse of what lies beyond the everyday self. This site is part of an effort to protect that access — to keep this heritage of sound and its power to open inner experience alive for whoever is willing to listen.
@@ -124,6 +151,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         </p>
         <p class="locale-it">
           Nelle tradizioni di tutto il mondo, il suono non è solo decorazione. È un <strong>ponte</strong>: tra il visibile e l'invisibile, l'individuale e il collettivo, l'umano e il divino o il naturale. Il sacro è invocato con mantra, inno e chiamata; gli elementi — terra, acqua, fuoco, aria, spazio — sono onorati o equilibrati attraverso toni, ritmi e intenzioni specifiche; le forze della natura e gli stati interni di coscienza sono <strong>canalizzati e attivati</strong> attraverso il suono. Cantare o ascoltare con piena presenza è, in queste cornici, partecipare a qualcosa di più grande: allinearsi al "canto" della creazione, permettere a mente e corpo di risuonare con una vibrazione che può portare chiarezza, pace o un barlume di ciò che sta oltre il sé quotidiano. Questo sito fa parte di uno sforzo per proteggere quell'accesso — mantenere viva questa eredità del suono e il suo potere di aprire l'esperienza interiore a chi sia disposto ad ascoltare.
+        </p>
+        <p class="locale-hi">
+          विश्व की परंपराओं में ध्वनि केवल सजावट नहीं — यह <strong>पुल</strong> है: दृश्य और अदृश्य, व्यक्ति और समुदाय, मानव और दिव्य के बीच। मंत्र, स्तोत्र और आह्वान से पवित्रता बुलाई जाती है; तत्वों का सम्मान या संतुलन विशिष्ट स्वर, ताल और भावना से होता है; प्रकृति की शक्तियाँ और चेतना की अंतर्गत अवस्थाएँ ध्वनि से <strong>चैनल और सक्रिय</strong> होती हैं। पूर्ण उपस्थिति से गाना या सुनना सृष्टि के «गीत» से मेल और शांति का द्वार है। यह साइट उस पहुँच की रक्षा का हिस्सा है।
         </p>
       </section>
     </div>

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * Chant content schema — localização em en, pt, es, it.
+ * Chant content schema — localização em en, pt, es, it, hi.
  * Ver docs/I18N-LOCALIZATION.md para detalhes da implementação.
  */
 
@@ -16,6 +16,7 @@ export const chantLineSchema = z.object({
     en: z.string().optional(),
     es: z.string().optional(),
     it: z.string().optional(),
+    hi: z.string().optional(),
   }),
 });
 
@@ -30,6 +31,7 @@ export const chantVerseSchema = z.object({
       en: z.string().optional(),
       es: z.string().optional(),
       it: z.string().optional(),
+      hi: z.string().optional(),
     })
     .optional(),
 });
@@ -47,6 +49,7 @@ export const chantSchema = z.object({
     pt: z.string(),
     es: z.string().optional(),
     it: z.string().optional(),
+    hi: z.string().optional(),
   }),
   tags: z.array(z.string()).default([]),
   audio: z.string().url().optional(),
@@ -69,6 +72,7 @@ export const chantSchema = z.object({
       en: z.string().optional(),
       es: z.string().optional(),
       it: z.string().optional(),
+      hi: z.string().optional(),
     })
     .optional(),
   verses: z.array(chantVerseSchema),

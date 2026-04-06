@@ -1,22 +1,49 @@
 /** Locales suportados pela UI e conteúdo. Ver docs/I18N-LOCALIZATION.md. */
-export type Locale = 'en' | 'pt' | 'es' | 'it';
+import { uiHi } from './ui-hi';
+import localeUrlContract from './locale-url-contract.json';
 
-/** Single source of truth for supported UI locales. Use in BaseLayout, scripts, and any locale iteration. */
-export const SUPPORTED_LOCALES: readonly Locale[] = ['en', 'pt', 'es', 'it'];
+export type Locale = 'en' | 'pt' | 'es' | 'it' | 'hi';
 
-const LOCALE_PARAM_VALUES = ['en', 'pt', 'pt-br', 'es', 'it'] as const;
-type LocaleParam = (typeof LOCALE_PARAM_VALUES)[number];
-
-/** Parse locale from URL search params. pt-br is treated as pt. */
-export function getLocaleFromUrl(searchParams: URLSearchParams): Locale {
-  const lang = searchParams.get('lang')?.toLowerCase() as LocaleParam | null;
-  if (lang === 'pt-br' || lang === 'pt') return 'pt';
-  if (lang === 'es') return 'es';
-  if (lang === 'it') return 'it';
-  return 'en';
+function buildLangParamToLocale(): Record<string, Locale> {
+  const m: Record<string, Locale> = Object.create(null);
+  for (const loc of localeUrlContract.supportedCanonical) {
+    m[loc] = loc as Locale;
+  }
+  for (const [alias, canon] of Object.entries(localeUrlContract.urlAliases)) {
+    m[alias.toLowerCase()] = canon as Locale;
+  }
+  return m;
 }
 
-/** Build ?lang= query for links (keeps pt-br if that was used). */
+/**
+ * Lowercase `?lang=` query values → canonical `Locale`. Aliases (e.g. pt-br → pt) live in
+ * locale-url-contract.json only — keep in sync with generated public/scripts/sc-locale-url-data.js.
+ */
+export const LANG_PARAM_TO_LOCALE: Record<string, Locale> = buildLangParamToLocale();
+
+/** Single source of truth for supported UI locales. Mirrors locale-url-contract.json `supportedCanonical`. */
+export const SUPPORTED_LOCALES = localeUrlContract.supportedCanonical as readonly Locale[];
+
+/** Short labels for the header locale `<select>` (EN, PT, …). */
+export const LOCALE_SELECT_SHORT_LABEL: Record<Locale, string> = {
+  en: 'EN',
+  pt: 'PT',
+  es: 'ES',
+  it: 'IT',
+  hi: 'HI',
+};
+
+/** Parse locale from URL search params. Unknown values fall back to `en`. */
+export function getLocaleFromUrl(searchParams: URLSearchParams): Locale {
+  const raw = searchParams.get('lang')?.toLowerCase();
+  if (!raw) return 'en';
+  return LANG_PARAM_TO_LOCALE[raw] ?? 'en';
+}
+
+/**
+ * Build `?lang=` suffix for internal links. Always uses canonical keys (`pt`, `es`, …), never aliases like `pt-br`.
+ * For `en` (default) returns empty string so URLs stay clean without `?lang=`.
+ */
 export function langQuery(locale: Locale): string {
   if (locale === 'en') return '';
   return `?lang=${locale}`;
@@ -225,6 +252,7 @@ export const ui = {
       pt: 'Português',
       es: 'Español',
       it: 'Italiano',
+      hi: 'हिन्दी',
     },
     settings: {
       title: 'Settings',
@@ -237,6 +265,7 @@ export const ui = {
       languagePt: 'Português',
       languageEs: 'Español',
       languageIt: 'Italiano',
+      languageHi: 'Hindi',
       fontSize: 'Font size',
       fontSizeSmall: 'Small',
       fontSizeMedium: 'Medium',
@@ -483,6 +512,7 @@ export const ui = {
       pt: 'Português',
       es: 'Español',
       it: 'Italiano',
+      hi: 'हिन्दी',
     },
     settings: {
       title: 'Configurações',
@@ -495,6 +525,7 @@ export const ui = {
       languagePt: 'Português',
       languageEs: 'Espanhol',
       languageIt: 'Italiano',
+      languageHi: 'Hindi',
       fontSize: 'Tamanho da fonte',
       fontSizeSmall: 'Pequeno',
       fontSizeMedium: 'Médio',
@@ -736,7 +767,13 @@ export const ui = {
         formNavAriaLabel: 'Navegación del formulario',
       },
     },
-    lang: { en: 'English', pt: 'Português', es: 'Español', it: 'Italiano' },
+    lang: {
+      en: 'English',
+      pt: 'Português',
+      es: 'Español',
+      it: 'Italiano',
+      hi: 'हिन्दी',
+    },
     settings: {
       title: 'Ajustes',
       description: 'Personaliza el diseño, idioma y colores para una experiencia más agradable. Tus opciones se guardan en el navegador.',
@@ -748,6 +785,7 @@ export const ui = {
       languagePt: 'Portugués',
       languageEs: 'Español',
       languageIt: 'Italiano',
+      languageHi: 'Hindi',
       fontSize: 'Tamaño de fuente',
       fontSizeSmall: 'Pequeño',
       fontSizeMedium: 'Medio',
@@ -989,7 +1027,13 @@ export const ui = {
         formNavAriaLabel: 'Navigazione modulo',
       },
     },
-    lang: { en: 'English', pt: 'Português', es: 'Español', it: 'Italiano' },
+    lang: {
+      en: 'English',
+      pt: 'Português',
+      es: 'Español',
+      it: 'Italiano',
+      hi: 'हिन्दी',
+    },
     settings: {
       title: 'Impostazioni',
       description: 'Personalizza layout, lingua e colori per un\'esperienza più piacevole. Le tue scelte sono salvate nel browser.',
@@ -1001,6 +1045,7 @@ export const ui = {
       languagePt: 'Português',
       languageEs: 'Spagnolo',
       languageIt: 'Italiano',
+      languageHi: 'Hindi',
       fontSize: 'Dimensione carattere',
       fontSizeSmall: 'Piccolo',
       fontSizeMedium: 'Medio',
@@ -1045,6 +1090,7 @@ export const ui = {
       offlineChantsIndexLabel: 'Tutti i canti (lista)',
     },
   },
+  hi: uiHi,
 } as const;
 
 export type UIStrings = typeof ui.en;

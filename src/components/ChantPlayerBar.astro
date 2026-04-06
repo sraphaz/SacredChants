@@ -1,5 +1,6 @@
 ---
 import ChantAudio from './ChantAudio.astro';
+import { SUPPORTED_LOCALES, type Locale } from '../i18n/strings';
 
 interface Props {
   audioUrl: string;
@@ -9,6 +10,7 @@ interface Props {
   syncLabelPt: string;
   syncLabelEs?: string;
   syncLabelIt?: string;
+  syncLabelHi?: string;
   syncOnEn: string;
   syncOffEn: string;
   syncOnPt: string;
@@ -17,6 +19,8 @@ interface Props {
   syncOffEs?: string;
   syncOnIt?: string;
   syncOffIt?: string;
+  syncOnHi?: string;
+  syncOffHi?: string;
   bandcampUrl?: string;
   bandcampEmbedSrc?: string;
   bandcampArtImage?: string;
@@ -24,6 +28,9 @@ interface Props {
   bandcampTooltipPt?: string;
   bandcampTooltipEs?: string;
   bandcampTooltipIt?: string;
+  bandcampTooltipHi?: string;
+  /** Active UI locale — selects Bandcamp `title` / `aria-label` / iframe `title`. */
+  locale?: Locale;
 }
 
 const {
@@ -34,6 +41,7 @@ const {
   syncLabelPt,
   syncLabelEs = 'Sync',
   syncLabelIt = 'Sync',
+  syncLabelHi = 'Sync',
   syncOnEn,
   syncOffEn,
   syncOnPt,
@@ -42,6 +50,8 @@ const {
   syncOffEs = 'Off',
   syncOnIt = 'On',
   syncOffIt = 'Off',
+  syncOnHi = 'On',
+  syncOffHi = 'Off',
   bandcampUrl,
   bandcampEmbedSrc,
   bandcampArtImage,
@@ -49,11 +59,34 @@ const {
   bandcampTooltipPt = 'Ouvir no Bandcamp',
   bandcampTooltipEs = 'Escuchar en Bandcamp',
   bandcampTooltipIt = 'Ascolta su Bandcamp',
+  bandcampTooltipHi = 'Bandcamp पर सुनें',
+  locale = 'en',
 } = Astro.props;
 
-const PLAYER_LOCALES = ['en', 'pt', 'es', 'it'] as const;
-const syncLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: syncLabelEn, pt: syncLabelPt, es: syncLabelEs, it: syncLabelIt };
-const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: syncOnEn, pt: syncOnPt, es: syncOnEs, it: syncOnIt };
+const bandcampTooltipByLocale: Record<Locale, string> = {
+  en: bandcampTooltipEn,
+  pt: bandcampTooltipPt,
+  es: bandcampTooltipEs,
+  it: bandcampTooltipIt,
+  hi: bandcampTooltipHi,
+};
+const bandcampA11y = bandcampTooltipByLocale[locale] ?? bandcampTooltipEn;
+
+const PLAYER_LOCALES = [...SUPPORTED_LOCALES] as const;
+const syncLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
+  en: syncLabelEn,
+  pt: syncLabelPt,
+  es: syncLabelEs,
+  it: syncLabelIt,
+  hi: syncLabelHi,
+};
+const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
+  en: syncOnEn,
+  pt: syncOnPt,
+  es: syncOnEs,
+  it: syncOnIt,
+  hi: syncOnHi,
+};
 ---
 
 <div class="chant-player-bar chant-player-bar--fixed w-full flex flex-wrap items-center gap-3 chant-player-bar__sized">
@@ -83,10 +116,13 @@ const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: sync
         data-sync-off-es={syncOffEs}
         data-sync-on-it={syncOnIt}
         data-sync-off-it={syncOffIt}
+        data-sync-on-hi={syncOnHi}
+        data-sync-off-hi={syncOffHi}
         data-sync-label-en={syncLabelEn}
         data-sync-label-pt={syncLabelPt}
         data-sync-label-es={syncLabelEs}
         data-sync-label-it={syncLabelIt}
+        data-sync-label-hi={syncLabelHi}
         aria-label={`${syncLabelEn} — ${syncOnEn}`}
       >
         <span class="chant-sync-switch-thumb absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform" style="background-color: var(--sc-accent);"></span>
@@ -105,8 +141,8 @@ const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: sync
       rel="noopener noreferrer"
       class="chant-bar-bandcamp-art chant-bar-bandcamp-art--in-bar shrink-0 block overflow-hidden rounded"
       style="width: 2rem; height: 2rem; min-width: 2rem; min-height: 2rem;"
-      title={bandcampTooltipEn}
-      aria-label="Listen on Bandcamp"
+      title={bandcampA11y}
+      aria-label={bandcampA11y}
     >
       {bandcampArtImage ? (
         <img
@@ -123,7 +159,7 @@ const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: sync
           style="border: 0; width: 350px; height: 150px; max-width: none; pointer-events: none;"
           src={bandcampEmbedSrc.replace('/size=small/', '/size=large/')}
           seamless
-          title={bandcampTooltipEn}
+          title={bandcampA11y}
           allow="encrypted-media"
         >
           <a href={bandcampUrl}>Hanuman Chalisa — Víctor Sakshin (Bandcamp)</a>
@@ -140,8 +176,8 @@ const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: sync
       rel="noopener noreferrer"
       class="chant-bar-bandcamp inline-flex items-center gap-1.5 py-1 shrink-0 transition-colors hover:opacity-90"
       style="color: var(--sc-text-muted);"
-      title={bandcampTooltipEn}
-      aria-label="Bandcamp"
+      title={bandcampA11y}
+      aria-label={bandcampA11y}
     >
       <svg class="chant-bar-bandcamp-icon chant-bar-bandcamp-icon--shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
         <circle cx="12" cy="12" r="12" fill="currentColor"/>

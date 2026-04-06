@@ -4,6 +4,7 @@ import PageShell from '../../components/PageShell.astro';
 import KnowledgePageHeader from '../../components/KnowledgePageHeader.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { PAGE_SEO } from '../../i18n/page-seo';
 import { getFullBase } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
@@ -13,6 +14,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -24,14 +26,26 @@ const pageUrlForOffline = buildCanonicalPageUrl(
 
 <BaseLayout
   title={t.knowledge.references}
-  description="References and further reading for Nada Yoga and the five elements."
+  description={PAGE_SEO[locale].knowledge.references}
   locale={locale}
 >
   <PageShell>
     <KnowledgePageHeader
       backHref={`${FULL_BASE}knowledge/${localeQuery}`}
-      titleByLocale={{ en: tEn.knowledge.references, pt: tPt.knowledge.references, es: tEs.knowledge.references, it: tIt.knowledge.references }}
-      backLabelByLocale={{ en: tEn.knowledge.backToKnowledge, pt: tPt.knowledge.backToKnowledge, es: tEs.knowledge.backToKnowledge, it: tIt.knowledge.backToKnowledge }}
+      titleByLocale={{
+        en: tEn.knowledge.references,
+        pt: tPt.knowledge.references,
+        es: tEs.knowledge.references,
+        it: tIt.knowledge.references,
+        hi: tHi.knowledge.references,
+      }}
+      backLabelByLocale={{
+        en: tEn.knowledge.backToKnowledge,
+        pt: tPt.knowledge.backToKnowledge,
+        es: tEs.knowledge.backToKnowledge,
+        it: tIt.knowledge.backToKnowledge,
+        hi: tHi.knowledge.backToKnowledge,
+      }}
     />
 
     <SaveOfflineToggle
@@ -49,6 +63,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Textos clássicos</span>
           <span class="locale-es">Textos clásicos</span>
           <span class="locale-it">Testi classici</span>
+          <span class="locale-hi">शास्त्रीय ग्रंथ</span>
         </h2>
         <ul class="list-disc pl-6 space-y-2">
           <li class="locale-en"><strong>Hatha Yoga Pradīpikā</strong> (Svātmārāma) — Nada Yoga as a central meditation technique to still the mind.</li>
@@ -63,6 +78,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <li class="locale-it"><strong>Hatha Yoga Pradīpikā</strong> (Svātmārāma) — Nada Yoga come tecnica centrale di meditazione per quietare la mente.</li>
           <li class="locale-it"><strong>Nada Bindu Upanishad</strong> — Testo classico sul suono interiore e il suono non percosso (<em>anāhata</em>).</li>
           <li class="locale-it"><strong>Panchadasi</strong> (cap. 2, Swami Krishnananda) — Discriminazione degli elementi (Pancha Mahābhūta).</li>
+          <li class="locale-hi"><strong>हठयोगप्रदीपिका</strong> (स्वात्माराम) — मन को शांत करने हेतु नाद योग।</li>
+          <li class="locale-hi"><strong>नादबिंदु उपनिषद्</strong> — अंतर्गत ध्वनि व अनाहत नाद।</li>
+          <li class="locale-hi"><strong>पंचदशी</strong> (अध्याय 2, स्वामी कृष्णानंद) — पंच महाभूतों का विवेक।</li>
         </ul>
       </section>
 
@@ -72,6 +90,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Fontes online e modernas</span>
           <span class="locale-es">Fuentes en línea y modernas</span>
           <span class="locale-it">Fonti online e moderne</span>
+          <span class="locale-hi">ऑनलाइन व आधुनिक स्रोत</span>
         </h2>
         <ul class="list-disc pl-6 space-y-2">
           <li class="locale-en"><strong>Wikipedia:</strong> “<a href="https://en.wikipedia.org/wiki/N%C4%81da_yoga" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Nāda yoga</a>”, “<a href="https://en.wikipedia.org/wiki/Pancha_Bhuta" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Pancha Bhuta</a>”, “<a href="https://en.wikipedia.org/wiki/Anahata_(sound)" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Anahata (sound)</a>”.</li>
@@ -90,6 +109,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <li class="locale-it"><strong>Dharmawiki</strong> — "Panchamahabhutas" (cinque elementi, qualità, corpo e cosmo).</li>
           <li class="locale-it"><strong>The Yoga Institute</strong> — "Pancha Bhoota" (cinque elementi nello yoga e nella salute).</li>
           <li class="locale-it"><strong>Nada Yoga Society</strong>, <strong>Yoga Basics</strong> — Introduzioni al Nada Yoga e allo yoga del suono.</li>
+          <li class="locale-hi"><strong>Wikipedia:</strong> «<a href="https://en.wikipedia.org/wiki/N%C4%81da_yoga" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">नाद योग</a>», «<a href="https://en.wikipedia.org/wiki/Pancha_Bhuta" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">पंच भूत</a>», «<a href="https://en.wikipedia.org/wiki/Anahata_(sound)" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">अनाहत (ध्वनि)</a>»।</li>
+          <li class="locale-hi"><strong>Dharmawiki</strong> — पंचमहाभूत (पाँच तत्व, गुण, शरीर व ब्रह्मांड)।</li>
+          <li class="locale-hi"><strong>Nada Yoga Society</strong>, <strong>Yoga Basics</strong> — नाद योग व ध्वनि-योग का परिचय।</li>
         </ul>
       </section>
 
@@ -104,6 +126,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       </p>
       <p class="locale-it text-sm mt-8" style="color: var(--sc-text-subtle)">
         Questa lista è offerta per ulteriore studio. Sacred Chants non sostiene alcuna tradizione o interpretazione unica; l'obiettivo è preservare e condividere la conoscenza come parte del patrimonio dell'umanità.
+      </p>
+      <p class="locale-hi text-sm mt-8" style="color: var(--sc-text-subtle)">
+        यह सूची आगे पढ़ने के लिए है। Sacred Chants किसी एक परंपरा या व्याख्या का समर्थन नहीं करता; उद्देश्य मानवता की विरासत के रूप में ज्ञान संरक्षित व साझा करना है।
       </p>
     </div>
   </PageShell>

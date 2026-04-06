@@ -14,12 +14,16 @@ const { chant } = Astro.props;
 
 function getDescriptionByLocale(chantDesc: Chant['description'], locale: Locale): string {
   if (typeof chantDesc === 'string') return chantDesc;
-  const obj = chantDesc && typeof chantDesc === 'object' ? (chantDesc as { en?: string; pt?: string; es?: string; it?: string }) : {};
+  const obj =
+    chantDesc && typeof chantDesc === 'object'
+      ? (chantDesc as { en?: string; pt?: string; es?: string; it?: string; hi?: string })
+      : {};
   switch (locale) {
     case 'en': return obj.en ?? obj.pt ?? '';
     case 'pt': return obj.pt ?? obj.en ?? '';
     case 'es': return obj.es ?? obj.en ?? obj.pt ?? '';
     case 'it': return obj.it ?? obj.en ?? obj.pt ?? '';
+    case 'hi': return obj.hi ?? obj.en ?? obj.pt ?? '';
     default: return obj.en ?? obj.pt ?? '';
   }
 }
@@ -29,6 +33,7 @@ const AUDIO_ICON_TITLE_BY_LOCALE: Record<Locale, string> = {
   pt: 'Tem áudio',
   es: 'Tiene audio',
   it: 'Ha audio',
+  hi: 'ऑडियो है',
 };
 
 const CARD_LOCALES = [...SUPPORTED_LOCALES].map((locale) => ({

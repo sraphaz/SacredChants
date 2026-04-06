@@ -89,4 +89,27 @@ describe('chantSchema (content)', () => {
     };
     expect(chantSchema.safeParse(withExplanationEsIt).success).toBe(true);
   });
+
+  it('accepts description, about, translations, explanation with hi optional', () => {
+    const withHi = {
+      ...minimalValidChant,
+      description: { en: 'Intro.', pt: 'Intro.', hi: 'परिचय।' },
+      about: { en: 'About.', pt: 'Sobre.', hi: 'विवरण।' },
+      verses: [
+        {
+          order: 1,
+          lines: [
+            {
+              start: 0,
+              original: 'ॐ',
+              transliteration: 'om',
+              translations: { en: 'Om.', pt: 'Om.', hi: 'ॐ।' },
+            },
+          ],
+          explanation: { en: 'Note.', pt: 'Nota.', hi: 'टिप्पणी।' },
+        },
+      ],
+    };
+    expect(chantSchema.safeParse(withHi).success).toBe(true);
+  });
 });

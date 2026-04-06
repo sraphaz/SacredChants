@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageShell from '../components/PageShell.astro';
 import SaveOfflineToggle from '../components/SaveOfflineToggle.astro';
-import { ui, getLocaleFromUrl } from '../i18n/strings';
+import { ui, getLocaleFromUrl, langQuery, SUPPORTED_LOCALES } from '../i18n/strings';
+import { PAGE_SEO } from '../i18n/page-seo';
 import { getFullBase } from '../utils/base';
 import { buildCanonicalPageUrl } from '../utils/offline-page-url';
 
@@ -13,15 +14,23 @@ const pageUrlForOffline = buildCanonicalPageUrl(
   Astro.url.pathname,
   Astro.url.search
 );
-const tEn = ui.en;
-const tPt = ui.pt;
-const tEs = ui.es;
-const tIt = ui.it;
+const tByLocale = {
+  en: ui.en,
+  pt: ui.pt,
+  es: ui.es,
+  it: ui.it,
+  hi: ui.hi,
+} as const;
+const tEn = tByLocale.en;
+const tPt = tByLocale.pt;
+const tEs = tByLocale.es;
+const tIt = tByLocale.it;
+const tHi = tByLocale.hi;
 ---
 
 <BaseLayout
   title="Sacred Chants"
-  description="A living library of humanity's spiritual sound heritage. Sacred chants, mantras, hymns and prayers from different traditions — preserved and shared for listening, reflection and reconnection."
+  description={PAGE_SEO[locale].homeDescription}
   locale={locale}
 >
   <PageShell variant="hero">
@@ -31,28 +40,35 @@ const tIt = ui.it;
         Sacred Chants
       </h1>
       <p class="home-hero__tagline">
-        <span class="locale-en">{tEn.home.tagline}</span>
-        <span class="locale-pt">{tPt.home.tagline}</span>
-        <span class="locale-es">{tEs.home.tagline}</span>
-        <span class="locale-it">{tIt.home.tagline}</span>
+        {SUPPORTED_LOCALES.map((loc) => (
+          <span class={`locale-${loc}`}>{tByLocale[loc].home.tagline}</span>
+        ))}
       </p>
       <p class="home-hero__intro">
-        <span class="locale-en">{tEn.home.intro}</span>
-        <span class="locale-pt">{tPt.home.intro}</span>
-        <span class="locale-es">{tEs.home.intro}</span>
-        <span class="locale-it">{tIt.home.intro}</span>
+        {SUPPORTED_LOCALES.map((loc) => (
+          <span class={`locale-${loc}`}>{tByLocale[loc].home.intro}</span>
+        ))}
       </p>
       <div class="flex flex-col items-center gap-4">
         <div class="flex flex-wrap justify-center gap-3">
-          <a href={`${FULL_BASE}chants/`} class="locale-en sc-btn-primary home-hero__cta">{tEn.home.ctaChants}</a>
-          <a href={`${FULL_BASE}chants/?lang=pt`} class="locale-pt sc-btn-primary home-hero__cta">{tPt.home.ctaChants}</a>
-          <a href={`${FULL_BASE}chants/?lang=es`} class="locale-es sc-btn-primary home-hero__cta">{tEs.home.ctaChants}</a>
-          <a href={`${FULL_BASE}chants/?lang=it`} class="locale-it sc-btn-primary home-hero__cta">{tIt.home.ctaChants}</a>
+          {SUPPORTED_LOCALES.map((loc) => (
+            <a
+              href={`${FULL_BASE}chants/${langQuery(loc)}`}
+              class={`locale-${loc} sc-btn-primary home-hero__cta`}
+            >
+              {tByLocale[loc].home.ctaChants}
+            </a>
+          ))}
         </div>
-        <a href={`${FULL_BASE}traditions/`} class="locale-en text-sm hover:underline" style="color: var(--sc-text-muted);">{tEn.home.exploreTraditions}</a>
-        <a href={`${FULL_BASE}traditions/?lang=pt`} class="locale-pt text-sm hover:underline" style="color: var(--sc-text-muted);">{tPt.home.exploreTraditions}</a>
-        <a href={`${FULL_BASE}traditions/?lang=es`} class="locale-es text-sm hover:underline" style="color: var(--sc-text-muted);">{tEs.home.exploreTraditions}</a>
-        <a href={`${FULL_BASE}traditions/?lang=it`} class="locale-it text-sm hover:underline" style="color: var(--sc-text-muted);">{tIt.home.exploreTraditions}</a>
+        {SUPPORTED_LOCALES.map((loc) => (
+          <a
+            href={`${FULL_BASE}traditions/${langQuery(loc)}`}
+            class={`locale-${loc} text-sm hover:underline`}
+            style="color: var(--sc-text-muted);"
+          >
+            {tByLocale[loc].home.exploreTraditions}
+          </a>
+        ))}
       </div>
     </section>
 
@@ -71,24 +87,28 @@ const tIt = ui.it;
         <span class="locale-pt">{tPt.home.manifestoHeading}</span>
         <span class="locale-es">{tEs.home.manifestoHeading}</span>
         <span class="locale-it">{tIt.home.manifestoHeading}</span>
+        <span class="locale-hi">{tHi.home.manifestoHeading}</span>
       </h2>
       <p>
         <span class="locale-en">{tEn.home.manifestoP1}</span>
         <span class="locale-pt">{tPt.home.manifestoP1}</span>
         <span class="locale-es">{tEs.home.manifestoP1}</span>
         <span class="locale-it">{tIt.home.manifestoP1}</span>
+        <span class="locale-hi">{tHi.home.manifestoP1}</span>
       </p>
       <p>
         <span class="locale-en">{tEn.home.manifestoP2}</span>
         <span class="locale-pt">{tPt.home.manifestoP2}</span>
         <span class="locale-es">{tEs.home.manifestoP2}</span>
         <span class="locale-it">{tIt.home.manifestoP2}</span>
+        <span class="locale-hi">{tHi.home.manifestoP2}</span>
       </p>
       <p>
         <span class="locale-en">{tEn.home.manifestoP3}</span>
         <span class="locale-pt">{tPt.home.manifestoP3}</span>
         <span class="locale-es">{tEs.home.manifestoP3}</span>
         <span class="locale-it">{tIt.home.manifestoP3}</span>
+        <span class="locale-hi">{tHi.home.manifestoP3}</span>
       </p>
     </section>
 
@@ -99,12 +119,14 @@ const tIt = ui.it;
         <span class="locale-pt">{tPt.home.libraryHeading}</span>
         <span class="locale-es">{tEs.home.libraryHeading}</span>
         <span class="locale-it">{tIt.home.libraryHeading}</span>
+        <span class="locale-hi">{tHi.home.libraryHeading}</span>
       </h2>
       <p>
         <span class="locale-en">{tEn.home.libraryBody}</span>
         <span class="locale-pt">{tPt.home.libraryBody}</span>
         <span class="locale-es">{tEs.home.libraryBody}</span>
         <span class="locale-it">{tIt.home.libraryBody}</span>
+        <span class="locale-hi">{tHi.home.libraryBody}</span>
       </p>
     </section>
 
@@ -115,12 +137,14 @@ const tIt = ui.it;
         <span class="locale-pt">{tPt.home.heritageHeading}</span>
         <span class="locale-es">{tEs.home.heritageHeading}</span>
         <span class="locale-it">{tIt.home.heritageHeading}</span>
+        <span class="locale-hi">{tHi.home.heritageHeading}</span>
       </h2>
       <p>
         <span class="locale-en">{tEn.home.heritageBody}</span>
         <span class="locale-pt">{tPt.home.heritageBody}</span>
         <span class="locale-es">{tEs.home.heritageBody}</span>
         <span class="locale-it">{tIt.home.heritageBody}</span>
+        <span class="locale-hi">{tHi.home.heritageBody}</span>
       </p>
     </section>
 
@@ -131,12 +155,14 @@ const tIt = ui.it;
         <span class="locale-pt">{tPt.home.closingHeading}</span>
         <span class="locale-es">{tEs.home.closingHeading}</span>
         <span class="locale-it">{tIt.home.closingHeading}</span>
+        <span class="locale-hi">{tHi.home.closingHeading}</span>
       </h2>
       <p class="home-closing__body">
         <span class="locale-en">{tEn.home.closingBody}</span>
         <span class="locale-pt">{tPt.home.closingBody}</span>
         <span class="locale-es">{tEs.home.closingBody}</span>
         <span class="locale-it">{tIt.home.closingBody}</span>
+        <span class="locale-hi">{tHi.home.closingBody}</span>
       </p>
     </section>
   </PageShell>

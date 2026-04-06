@@ -18,6 +18,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 
 const iconAttrs = {
   xmlns: 'http://www.w3.org/2000/svg',
@@ -51,14 +52,17 @@ const iconAttrs = {
   data-offline-partial-pt={tPt.chant.saveOfflinePartial}
   data-offline-partial-es={tEs.chant.saveOfflinePartial}
   data-offline-partial-it={tIt.chant.saveOfflinePartial}
+  data-offline-partial-hi={tHi.chant.saveOfflinePartial}
   data-a11y-off-en={tEn.chant.saveOffline}
   data-a11y-off-pt={tPt.chant.saveOffline}
   data-a11y-off-es={tEs.chant.saveOffline}
   data-a11y-off-it={tIt.chant.saveOffline}
+  data-a11y-off-hi={tHi.chant.saveOffline}
   data-a11y-on-en={tEn.chant.removeOffline}
   data-a11y-on-pt={tPt.chant.removeOffline}
   data-a11y-on-es={tEs.chant.removeOffline}
   data-a11y-on-it={tIt.chant.removeOffline}
+  data-a11y-on-hi={tHi.chant.removeOffline}
 >
   <span class="chant-save-offline__icon-wrap" aria-hidden="true">
     <svg {...iconAttrs} class="chant-save-offline__icon chant-save-offline__icon--off">
@@ -86,6 +90,10 @@ const iconAttrs = {
     <span class="locale-it">
       <span class="chant-save-offline__label-off">{tIt.chant.saveOffline}</span>
       <span class="chant-save-offline__label-on">{tIt.chant.removeOffline}</span>
+    </span>
+    <span class="locale-hi">
+      <span class="chant-save-offline__label-off">{tHi.chant.saveOffline}</span>
+      <span class="chant-save-offline__label-on">{tHi.chant.removeOffline}</span>
     </span>
   </span>
 </button>

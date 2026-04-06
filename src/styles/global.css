@@ -4,26 +4,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ——— Locale switch (EN / PT / ES / IT) — show one language based on data-locale ——— */
-[data-locale="en"] .locale-pt,
-[data-locale="en"] .locale-es,
-[data-locale="en"] .locale-it {
+/* ——— Locale switch (EN / PT / ES / IT / HI) — show one language based on data-locale ——— */
+[data-locale="en"] :where(.locale-pt, .locale-es, .locale-it, .locale-hi) {
   display: none !important;
 }
-[data-locale="pt"] .locale-en,
-[data-locale="pt"] .locale-es,
-[data-locale="pt"] .locale-it {
+[data-locale="pt"] :where(.locale-en, .locale-es, .locale-it, .locale-hi) {
   display: none !important;
 }
-[data-locale="es"] .locale-en,
-[data-locale="es"] .locale-pt,
-[data-locale="es"] .locale-it {
+[data-locale="es"] :where(.locale-en, .locale-pt, .locale-it, .locale-hi) {
   display: none !important;
 }
-[data-locale="it"] .locale-en,
-[data-locale="it"] .locale-pt,
-[data-locale="it"] .locale-es {
+[data-locale="it"] :where(.locale-en, .locale-pt, .locale-es, .locale-hi) {
   display: none !important;
+}
+[data-locale="hi"] :where(.locale-en, .locale-pt, .locale-es, .locale-it) {
+  display: none !important;
+}
+
+/*
+ * Contribute form live preview (form.astro renderReview) only outputs en/pt payload
+ * fields with .locale-en / .locale-pt. Re-show them inside the preview box so Hindi UI
+ * users still see descriptions and verse translations before submit.
+ */
+[data-locale="hi"] .contribute-review-preview :where(.locale-en, .locale-pt, .locale-es, .locale-it) {
+  display: block !important;
+}
+
+/* Devanagari readability when UI is Hindi */
+html[data-locale='hi'] {
+  font-family: var(--sc-font-body), 'Noto Sans Devanagari', Mangal, 'Nirmala UI', sans-serif;
 }
 
 @layer base {
@@ -234,6 +243,10 @@
 
 .prose-chant .translations [data-lang="it"]::before {
   content: 'IT — ';
+}
+
+.prose-chant .translations [data-lang="hi"]::before {
+  content: 'HI — ';
 }
 
 .prose-chant .verse-block__explanation {

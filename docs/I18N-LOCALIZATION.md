@@ -1,6 +1,6 @@
 # Localização (i18n) — Sacred Chants
 
-Este documento descreve a implementação completa da localização do site em **en** (inglês), **pt** (português), **es** (espanhol) e **it** (italiano).
+Este documento descreve a implementação completa da localização do site em **en** (inglês), **pt** (português), **es** (espanhol), **it** (italiano) e **hi** (hindi).
 
 ---
 
@@ -8,9 +8,11 @@ Este documento descreve a implementação completa da localização do site em *
 
 | Componente | Locales suportados | Observações |
 |------------|--------------------|-------------|
-| UI (navegação, labels, botões) | en, pt, es, it | `src/i18n/strings.ts` |
-| Cânticos: description, about, verses | en, pt, es, it | Schema em `src/content/schemas/chant.ts` |
-| URL | `?lang=en`, `?lang=pt`, `?lang=es`, `?lang=it` | `pt-br` tratado como `pt` |
+| UI (navegação, labels, botões) | en, pt, es, it, hi | `src/i18n/strings.ts` + `src/i18n/ui-hi.ts` |
+| Contrato URL ↔ locale canónico | en, pt, es, it, hi + alias `pt-br` → `pt` | `src/i18n/locale-url-contract.json` (fonte única); `LANG_PARAM_TO_LOCALE` e `SUPPORTED_LOCALES` derivam daqui |
+| Script público (init) | Mesmo contrato, zero drift no build | `npm run build` gera `public/scripts/sc-locale-url-data.js` via `scripts/generate-locale-url-data.mjs`; em dev, correr esse script após alterar o JSON |
+| Cânticos: description, about, verses | en, pt, es, it, hi (opcional onde indicado) | Schema em `src/content/schemas/chant.ts` |
+| URL | `?lang=en`, `?lang=pt`, `?lang=es`, `?lang=it`, `?lang=hi` | `pt-br` tratado como `pt` |
 
 ---
 
@@ -18,18 +20,18 @@ Este documento descreve a implementação completa da localização do site em *
 
 O schema Zod em `src/content/schemas/chant.ts` define os locales opcionais para:
 
-- **`description`**: `en` (obrigatório), `pt` (obrigatório), `es`, `it` — texto curto no cabeçalho
-- **`about`**: `en`, `pt`, `es`, `it` — texto longo "Sobre este cântico"
-- **`verses[].lines[].translations`**: `en`, `pt`, `es`, `it` — tradução de cada linha
-- **`verses[].explanation`**: `en`, `pt`, `es`, `it` — explicação opcional do verso
+- **`description`**: `en` (obrigatório), `pt` (obrigatório), `es`, `it`, `hi` — texto curto no cabeçalho
+- **`about`**: `en`, `pt`, `es`, `it`, `hi` — texto longo "Sobre este cântico"
+- **`verses[].lines[].translations`**: `en`, `pt`, `es`, `it`, `hi` — tradução de cada linha
+- **`verses[].explanation`**: `en`, `pt`, `es`, `it`, `hi` — explicação opcional do verso
 
-Fallback: se um locale estiver em falta, usa-se `en` ou `pt` por ordem. A UI mostra o aviso *"Verse translations in this language are not yet available; showing English."* quando o texto visível é fallback para inglês.
+Fallback: se um locale estiver em falta, usa-se `en` ou `pt` por ordem. A UI mostra o aviso *"Verse translations in this language are not yet available; showing English."* (ou equivalente na língua da UI) quando o texto visível é fallback para inglês.
 
 ---
 
 ## Cânticos localizados
 
-Todos os cânticos têm **en** e **pt** completos. **es** e **it** foram adicionados conforme abaixo:
+Todos os cânticos têm **en** e **pt** completos. **es**, **it** e **hi** são opcionais; quando **hi** (ou outro) falta nos versos, aplica-se o fallback acima.
 
 | Cântico | description | about | Versos (translations) | explanation |
 |---------|-------------|-------|------------------------|-------------|
@@ -42,7 +44,7 @@ Todos os cânticos têm **en** e **pt** completos. **es** e **it** foram adicion
 | shivopasana-mantra | ✓ | ✓ | ✓ (12 versos) | — |
 | hanuman-chalisa | ✓ | ✓ | ✓ (86 blocos) | — |
 
-> **Nota sobre Hanuman Chalisa:** Alguns blocos em `es`/`it` usam ainda o texto em inglês como placeholder. A UI continua a funcionar com fallback; futuras contribuições podem completar as traduções.
+> **Nota sobre Hanuman Chalisa:** Alguns blocos em `es`/`it`/`hi` podem usar ainda o texto em inglês como placeholder. A UI continua a funcionar com fallback; futuras contribuições podem completar as traduções.
 
 ---
 
@@ -50,42 +52,52 @@ Todos os cânticos têm **en** e **pt** completos. **es** e **it** foram adicion
 
 ### ChantVerse.astro
 
-- Define `VERSE_LOCALES = ['en', 'pt', 'es', 'it']`
+- Usa `VERSE_LOCALES` derivado de `SUPPORTED_LOCALES` em `strings.ts` (mesma ordem / mesmos locales)
 - Para cada locale, renderiza `<p class="locale-{loc}">` com a tradução (ou fallback)
 - O utilizador vê apenas o bloco correspondente ao `data-locale` do `<html>` (via CSS)
 
 ### Locale selector
 
 - ID `#sc-locale-select` (desktop) e `#sc-locale-select-drawer` (drawer mobile)
+- As `<option>` são geradas a partir de `SUPPORTED_LOCALES` e `LOCALE_SELECT_SHORT_LABEL` no `BaseLayout` (sem duplicar lista em HTML)
 - Ao alterar, atualiza `?lang=` na URL e o `data-locale` no `<html>`
 
 ---
 
 ## Como adicionar um novo locale
 
-1. **`src/i18n/strings.ts`**: adicionar chave ao tipo `Locale` e ao objeto `ui`
-2. **`src/content/schemas/chant.ts`**: adicionar `xx` opcional em `description`, `about`, `translations`, `explanation`
-3. **`ChantVerse.astro`**: adicionar `'xx'` a `VERSE_LOCALES` e mapear labels
-4. **Layout/navegação**: incluir o novo locale no combo de idiomas
-5. **Cânticos JSON**: preencher `description.xx`, `about.xx`, `translations.xx` em cada chant
-6. **E2E**: adicionar teste em `e2e/locale.spec.ts` para `?lang=xx`
+1. **`src/i18n/locale-url-contract.json`**: incluir o código em `supportedCanonical` (e aliases em `urlAliases` se necessário); correr `node scripts/generate-locale-url-data.mjs` (ou `npm run build`)
+2. **`src/i18n/strings.ts`**: adicionar chave ao tipo `Locale`, entrada em `LOCALE_SELECT_SHORT_LABEL`, e ao objeto `ui` (ou ficheiro dedicado como `ui-hi.ts`) — `SUPPORTED_LOCALES` passa a derivar do JSON
+3. **`src/content/schemas/chant.ts`**: adicionar `xx` opcional em `description`, `about`, `translations`, `explanation`
+4. **`ChantVerse.astro`**: `VERSE_LOCALES` segue `SUPPORTED_LOCALES`; mapear labels se necessário
+5. **Layout/navegação**: `BaseLayout` gera opções a partir de `SUPPORTED_LOCALES`; garantir `init-theme-locale` + dados gerados alinhados
+6. **CSS**: regra `[data-locale="xx"] .locale-xx { display: … }` em `global.css`
+7. **Cânticos JSON**: preencher `description.xx`, `about.xx`, `translations.xx` em cada chant (opcional)
+8. **E2E**: adicionar teste em `e2e/locale.spec.ts` para `?lang=xx`
+9. **Testes unitários**: `tests/unit/locale.test.ts` e `chant-content-schema.test.ts`
 
 ---
 
 ## Testes E2E
 
+O arranque padrão (`playwright test`) executa `node scripts/start-preview-e2e.js`, que corre `npm run build` e depois `astro preview` em **`http://127.0.0.1:4174/`** por defeito (variável **`E2E_PREVIEW_PORT`**; assim evita colisão com `astro dev` na porta 4321). O `baseURL` do Playwright usa a mesma porta. Se o build falhar com *«The build was canceled»* (por exemplo, por compilações em paralelo), gera primeiro o site com `npm run build` e defina **`E2E_SKIP_BUILD=1`** no ambiente antes de correr os testes — o script reutiliza `dist/` e só inicia o preview.
+
 - `e2e/locale.spec.ts` — verifica:
   - locale por defeito (en) sem `?lang=`
-  - `?lang=es`, `?lang=pt`, `?lang=it` definem `data-locale` e combo
+  - `?lang=es`, `?lang=pt`, `?lang=it`, `?lang=hi` definem `data-locale` e combo
   - Página de chant com `?lang=es` ou `?lang=it` mostra bloco `.locale-es` ou `.locale-it`
+  - `/knowledge/?lang=hi` mostra `.locale-hi` e valor `hi` no seletor
+  - `/chants/gayatri/?lang=hi` mantém `hi` e mostra blocos `.locale-hi` (incluindo descrição em hindi quando `description.hi` existe no JSON)
   - Hanuman Chalisa: troca ES → PT → EN e confirma texto no primeiro verso em cada idioma
 
 ---
 
 ## Referências
 
-- Strings UI: `src/i18n/strings.ts`
+- Contrato URL / locales: `src/i18n/locale-url-contract.json`, `scripts/generate-locale-url-data.mjs`, `public/scripts/sc-locale-url-data.js` (gerado)
+- Init cliente: `public/scripts/init-theme-locale.js` (lê `window.__SC_LOCALE_URL__` com fallback se o ficheiro gerado falhar)
+- Strings UI: `src/i18n/strings.ts`, `src/i18n/ui-hi.ts`
 - Schema: `src/content/schemas/chant.ts`
 - Componente de versos: `src/components/ChantVerse.astro`
 - Cânticos: `src/content/chants/*.json`
-- Testes: `e2e/locale.spec.ts`
+- Testes: `e2e/locale.spec.ts`, `tests/unit/locale.test.ts`, `tests/unit/chant-content-schema.test.ts`
