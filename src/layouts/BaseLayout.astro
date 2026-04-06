@@ -8,6 +8,7 @@ import {
   LOCALE_SELECT_SHORT_LABEL,
   type Locale,
 } from '../i18n/strings';
+import { PAGE_SEO } from '../i18n/page-seo';
 import { getFullBase, getBasePath } from '../utils/base';
 import NavLinkList from '../components/NavLinkList.astro';
 import FooterTaglines from '../components/FooterTaglines.astro';
@@ -24,7 +25,7 @@ interface Props {
   locale?: Locale;
 }
 
-const { title, description = 'Human heritage in sound. A living library of sacred chant — preserving access to the inner states of consciousness that sacred sound opens.', locale: propsLocale } = Astro.props;
+const { title, description: descriptionProp, locale: propsLocale } = Astro.props;
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -32,6 +33,8 @@ const tIt = ui.it;
 const tHi = ui.hi;
 const resolvedLocale = propsLocale ?? getLocaleFromUrl(Astro.url.searchParams);
 const initialLocale: Locale = resolvedLocale;
+const seo = PAGE_SEO[initialLocale];
+const description = descriptionProp ?? seo.siteDefaultDescription;
 
 const navItems = [
   { path: '', labelByLocale: { en: tEn.nav.home, pt: tPt.nav.home, es: tEs.nav.home, it: tIt.nav.home, hi: tHi.nav.home } },
@@ -60,7 +63,7 @@ const navItems = [
   </head>
   <body class="min-h-screen flex flex-col">
     <header class="sc-header backdrop-blur" id="sc-header">
-      <nav class="sc-header__nav w-full flex flex-nowrap items-center gap-3 sc-header__nav-pad" aria-label="Main">
+      <nav class="sc-header__nav w-full flex flex-nowrap items-center gap-3 sc-header__nav-pad" aria-label={seo.mainNavAriaLabel}>
         <div class="sc-header__brand shrink-0">
           {SUPPORTED_LOCALES.map((loc) => (
             <a
@@ -75,8 +78,8 @@ const navItems = [
           <ul class="sc-header__menu">
             <NavLinkList fullBase={FULL_BASE} items={navItems} />
             <li class="sc-header__menu-lang-row">
-              <label for="sc-locale-select" class="sr-only">Language</label>
-              <select id="sc-locale-select" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
+              <label for="sc-locale-select" class="sr-only">{seo.localeSelectAriaLabel}</label>
+              <select id="sc-locale-select" class="sc-locale-select" aria-label={seo.localeSelectAriaLabel} data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
                 {SUPPORTED_LOCALES.map((loc) => (
                   <option value={loc} selected={initialLocale === loc ? true : undefined}>
                     {LOCALE_SELECT_SHORT_LABEL[loc]}
@@ -90,7 +93,7 @@ const navItems = [
           type="button"
           class="sc-header__menu-toggle"
           id="sc-header-menu-toggle"
-          aria-label="Open menu"
+          aria-label={seo.openMenuAriaLabel}
           aria-expanded="false"
           aria-controls="sc-header-drawer"
         >
@@ -99,12 +102,12 @@ const navItems = [
       </nav>
     </header>
     <div class="sc-header__drawer-backdrop" id="sc-header-drawer-backdrop" aria-hidden="true"></div>
-    <div class="sc-header__drawer" id="sc-header-drawer" role="navigation" aria-label="Site menu">
+    <div class="sc-header__drawer" id="sc-header-drawer" role="navigation" aria-label={seo.siteMenuAriaLabel}>
       <ul class="sc-header__drawer-menu">
         <NavLinkList fullBase={FULL_BASE} items={navItems} />
         <li class="sc-header__menu-lang-row">
-          <label for="sc-locale-select-drawer" class="sr-only">Language</label>
-          <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label="Language" data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
+          <label for="sc-locale-select-drawer" class="sr-only">{seo.localeSelectAriaLabel}</label>
+          <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label={seo.localeSelectAriaLabel} data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
             {SUPPORTED_LOCALES.map((loc) => (
               <option value={loc} selected={initialLocale === loc ? true : undefined}>
                 {LOCALE_SELECT_SHORT_LABEL[loc]}
@@ -135,7 +138,7 @@ const navItems = [
         <FooterTaglines taglineByLocale={{ en: tEn.home.tagline, pt: tPt.home.tagline, es: tEs.home.tagline, it: tIt.home.tagline, hi: tHi.home.tagline }} />
         <p class="mt-1" style="color: var(--sc-text-subtle)">
           <a href="https://github.com/sraphaz/SacredChants" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--sc-text-subtle)">GitHub</a>
-          <span class="mx-1">·</span> Open source · No ads · Human heritage · Contemplative
+          <span class="mx-1">·</span> {seo.footerLine}
         </p>
       </div>
     </footer>

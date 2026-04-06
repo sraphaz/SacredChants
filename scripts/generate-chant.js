@@ -113,8 +113,8 @@ async function main() {
   writeFileSync(outPath, JSON.stringify(chant, null, 2) + '\n', 'utf8');
   console.log(`\nCreated: src/content/chants/${slug}.json`);
   console.log('Add verses (order, original, transliteration, translations.pt, translations.en).');
-  console.log('Optional locales in JSON (see src/content/schemas/chant.ts): description/about translations.es, .it, .hi;');
-  console.log('verse translations.es / .it / .hi and explanation.* — omit translations.hi if it would duplicate Devanagari original.');
+  console.log('Optional locales in JSON (see src/content/schemas/chant.ts): description.es/.it/.hi and about.es/.it/.hi;');
+  console.log('verse lines[].translations.es/.it/.hi and explanation.* — omit translations.hi if it would duplicate Devanagari original.');
   console.log('Optional: per-line "start" (seconds) for lyric sync; spotifyUrl for Listen on Spotify.\n');
   rl.close();
 }

@@ -4,6 +4,7 @@ import PageShell from '../../components/PageShell.astro';
 import KnowledgePageHeader from '../../components/KnowledgePageHeader.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { PAGE_SEO } from '../../i18n/page-seo';
 import { getFullBase } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
@@ -25,7 +26,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
 
 <BaseLayout
   title={t.knowledge.vibrationMind}
-  description="How sound vibrations affect the mind instrument; resonance, intention, and the audible and inaudible."
+  description={PAGE_SEO[locale].knowledge.vibrationMind}
   locale={locale}
 >
   <PageShell>

@@ -21,9 +21,18 @@
   display: none !important;
 }
 
+/*
+ * Contribute form live preview (form.astro renderReview) only outputs en/pt payload
+ * fields with .locale-en / .locale-pt. Re-show them inside the preview box so Hindi UI
+ * users still see descriptions and verse translations before submit.
+ */
+[data-locale="hi"] .contribute-review-preview :where(.locale-en, .locale-pt, .locale-es, .locale-it) {
+  display: block !important;
+}
+
 /* Devanagari readability when UI is Hindi */
 html[data-locale='hi'] {
-  font-family: var(--sc-font-body), 'Noto Sans Devanagari', 'Mangal', 'Nirmala UI', sans-serif;
+  font-family: var(--sc-font-body), 'Noto Sans Devanagari', Mangal, 'Nirmala UI', sans-serif;
 }
 
 @layer base {

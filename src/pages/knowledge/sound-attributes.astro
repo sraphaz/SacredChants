@@ -4,6 +4,7 @@ import PageShell from '../../components/PageShell.astro';
 import KnowledgePageHeader from '../../components/KnowledgePageHeader.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery } from '../../i18n/strings';
+import { PAGE_SEO } from '../../i18n/page-seo';
 import { getFullBase } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
@@ -25,7 +26,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
 
 <BaseLayout
   title={t.knowledge.soundAttributes}
-  description="Pitch, volume, timbre, and how sound attributes relate to the five elements and harmonise the listener."
+  description={PAGE_SEO[locale].knowledge.soundAttributes}
   locale={locale}
 >
   <PageShell>
@@ -127,7 +128,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           Questa conoscenza è presentata come esperienziale e tradizionale. Scuole e lignaggi diversi possono descrivere in modo diverso il legame tra attributi del suono ed elementi. L'obiettivo è offrire una cornice di riflessione e pratica, non una prescrizione fissa. Ascoltare la propria risposta — e i maestri o le tradizioni in cui si ha fiducia — resta essenziale.
         </p>
         <p class="locale-hi">
-          यह ज्ञान अनुभवजन्य व पारंपरिक रूप में प्रस्तुत है। विभिन्न शाएँ ध्वनि-गुणों और तत्वों के बीच संबंध भिन्न ढंग से वर्णित कर सकती हैं। उद्देश्य चिंतन व अभ्यास का ढाँचा देना है, कोई जड़ नुस्खा नहीं। अपनी प्रतिक्रिया सुनना — और जिन गुरुओं या परंपराओं पर विश्वास है उनकी बात — अनिवार्य रहता है।
+          यह ज्ञान अनुभवजन्य व पारंपरिक रूप में प्रस्तुत है। विभिन्न शाखाएँ ध्वनि-गुणों और तत्वों के बीच संबंध भिन्न ढंग से वर्णित कर सकती हैं। उद्देश्य चिंतन व अभ्यास का ढाँचा देना है, कोई जड़ नुस्खा नहीं। अपनी प्रतिक्रिया सुनना — और जिन गुरुओं या परंपराओं पर विश्वास है उनकी बात — अनिवार्य रहता है।
         </p>
       </section>
     </div>

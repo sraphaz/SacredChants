@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /** Preview dedicado aos E2E (evita colisão com `astro dev` na porta 4321). */
-const E2E_PREVIEW_PORT = process.env.E2E_PREVIEW_PORT ?? '4174';
+const E2E_PREVIEW_PORT = (process.env.E2E_PREVIEW_PORT || '').trim() || '4174';
 const E2E_PREVIEW_ORIGIN = `http://127.0.0.1:${E2E_PREVIEW_PORT}/`;
 
 export default defineConfig({

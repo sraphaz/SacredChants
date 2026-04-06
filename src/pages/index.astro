@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageShell from '../components/PageShell.astro';
 import SaveOfflineToggle from '../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, langQuery, SUPPORTED_LOCALES } from '../i18n/strings';
+import { PAGE_SEO } from '../i18n/page-seo';
 import { getFullBase } from '../utils/base';
 import { buildCanonicalPageUrl } from '../utils/offline-page-url';
 
@@ -29,7 +30,7 @@ const tHi = tByLocale.hi;
 
 <BaseLayout
   title="Sacred Chants"
-  description="A living library of humanity's spiritual sound heritage. Sacred chants, mantras, hymns and prayers from different traditions — preserved and shared for listening, reflection and reconnection."
+  description={PAGE_SEO[locale].homeDescription}
   locale={locale}
 >
   <PageShell variant="hero">

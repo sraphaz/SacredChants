@@ -5,9 +5,11 @@ import ChantCard from '../../components/ChantCard.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl } from '../../i18n/strings';
+import { PAGE_SEO } from '../../i18n/page-seo';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
+const t = ui[locale];
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -27,8 +29,8 @@ const pageUrlForOffline = buildCanonicalPageUrl(
 ---
 
 <BaseLayout
-  title={tEn.chants.title}
-  description="Browse all sacred chants in the library."
+  title={t.chants.title}
+  description={PAGE_SEO[locale].chantsIndexDescription}
   locale={locale}
 >
   <PageShell>

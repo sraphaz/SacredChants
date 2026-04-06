@@ -170,7 +170,7 @@ Garantir que **nenhum** switch manual fica só `pt` / `en` (ex.: dashboard).
 
 - [x] `?lang=hi` funciona em todas as rotas principais sem 404 nem JS quebrado.
 - [x] Seletor guarda `hi` no `localStorage` e reaplica ao voltar ao site.
-- [x] Build + testes unitários (`npm test`) passam; e2e em `e2e/locale.spec.ts` (com `E2E_SKIP_BUILD=1` após build local se o preview falhar a compilar em paralelo — ver `docs/I18N-LOCALIZATION.md`).
+- [x] `npm run verify` passa (testes + build + dados de locale gerados); e2e em `e2e/locale.spec.ts` (com `E2E_SKIP_BUILD=1` após build local se o preview falhar a compilar em paralelo — ver `docs/I18N-LOCALIZATION.md`).
 - [x] Regra editorial: não preencher `translations.hi` só para copiar o `original` em devanágari; metadados `description.hi` / `about.hi` adicionados a todos os cânticos (script idempotente `scripts/add-chant-hi-descriptions.mjs`).
 - [x] Documentação `I18N-LOCALIZATION.md` atualizada.
 

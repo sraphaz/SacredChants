@@ -17,7 +17,7 @@ const distIndex = join(root, 'dist', 'index.html');
 
 const childEnv = { ...process.env, BASE_PATH: process.env.BASE_PATH ?? '/' };
 /** Porta fixa para o Playwright bater certo com `webServer.url` (defeito: 4174 — fora da 4321 do `astro dev`). */
-const previewPort = process.env.E2E_PREVIEW_PORT || '4174';
+const previewPort = (process.env.E2E_PREVIEW_PORT || '').trim() || '4174';
 
 function startPreview() {
   console.log('[e2e] Starting preview at http://127.0.0.1:' + previewPort + '/ ...');
@@ -40,6 +40,7 @@ if (skipBuild) {
 } else {
   console.log('[e2e] Building with BASE_PATH=/ ...');
   const build = spawn('npm', ['run', 'build'], {
+    cwd: root,
     env: childEnv,
     stdio: 'inherit',
     shell: true,

@@ -255,8 +255,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         if (loginCta) loginCta.classList.add('hidden');
         if (authenticated) authenticated.classList.remove('hidden');
         if (welcomeMsg) {
-          const loc = document.documentElement.getAttribute('data-locale') || document.documentElement.lang || 'en';
-          const welcome = (welcomeByLocale && welcomeByLocale[loc]) || welcomeByLocale.en;
+          const rawLoc = (
+            document.documentElement.getAttribute('data-locale') ||
+            document.documentElement.lang ||
+            'en'
+          ).toLowerCase();
+          const normalizedLoc = rawLoc in welcomeByLocale ? rawLoc : rawLoc.split(/[-_]/)[0];
+          const welcome =
+            (welcomeByLocale && welcomeByLocale[normalizedLoc]) || welcomeByLocale.en;
           welcomeMsg.textContent = `${welcome}, @${user.login}`;
         }
         return fetch(base + '/api/contribute/list', { credentials: 'include' });

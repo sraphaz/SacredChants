@@ -84,7 +84,7 @@ for (const name of files) {
   const raw = readFileSync(path, 'utf8');
   const data = JSON.parse(raw);
   let changed = false;
-  if (!data.description.hi) {
+  if (data.description && !data.description.hi) {
     data.description.hi = hi.description;
     changed = true;
   }
