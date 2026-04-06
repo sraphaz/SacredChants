@@ -13,6 +13,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -30,8 +31,20 @@ const pageUrlForOffline = buildCanonicalPageUrl(
   <PageShell>
     <KnowledgePageHeader
       backHref={`${FULL_BASE}knowledge/${localeQuery}`}
-      titleByLocale={{ en: tEn.knowledge.vibrationMind, pt: tPt.knowledge.vibrationMind, es: tEs.knowledge.vibrationMind, it: tIt.knowledge.vibrationMind }}
-      backLabelByLocale={{ en: tEn.knowledge.backToKnowledge, pt: tPt.knowledge.backToKnowledge, es: tEs.knowledge.backToKnowledge, it: tIt.knowledge.backToKnowledge }}
+      titleByLocale={{
+        en: tEn.knowledge.vibrationMind,
+        pt: tPt.knowledge.vibrationMind,
+        es: tEs.knowledge.vibrationMind,
+        it: tIt.knowledge.vibrationMind,
+        hi: tHi.knowledge.vibrationMind,
+      }}
+      backLabelByLocale={{
+        en: tEn.knowledge.backToKnowledge,
+        pt: tPt.knowledge.backToKnowledge,
+        es: tEs.knowledge.backToKnowledge,
+        it: tIt.knowledge.backToKnowledge,
+        hi: tHi.knowledge.backToKnowledge,
+      }}
     />
 
     <SaveOfflineToggle
@@ -49,6 +62,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Tudo é vibração</span>
           <span class="locale-es">Todo es vibración</span>
           <span class="locale-it">Tutto è vibrazione</span>
+          <span class="locale-hi">सब कुछ कंपन है</span>
         </h2>
         <p class="locale-en">
           Both empirical and traditional views suggest that matter, body, and mind can be understood as patterns of vibration. Sound vibrations act as a direct “key” to the mind–body instrument: they reach the nervous system, attention, and emotional tone in ways that other stimuli do not. In Nada Yoga and related traditions, this is the basis for using sound as a support for inner experience.
@@ -62,6 +76,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-it">
           Sia la visione empirica che quella tradizionale suggeriscono che materia, corpo e mente possono essere intesi come schemi di vibrazione. Le vibrazioni sonore agiscono come "chiave" diretta per lo strumento corpo-mente: raggiungono il sistema nervoso, l'attenzione e il tono emotivo in modi che altri stimoli non raggiungono. Nel Nada Yoga e nelle tradizioni affini, questa è la base per usare il suono come sostegno dell'esperienza interiore.
         </p>
+        <p class="locale-hi">
+          अनुभवजन्य और पारंपरिक दृष्टि दोनों सुझाते हैं कि पदार्थ, शरीर और मन कंपन के ढाँचों के रूप में समझे जा सकते हैं। ध्वनि-कंपन मन-शरीर के लिए प्रत्यक्ष «कुंजी» की तरह कार्य करते हैं — तंत्रिका तंत्र, ध्यान और भाव-स्वर को वैसे छूते हैं जैसे अन्य उद्दीपन अक्सर नहीं। नाद योग में इसी आधार पर ध्वनि को अंतर्भाव का सहारा बनाया जाता है।
+        </p>
       </section>
 
       <section>
@@ -70,6 +87,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Ressonância e a mente</span>
           <span class="locale-es">Resonancia y la mente</span>
           <span class="locale-it">Risonanza e la mente</span>
+          <span class="locale-hi">अनुनाद और मन</span>
         </h2>
         <p class="locale-en">
           <strong>Resonance</strong> is the tendency of the mind — thoughts, neural patterns, emotions — to align with or reflect the quality of a vibration. This can include the intention or origin behind the sound, even when that intention is not visible: for example, the context of a chant, the lineage it comes from, or the state of the one who is chanting. The effect is one of influence and resonance, not magical causation; it fits both traditional description and a careful modern framing (e.g. psychology, neuroscience of sound).
@@ -91,6 +109,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Audível e inaudível</span>
           <span class="locale-es">Audible e inaudible</span>
           <span class="locale-it">Udibile e inudibile</span>
+          <span class="locale-hi">श्रव्य और अश्रव्य</span>
         </h2>
         <p class="locale-en">
           What is “inaudible” can mean: very low or very high frequencies; the subtle inner sound (<em>anāhata</em>) experienced in meditation; or the intention behind the sound as an invisible dimension that can still affect the listener. Sacred chants and mantras are often said to work at more than one of these levels — the heard sound and the intention or vibration that carries it.
@@ -103,6 +122,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         </p>
         <p class="locale-it">
           Ciò che è "inudibile" può significare: frequenze molto basse o molto alte; il suono interiore sottile (<em>anāhata</em>) sperimentato in meditazione; o l'intenzione dietro il suono come dimensione invisibile che può ancora influire sull'ascoltatore. Si dice spesso che canti e mantra sacri agiscono su più di uno di questi livelli — il suono udito e l'intenzione o vibrazione che lo trasporta.
+        </p>
+        <p class="locale-hi">
+          «अश्रव्य» से अत्यंत निम्न या उच्च आवृत्तियाँ, ध्यान में अनुभव होने वाला सूक्ष्म अंतर्गत ध्वनि (<em>अनाहत</em>), या ध्वनि के पीछे का अदृश्य भाव — जो श्रोता पर फिर भी प्रभाव डाल सकता है — तात्पर्य हो सकता है। कहा जाता है कि पवित्र कीर्तन और मंत्र इन स्तरों में से एक से अधिक पर कार्य करते हैं — सुनी जाने वाली ध्वनि और उसे वहन करने वाला भाव या कंपन।
         </p>
       </section>
     </div>

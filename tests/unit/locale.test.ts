@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getLocaleFromUrl, langQuery } from '../../src/i18n/strings';
+import { getLocaleFromUrl, langQuery, LANG_PARAM_TO_LOCALE } from '../../src/i18n/strings';
 
 function params(search: string): URLSearchParams {
   return new URLSearchParams(search);
@@ -33,6 +33,20 @@ describe('getLocaleFromUrl', () => {
     expect(getLocaleFromUrl(params('lang=it'))).toBe('it');
     expect(getLocaleFromUrl(params('lang=IT'))).toBe('it');
   });
+
+  it('returns hi for lang=hi', () => {
+    expect(getLocaleFromUrl(params('lang=hi'))).toBe('hi');
+    expect(getLocaleFromUrl(params('lang=HI'))).toBe('hi');
+  });
+});
+
+describe('LANG_PARAM_TO_LOCALE', () => {
+  it('maps canonical and alias params in one place', () => {
+    expect(LANG_PARAM_TO_LOCALE['pt']).toBe('pt');
+    expect(LANG_PARAM_TO_LOCALE['pt-br']).toBe('pt');
+    expect(LANG_PARAM_TO_LOCALE['en']).toBe('en');
+    expect(LANG_PARAM_TO_LOCALE['hi']).toBe('hi');
+  });
 });
 
 describe('langQuery', () => {
@@ -40,9 +54,10 @@ describe('langQuery', () => {
     expect(langQuery('en')).toBe('');
   });
 
-  it('returns ?lang= for pt, es, it', () => {
+  it('returns ?lang= for pt, es, it, hi', () => {
     expect(langQuery('pt')).toBe('?lang=pt');
     expect(langQuery('es')).toBe('?lang=es');
     expect(langQuery('it')).toBe('?lang=it');
+    expect(langQuery('hi')).toBe('?lang=hi');
   });
 });

@@ -11,11 +11,24 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 const localeQuery = langQuery(locale);
 const basePath = getBasePath();
 const contributeUrl = `${basePath}contribute/${localeQuery}`.replace(/(\/)+/g, '/');
-const titleMap = { en: tEn.contribute.guideTitle, pt: tPt.contribute.guideTitle, es: tEs.contribute.guideTitle, it: tIt.contribute.guideTitle };
-const descMap = { en: tEn.contribute.guideDescription, pt: tPt.contribute.guideDescription, es: tEs.contribute.guideDescription, it: tIt.contribute.guideDescription };
+const titleMap = {
+  en: tEn.contribute.guideTitle,
+  pt: tPt.contribute.guideTitle,
+  es: tEs.contribute.guideTitle,
+  it: tIt.contribute.guideTitle,
+  hi: tHi.contribute.guideTitle,
+};
+const descMap = {
+  en: tEn.contribute.guideDescription,
+  pt: tPt.contribute.guideDescription,
+  es: tEs.contribute.guideDescription,
+  it: tIt.contribute.guideDescription,
+  hi: tHi.contribute.guideDescription,
+};
 const pageUrlForOffline = buildCanonicalPageUrl(
   Astro.url.origin,
   Astro.url.pathname,
@@ -38,6 +51,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-pt">{tPt.contribute.guideBack}</span>
       <span class="locale-es">{tEs.contribute.guideBack}</span>
       <span class="locale-it">{tIt.contribute.guideBack}</span>
+      <span class="locale-hi">{tHi.contribute.guideBack}</span>
     </a>
 
     <h1 class="font-serif text-sc-3xl sc-heading mb-page-heading">
@@ -45,6 +59,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-pt">{tPt.contribute.guideTitle}</span>
       <span class="locale-es">{tEs.contribute.guideTitle}</span>
       <span class="locale-it">{tIt.contribute.guideTitle}</span>
+      <span class="locale-hi">{tHi.contribute.guideTitle}</span>
     </h1>
 
     <SaveOfflineToggle
@@ -59,6 +74,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-pt">{tPt.contribute.guideDescription}</span>
       <span class="locale-es">{tEs.contribute.guideDescription}</span>
       <span class="locale-it">{tIt.contribute.guideDescription}</span>
+      <span class="locale-hi">{tHi.contribute.guideDescription}</span>
     </p>
 
     <ol class="contribute-guide-steps space-y-8 list-none pl-0">
@@ -70,12 +86,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
             <span class="locale-pt">{tPt.contribute.guideStep1Title}</span>
             <span class="locale-es">{tEs.contribute.guideStep1Title}</span>
             <span class="locale-it">{tIt.contribute.guideStep1Title}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep1Title}</span>
           </h2>
           <p style="color: var(--sc-text-muted)">
             <span class="locale-en">{tEn.contribute.guideStep1Body}</span>
             <span class="locale-pt">{tPt.contribute.guideStep1Body}</span>
             <span class="locale-es">{tEs.contribute.guideStep1Body}</span>
             <span class="locale-it">{tIt.contribute.guideStep1Body}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep1Body}</span>
           </p>
         </div>
       </li>
@@ -87,12 +105,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
             <span class="locale-pt">{tPt.contribute.guideStep2Title}</span>
             <span class="locale-es">{tEs.contribute.guideStep2Title}</span>
             <span class="locale-it">{tIt.contribute.guideStep2Title}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep2Title}</span>
           </h2>
           <p style="color: var(--sc-text-muted)">
             <span class="locale-en">{tEn.contribute.guideStep2Body}</span>
             <span class="locale-pt">{tPt.contribute.guideStep2Body}</span>
             <span class="locale-es">{tEs.contribute.guideStep2Body}</span>
             <span class="locale-it">{tIt.contribute.guideStep2Body}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep2Body}</span>
           </p>
         </div>
       </li>
@@ -104,12 +124,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
             <span class="locale-pt">{tPt.contribute.guideStep3Title}</span>
             <span class="locale-es">{tEs.contribute.guideStep3Title}</span>
             <span class="locale-it">{tIt.contribute.guideStep3Title}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep3Title}</span>
           </h2>
           <p style="color: var(--sc-text-muted)">
             <span class="locale-en">{tEn.contribute.guideStep3Body}</span>
             <span class="locale-pt">{tPt.contribute.guideStep3Body}</span>
             <span class="locale-es">{tEs.contribute.guideStep3Body}</span>
             <span class="locale-it">{tIt.contribute.guideStep3Body}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep3Body}</span>
           </p>
         </div>
       </li>
@@ -121,12 +143,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
             <span class="locale-pt">{tPt.contribute.guideStep4Title}</span>
             <span class="locale-es">{tEs.contribute.guideStep4Title}</span>
             <span class="locale-it">{tIt.contribute.guideStep4Title}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep4Title}</span>
           </h2>
           <p style="color: var(--sc-text-muted)">
             <span class="locale-en">{tEn.contribute.guideStep4Body}</span>
             <span class="locale-pt">{tPt.contribute.guideStep4Body}</span>
             <span class="locale-es">{tEs.contribute.guideStep4Body}</span>
             <span class="locale-it">{tIt.contribute.guideStep4Body}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep4Body}</span>
           </p>
           <p class="mt-2 text-sm" style="color: var(--sc-text-subtle)">
             <code class="px-1.5 py-0.5 rounded" style="background: var(--sc-border)">src/content/schemas/chant.ts</code>
@@ -134,6 +158,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
             <span class="locale-pt"> · </span>
             <span class="locale-es"> · </span>
             <span class="locale-it"> · </span>
+            <span class="locale-hi"> · </span>
             <code class="px-1.5 py-0.5 rounded" style="background: var(--sc-border)">src/content/chants/</code>
           </p>
         </div>
@@ -146,12 +171,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
             <span class="locale-pt">{tPt.contribute.guideStep5Title}</span>
             <span class="locale-es">{tEs.contribute.guideStep5Title}</span>
             <span class="locale-it">{tIt.contribute.guideStep5Title}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep5Title}</span>
           </h2>
           <p style="color: var(--sc-text-muted)">
             <span class="locale-en">{tEn.contribute.guideStep5Body}</span>
             <span class="locale-pt">{tPt.contribute.guideStep5Body}</span>
             <span class="locale-es">{tEs.contribute.guideStep5Body}</span>
             <span class="locale-it">{tIt.contribute.guideStep5Body}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep5Body}</span>
           </p>
         </div>
       </li>
@@ -163,12 +190,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
             <span class="locale-pt">{tPt.contribute.guideStep6Title}</span>
             <span class="locale-es">{tEs.contribute.guideStep6Title}</span>
             <span class="locale-it">{tIt.contribute.guideStep6Title}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep6Title}</span>
           </h2>
           <p style="color: var(--sc-text-muted)">
             <span class="locale-en">{tEn.contribute.guideStep6Body}</span>
             <span class="locale-pt">{tPt.contribute.guideStep6Body}</span>
             <span class="locale-es">{tEs.contribute.guideStep6Body}</span>
             <span class="locale-it">{tIt.contribute.guideStep6Body}</span>
+            <span class="locale-hi">{tHi.contribute.guideStep6Body}</span>
           </p>
         </div>
       </li>
@@ -184,6 +213,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <span class="locale-pt">{tPt.contribute.guideBack}</span>
         <span class="locale-es">{tEs.contribute.guideBack}</span>
         <span class="locale-it">{tIt.contribute.guideBack}</span>
+        <span class="locale-hi">{tHi.contribute.guideBack}</span>
       </a>
     </div>
   </PageShell>

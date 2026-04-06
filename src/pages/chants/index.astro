@@ -12,6 +12,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 
 const chants = await getCollection('chants');
 const sortedChants = chants
@@ -36,12 +37,14 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-pt">{tPt.chants.allChants}</span>
       <span class="locale-es">{tEs.chants.allChants}</span>
       <span class="locale-it">{tIt.chants.allChants}</span>
+      <span class="locale-hi">{tHi.chants.allChants}</span>
     </h1>
     <p class="mb-page-content" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.chants.title}</span>
       <span class="locale-pt">{tPt.chants.title}</span>
       <span class="locale-es">{tEs.chants.title}</span>
       <span class="locale-it">{tIt.chants.title}</span>
+      <span class="locale-hi">{tHi.chants.title}</span>
     </p>
     <SaveOfflineToggle
       mode="toolbar"
@@ -66,6 +69,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <span class="locale-pt">{tPt.chants.noChants}</span>
         <span class="locale-es">{tEs.chants.noChants}</span>
         <span class="locale-it">{tIt.chants.noChants}</span>
+        <span class="locale-hi">{tHi.chants.noChants}</span>
       </p>
     )}
   </PageShell>

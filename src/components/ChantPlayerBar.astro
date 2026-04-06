@@ -1,5 +1,6 @@
 ---
 import ChantAudio from './ChantAudio.astro';
+import { SUPPORTED_LOCALES } from '../i18n/strings';
 
 interface Props {
   audioUrl: string;
@@ -9,6 +10,7 @@ interface Props {
   syncLabelPt: string;
   syncLabelEs?: string;
   syncLabelIt?: string;
+  syncLabelHi?: string;
   syncOnEn: string;
   syncOffEn: string;
   syncOnPt: string;
@@ -17,6 +19,8 @@ interface Props {
   syncOffEs?: string;
   syncOnIt?: string;
   syncOffIt?: string;
+  syncOnHi?: string;
+  syncOffHi?: string;
   bandcampUrl?: string;
   bandcampEmbedSrc?: string;
   bandcampArtImage?: string;
@@ -24,6 +28,7 @@ interface Props {
   bandcampTooltipPt?: string;
   bandcampTooltipEs?: string;
   bandcampTooltipIt?: string;
+  bandcampTooltipHi?: string;
 }
 
 const {
@@ -34,6 +39,7 @@ const {
   syncLabelPt,
   syncLabelEs = 'Sync',
   syncLabelIt = 'Sync',
+  syncLabelHi = 'Sync',
   syncOnEn,
   syncOffEn,
   syncOnPt,
@@ -42,6 +48,8 @@ const {
   syncOffEs = 'Off',
   syncOnIt = 'On',
   syncOffIt = 'Off',
+  syncOnHi = 'On',
+  syncOffHi = 'Off',
   bandcampUrl,
   bandcampEmbedSrc,
   bandcampArtImage,
@@ -49,11 +57,24 @@ const {
   bandcampTooltipPt = 'Ouvir no Bandcamp',
   bandcampTooltipEs = 'Escuchar en Bandcamp',
   bandcampTooltipIt = 'Ascolta su Bandcamp',
+  bandcampTooltipHi = 'Bandcamp पर सुनें',
 } = Astro.props;
 
-const PLAYER_LOCALES = ['en', 'pt', 'es', 'it'] as const;
-const syncLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: syncLabelEn, pt: syncLabelPt, es: syncLabelEs, it: syncLabelIt };
-const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: syncOnEn, pt: syncOnPt, es: syncOnEs, it: syncOnIt };
+const PLAYER_LOCALES = [...SUPPORTED_LOCALES] as const;
+const syncLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
+  en: syncLabelEn,
+  pt: syncLabelPt,
+  es: syncLabelEs,
+  it: syncLabelIt,
+  hi: syncLabelHi,
+};
+const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
+  en: syncOnEn,
+  pt: syncOnPt,
+  es: syncOnEs,
+  it: syncOnIt,
+  hi: syncOnHi,
+};
 ---
 
 <div class="chant-player-bar chant-player-bar--fixed w-full flex flex-wrap items-center gap-3 chant-player-bar__sized">
@@ -83,10 +104,13 @@ const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = { en: sync
         data-sync-off-es={syncOffEs}
         data-sync-on-it={syncOnIt}
         data-sync-off-it={syncOffIt}
+        data-sync-on-hi={syncOnHi}
+        data-sync-off-hi={syncOffHi}
         data-sync-label-en={syncLabelEn}
         data-sync-label-pt={syncLabelPt}
         data-sync-label-es={syncLabelEs}
         data-sync-label-it={syncLabelIt}
+        data-sync-label-hi={syncLabelHi}
         aria-label={`${syncLabelEn} — ${syncOnEn}`}
       >
         <span class="chant-sync-switch-thumb absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform" style="background-color: var(--sc-accent);"></span>

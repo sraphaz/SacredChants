@@ -1,10 +1,30 @@
 /**
  * Initializes theme and locale from localStorage and URL.
  * Runs once on load; applies theme/reading preferences and syncs ?lang= with data-locale.
+ * URL allowlist / aliases: window.__SC_LOCALE_URL__ from sc-locale-url-data.js (generated from locale-url-contract.json).
  */
 (function () {
   var STORAGE_PREFIX = 'sacred-chants-';
   var root = document.documentElement;
+
+  var bundle =
+    typeof globalThis !== 'undefined' && globalThis.__SC_LOCALE_URL__
+      ? globalThis.__SC_LOCALE_URL__
+      : null;
+
+  var FALLBACK_ALLOWED_RAW = ['en', 'pt', 'pt-br', 'es', 'it', 'hi'];
+  var FALLBACK_PARAM_TO_CANONICAL = {
+    en: 'en',
+    pt: 'pt',
+    'pt-br': 'pt',
+    es: 'es',
+    it: 'it',
+    hi: 'hi',
+  };
+
+  var allowedLocales = bundle && bundle.allowedRaw ? bundle.allowedRaw : FALLBACK_ALLOWED_RAW;
+  var paramToCanonical =
+    bundle && bundle.paramToCanonical ? bundle.paramToCanonical : FALLBACK_PARAM_TO_CANONICAL;
 
   function applyThemeFromStorage() {
     root.dataset.theme = localStorage.getItem(STORAGE_PREFIX + 'theme') || 'dark';
@@ -19,11 +39,33 @@
     if (bg) root.dataset.bg = bg;
   }
 
+  function normalizeUrlLangParam(raw) {
+    return raw ? String(raw).toLowerCase() : null;
+  }
+
+  function isUrlLangAllowed(normalized) {
+    return normalized != null && allowedLocales.indexOf(normalized) !== -1;
+  }
+
+  /** Canonical locale for storage (always pt, never pt-br). */
+  function canonicalForStorage(normalizedUrlLang) {
+    var c = paramToCanonical[normalizedUrlLang];
+    return c || (normalizedUrlLang === 'pt-br' ? 'pt' : normalizedUrlLang);
+  }
+
+  function localeFromSavedOnly(savedLang) {
+    if (savedLang === 'pt') return 'pt';
+    if (savedLang === 'es') return 'es';
+    if (savedLang === 'it') return 'it';
+    if (savedLang === 'hi') return 'hi';
+    return 'en';
+  }
+
   function resolveLocaleFromUrlAndStorage() {
     var savedLang = localStorage.getItem(STORAGE_PREFIX + 'lang');
     var urlSearchParams = new URLSearchParams(window.location.search);
     var urlLang = urlSearchParams.get('lang');
-    var normalizedUrlLang = urlLang ? urlLang.toLowerCase() : null;
+    var normalizedUrlLang = normalizeUrlLangParam(urlLang);
 
     if (savedLang && !normalizedUrlLang) {
       urlSearchParams.set('lang', savedLang);
@@ -35,35 +77,18 @@
       }
     }
 
-    var allowedLocales = ['en', 'pt', 'pt-br', 'es', 'it'];
-    var normalizedLang = normalizedUrlLang === 'pt-br' ? 'pt' : normalizedUrlLang;
-    if (normalizedUrlLang && allowedLocales.indexOf(normalizedUrlLang) !== -1) {
+    if (normalizedUrlLang && isUrlLangAllowed(normalizedUrlLang)) {
       try {
-        localStorage.setItem(STORAGE_PREFIX + 'lang', normalizedLang);
+        localStorage.setItem(STORAGE_PREFIX + 'lang', canonicalForStorage(normalizedUrlLang));
       } catch (e) {}
     }
 
-    var locale =
-      normalizedUrlLang === 'pt-br' || normalizedUrlLang === 'pt'
-        ? 'pt'
-        : normalizedUrlLang === 'es'
-          ? 'es'
-          : normalizedUrlLang === 'it'
-            ? 'it'
-            : savedLang === 'pt'
-              ? 'pt'
-              : savedLang === 'es'
-                ? 'es'
-                : savedLang === 'it'
-                  ? 'it'
-                  : 'en';
-
+    var locale = localeFromSavedOnly(savedLang);
     root.dataset.locale = locale;
     root.lang = locale;
 
-    /* URL wins: if page has ?lang=, ensure data-locale matches so the correct .locale-* block is shown (es vs it). */
-    if (normalizedUrlLang && allowedLocales.indexOf(normalizedUrlLang) !== -1) {
-      var urlLocale = normalizedUrlLang === 'pt-br' ? 'pt' : normalizedUrlLang;
+    if (normalizedUrlLang && isUrlLangAllowed(normalizedUrlLang)) {
+      var urlLocale = paramToCanonical[normalizedUrlLang] || (normalizedUrlLang === 'pt-br' ? 'pt' : normalizedUrlLang);
       root.dataset.locale = urlLocale;
       root.lang = urlLocale;
     }

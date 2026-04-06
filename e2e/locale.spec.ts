@@ -39,6 +39,24 @@ test.describe('Locale / idioma', () => {
     await expect(select).toHaveValue('it');
   });
 
+  test('?lang=hi define locale hi e combobox mostra HI', async ({ page }) => {
+    await page.goto('/knowledge/?lang=hi');
+    await expect(page).toHaveURL(/\?lang=hi/);
+    const html = page.locator('html');
+    await expect(html).toHaveAttribute('data-locale', 'hi');
+    const select = page.locator('#sc-locale-select');
+    await expect(select).toHaveValue('hi');
+    await expect(page.locator('.locale-hi').first()).toBeVisible();
+  });
+
+  test('página de chant com ?lang=hi mostra descrição em hindi', async ({ page }) => {
+    await page.goto('/chants/gayatri/?lang=hi');
+    await expect(page).toHaveURL(/\/chants\/gayatri\/.*lang=hi/);
+    await expect(page.locator('html')).toHaveAttribute('data-locale', 'hi');
+    await expect(page.locator('#sc-locale-select')).toHaveValue('hi');
+    await expect(page.locator('.locale-hi').first()).toBeVisible({ timeout: 5000 });
+  });
+
   test('select PT then select EN stays on English (no redirect back to PT)', async ({ page }) => {
     await page.goto('/?lang=pt');
     await expect(page).toHaveURL(/\?lang=pt/);

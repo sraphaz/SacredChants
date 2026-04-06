@@ -13,6 +13,7 @@ const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
+const tHi = ui.hi;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -30,8 +31,20 @@ const pageUrlForOffline = buildCanonicalPageUrl(
   <PageShell>
     <KnowledgePageHeader
       backHref={`${FULL_BASE}knowledge/${localeQuery}`}
-      titleByLocale={{ en: tEn.knowledge.elementsAndSound, pt: tPt.knowledge.elementsAndSound, es: tEs.knowledge.elementsAndSound, it: tIt.knowledge.elementsAndSound }}
-      backLabelByLocale={{ en: tEn.knowledge.backToKnowledge, pt: tPt.knowledge.backToKnowledge, es: tEs.knowledge.backToKnowledge, it: tIt.knowledge.backToKnowledge }}
+      titleByLocale={{
+        en: tEn.knowledge.elementsAndSound,
+        pt: tPt.knowledge.elementsAndSound,
+        es: tEs.knowledge.elementsAndSound,
+        it: tIt.knowledge.elementsAndSound,
+        hi: tHi.knowledge.elementsAndSound,
+      }}
+      backLabelByLocale={{
+        en: tEn.knowledge.backToKnowledge,
+        pt: tPt.knowledge.backToKnowledge,
+        es: tEs.knowledge.backToKnowledge,
+        it: tIt.knowledge.backToKnowledge,
+        hi: tHi.knowledge.backToKnowledge,
+      }}
     />
 
     <SaveOfflineToggle
@@ -49,6 +62,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Os cinco grandes elementos (Pañca Mahābhūta)</span>
           <span class="locale-es">Los cinco grandes elementos (Pañca Mahābhūta)</span>
           <span class="locale-it">I cinque grandi elementi (Pañca Mahābhūta)</span>
+          <span class="locale-hi">पाँच महाभूत (पञ्च महाभूत)</span>
         </h2>
         <p class="locale-en">
           In Indian philosophy and Ayurveda, the five fundamental elements are <strong>Ākāśa</strong> (space/ether), <strong>Vāyu</strong> (air), <strong>Agni</strong> (fire), <strong>Jala</strong> (water), and <strong>Pṛthvī</strong> (earth). They are present in the body, in the cosmos, and in experience; they participate in how we perceive and are affected by sound.
@@ -62,6 +76,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-it">
           Nella filosofia indiana e nell'Ayurveda, i cinque elementi fondamentali sono <strong>Ākāśa</strong> (spazio/etere), <strong>Vāyu</strong> (aria), <strong>Agni</strong> (fuoco), <strong>Jala</strong> (acqua) e <strong>Pṛthvī</strong> (terra). Sono presenti nel corpo, nel cosmo e nell'esperienza; partecipano al modo in cui percepiamo e siamo influenzati dal suono.
         </p>
+        <p class="locale-hi">
+          भारतीय दर्शन और आयुर्वेद में पाँच मूल तत्व हैं: <strong>आकाश</strong>, <strong>वायु</strong>, <strong>अग्नि</strong>, <strong>जल</strong> और <strong>पृथ्वी</strong>। ये शरीर, ब्रह्मांड और अनुभव में विद्यमान हैं; ध्वनि को हम कैसे ग्रहण करते हैं और उससे कैसे प्रभावित होते हैं, इसमें ये भाग लेते हैं।
+        </p>
       </section>
 
       <section>
@@ -70,6 +87,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Som e espaço (Ākāśa)</span>
           <span class="locale-es">Sonido y espacio (Ākāśa)</span>
           <span class="locale-it">Suono e spazio (Ākāśa)</span>
+          <span class="locale-hi">ध्वनि और आकाश (आकाश)</span>
         </h2>
         <p class="locale-en">
           <strong>Ākāśa</strong> (space) is uniquely associated with <strong>sound (śabda)</strong> as its defining quality (<em>tanmātra</em>). Space allows vibration and the propagation of sound; the other elements are associated with touch, form, taste, and smell. So in this framework, sound is the quality of space — and listening or chanting can be understood as engaging that element in ourselves and in the environment.
@@ -83,6 +101,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-it">
           <strong>Ākāśa</strong> (spazio) è associato in modo univoco al <strong>suono (śabda)</strong> come sua qualità definitoria (<em>tanmātra</em>). Lo spazio permette la vibrazione e la propagazione del suono; gli altri elementi sono associati al tatto, alla forma, al gusto e all'olfatto. In questo quadro, il suono è la qualità dello spazio — e ascoltare o cantare può intendersi come engagement con quell'elemento in noi e nell'ambiente.
         </p>
+        <p class="locale-hi">
+          <strong>आकाश</strong> को विशिष्ट रूप से <strong>शब्द (ध्वनि)</strong> से जोड़ा जाता है — यह उसकी परिभाषात्मक <em>तन्मात्रा</em> है। आकाश कंपन और ध्वनि के प्रसार की अनुमति देता है; अन्य तत्व स्पर्श, रूप, रस और गंध से जुड़ते हैं। इस चौखट में ध्वनि आकाश का गुण है — सुनना या गाना स्वयं और परिवेश में उस तत्व से जुड़ाव समझा जा सकता है।
+        </p>
       </section>
 
       <section>
@@ -91,6 +112,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-pt">Som para equilíbrio e harmonia</span>
           <span class="locale-es">Sonido para equilibrio y armonía</span>
           <span class="locale-it">Suono per equilibrio e armonia</span>
+          <span class="locale-hi">संतुलन और सामंजस्य के लिए ध्वनि</span>
         </h2>
         <p class="locale-en">
           Different sounds (or their attributes) can be related to the five elements in traditional practice. Listening or chanting may support <strong>balance</strong> among the elements in inner experience — for example calming, grounding, or clarifying. This is presented as experiential and traditional knowledge, not as a fixed prescription; different schools and lineages may describe the mapping differently. The aim here is awareness and support for inner experience, not medical or therapeutic claims.
@@ -103,6 +125,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         </p>
         <p class="locale-it">
           Suoni diversi (o i loro attributi) possono essere messi in relazione con i cinque elementi nella pratica tradizionale. Ascoltare o cantare può favorire l'<strong>equilibrio</strong> tra gli elementi nell'esperienza interiore — ad esempio calmare, radicare o chiarificare. Si presenta come conoscenza esperienziale e tradizionale, non come prescrizione fissa; scuole e lignaggi diversi possono descrivere il mapping in modo diverso. L'obiettivo qui è consapevolezza e sostegno all'esperienza interiore, non affermazioni mediche o terapeutiche.
+        </p>
+        <p class="locale-hi">
+          पारंपरिक अभ्यास में भिन्न ध्वनियाँ (या उनके गुण) पाँच तत्वों से जोड़ी जा सकती हैं। सुनना या गाना अंतर्भाव में तत्वों के बीच <strong>संतुलन</strong> का समर्थन कर सकता है — जैसे शांति, स्थिरता या स्पष्टता। यह अनुभवजन्य व पारंपरिक ज्ञान है, कोई जड़ नुस्खा नहीं; विभिन्न शाएँ मानचित्रण भिन्न बताती हैं। यहाँ उद्देश्य चिकित्सीय दावे नहीं, बल्कि जागरूकता और अंतर्भाव का सहारा है।
         </p>
       </section>
     </div>
