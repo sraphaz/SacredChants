@@ -114,7 +114,7 @@ async function main() {
   console.log(`\nCreated: src/content/chants/${slug}.json`);
   console.log('Add verses (order, original, transliteration, translations.pt, translations.en).');
   console.log('Optional locales in JSON (see src/content/schemas/chant.ts): description.es/.it/.hi/.ar and about.es/.it/.hi/.ar;');
-  console.log('verse lines[].translations.es/.it/.hi/.ar and explanation.* — omit translations.hi if it would duplicate Devanagari original.');
+  console.log('verses[].lines[].translations.es/.it/.hi/.ar and explanation.* — omit translations.hi if it would duplicate Devanagari original.');
   console.log('Optional: per-line "start" (seconds) for lyric sync; spotifyUrl for Listen on Spotify.\n');
   rl.close();
 }

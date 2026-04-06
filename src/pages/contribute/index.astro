@@ -39,7 +39,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-es">{tEs.contribute.title}</span>
       <span class="locale-it">{tIt.contribute.title}</span>
       <span class="locale-hi">{tHi.contribute.title}</span>
-      <span class="locale-ar">{tAr.contribute.title}</span>
+      <span class="locale-ar" dir="rtl">{tAr.contribute.title}</span>
     </h1>
 
     <SaveOfflineToggle
@@ -57,7 +57,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <span class="locale-es">{tEs.contribute.intro}</span>
         <span class="locale-it">{tIt.contribute.intro}</span>
         <span class="locale-hi">{tHi.contribute.intro}</span>
-        <span class="locale-ar">{tAr.contribute.intro}</span>
+        <span class="locale-ar" dir="rtl">{tAr.contribute.intro}</span>
       </p>
       <p>
         <span class="locale-en">{tEn.contribute.process}</span>
@@ -65,7 +65,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <span class="locale-es">{tEs.contribute.process}</span>
         <span class="locale-it">{tIt.contribute.process}</span>
         <span class="locale-hi">{tHi.contribute.process}</span>
-        <span class="locale-ar">{tAr.contribute.process}</span>
+        <span class="locale-ar" dir="rtl">{tAr.contribute.process}</span>
       </p>
     </div>
 
@@ -75,7 +75,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-es">{tEs.contribute.chooseHow}</span>
       <span class="locale-it">{tIt.contribute.chooseHow}</span>
       <span class="locale-hi">{tHi.contribute.chooseHow}</span>
-      <span class="locale-ar">{tAr.contribute.chooseHow}</span>
+      <span class="locale-ar" dir="rtl">{tAr.contribute.chooseHow}</span>
     </h2>
 
     <div class="contribute-options grid gap-6 md:grid-cols-2 mb-10">
@@ -86,7 +86,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">{tEs.contribute.viaSiteTitle}</span>
           <span class="locale-it">{tIt.contribute.viaSiteTitle}</span>
           <span class="locale-hi">{tHi.contribute.viaSiteTitle}</span>
-          <span class="locale-ar">{tAr.contribute.viaSiteTitle}</span>
+          <span class="locale-ar" dir="rtl">{tAr.contribute.viaSiteTitle}</span>
         </h3>
         <p class="mb-4 text-sm" style="color: var(--sc-text-muted)">
           <span class="locale-en">{tEn.contribute.viaSiteDesc}</span>
@@ -94,7 +94,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">{tEs.contribute.viaSiteDesc}</span>
           <span class="locale-it">{tIt.contribute.viaSiteDesc}</span>
           <span class="locale-hi">{tHi.contribute.viaSiteDesc}</span>
-          <span class="locale-ar">{tAr.contribute.viaSiteDesc}</span>
+          <span class="locale-ar" dir="rtl">{tAr.contribute.viaSiteDesc}</span>
         </p>
         <div id="contribute-root" class:list={['space-y-4', !useAppSubdomain && 'contribute-auth-pending']} data-api-origin={apiOrigin} data-contribute-app-url={contributeAppContributeUrl || undefined}>
           {useAppSubdomain ? (
@@ -158,7 +158,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">{tEs.contribute.viaGitHubTitle}</span>
           <span class="locale-it">{tIt.contribute.viaGitHubTitle}</span>
           <span class="locale-hi">{tHi.contribute.viaGitHubTitle}</span>
-          <span class="locale-ar">{tAr.contribute.viaGitHubTitle}</span>
+          <span class="locale-ar" dir="rtl">{tAr.contribute.viaGitHubTitle}</span>
         </h3>
         <p class="mb-4 text-sm" style="color: var(--sc-text-muted)">
           <span class="locale-en">{tEn.contribute.viaGitHubDesc}</span>
@@ -166,7 +166,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">{tEs.contribute.viaGitHubDesc}</span>
           <span class="locale-it">{tIt.contribute.viaGitHubDesc}</span>
           <span class="locale-hi">{tHi.contribute.viaGitHubDesc}</span>
-          <span class="locale-ar">{tAr.contribute.viaGitHubDesc}</span>
+          <span class="locale-ar" dir="rtl">{tAr.contribute.viaGitHubDesc}</span>
         </p>
         <a
           href={`/contribute/guide/${localeQuery || ''}`}

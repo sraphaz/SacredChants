@@ -30,6 +30,14 @@ const verseLabelByLocale: Record<(typeof VERSE_LOCALES)[number], string> = {
   hi: tHi.chant.verse,
   ar: tAr.chant.verse,
 };
+
+function explanationHasAnyLocale(exp: ChantVerseType['explanation'] | undefined): boolean {
+  if (!exp) return false;
+  return SUPPORTED_LOCALES.some((loc) => {
+    const s = exp[loc as keyof typeof exp];
+    return typeof s === 'string' && s.trim().length > 0;
+  });
+}
 ---
 
 <div
@@ -57,15 +65,27 @@ const verseLabelByLocale: Record<(typeof VERSE_LOCALES)[number], string> = {
       const text = fromLocale ?? line.translations.en ?? '';
       if (!text) return null;
       const contentLang = fromLocale ? loc : 'en';
-      return <p class={`locale-${loc}`} data-lang={loc} lang={contentLang}>{text}</p>;
+      return (
+        <p
+          class={`locale-${loc}`}
+          data-lang={loc}
+          lang={contentLang}
+          dir={loc === 'ar' ? 'rtl' : undefined}
+        >
+          {text}
+        </p>
+      );
     })}
   </div>
-  {showExplanation && verse.explanation && (verse.explanation.en || verse.explanation.pt || verse.explanation.es || verse.explanation.it || verse.explanation.hi || verse.explanation.ar) && (
+  {showExplanation && explanationHasAnyLocale(verse.explanation) && (
     <>
       {VERSE_LOCALES.map((loc) => {
         const explanationText = verse.explanation?.[loc] ?? verse.explanation?.en ?? verse.explanation?.pt ?? '';
         return explanationText ? (
-          <div class={`verse-block__explanation locale-${loc}`}>
+          <div
+            class={`verse-block__explanation locale-${loc}`}
+            dir={loc === 'ar' ? 'rtl' : undefined}
+          >
             <p>{explanationText}</p>
           </div>
         ) : null;
