@@ -15,6 +15,7 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -38,6 +39,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.balanceAndHealing,
         it: tIt.knowledge.balanceAndHealing,
         hi: tHi.knowledge.balanceAndHealing,
+        ar: tAr.knowledge.balanceAndHealing,
       }}
       backLabelByLocale={{
         en: tEn.knowledge.backToKnowledge,
@@ -45,6 +47,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.backToKnowledge,
         it: tIt.knowledge.backToKnowledge,
         hi: tHi.knowledge.backToKnowledge,
+        ar: tAr.knowledge.backToKnowledge,
       }}
     />
 
@@ -64,6 +67,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Paz y equilibrio pueden ser momentáneos</span>
           <span class="locale-it">Pace e equilibrio possono essere momentanei</span>
           <span class="locale-hi">शांति और संतुलन क्षणिक हो सकते हैं</span>
+          <span class="locale-ar" dir="rtl">السلام والتوازن قد يكونان لحظيين</span>
         </h2>
         <p class="locale-en">
           Sound can bring peace, balance, or relief. This is often <strong>temporary</strong>. Something momentary is not yet “healing” in the deeper sense used here. Recognising this helps us appreciate both the real benefit of sound and the limits of what it can do by itself.
@@ -80,6 +84,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           ध्वनि शांति, संतुलन या राहत ला सकती है; यह अक्सर <strong>क्षणिक</strong> होता है। क्षणिक अनुभव अभी तक यहाँ प्रयुक्त गहरे अर्थ में «चिकित्सा» नहीं है। इसे पहचानना ध्वनि के वास्तविक लाभ और उसकी सीमाओं दोनों को समझने में मदद करता है।
         </p>
+        <p class="locale-ar" dir="rtl">
+          قد يجلب الصوت سلامًا أو توازنًا أو راحة؛ وهذا غالبًا <strong>مؤقت</strong>. ما هو لحظي ليس بعد «شفاءً» بالمعنى الأعمق المستخدم هنا. إدراك ذلك يساعد على تقدير منفعة الصوت الحقيقية وحدود ما يمكنه وحده.
+        </p>
       </section>
 
       <section>
@@ -89,6 +96,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Qué significa aquí "curación"</span>
           <span class="locale-it">Cosa significa qui "guarigione"</span>
           <span class="locale-hi">यहाँ «चिकित्सा» से क्या तात्पर्य है</span>
+          <span class="locale-ar" dir="rtl">ماذا نعني بـ«الشفاء» هنا</span>
         </h2>
         <p class="locale-en">
           In this context, <strong>healing</strong> is linked to the <strong>intimate contact of consciousness with the nature of one’s integral being</strong> — beyond the “characters” or roles we carry (ego, self-image). Sacred sound can support <strong>dissolution of the ego</strong> or <strong>contact with a deeper inner universe</strong> (vibrational, mental, experiential) than the “anchored image” of the perceptible ego built over a lifetime. In that sense, such sound can support real healing: it can open a door to that contact.
@@ -105,6 +113,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           इस संदर्भ में <strong>चिकित्सा</strong> का संबंध <strong>चेतना के अपने समग्र स्वभाव से घनिष्ठ संपर्क</strong> से है — उन «पात्रों» या भूमिकाओं से परे जो हम ले चलते हैं (अहंकार, आत्म-छवि)। पवित्र ध्वनि <strong>अहंकार के विलय</strong> या <strong>गहरे आंतरिक ब्रह्मांड</strong> (कंपन, मानस, अनुभव) से संपर्क का सहारा दे सकती है। उस अर्थ में वह वास्तविक उपचार का द्वार खोल सकती है।
         </p>
+        <p class="locale-ar" dir="rtl">
+          في هذا السياق يرتبط <strong>الشفاء</strong> ب<strong>الاتصال الحميم للوعي بطبيعة الوجود المتكامل</strong> — وراء «الشخصيات» أو الأدوار التي نحملها (الأنا، صورة الذات). يمكن للصوت المقدّس أن يدعم <strong>ذوبان الأنا</strong> أو <strong>الاتصال بكون داخلي أعمق</strong> (اهتزازي، ذهني، تجريبي) من «الصورة الراسخة» للأنا الحسّية المبنية طوال العمر. في ذلك المعنى يمكن أن يفتح باب شفاء حقيقي.
+        </p>
       </section>
 
       <section>
@@ -114,6 +125,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Matiz y límites</span>
           <span class="locale-it">Sfumature e limiti</span>
           <span class="locale-hi">सूक्ष्मता और सीमाएँ</span>
+          <span class="locale-ar" dir="rtl">الفروق الدقيقة والحدود</span>
         </h2>
         <p class="locale-en">
           Healing, once genuine, is not something one must “keep coming back to” in the same way — though life and disease can still return. Sound is not the remedy for all causes. It is important to maintain this balance: to acknowledge the power of sacred sound without overclaiming, to respect both tradition and the reader’s autonomy, and to see sound as one support among others on the path of inner experience.
@@ -129,6 +141,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         </p>
         <p class="locale-hi">
           सच्ची चिकित्सा के बाद भी जीवन और रोग लौट सकते हैं; ध्वनि हर कारण की दवा नहीं। संतुलन बनाए रखें: पवित्र ध्वनि की शक्ति को स्वीकार करें पर अतिशयोक्ति न करें; परंपरा और पाठक की स्वायत्तता का सम्मान करें; अंतर्भाव के मार्ग में ध्वनि को एक सहारे के रूप में देखें।
+        </p>
+        <p class="locale-ar" dir="rtl">
+          حتى بعد شفاء حقيقي قد يعود المرض والحياة بأعبائها؛ الصوت ليس علاجًا لكل الأسباب. من المهم الحفاظ على التوازن: الاعتراف بقوة الصوت المقدّس دون مبالغة، واحترام التقليد واستقلالية القارئ، ورؤية الصوت دعامة بين أخرى على طريق التجربة الداخلية.
         </p>
       </section>
     </div>

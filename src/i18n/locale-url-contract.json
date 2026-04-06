@@ -1,5 +1,5 @@
 {
-  "supportedCanonical": ["en", "pt", "es", "it", "hi"],
+  "supportedCanonical": ["en", "pt", "es", "it", "hi", "ar"],
   "urlAliases": {
     "pt-br": "pt"
   }

@@ -1,8 +1,9 @@
 /** Locales suportados pela UI e conteúdo. Ver docs/I18N-LOCALIZATION.md. */
 import { uiHi } from './ui-hi';
+import { uiAr } from './ui-ar';
 import localeUrlContract from './locale-url-contract.json';
 
-export type Locale = 'en' | 'pt' | 'es' | 'it' | 'hi';
+export type Locale = 'en' | 'pt' | 'es' | 'it' | 'hi' | 'ar';
 
 function buildLangParamToLocale(): Record<string, Locale> {
   const m: Record<string, Locale> = Object.create(null);
@@ -31,6 +32,7 @@ export const LOCALE_SELECT_SHORT_LABEL: Record<Locale, string> = {
   es: 'ES',
   it: 'IT',
   hi: 'HI',
+  ar: 'AR',
 };
 
 /** Parse locale from URL search params. Unknown values fall back to `en`. */
@@ -253,6 +255,7 @@ export const ui = {
       es: 'Español',
       it: 'Italiano',
       hi: 'हिन्दी',
+      ar: 'العربية',
     },
     settings: {
       title: 'Settings',
@@ -266,6 +269,7 @@ export const ui = {
       languageEs: 'Español',
       languageIt: 'Italiano',
       languageHi: 'Hindi',
+      languageAr: 'Arabic',
       fontSize: 'Font size',
       fontSizeSmall: 'Small',
       fontSizeMedium: 'Medium',
@@ -278,6 +282,8 @@ export const ui = {
       spacingNormal: 'Normal',
       spacingRelaxed: 'Relaxed',
       verseTint: 'Verse gradient (Sanskrit / transliteration / translation — contrast by line)',
+      verseTintHint:
+        'One colour and its variations for original script, transliteration, and translation.',
       verseTintDefault: 'Neutral',
       verseTintGreen: 'Green',
       verseTintBlue: 'Blue',
@@ -513,6 +519,7 @@ export const ui = {
       es: 'Español',
       it: 'Italiano',
       hi: 'हिन्दी',
+      ar: 'العربية',
     },
     settings: {
       title: 'Configurações',
@@ -526,6 +533,7 @@ export const ui = {
       languageEs: 'Espanhol',
       languageIt: 'Italiano',
       languageHi: 'Hindi',
+      languageAr: 'Árabe',
       fontSize: 'Tamanho da fonte',
       fontSizeSmall: 'Pequeno',
       fontSizeMedium: 'Médio',
@@ -538,6 +546,8 @@ export const ui = {
       spacingNormal: 'Normal',
       spacingRelaxed: 'Amplo',
       verseTint: 'Gradiente dos versos (sânscrito / transliteração / tradução — contraste por linha)',
+      verseTintHint:
+        'Uma cor e as suas variações para o texto original, transliteração e tradução.',
       verseTintDefault: 'Neutro',
       verseTintGreen: 'Verde',
       verseTintBlue: 'Azul',
@@ -773,6 +783,7 @@ export const ui = {
       es: 'Español',
       it: 'Italiano',
       hi: 'हिन्दी',
+      ar: 'العربية',
     },
     settings: {
       title: 'Ajustes',
@@ -786,6 +797,7 @@ export const ui = {
       languageEs: 'Español',
       languageIt: 'Italiano',
       languageHi: 'Hindi',
+      languageAr: 'Árabe',
       fontSize: 'Tamaño de fuente',
       fontSizeSmall: 'Pequeño',
       fontSizeMedium: 'Medio',
@@ -798,6 +810,8 @@ export const ui = {
       spacingNormal: 'Normal',
       spacingRelaxed: 'Amplio',
       verseTint: 'Degradado de versos (sánscrito / transliteración / traducción)',
+      verseTintHint:
+        'Un color y sus variaciones para el texto original, transliteración y traducción.',
       verseTintDefault: 'Neutro',
       verseTintGreen: 'Verde',
       verseTintBlue: 'Azul',
@@ -1033,6 +1047,7 @@ export const ui = {
       es: 'Español',
       it: 'Italiano',
       hi: 'हिन्दी',
+      ar: 'العربية',
     },
     settings: {
       title: 'Impostazioni',
@@ -1046,6 +1061,7 @@ export const ui = {
       languageEs: 'Spagnolo',
       languageIt: 'Italiano',
       languageHi: 'Hindi',
+      languageAr: 'Arabo',
       fontSize: 'Dimensione carattere',
       fontSizeSmall: 'Piccolo',
       fontSizeMedium: 'Medio',
@@ -1058,6 +1074,8 @@ export const ui = {
       spacingNormal: 'Normale',
       spacingRelaxed: 'Ampio',
       verseTint: 'Gradiente versi (sanscrito / traslitterazione / traduzione)',
+      verseTintHint:
+        'Un colore e le sue variazioni per testo originale, traslitterazione e traduzione.',
       verseTintDefault: 'Neutro',
       verseTintGreen: 'Verde',
       verseTintBlue: 'Blu',
@@ -1091,6 +1109,7 @@ export const ui = {
     },
   },
   hi: uiHi,
+  ar: uiAr,
 } as const;
 
 export type UIStrings = typeof ui.en;

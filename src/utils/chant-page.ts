@@ -67,11 +67,11 @@ export function getLinesWithMeta(chant: Chant): LineWithMeta[] {
 
 /**
  * Whether this chant has any verse line with the given translation locale.
- * Used to show fallback notice when ES, IT, or HI is missing.
+ * Used to show fallback notice when ES, IT, HI, or AR is missing.
  */
 export function hasTranslation(
   chant: Chant,
-  lang: 'es' | 'it' | 'hi'
+  lang: 'es' | 'it' | 'hi' | 'ar'
 ): boolean {
   const sorted = getSortedVerses(chant);
   return sorted.some((v) =>

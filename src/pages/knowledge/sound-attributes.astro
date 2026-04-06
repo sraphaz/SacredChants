@@ -15,6 +15,7 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -38,6 +39,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.soundAttributes,
         it: tIt.knowledge.soundAttributes,
         hi: tHi.knowledge.soundAttributes,
+        ar: tAr.knowledge.soundAttributes,
       }}
       backLabelByLocale={{
         en: tEn.knowledge.backToKnowledge,
@@ -45,6 +47,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.backToKnowledge,
         it: tIt.knowledge.backToKnowledge,
         hi: tHi.knowledge.backToKnowledge,
+        ar: tAr.knowledge.backToKnowledge,
       }}
     />
 
@@ -64,6 +67,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Características del sonido</span>
           <span class="locale-it">Caratteristiche del suono</span>
           <span class="locale-hi">ध्वनि की विशेषताएँ</span>
+          <span class="locale-ar" dir="rtl">خصائص الصوت</span>
         </h2>
         <p class="locale-en">
           The main attributes considered in Nada Yoga and related traditions include <strong>pitch</strong> (high/acute vs low/grave), <strong>volume</strong> or intensity, <strong>timbre</strong> (quality of the tone), and <strong>rhythm</strong>, duration, and silence. Each of these can influence how the listener or chanter is affected — the “instrument” of the person (body and mind) responds to these qualities.
@@ -80,6 +84,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           नाद योग में मुख्य गुणों में <strong>स्वर-ऊँचाई</strong> (तीक्ष्ण व मंद), <strong>आयाम</strong> या तीव्रता, <strong>स्वर-गुणवत्ता (टिम्बर)</strong>, तथा <strong>लय</strong>, अवधि और मौन शामिल हैं। ये सब प्रत्येक श्रोता या गायक पर असर डाल सकते हैं — व्यक्ति का «वाद्य» (शरीर व मन) इन गुणों पर प्रतिक्रिया करता है।
         </p>
+        <p class="locale-ar" dir="rtl">
+          تشمل الصفات الرئيسية في نادا يوغ والتقارب منها <strong>الطبقة</strong> (حادّ مقابل غائر)، <strong>الشدة</strong> أو الحجم، <strong>الطابع الزمني للنغمة</strong>، و<strong>الإيقاع</strong> والمدة والصمت. يمكن أن تؤثر كل منها في المستمع أو المُرنِّم — «آلة» الشخص (الجسد والعقل) تستجيب لهذه الصفات.
+        </p>
       </section>
 
       <section>
@@ -89,6 +96,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Relación con los elementos</span>
           <span class="locale-it">Relazione con gli elementi</span>
           <span class="locale-hi">तत्वों से संबंध</span>
+          <span class="locale-ar" dir="rtl">العلاقة بالعناصر</span>
         </h2>
         <p class="locale-en">
           In some traditions, lower, heavier sounds are associated with the earth element (Pṛthvī), while higher, lighter sounds are associated with space (Ākāśa). Other mappings exist for air, fire, and water. The idea is that by choosing or encountering certain sound qualities, we can support the <strong>harmonisation</strong> of the elements in our inner experience — not as a rigid rule, but as a lens through which to understand how sound may support balance.
@@ -105,6 +113,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           कुछ परंपराओं में निम्न, भारी ध्वनियाँ पृथ्वी तत्व (पृथ्वी) से जुड़ती हैं और उच्च, हल्की ध्वनियाँ आकाश तत्व (आकाश) से; वायु, अग्नि और जल के अन्य संयोजन भी हैं। विचार यह है कि विशिष्ट ध्वनि-गुण चुनकर या उनका सामना करके हम अंतर्भाव में तत्वों की <strong>सामंजस्य</strong> का समर्थन कर सकते हैं — कठोर नियम नहीं, बल्कि यह समझने का दृष्टिकोण कि ध्वनि संतुलन कैसे सहायक हो सकती है।
         </p>
+        <p class="locale-ar" dir="rtl">
+          في بعض التقاليد تُربط الأصوات الأخفض والأثقل بعنصر الأرض (برْثْفي)، والأعلى والأخف بعنصر الفضاء (آكاشا)، وتوجد مخططات أخرى للهواء والنار والماء. الفكرة أن اختيار صفات صوتية معيّنة أو مواجهتها يمكن أن يدعم <strong>الانسجام</strong> بين العناصر في التجربة الداخلية — لا كقاعدة صارمة بل كعدسة لفهم كيف قد يدعم الصوت التوازن.
+        </p>
       </section>
 
       <section>
@@ -114,6 +125,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Equilibrio, no prescripción</span>
           <span class="locale-it">Equilibrio, non prescrizione</span>
           <span class="locale-hi">संतुलन, न कि नुस्खा</span>
+          <span class="locale-ar" dir="rtl">توازن لا وصفة جامدة</span>
         </h2>
         <p class="locale-en">
           This knowledge is presented as experiential and traditional. Different schools and lineages may describe the link between sound attributes and elements differently. The aim is to offer a framework for reflection and practice, not a fixed prescription. Listening to your own response — and to teachers or traditions you trust — remains essential.
@@ -129,6 +141,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         </p>
         <p class="locale-hi">
           यह ज्ञान अनुभवजन्य व पारंपरिक रूप में प्रस्तुत है। विभिन्न शाखाएँ ध्वनि-गुणों और तत्वों के बीच संबंध भिन्न ढंग से वर्णित कर सकती हैं। उद्देश्य चिंतन व अभ्यास का ढाँचा देना है, कोई जड़ नुस्खा नहीं। अपनी प्रतिक्रिया सुनना — और जिन गुरुओं या परंपराओं पर विश्वास है उनकी बात — अनिवार्य रहता है।
+        </p>
+        <p class="locale-ar" dir="rtl">
+          تُعرض هذه المعرفة كتجريبية وتقليدية. قد تصف المدارس والسلاسل ربط صفات الصوت بالعناصر باختلاف. الهدف تقديم إطار للتأمل والممارسة لا وصفة ثابتة. يبقى الاستماع إلى استجابتك الشخصية — وإلى المعلمين أو التقاليد التي تثق بها — أمرًا جوهريًا.
         </p>
       </section>
     </div>

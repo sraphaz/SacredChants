@@ -241,6 +241,7 @@ export const uiHi = {
     es: 'Español',
     it: 'Italiano',
     hi: 'हिन्दी',
+    ar: 'العربية',
   },
   settings: {
     title: 'सेटिंग्स',
@@ -255,6 +256,7 @@ export const uiHi = {
     languageEs: 'स्पेनिश',
     languageIt: 'इतालवी',
     languageHi: 'हिन्दी',
+    languageAr: 'अरबी',
     fontSize: 'फ़ॉन्ट आकार',
     fontSizeSmall: 'छोटा',
     fontSizeMedium: 'मध्यम',
@@ -268,6 +270,8 @@ export const uiHi = {
     spacingRelaxed: 'ढीला',
     verseTint:
       'श्लोक ग्रेडिएंट (संस्कृत / लिप्यंतरण / अनुवाद — पंक्ति अनुसार कॉन्ट्रास्ट)',
+    verseTintHint:
+      'मूल लिपि, लिप्यंतरण और अनुवाद के लिए एक रंग और उसके रूपांतर।',
     verseTintDefault: 'तटस्थ',
     verseTintGreen: 'हरा',
     verseTintBlue: 'नीला',

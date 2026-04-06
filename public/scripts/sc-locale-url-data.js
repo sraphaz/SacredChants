@@ -2,5 +2,5 @@
  * Source: src/i18n/locale-url-contract.json
  */
 (function (g) {
-  g.__SC_LOCALE_URL__ = {"allowedRaw":["en","pt","es","it","hi","pt-br"],"paramToCanonical":{"en":"en","pt":"pt","es":"es","it":"it","hi":"hi","pt-br":"pt"}};
+  g.__SC_LOCALE_URL__ = {"allowedRaw":["en","pt","es","it","hi","ar","pt-br"],"paramToCanonical":{"en":"en","pt":"pt","es":"es","it":"it","hi":"hi","ar":"ar","pt-br":"pt"}};
 })(typeof globalThis !== 'undefined' ? globalThis : this);

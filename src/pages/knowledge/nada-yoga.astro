@@ -15,6 +15,7 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -38,6 +39,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.nadaYoga,
         it: tIt.knowledge.nadaYoga,
         hi: tHi.knowledge.nadaYoga,
+        ar: tAr.knowledge.nadaYoga,
       }}
       backLabelByLocale={{
         en: tEn.knowledge.backToKnowledge,
@@ -45,6 +47,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.backToKnowledge,
         it: tIt.knowledge.backToKnowledge,
         hi: tHi.knowledge.backToKnowledge,
+        ar: tAr.knowledge.backToKnowledge,
       }}
     />
 
@@ -64,6 +67,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Definición y alcance</span>
           <span class="locale-it">Definizione e ambito</span>
           <span class="locale-hi">परिभाषा और दायरा</span>
+          <span class="locale-ar" dir="rtl">التعريف والنطاق</span>
         </h2>
         <p class="locale-en">
           In Sanskrit, <em>nāda</em> means sound, tone, or vibration. <strong>Nada Yoga</strong> is the yoga of sound and vibration — union (<em>yoga</em>) through sound. In this tradition, the entire cosmos is understood as vibration (<em>nāda</em>). A classical idea found in Vedic and Upanishadic thought is that creation arises from pure vibration, sometimes called <em>Nada Brahman</em> (sound as the absolute), and linked to the syllable <em>Om</em> as the primordial cosmic sound.
@@ -80,6 +84,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           संस्कृत में <em>नाद</em> ध्वनि, स्वर या कंपन है। <strong>नाद योग</strong> ध्वनि व कंपन का योग है — ध्वनि के माध्यम से एकता (<em>योग</em>)। इस दृष्टि में समस्त ब्रह्मांड <em>नाद</em> है। वैदिक-उपनिषद् चिंतन में सृष्टि शुद्ध कंपन से उत्पन्न मानी जाती है, कभी <em>नाद ब्रह्म</em> कहा जाता है, और <em>ॐ</em> को प्रथम ब्रह्मांडीय ध्वनि से जोड़ा जाता है।
         </p>
+        <p class="locale-ar" dir="rtl">
+          في السنسكريتية، تعني <em>nāda</em> الصوت أو النغمة أو الاهتزاز. <strong>يوغا الندى</strong> هي يوغا الصوت والاهتزاز — الاتحاد (<em>yoga</em>) عبر الصوت. في هذه الدرب يُفهم الكون بأنه كله اهتزاز (<em>nāda</em>). من الأفكار الكلاسيكية في الفكر الفيدي والأوبنشادي أن الخليقة تنبع من اهتزاز خالص، يُدعى أحيانًا <em>Nada Brahman</em> (الصوت كالمطلق)، ويرتبط بحرف <em>Om</em> كصوت كوني أصْلي.
+        </p>
       </section>
 
       <section>
@@ -89,6 +96,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Dos tipos de sonido</span>
           <span class="locale-it">Due tipi di suono</span>
           <span class="locale-hi">ध्वनि के दो प्रकार</span>
+          <span class="locale-ar" dir="rtl">نوعان من الصوت</span>
         </h2>
         <p class="locale-en">
           Nada Yoga distinguishes two types of sound:
@@ -103,6 +111,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           Il Nada Yoga distingue due tipi di suono:
         </p>
         <p class="locale-hi">नाद योग ध्वनि के दो भेद करता है:</p>
+        <p class="locale-ar" dir="rtl">يميّز نادا يوغ بين نوعين من الصوت:</p>
         <ul class="list-disc pl-6 space-y-2 my-3">
           <li class="locale-en"><strong>Āhata nāda</strong> (struck or audible sound): external sound — mantras, chanting, instruments, music — perceived by the ear.</li>
           <li class="locale-pt"><strong>Āhata nāda</strong> (som percutido ou audível): som externo — mantras, canto, instrumentos, música — percebido pelo ouvido.</li>
@@ -114,6 +123,8 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <li class="locale-it"><strong>Anāhata nāda</strong> (suono non percosso): suono interno e sottile; spesso sperimentato in meditazione profonda; inudibile agli altri e unico per il praticante. È considerato una porta verso una coscienza più profonda.</li>
           <li class="locale-hi"><strong>आहत नाद</strong> (प्रहारित / श्रव्य ध्वनि): बाह्य ध्वनि — मंत्र, कीर्तन, वाद्य, संगीत — जो कान से सुनी जाती है।</li>
           <li class="locale-hi"><strong>अनाहत नाद</strong> (अप्रहारित ध्वनि): अंतर्गत, सूक्ष्म ध्वनि; गहन ध्यान में अनुभव; दूसरों के लिए अश्राव्य। गहन चेतना का द्वार माना जाता है।</li>
+          <li class="locale-ar" dir="rtl"><strong>Āhata nāda</strong> (المضروب أو المسموع): صوت خارجي — المانترات والترنيم والآلات والموسيقى — يُدرك بالأذن.</li>
+          <li class="locale-ar" dir="rtl"><strong>Anāhata nāda</strong> (غير المضروب): صوت داخلي دقيق؛ يُختبَر غالبًا في تأمل عميق؛ لا يسمعه الآخرون وهو خاص بالمارس. يُعتبر بوابة إلى وعي أعمق.</li>
         </ul>
         <p class="locale-en">
           The direction of practice is from external, audible sound toward the inner, unstruck sound — using the former as a support to reach the latter.
@@ -130,6 +141,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           नाद योग दो प्रकार की ध्वनि में अंतर करता है। अभ्यास की दिशा बाह्य, श्रव्य ध्वनि से अंतर्गत, अनाहत ध्वनि की ओर है — पहले को आधार बनाकर दूसरे तक पहुँचा जाता है।
         </p>
+        <p class="locale-ar" dir="rtl">
+          اتجاه الممارسة من الصوت الخارجي المسموع نحو الصوت الداخلي «غير المضروب» — باستخدام الأول دعامة للوصول إلى الثاني.
+        </p>
       </section>
 
       <section>
@@ -139,6 +153,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Referencias clásicas</span>
           <span class="locale-it">Riferimenti classici</span>
           <span class="locale-hi">शास्त्रीय संदर्भ</span>
+          <span class="locale-ar" dir="rtl">مراجع كلاسيكية</span>
         </h2>
         <p class="locale-en">
           Nada Yoga is described in detail in the <strong>Hatha Yoga Pradīpikā</strong> (by Svātmārāma), where it is presented as one of the most powerful meditation techniques to still the mind. The <strong>Nada Bindu Upanishad</strong> is a classical text on inner sound and the unstruck sound. These references anchor the practice in the broader heritage of yoga and Vedanta.
@@ -154,6 +169,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         </p>
         <p class="locale-hi">
           <strong>हठयोगप्रदीपिका</strong> (स्वात्माराम) में नाद योग विस्तार से वर्णित है — मन को शांत करने की शक्तिशाली ध्यान विधियों में से एक। <strong>नादबिंदु उपनिषद्</strong> अंतर्गत ध्वनि व अनाहत नाद पर शास्त्रीय ग्रंथ है। ये संदर्भ अभ्यास को योग व वेदांत की व्यापक परंपरा से जोड़ते हैं।
+        </p>
+        <p class="locale-ar" dir="rtl">
+          يُصف نادا يوغ بالتفصيل في <strong>هاثا يوغا براديبيكا</strong> (لسفاتماراما)، حيث يُعرَض كأحد أقوى تقنيات التأمّل لسكينة العقل. <strong>نادا بندو أوبنشاد</strong> نصّ كلاسيكي عن الصوت الداخلي والصوت غير المضروب. تثبّت هذه المراجع الممارسة في إرث يوغا وفيدانتا الأوسع.
         </p>
       </section>
     </div>

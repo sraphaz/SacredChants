@@ -38,6 +38,11 @@ describe('getLocaleFromUrl', () => {
     expect(getLocaleFromUrl(params('lang=hi'))).toBe('hi');
     expect(getLocaleFromUrl(params('lang=HI'))).toBe('hi');
   });
+
+  it('returns ar for lang=ar', () => {
+    expect(getLocaleFromUrl(params('lang=ar'))).toBe('ar');
+    expect(getLocaleFromUrl(params('lang=AR'))).toBe('ar');
+  });
 });
 
 describe('LANG_PARAM_TO_LOCALE', () => {
@@ -46,6 +51,7 @@ describe('LANG_PARAM_TO_LOCALE', () => {
     expect(LANG_PARAM_TO_LOCALE['pt-br']).toBe('pt');
     expect(LANG_PARAM_TO_LOCALE['en']).toBe('en');
     expect(LANG_PARAM_TO_LOCALE['hi']).toBe('hi');
+    expect(LANG_PARAM_TO_LOCALE['ar']).toBe('ar');
   });
 });
 
@@ -54,10 +60,11 @@ describe('langQuery', () => {
     expect(langQuery('en')).toBe('');
   });
 
-  it('returns ?lang= for pt, es, it, hi', () => {
+  it('returns ?lang= for pt, es, it, hi, ar', () => {
     expect(langQuery('pt')).toBe('?lang=pt');
     expect(langQuery('es')).toBe('?lang=es');
     expect(langQuery('it')).toBe('?lang=it');
     expect(langQuery('hi')).toBe('?lang=hi');
+    expect(langQuery('ar')).toBe('?lang=ar');
   });
 });

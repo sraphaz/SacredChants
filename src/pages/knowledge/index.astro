@@ -13,6 +13,7 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -28,9 +29,10 @@ function item(
   titlePt: string,
   titleEs: string,
   titleIt: string,
-  titleHi: string
+  titleHi: string,
+  titleAr: string
 ) {
-  return { slug, titleEn, titlePt, titleEs, titleIt, titleHi };
+  return { slug, titleEn, titlePt, titleEs, titleIt, titleHi, titleAr };
 }
 
 /** Sections: label key (in tEn/tPt/tEs/tIt.knowledge) + items. Order defines page hierarchy. */
@@ -44,7 +46,8 @@ const sections = [
         tPt.knowledge.soundAndHumanity,
         tEs.knowledge.soundAndHumanity,
         tIt.knowledge.soundAndHumanity,
-        tHi.knowledge.soundAndHumanity
+        tHi.knowledge.soundAndHumanity,
+        tAr.knowledge.soundAndHumanity
       ),
     ],
   },
@@ -57,7 +60,8 @@ const sections = [
         tPt.knowledge.nadaYoga,
         tEs.knowledge.nadaYoga,
         tIt.knowledge.nadaYoga,
-        tHi.knowledge.nadaYoga
+        tHi.knowledge.nadaYoga,
+        tAr.knowledge.nadaYoga
       ),
     ],
   },
@@ -70,7 +74,8 @@ const sections = [
         tPt.knowledge.vibrationMind,
         tEs.knowledge.vibrationMind,
         tIt.knowledge.vibrationMind,
-        tHi.knowledge.vibrationMind
+        tHi.knowledge.vibrationMind,
+        tAr.knowledge.vibrationMind
       ),
       item(
         'elements-and-sound',
@@ -78,7 +83,8 @@ const sections = [
         tPt.knowledge.elementsAndSound,
         tEs.knowledge.elementsAndSound,
         tIt.knowledge.elementsAndSound,
-        tHi.knowledge.elementsAndSound
+        tHi.knowledge.elementsAndSound,
+        tAr.knowledge.elementsAndSound
       ),
       item(
         'sound-attributes',
@@ -86,7 +92,8 @@ const sections = [
         tPt.knowledge.soundAttributes,
         tEs.knowledge.soundAttributes,
         tIt.knowledge.soundAttributes,
-        tHi.knowledge.soundAttributes
+        tHi.knowledge.soundAttributes,
+        tAr.knowledge.soundAttributes
       ),
     ],
   },
@@ -99,7 +106,8 @@ const sections = [
         tPt.knowledge.balanceAndHealing,
         tEs.knowledge.balanceAndHealing,
         tIt.knowledge.balanceAndHealing,
-        tHi.knowledge.balanceAndHealing
+        tHi.knowledge.balanceAndHealing,
+        tAr.knowledge.balanceAndHealing
       ),
     ],
   },
@@ -112,7 +120,8 @@ const sections = [
         tPt.knowledge.references,
         tEs.knowledge.references,
         tIt.knowledge.references,
-        tHi.knowledge.references
+        tHi.knowledge.references,
+        tAr.knowledge.references
       ),
     ],
   },
@@ -125,13 +134,15 @@ const introParagraphs = (() => {
   const es = tEs.knowledge.intro.split('\n\n');
   const it = tIt.knowledge.intro.split('\n\n');
   const hi = tHi.knowledge.intro.split('\n\n');
-  const n = Math.max(en.length, pt.length, es.length, it.length, hi.length);
+  const ar = tAr.knowledge.intro.split('\n\n');
+  const n = Math.max(en.length, pt.length, es.length, it.length, hi.length, ar.length);
   return Array.from({ length: n }, (_, i) => ({
     en: en[i] ?? '',
     pt: pt[i] ?? '',
     es: es[i] ?? '',
     it: it[i] ?? '',
     hi: hi[i] ?? '',
+    ar: ar[i] ?? '',
   }));
 })();
 ---
@@ -148,6 +159,7 @@ const introParagraphs = (() => {
       <span class="locale-es">{tEs.knowledge.title}</span>
       <span class="locale-it">{tIt.knowledge.title}</span>
       <span class="locale-hi">{tHi.knowledge.title}</span>
+      <span class="locale-ar">{tAr.knowledge.title}</span>
     </h1>
     <p class="mb-page-content" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.knowledge.description}</span>
@@ -155,6 +167,7 @@ const introParagraphs = (() => {
       <span class="locale-es">{tEs.knowledge.description}</span>
       <span class="locale-it">{tIt.knowledge.description}</span>
       <span class="locale-hi">{tHi.knowledge.description}</span>
+      <span class="locale-ar">{tAr.knowledge.description}</span>
     </p>
     <SaveOfflineToggle
       mode="toolbar"
@@ -171,6 +184,7 @@ const introParagraphs = (() => {
           <span class="locale-es">{para.es}</span>
           <span class="locale-it">{para.it}</span>
           <span class="locale-hi">{para.hi}</span>
+          <span class="locale-ar">{para.ar}</span>
         </p>
       ))}
     </div>
@@ -188,6 +202,7 @@ const introParagraphs = (() => {
             <span class="locale-es">{tEs.knowledge[section.labelKey]}</span>
             <span class="locale-it">{tIt.knowledge[section.labelKey]}</span>
             <span class="locale-hi">{tHi.knowledge[section.labelKey]}</span>
+            <span class="locale-ar">{tAr.knowledge[section.labelKey]}</span>
           </h2>
           <ul class="knowledge-block-grid list-none p-0 m-0">
             {section.items.map((item) => {
@@ -204,6 +219,7 @@ const introParagraphs = (() => {
                     <span class="locale-es">{item.titleEs}</span>
                     <span class="locale-it">{item.titleIt}</span>
                     <span class="locale-hi">{item.titleHi}</span>
+                    <span class="locale-ar">{item.titleAr}</span>
                   </a>
                 </li>
               );
