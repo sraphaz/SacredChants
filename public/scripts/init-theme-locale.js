@@ -12,7 +12,7 @@
       ? globalThis.__SC_LOCALE_URL__
       : null;
 
-  var FALLBACK_ALLOWED_RAW = ['en', 'pt', 'pt-br', 'es', 'it', 'hi'];
+  var FALLBACK_ALLOWED_RAW = ['en', 'pt', 'pt-br', 'es', 'it', 'hi', 'ar'];
   var FALLBACK_PARAM_TO_CANONICAL = {
     en: 'en',
     pt: 'pt',
@@ -20,6 +20,7 @@
     es: 'es',
     it: 'it',
     hi: 'hi',
+    ar: 'ar',
   };
 
   var allowedLocales = bundle && bundle.allowedRaw ? bundle.allowedRaw : FALLBACK_ALLOWED_RAW;
@@ -58,7 +59,12 @@
     if (savedLang === 'es') return 'es';
     if (savedLang === 'it') return 'it';
     if (savedLang === 'hi') return 'hi';
+    if (savedLang === 'ar') return 'ar';
     return 'en';
+  }
+
+  function applyDocumentDirection(locale) {
+    root.setAttribute('dir', locale === 'ar' ? 'rtl' : 'ltr');
   }
 
   function resolveLocaleFromUrlAndStorage() {
@@ -86,11 +92,13 @@
     var locale = localeFromSavedOnly(savedLang);
     root.dataset.locale = locale;
     root.lang = locale;
+    applyDocumentDirection(locale);
 
     if (normalizedUrlLang && isUrlLangAllowed(normalizedUrlLang)) {
       var urlLocale = paramToCanonical[normalizedUrlLang] || (normalizedUrlLang === 'pt-br' ? 'pt' : normalizedUrlLang);
       root.dataset.locale = urlLocale;
       root.lang = urlLocale;
+      applyDocumentDirection(urlLocale);
     }
   }
 

@@ -1,0 +1,306 @@
+/**
+ * Arabic (ar) UI strings — mirrors `ui.en` in strings.ts.
+ * Imported into `ui` to avoid a 1000+ line single file.
+ */
+export const uiAr = {
+  nav: {
+    home: 'الرئيسية',
+    chants: 'الترانيم',
+    traditions: 'التقاليد',
+    knowledge: 'المعرفة',
+    contribute: 'المساهمة',
+    settings: 'الإعدادات',
+  },
+  home: {
+    tagline: 'مكتبة حيّة لتراث البشرية الصوتي الروحي.',
+    intro:
+      'منذ الأزل اكتشفت الحضارات أن الصوت يمكنه فتح مسارات إلى حالات أعمق من الوعي. يحافظ Sacred Chants على هذا الإرث ليس كأرشيف فحسب، بل كبوابات حيّة — حتى يجد صدى هذه الأصوات الأبوية تعبيراً في الحياة اليومية.',
+    ctaChants: 'استكشف الترانيم',
+    exploreTraditions: 'استكشف التقاليد',
+    manifestoHeading: 'إرث حيّ',
+    manifestoP1:
+      'عبر الثقافات والقرون، حمل الترنيم الحكمة والتقوى والحضور — ووصل الإنسان بما هو أجدر. غُنيت هذه الأصوات في المعابد والجبال والصحاري والغابات؛ حفظها المجتمعون والرهبان والشعراء والمؤمنون؛ وورثت جيلاً بعد جيل كتراث حيّ.',
+    manifestoP2:
+      'يقوم Sacred Chants بحفظ هذا الإرث ومشاركته — ليس كسجل تاريخي فقط، بل كبوابات للتجربة. نؤمن أن ما نصنعه في العالم ينبع من حالتنا الداخلية. عندما نلمس حضوراً أوسع ووضوحاً وتناغماً، يتغير ما ندركه ونشعر به ونفعله. تهدأ المشاعر. تتسع الزوايا. تعكس الخيارات وعياً أعمق.',
+    manifestoP3:
+      'الترنيم المقدّس من أقدم طرق البشرية للوصول إلى تلك الحالات. الاستماع أو الغناء لهذه الأصوات الأبوية يدعو إلى بساطة عميقة: أن نتذكر طبيعتنا الداخلية. يتجلى ثراء هذه الترانيم حين يرنّ الصدى في الحياة اليومية — في سلوكنا وخياراتنا وعلاقتنا بالعالم.',
+    libraryHeading: 'مكتبة حيّة',
+    libraryBody:
+      'يجمع المشروع ترانيم تقتداء ومنترات وأناشيد وصلوات من تقاليد مختلفة. تُعرض كل مقطوعة باحترام للغة الأصلية، مع حاجة للنسخ الحرفي والترجمة والسياق الثقافي وإمكانية الاستماع — ليبقى الصوت في المركز.',
+    heritageHeading: 'تراث مشترك',
+    heritageBody:
+      'Sacred Chants مشروع مفتوح وتعاوني مخصّص للحفاظ على التراث الصوتي الروحي للبشرية. الجميع مدعوون للاستماع والمساهمة والحفاظ على هذا الإرث للأجيال القادمة.',
+    closingHeading: 'دعوة',
+    closingBody:
+      'استمع. تذكّر. اسمح للحكمة المحفوظة في هذه الأصوات القديمة أن تجد تعبيراً حيّاً في حياتنا.',
+  },
+  chants: {
+    title: 'الترانيم',
+    allChants: 'كل الترانيم',
+    tradition: 'التقليد',
+    language: 'اللغة',
+    noChants: 'لا ترانيم بعد.',
+  },
+  chant: {
+    transliteration: 'النقل الحرفي',
+    translation: 'الترجمة',
+    playAudio: 'تشغيل الصوت',
+    listen: 'استمع',
+    verse: 'المقطع',
+    listenOnSpotify: 'استمع على Spotify',
+    syncHint:
+      'الكلمات تتزامن مع الصوت: تنتقل الصفحة إلى السطر الحالي. انقر سطراً للانتقال إلى ذلك الوقت.',
+    syncLabel: 'مزامنة',
+    syncOn: 'تشغيل',
+    syncOff: 'إيقاف',
+    downloadPdf: 'طباعة / حفظ PDF',
+    saveOffline: 'حفظ للعمل دون اتصال',
+    removeOffline: 'إزالة من دون اتصال',
+    saveOfflineBusy: 'جارٍ الحفظ…',
+    saveOfflineError:
+      'تعذّر حفظ هذه الصفحة للعمل دون اتصال. تحقّق من الاتصال وحاول مجدداً.',
+    saveOfflinePartial:
+      'حُفظت الصفحة، لكن بعض الملفات لم تُخزَّن مؤقتاً (مثلاً صوتاً خارجياً).',
+    aboutTitle: 'عن هذا الترنيم',
+    shareWithAutoplay: 'مشاركة الرابط (تشغيل تلقائي + مزامنة)',
+    interpretedBy: 'الأداء',
+    translationFallback:
+      'ترجمات المقاطع بهذه اللغة غير متوفرة بعد؛ يُعرض الإنجليزية.',
+  },
+  traditions: {
+    title: 'التقاليد',
+    description:
+      'تقاليد صوتية من أنحاء العالم: أغاني مقدّسة وممارسات صوتية حملت حالات الوعي الداخلية عبر الثقافات والزمن.',
+    noTraditionsYet: 'لا تقاليد بعد.',
+  },
+  knowledge: {
+    title: 'المعرفة',
+    description:
+      'معرفة أسلافية مرتبطة بالصوت: قوته في الوعي، أثره في العقل والجسد والمشاعر، وكيف يشكّل حياتنا. كيف تنساب الترانيم التقوى إلى تيارات الطبيعة؛ كيف ارتبطت الثقافات بالصوت المقدّس؛ وكيف يمكن لهذه المعرفة أن تجمع الناس اليوم. مكتبة مقالات مفتوحة ونامية للقراءة والمساهمة.',
+    intro:
+      'يهتم هذا القسم بمعرفة موروثة عبر التقاليد والممارسة. يستكشف دور الصوت في الوعي — في الجسد والمشاعر والحياة اليومية — وكيف فهمت التقاليد المختلفة الصوت واستخدمته لدعم التجربة الداخلية. ينظر إلى كيف تعبّر الترانيم التقوى غالباً عن تيارات الطبيعة التي تجري فينا: العناصر، النفس، الصوت، إيقاع القلب. يتأمل أيضاً كيف ارتبطت ثقافات العالم بالصوت المقدّس: صلاة، شفاء، جماعة، جسر إلى العمق الإلهي أو الإنساني. في زمن يشعر فيه كثيرون بانفصال عن الطقس وبعضهم البعض، يمكن لهذه المعرفة أن تكون أرضية مشتركة لمن يريد تعميق علاقته بالصوت أو استعادتها.\n\nمثل مكتبة الترانيم، ينمو هذا الفضاء بمساهمات المجتمع. المقالات هنا نقطة بداية: يوغا الندى (يوغا الصوت والاهتزاز)، العناصر الخمسة، الاهتزاز والعقل، التوازن والشفاء، ومواضيع أخرى. يمكن إضافة نصوص جديدة مع الوقت ليصبح هذا القسم مرجعاً حقيقياً لمعرفة الأسلاف عن الصوت.',
+    suggestTopicIntro: 'موضوع ناقص؟ تنامي قاعدة المعرفة هذه مع المجتمع.',
+    suggestTopicCta: 'اقترح موضوعاً جديداً',
+    suggestTopicGitHub: 'مفتوح المصدر على GitHub — اقترح مقالات أو تحسينات.',
+    soundAndHumanity: 'الصوت والإنسانية — تراث حيّ',
+    nadaYoga: 'يوغا الندى — يوغا الصوت والاهتزاز',
+    vibrationMind: 'الاهتزاز والعقل والرنين',
+    elementsAndSound: 'العناصر الخمسة والصوت',
+    soundAttributes: 'خصائص الصوت والعناصر',
+    balanceAndHealing: 'التوازن والانسجام والشفاء',
+    references: 'مراجع وقراءة إضافية',
+    backToKnowledge: 'العودة إلى المعرفة',
+    sectionStartHere: 'ابدأ هنا',
+    sectionFirstPillar: 'الركن الأول',
+    sectionConcepts: 'المفاهيم',
+    sectionGoDeeper: 'أعمق',
+    sectionReferences: 'المراجع',
+  },
+  contribute: {
+    title: 'المساهمة',
+    description: 'كيفية إضافة ترنيم جديد إلى المكتبة.',
+    intro:
+      'Sacred Chants مكتبة حيّة من صنع مجتمع الصوت المقدّس ولأجله. سواء ترنّمت أو درست التقاليد أو أردت الحفاظ على جزء من هذا الإرث، مساهمتك مرحب بها. كل ترنيم يُضاف يصبح جزءاً من مورد مشترك يبقي هذه الممارسات متاحة للجميع.',
+    process:
+      'يمكنك المساهمة بطريقتين: أرسل ترنيمًا من الموقع (ننشئ لك طلب دمج)، أو أضف مباشرة على GitHub باتباع الدليل. في المسارين يُنشأ طلب دمج تُراجعه الصيانة قبل النشر.',
+    chooseHow: 'اختر طريقة المساهمة',
+    viaSiteTitle: 'عبر الموقع',
+    viaSiteDesc:
+      'سجّل الدخول بـ GitHub واملأ النموذج خطوة بخطوة. يُرسل ترنيمك تلقائياً كطلب دمج. الأنسب إذا أردت نموذجاً موجهاً دون لمس الملفات أو Git.',
+    viaGitHubTitle: 'عبر GitHub',
+    viaGitHubDesc:
+      'أنشئ ملف JSON في المستودع وافتح طلب الدمج بنفسك. مناسب إذا كنت مرتاحاً لـ Git أو تريد تعديل عدة ترانيم أو المخطط.',
+    guideCta: 'دليل خطوة بخطوة',
+    guideTitle: 'المساهمة عبر GitHub',
+    guideDescription:
+      'دليل كامل خطوة بخطوة لإضافة ترنيم بإنشاء ملف JSON وفتح طلب دمج.',
+    guideStep1Title: 'انسخ المستودع (Fork)',
+    guideStep1Body:
+      'افتح مستودع Sacred Chants على GitHub وانقر «Fork». يُنشئ نسخة تحت حسابك.',
+    guideStep2Title: 'استنسخ نسختك',
+    guideStep2Body:
+      'استنسخ النسخة إلى جهازك (مثلاً `git clone https://github.com/YOUR_USERNAME/SacredChants.git`). أنشئ فرعاً جديداً لترنيمك (مثلاً `git checkout -b add-my-chant`).',
+    guideStep3Title: 'أضف ملف الترنيم',
+    guideStep3Body:
+      'أنشئ ملف JSON جديداً في `src/content/chants/` باسم مناسب للرابط (مثلاً `my-mantra.json`). الاسم يصبح معرّف الصفحة في الرابط.',
+    guideStep4Title: 'اتبع المخطط',
+    guideStep4Body:
+      'كل ترنيم يحتاج: slug، title، tradition، language، description (en و pt)، tags، verses. كل مقطع: وقت البداية (ثوانٍ)، النص الأصلي، النقل الحرفي، الترجمة (en/pt). اختياري: رابط صوت، نص «عن»، روابط Spotify/Bandcamp. راجع `src/content/schemas/chant.ts` و`src/content/chants/`.',
+    guideStep5Title: 'الالتزام والدفع',
+    guideStep5Body:
+      'الزم الملف الجديد وادفع الفرع إلى نسختك (مثلاً `git add src/content/chants/my-mantra.json`، `git commit -m "Add my mantra"`، `git push origin add-my-chant`).',
+    guideStep6Title: 'افتح طلب الدمج',
+    guideStep6Body:
+      'افتح نسختك على GitHub، اختر فرعك وانقر «Compare & pull request» نحو الأصل. صِف ترنيمك باختصار. تراجع الصيانة وقد تقترح تعديلات قبل الدمج.',
+    guideBack: 'العودة إلى المساهمة',
+    signInWithGitHub: 'تسجيل الدخول بـ GitHub',
+    signOut: 'تسجيل الخروج',
+    myContributions: 'مساهماتي',
+    newContribution: 'مساهمة جديدة',
+    welcome: 'مرحباً',
+    loginToContribute:
+      'سجّل الدخول بـ GitHub لإرسال ترانيم. تُرسل مساهمتك كطلب دمج للمراجعة.',
+    noContributionsYet: 'لا مساهمات بعد.',
+    viewPR: 'عرض طلب الدمج',
+    closePR: 'إغلاق طلب الدمج',
+    confirmClosePR:
+      'إغلاق طلب الدمج هذا؟ المستودع لن يتغير؛ يُغلق الطلب فقط.',
+    prClosed: 'أُغلق طلب الدمج.',
+    stateOpen: 'مفتوح',
+    stateMerged: 'مدموج',
+    stateClosed: 'مغلق',
+    draftBadge: 'مسودة',
+    continueDraft: 'متابعة',
+    submitSuccess:
+      'أُنشئ طلب الدمج. ستُراجع قبل النشر.',
+    submitError: 'فشل إنشاء طلب الدمج.',
+    useContributeApp:
+      'استخدم تطبيق المساهمة مع حساب GitHub.',
+    openContributeApp: 'فتح تطبيق المساهمة',
+    newContributionIntro:
+      'املأ النموذج خطوة بخطوة وأرسل طلب دمج مع ترنيمك.',
+    developerOption: 'خيار المطوّر',
+    developerOptionIntro:
+      'يمكنك أيضاً إضافة ترانيم بملف JSON وطلب دمج. راجع المخطط',
+    form: {
+      stepMetadata: 'عن الترنيم',
+      stepVerses: 'المقاطع',
+      stepReview: 'مراجعة وإرسال',
+      slugLabel: 'المعرّف (رابط URL)',
+      slugPlaceholder: 'مثلاً my-chant',
+      titleLabel: 'العنوان',
+      traditionLabel: 'التقليد',
+      traditionPlaceholder: 'مثلاً هندوسي، بوذي',
+      languageLabel: 'اللغة',
+      languagePlaceholder: 'مثلاً السنسكريتية',
+      contentLanguageLabel: 'لغة الترنيم/الأغنية',
+      contentLanguageOther: 'أخرى (يلزم كلا الترجمتين)',
+      contentLanguagePt: 'البرتغالية',
+      contentLanguageEn: 'الإنجليزية',
+      contentLanguageHint:
+        'إذا كان النص أصلاً بالبرتغالية أو الإنجليزية، فلا يلزم تعبئة ترجمة لتلك اللغة.',
+      descriptionEnLabel: 'الوصف (إنجليزي)',
+      descriptionPtLabel: 'الوصف (برتغالي)',
+      tagsLabel: 'وسوم (مفصولة بفواصل)',
+      tagsPlaceholder: 'مثلاً mantra, shiva',
+      audioSectionTitle: 'الصوت (اختياري)',
+      audioSectionHint:
+        'أضف رابطاً أو ملفاً للتشغيل. عند وجود صوت يمكن ضبط وقت بداية كل مقطع.',
+      audioUrlLabel: 'الرابط',
+      audioUrlPlaceholder: 'https://…',
+      audioUploadLabel: 'أو ارفع ملفاً',
+      audioUploadHint: 'MP3، OGG، إلخ',
+      interpreterLabel: 'المؤدّي (اختياري)',
+      interpreterPlaceholder: 'اسم الفنان أو المغنّي',
+      interpretedBy: 'الأداء',
+      verseStartLabel: 'وقت البداية (ثوانٍ)',
+      verseStartPlaceholder: '0',
+      verseStartHint:
+        'اختياري. مزامنة الصوت: متى يبدأ هذا المقطع في التسجيل (مثلاً 12.5).',
+      audioReadError: 'تعذّر قراءة ملف الصوت.',
+      verseLegend: 'المقطع',
+      verseOriginalLabel: 'الأصل (الخط)',
+      verseTransliterationLabel: 'النقل الحرفي',
+      verseTransliterationHint:
+        'اختياري — للغات بخط مختلف (مثلاً السنسكريتية، اليابانية، الصينية).',
+      verseTranslationEnLabel: 'الترجمة (إنجليزي)',
+      verseTranslationEnOptionalWhen: 'اختياري عندما يكون الترنيم بالإنجليزية.',
+      verseTranslationPtLabel: 'الترجمة (برتغالي)',
+      verseTranslationPtOptionalWhen: 'اختياري عندما يكون الترنيم بالبرتغالية.',
+      stepVersesHint:
+        'أضف كل مقطع بـ«إضافة مقطع». عند الجاهزية انتقل للمراجعة بالتنقل أسفل الصفحة.',
+      addVerse: 'إضافة مقطع',
+      back: 'رجوع',
+      next: 'التالي',
+      reviewTitle: 'كيف سيظهر',
+      reviewIntro:
+        'راجع مساهمتك أدناه. عند الجاهزية أنشئ طلب الدمج.',
+      reviewPreviewLabel: 'معاينة — هكذا سيظهر ترنيمك على الموقع:',
+      reviewEmptyHint: 'أضف مقاطع أعلاه للمعاينة.',
+      createPR: 'إنشاء طلب دمج',
+      cancel: 'إلغاء',
+      submitting: 'جارٍ الإرسال…',
+      saveDraft: 'حفظ مسودة',
+      myDrafts: 'مسوداتك المحفوظة',
+      loadDraft: 'تحميل',
+      deleteDraft: 'حذف',
+      draftSaved:
+        'حُفظت المسودة. يمكنك تحميلها لاحقاً من «مسوداتك المحفوظة».',
+      draftDeleted: 'حُذفت المسودة.',
+      noDrafts: 'لا مسودات محفوظة.',
+      confirmDeleteDraft: 'حذف هذه المسودة؟',
+      verseRequiredError: 'يرجى تعبئة الأصل (الخط) على الأقل.',
+      verseMinError: 'أضف مقطعاً واحداً على الأقل قبل المتابعة.',
+      verseMinSubmitError: 'أضف مقطعاً واحداً على الأقل.',
+      formNavAriaLabel: 'تنقل النموذج',
+    },
+  },
+  lang: {
+    en: 'English',
+    pt: 'Português',
+    es: 'Español',
+    it: 'Italiano',
+    hi: 'हिन्दी',
+    ar: 'العربية',
+  },
+  settings: {
+    title: 'الإعدادات',
+    description:
+      'خصّص التخطيط واللغة والألوان لتجربة ألطف. تُحفظ اختياراتك في المتصفح.',
+    theme: 'السمة',
+    themeDark: 'داكن',
+    themeLight: 'فاتح',
+    language: 'لغة الواجهة والمحتوى',
+    languageEn: 'الإنجليزية',
+    languagePt: 'البرتغالية',
+    languageEs: 'الإسبانية',
+    languageIt: 'الإيطالية',
+    languageHi: 'الهندية',
+    languageAr: 'العربية',
+    fontSize: 'حجم الخط',
+    fontSizeSmall: 'صغير',
+    fontSizeMedium: 'متوسط',
+    fontSizeLarge: 'كبير',
+    fontFamily: 'نمط الخط',
+    fontFamilySans: 'بلا زوائد',
+    fontFamilySerif: 'بزوائد',
+    spacing: 'المسافة بين المقاطع',
+    spacingTight: 'ضيقة',
+    spacingNormal: 'عادية',
+    spacingRelaxed: 'مرخّية',
+    verseTint:
+      'تدرّج المقاطع (الأصل / النقل الحرفي / الترجمة — تباين حسب السطر)',
+    verseTintHint:
+      'لون واحد وتنوّعاته للنص الأصلي والنقل الحرفي والترجمة.',
+    verseTintDefault: 'محايد',
+    verseTintGreen: 'أخضر',
+    verseTintBlue: 'أزرق',
+    verseTintAmber: 'كهرماني',
+    verseTintRose: 'وردي',
+    verseTintViolet: 'بنفسجي',
+    textColor: 'لون النص',
+    textColorDefault: 'افتراضي',
+    textColorMoss: 'أخضر طحلبي',
+    textColorSepia: 'سيبيا',
+    textColorSoft: 'ناعم',
+    textColorInk: 'حبر',
+    bgColor: 'لون الخلفية',
+    bgColorDefault: 'افتراضي',
+    bgColorCream: 'كريمي',
+    bgColorPaper: 'ورقي',
+    bgColorSnow: 'ثلجي',
+    bgColorMint: 'نعناعي',
+    bgColorCharcoal: 'فحمي',
+    bgColorNavy: 'كحلي',
+    saved: 'حُفظت الإعدادات.',
+    offlineTitle: 'دون اتصال',
+    offlineIntro:
+      'عند الاتصال، احفظ صفحة ترنيم أو قائمة الترانيم كاملة. إذا انقطع الاتصال، افتح نفس العنوان من السجل — قد تعمل الصفحة المخزّنة والصوت من نفس الموقع.',
+    offlineSavedHeading: 'محفوظ على هذا الجهاز',
+    offlineEmpty:
+      'لا شيء محفوظ للعمل دون اتصال بعد. افتح ترنيمًا واستخدم «حفظ دون اتصال»، أو احفظ قائمة كل الترانيم.',
+    offlineNotSupported:
+      'هذا المتصفح لا يدعم التخزين المستخدم للحفظ دون اتصال.',
+    offlineChantsIndexLabel: 'كل الترانيم (القائمة)',
+  },
+} as const;

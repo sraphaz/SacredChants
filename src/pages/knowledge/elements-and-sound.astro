@@ -15,6 +15,7 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -38,6 +39,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.elementsAndSound,
         it: tIt.knowledge.elementsAndSound,
         hi: tHi.knowledge.elementsAndSound,
+        ar: tAr.knowledge.elementsAndSound,
       }}
       backLabelByLocale={{
         en: tEn.knowledge.backToKnowledge,
@@ -45,6 +47,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.backToKnowledge,
         it: tIt.knowledge.backToKnowledge,
         hi: tHi.knowledge.backToKnowledge,
+        ar: tAr.knowledge.backToKnowledge,
       }}
     />
 
@@ -64,6 +67,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Los cinco grandes elementos (Pañca Mahābhūta)</span>
           <span class="locale-it">I cinque grandi elementi (Pañca Mahābhūta)</span>
           <span class="locale-hi">पाँच महाभूत (पञ्च महाभूत)</span>
+          <span class="locale-ar" dir="rtl">العناصر الخمسة الكبرى (بَانْشَا مَهَابْهُوتَا)</span>
         </h2>
         <p class="locale-en">
           In Indian philosophy and Ayurveda, the five fundamental elements are <strong>Ākāśa</strong> (space/ether), <strong>Vāyu</strong> (air), <strong>Agni</strong> (fire), <strong>Jala</strong> (water), and <strong>Pṛthvī</strong> (earth). They are present in the body, in the cosmos, and in experience; they participate in how we perceive and are affected by sound.
@@ -80,6 +84,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           भारतीय दर्शन और आयुर्वेद में पाँच मूल तत्व हैं: <strong>आकाश</strong>, <strong>वायु</strong>, <strong>अग्नि</strong>, <strong>जल</strong> और <strong>पृथ्वी</strong>। ये शरीर, ब्रह्मांड और अनुभव में विद्यमान हैं; ध्वनि को हम कैसे ग्रहण करते हैं और उससे कैसे प्रभावित होते हैं, इसमें ये भाग लेते हैं।
         </p>
+        <p class="locale-ar" dir="rtl">
+          في الفلسفة الهندية والأيورفيدا، العناصر الخمسة الأساسية هي <strong>آكاشا</strong> (الفضاء/الإثير)، <strong>فايو</strong> (الهواء)، <strong>أغني</strong> (النار)، <strong>جالا</strong> (الماء)، و<strong>برْثْفي</strong> (الأرض). هي حاضرة في الجسد والكون والتجربة؛ وتشارك في كيفية إدراكنا للصوت وتأثّرنا به.
+        </p>
       </section>
 
       <section>
@@ -89,6 +96,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Sonido y espacio (Ākāśa)</span>
           <span class="locale-it">Suono e spazio (Ākāśa)</span>
           <span class="locale-hi">ध्वनि और आकाश (आकाश)</span>
+          <span class="locale-ar" dir="rtl">الصوت والفضاء (آكاشا)</span>
         </h2>
         <p class="locale-en">
           <strong>Ākāśa</strong> (space) is uniquely associated with <strong>sound (śabda)</strong> as its defining quality (<em>tanmātra</em>). Space allows vibration and the propagation of sound; the other elements are associated with touch, form, taste, and smell. So in this framework, sound is the quality of space — and listening or chanting can be understood as engaging that element in ourselves and in the environment.
@@ -105,6 +113,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <p class="locale-hi">
           <strong>आकाश</strong> को विशिष्ट रूप से <strong>शब्द (ध्वनि)</strong> से जोड़ा जाता है — यह उसकी परिभाषात्मक <em>तन्मात्रा</em> है। आकाश कंपन और ध्वनि के प्रसार की अनुमति देता है; अन्य तत्व स्पर्श, रूप, रस और गंध से जुड़ते हैं। इस चौखट में ध्वनि आकाश का गुण है — सुनना या गाना स्वयं और परिवेश में उस तत्व से जुड़ाव समझा जा सकता है।
         </p>
+        <p class="locale-ar" dir="rtl">
+          يُربط <strong>آكاشا</strong> (الفضاء) بشكل فريد ب<strong>الصوت (شَبْدا)</strong> كصفته المميّزة (<em>تَنْمَاتْرا</em>). يتيح الفضاء الاهتزاز وانتشار الصوت؛ العناصر الأخرى ترتبط باللمس والشكل والطعم والرائحة. في هذا الإطار الصوت صفة الفضاء — والاستماع أو الترنيم يمكن فهمهما كاشتغال بهذا العنصر فينا وفي البيئة.
+        </p>
       </section>
 
       <section>
@@ -114,6 +125,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Sonido para equilibrio y armonía</span>
           <span class="locale-it">Suono per equilibrio e armonia</span>
           <span class="locale-hi">संतुलन और सामंजस्य के लिए ध्वनि</span>
+          <span class="locale-ar" dir="rtl">الصوت من أجل التوازن والانسجام</span>
         </h2>
         <p class="locale-en">
           Different sounds (or their attributes) can be related to the five elements in traditional practice. Listening or chanting may support <strong>balance</strong> among the elements in inner experience — for example calming, grounding, or clarifying. This is presented as experiential and traditional knowledge, not as a fixed prescription; different schools and lineages may describe the mapping differently. The aim here is awareness and support for inner experience, not medical or therapeutic claims.
@@ -129,6 +141,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         </p>
         <p class="locale-hi">
           पारंपरिक अभ्यास में भिन्न ध्वनियाँ (या उनके गुण) पाँच तत्वों से जोड़ी जा सकती हैं। सुनना या गाना अंतर्भाव में तत्वों के बीच <strong>संतुलन</strong> का समर्थन कर सकता है — जैसे शांति, स्थिरता या स्पष्टता। यह अनुभवजन्य व पारंपरिक ज्ञान है, कोई जड़ नुस्खा नहीं; विभिन्न शाएँ मानचित्रण भिन्न बताती हैं। यहाँ उद्देश्य चिकित्सीय दावे नहीं, बल्कि जागरूकता और अंतर्भाव का सहारा है।
+        </p>
+        <p class="locale-ar" dir="rtl">
+          يمكن في الممارسة التقليدية ربط أصوات مختلفة (أو صفاتها) بالعناصر الخمسة. قد يدعم الاستماع أو الترنيم <strong>التوازن</strong> بين العناصر في التجربة الداخلية — كالهدوء أو التثبّت أو الوضوح. يُعرض هذا كمعرفة تجريبية وتقليدية لا كوصفة جامدة؛ تختلف المدارس في رسم الخرائط. الهنا الوعي ودعم التجربة الداخلية لا ادّعاءات طبية.
         </p>
       </section>
     </div>

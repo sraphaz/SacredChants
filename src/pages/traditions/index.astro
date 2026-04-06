@@ -15,12 +15,14 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const titleMap = {
   en: tEn.traditions.title,
   pt: tPt.traditions.title,
   es: tEs.traditions.title,
   it: tIt.traditions.title,
   hi: tHi.traditions.title,
+  ar: tAr.traditions.title,
 };
 const descMap = {
   en: tEn.traditions.description,
@@ -28,6 +30,7 @@ const descMap = {
   es: tEs.traditions.description,
   it: tIt.traditions.description,
   hi: tHi.traditions.description,
+  ar: tAr.traditions.description,
 };
 const chants = await getCollection('chants');
 const traditions = [...new Set(chants.map((c) => c.data.tradition))].sort();
@@ -50,6 +53,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-es">{tEs.traditions.title}</span>
       <span class="locale-it">{tIt.traditions.title}</span>
       <span class="locale-hi">{tHi.traditions.title}</span>
+      <span class="locale-ar">{tAr.traditions.title}</span>
     </h1>
     <p class="mb-page-content" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.traditions.description}</span>
@@ -57,6 +61,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-es">{tEs.traditions.description}</span>
       <span class="locale-it">{tIt.traditions.description}</span>
       <span class="locale-hi">{tHi.traditions.description}</span>
+      <span class="locale-ar">{tAr.traditions.description}</span>
     </p>
     <SaveOfflineToggle
       mode="toolbar"
@@ -86,6 +91,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <span class="locale-es">{tEs.traditions.noTraditionsYet}</span>
         <span class="locale-it">{tIt.traditions.noTraditionsYet}</span>
         <span class="locale-hi">{tHi.traditions.noTraditionsYet}</span>
+        <span class="locale-ar">{tAr.traditions.noTraditionsYet}</span>
       </p>
     )}
   </PageShell>

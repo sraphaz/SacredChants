@@ -11,6 +11,7 @@ interface Props {
   syncLabelEs?: string;
   syncLabelIt?: string;
   syncLabelHi?: string;
+  syncLabelAr?: string;
   syncOnEn: string;
   syncOffEn: string;
   syncOnPt: string;
@@ -21,6 +22,8 @@ interface Props {
   syncOffIt?: string;
   syncOnHi?: string;
   syncOffHi?: string;
+  syncOnAr?: string;
+  syncOffAr?: string;
   bandcampUrl?: string;
   bandcampEmbedSrc?: string;
   bandcampArtImage?: string;
@@ -29,6 +32,7 @@ interface Props {
   bandcampTooltipEs?: string;
   bandcampTooltipIt?: string;
   bandcampTooltipHi?: string;
+  bandcampTooltipAr?: string;
   /** Active UI locale — selects Bandcamp `title` / `aria-label` / iframe `title`. */
   locale?: Locale;
 }
@@ -42,6 +46,7 @@ const {
   syncLabelEs = 'Sync',
   syncLabelIt = 'Sync',
   syncLabelHi = 'Sync',
+  syncLabelAr = 'Sync',
   syncOnEn,
   syncOffEn,
   syncOnPt,
@@ -52,6 +57,8 @@ const {
   syncOffIt = 'Off',
   syncOnHi = 'On',
   syncOffHi = 'Off',
+  syncOnAr = 'On',
+  syncOffAr = 'Off',
   bandcampUrl,
   bandcampEmbedSrc,
   bandcampArtImage,
@@ -60,6 +67,7 @@ const {
   bandcampTooltipEs = 'Escuchar en Bandcamp',
   bandcampTooltipIt = 'Ascolta su Bandcamp',
   bandcampTooltipHi = 'Bandcamp पर सुनें',
+  bandcampTooltipAr = 'الاستماع على Bandcamp',
   locale = 'en',
 } = Astro.props;
 
@@ -69,6 +77,7 @@ const bandcampTooltipByLocale: Record<Locale, string> = {
   es: bandcampTooltipEs,
   it: bandcampTooltipIt,
   hi: bandcampTooltipHi,
+  ar: bandcampTooltipAr,
 };
 const bandcampA11y = bandcampTooltipByLocale[locale] ?? bandcampTooltipEn;
 
@@ -79,6 +88,7 @@ const syncLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
   es: syncLabelEs,
   it: syncLabelIt,
   hi: syncLabelHi,
+  ar: syncLabelAr,
 };
 const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
   en: syncOnEn,
@@ -86,6 +96,7 @@ const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
   es: syncOnEs,
   it: syncOnIt,
   hi: syncOnHi,
+  ar: syncOnAr,
 };
 ---
 
@@ -118,11 +129,14 @@ const syncOnLabels: Record<(typeof PLAYER_LOCALES)[number], string> = {
         data-sync-off-it={syncOffIt}
         data-sync-on-hi={syncOnHi}
         data-sync-off-hi={syncOffHi}
+        data-sync-on-ar={syncOnAr}
+        data-sync-off-ar={syncOffAr}
         data-sync-label-en={syncLabelEn}
         data-sync-label-pt={syncLabelPt}
         data-sync-label-es={syncLabelEs}
         data-sync-label-it={syncLabelIt}
         data-sync-label-hi={syncLabelHi}
+        data-sync-label-ar={syncLabelAr}
         aria-label={`${syncLabelEn} — ${syncOnEn}`}
       >
         <span class="chant-sync-switch-thumb absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform" style="background-color: var(--sc-accent);"></span>

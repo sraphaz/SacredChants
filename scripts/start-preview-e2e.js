@@ -15,9 +15,19 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const distIndex = join(root, 'dist', 'index.html');
 
-const childEnv = { ...process.env, BASE_PATH: process.env.BASE_PATH ?? '/' };
 /** Porta fixa para o Playwright bater certo com `webServer.url` (defeito: 4174 — fora da 4321 do `astro dev`). */
 const previewPort = (process.env.E2E_PREVIEW_PORT || '').trim() || '4174';
+/**
+ * O build estático usa `site` (astro.config) para `<base href>` e URLs absolutas de scripts.
+ * Sem isto, o preview em 127.0.0.1 carregaria JS/CSS de produção e o locale na URL (ex. ?lang=ar)
+ * não coincidia com o bundle antigo — E2E falhavam de forma intermitente/errática.
+ */
+const previewOrigin = `http://127.0.0.1:${previewPort}`;
+const childEnv = {
+  ...process.env,
+  BASE_PATH: process.env.BASE_PATH ?? '/',
+  SITE_ORIGIN: (process.env.SITE_ORIGIN || '').trim() || previewOrigin,
+};
 
 function startPreview() {
   console.log('[e2e] Starting preview at http://127.0.0.1:' + previewPort + '/ ...');

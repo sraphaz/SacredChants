@@ -31,6 +31,7 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 
 const entry = await getEntry('chants', slug!);
 if (!entry) {
@@ -57,6 +58,7 @@ const linesWithMeta = getLinesWithMeta(chant);
 const hasEs = hasTranslation(chant, 'es');
 const hasIt = hasTranslation(chant, 'it');
 const hasHi = hasTranslation(chant, 'hi');
+const hasAr = hasTranslation(chant, 'ar');
 
 ---
 
@@ -72,6 +74,7 @@ const hasHi = hasTranslation(chant, 'hi');
         syncLabelEs={tEs.chant.syncLabel}
         syncLabelIt={tIt.chant.syncLabel}
         syncLabelHi={tHi.chant.syncLabel}
+        syncLabelAr={tAr.chant.syncLabel}
         syncOnEn={tEn.chant.syncOn}
         syncOffEn={tEn.chant.syncOff}
         syncOnPt={tPt.chant.syncOn}
@@ -82,6 +85,8 @@ const hasHi = hasTranslation(chant, 'hi');
         syncOffIt={tIt.chant.syncOff}
         syncOnHi={tHi.chant.syncOn}
         syncOffHi={tHi.chant.syncOff}
+        syncOnAr={tAr.chant.syncOn}
+        syncOffAr={tAr.chant.syncOff}
         bandcampUrl={chant.bandcampUrl}
         bandcampEmbedSrc={chant.bandcampEmbedSrc}
         bandcampArtImage={bandcampArtImage}
@@ -90,6 +95,7 @@ const hasHi = hasTranslation(chant, 'hi');
         bandcampTooltipEs="Escuchar en Bandcamp"
         bandcampTooltipIt="Ascolta su Bandcamp"
         bandcampTooltipHi="Bandcamp पर सुनें"
+        bandcampTooltipAr="الاستماع على Bandcamp"
         locale={locale}
       />
       <div class="chant-player-bar-spacer hidden md:block"></div>
@@ -132,6 +138,7 @@ const hasHi = hasTranslation(chant, 'hi');
         <span class="locale-es">{tEs.chant.downloadPdf}</span>
         <span class="locale-it">{tIt.chant.downloadPdf}</span>
         <span class="locale-hi">{tHi.chant.downloadPdf}</span>
+        <span class="locale-ar">{tAr.chant.downloadPdf}</span>
       </button>
       <SaveOfflineToggle
         mode="chantButton"
@@ -155,6 +162,7 @@ const hasHi = hasTranslation(chant, 'hi');
           <span class="locale-es">{tEs.chant.listenOnSpotify}</span>
           <span class="locale-it">{tIt.chant.listenOnSpotify}</span>
           <span class="locale-hi">{tHi.chant.listenOnSpotify}</span>
+          <span class="locale-ar">{tAr.chant.listenOnSpotify}</span>
         </a>
       )}
       {!chant.audio && chant.bandcampUrl && (
@@ -178,6 +186,7 @@ const hasHi = hasTranslation(chant, 'hi');
           <span class="locale-es">{tEs.chant.shareWithAutoplay}</span>
           <span class="locale-it">{tIt.chant.shareWithAutoplay}</span>
           <span class="locale-hi">{tHi.chant.shareWithAutoplay}</span>
+          <span class="locale-ar">{tAr.chant.shareWithAutoplay}</span>
         </a>
       )}
       <SaveOfflineToggle
@@ -187,11 +196,12 @@ const hasHi = hasTranslation(chant, 'hi');
       />
     </nav>
   </div>
-  {(!hasEs || !hasIt || !hasHi) && (
+  {(!hasEs || !hasIt || !hasHi || !hasAr) && (
     <p class="chant-translation-fallback mb-4 px-2 py-2 rounded text-sm" style="background: var(--sc-bg-muted, #f0f0f0); color: var(--sc-text-muted, #666);" role="status">
       {!hasEs && <span class="locale-es">{tEs.chant.translationFallback}</span>}
       {!hasIt && <span class="locale-it">{tIt.chant.translationFallback}</span>}
       {!hasHi && <span class="locale-hi">{tHi.chant.translationFallback}</span>}
+      {!hasAr && <span class="locale-ar">{tAr.chant.translationFallback}</span>}
     </p>
   )}
   <section class="chant-verses" aria-label="Verses">
@@ -202,7 +212,7 @@ const hasHi = hasTranslation(chant, 'hi');
       </div>
     </section>
 
-    {(chant.about?.en || chant.about?.pt || chant.about?.es || chant.about?.it || chant.about?.hi) && (
+    {(chant.about?.en || chant.about?.pt || chant.about?.es || chant.about?.it || chant.about?.hi || chant.about?.ar) && (
     <section class="chant-about mt-section-gap mb-section" aria-labelledby="chant-about-title">
       <h2 id="chant-about-title" class="chant-about__title sc-heading font-serif mb-4">
         <span class="locale-en">{tEn.chant.aboutTitle}</span>
@@ -210,6 +220,7 @@ const hasHi = hasTranslation(chant, 'hi');
         <span class="locale-es">{tEs.chant.aboutTitle}</span>
         <span class="locale-it">{tIt.chant.aboutTitle}</span>
         <span class="locale-hi">{tHi.chant.aboutTitle}</span>
+        <span class="locale-ar">{tAr.chant.aboutTitle}</span>
       </h2>
       {chant.about?.en && (
         <div class="chant-about__body locale-en">
@@ -236,6 +247,11 @@ const hasHi = hasTranslation(chant, 'hi');
           {chant.about.hi}
         </div>
       )}
+      {chant.about?.ar && (
+        <div class="chant-about__body locale-ar mt-4" dir="rtl">
+          {chant.about.ar}
+        </div>
+      )}
     </section>
     )}
 
@@ -254,6 +270,7 @@ const hasHi = hasTranslation(chant, 'hi');
         var stateElEs = document.getElementById('chant-sync-toggle-state-es');
         var stateElIt = document.getElementById('chant-sync-toggle-state-it');
         var stateElHi = document.getElementById('chant-sync-toggle-state-hi');
+        var stateElAr = document.getElementById('chant-sync-toggle-state-ar');
         var syncLinesRaw = list && list.getAttribute('data-sync-lines');
         var syncLines = [];
         try { if (syncLinesRaw) syncLines = JSON.parse(syncLinesRaw); } catch (e) {}
@@ -262,7 +279,7 @@ const hasHi = hasTranslation(chant, 'hi');
         var lastActiveIndex = -1;
 
         var SYNC_LOCALES = [];
-        try { SYNC_LOCALES = JSON.parse(syncLocalesJson); } catch (e) { SYNC_LOCALES = ['en','pt','es','it','hi']; }
+        try { SYNC_LOCALES = JSON.parse(syncLocalesJson); } catch (e) { SYNC_LOCALES = ['en','pt','es','it','hi','ar']; }
         var syncOnBy = {};
         var syncOffBy = {};
         var labelBy = {};
@@ -311,6 +328,7 @@ const hasHi = hasTranslation(chant, 'hi');
             if (stateElEs) stateElEs.textContent = on ? (syncOnBy.es || defOn) : (syncOffBy.es || defOff);
             if (stateElIt) stateElIt.textContent = on ? (syncOnBy.it || defOn) : (syncOffBy.it || defOff);
             if (stateElHi) stateElHi.textContent = on ? (syncOnBy.hi || defOn) : (syncOffBy.hi || defOff);
+            if (stateElAr) stateElAr.textContent = on ? (syncOnBy.ar || defOn) : (syncOffBy.ar || defOff);
             updateSyncAriaLabel(on);
           }
           if (!on) clearActive();

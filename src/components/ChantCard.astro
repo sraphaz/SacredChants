@@ -16,7 +16,7 @@ function getDescriptionByLocale(chantDesc: Chant['description'], locale: Locale)
   if (typeof chantDesc === 'string') return chantDesc;
   const obj =
     chantDesc && typeof chantDesc === 'object'
-      ? (chantDesc as { en?: string; pt?: string; es?: string; it?: string; hi?: string })
+      ? (chantDesc as { en?: string; pt?: string; es?: string; it?: string; hi?: string; ar?: string })
       : {};
   switch (locale) {
     case 'en': return obj.en ?? obj.pt ?? '';
@@ -24,6 +24,7 @@ function getDescriptionByLocale(chantDesc: Chant['description'], locale: Locale)
     case 'es': return obj.es ?? obj.en ?? obj.pt ?? '';
     case 'it': return obj.it ?? obj.en ?? obj.pt ?? '';
     case 'hi': return obj.hi ?? obj.en ?? obj.pt ?? '';
+    case 'ar': return obj.ar ?? obj.en ?? obj.pt ?? '';
     default: return obj.en ?? obj.pt ?? '';
   }
 }
@@ -34,6 +35,7 @@ const AUDIO_ICON_TITLE_BY_LOCALE: Record<Locale, string> = {
   es: 'Tiene audio',
   it: 'Ha audio',
   hi: 'ऑडियो है',
+  ar: 'يوجد صوت',
 };
 
 const CARD_LOCALES = [...SUPPORTED_LOCALES].map((locale) => ({

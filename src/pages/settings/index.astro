@@ -13,12 +13,14 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const titleMap = {
   en: tEn.settings.title,
   pt: tPt.settings.title,
   es: tEs.settings.title,
   it: tIt.settings.title,
   hi: tHi.settings.title,
+  ar: tAr.settings.title,
 };
 const descMap = {
   en: tEn.settings.description,
@@ -26,6 +28,7 @@ const descMap = {
   es: tEs.settings.description,
   it: tIt.settings.description,
   hi: tHi.settings.description,
+  ar: tAr.settings.description,
 };
 const supportedLocalesJson = JSON.stringify([...SUPPORTED_LOCALES]);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -45,13 +48,13 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       <span class="locale-en">{tEn.settings.title}</span>
       <span class="locale-pt">{tPt.settings.title}</span>
       <span class="locale-es">{tEs.settings.title}</span>
-      <span class="locale-it">{tIt.settings.title}</span><span class="locale-hi">{tHi.settings.title}</span>
+      <span class="locale-it">{tIt.settings.title}</span><span class="locale-hi">{tHi.settings.title}</span><span class="locale-ar">{tAr.settings.title}</span>
     </h1>
     <p class="mb-page-content text-sm" style="color: var(--sc-text-muted)">
       <span class="locale-en">{tEn.settings.description}</span>
       <span class="locale-pt">{tPt.settings.description}</span>
       <span class="locale-es">{tEs.settings.description}</span>
-      <span class="locale-it">{tIt.settings.description}</span><span class="locale-hi">{tHi.settings.description}</span>
+      <span class="locale-it">{tIt.settings.description}</span><span class="locale-hi">{tHi.settings.description}</span><span class="locale-ar">{tAr.settings.description}</span>
     </p>
 
     <form id="settings-form" class="settings-form space-y-10" autocomplete="off" aria-label={titleMap[locale]}>
@@ -60,16 +63,16 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.theme}</span>
           <span class="locale-pt">{tPt.settings.theme}</span>
           <span class="locale-es">{tEs.settings.theme}</span>
-          <span class="locale-it">{tIt.settings.theme}</span><span class="locale-hi">{tHi.settings.theme}</span>
+          <span class="locale-it">{tIt.settings.theme}</span><span class="locale-hi">{tHi.settings.theme}</span><span class="locale-ar">{tAr.settings.theme}</span>
         </label>
         <div class="settings-options">
           <label class="settings-option" for="settings-theme-dark">
             <input type="radio" id="settings-theme-dark" name="theme" value="dark" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.themeDark}</span><span class="locale-pt">{tPt.settings.themeDark}</span><span class="locale-es">{tEs.settings.themeDark}</span><span class="locale-it">{tIt.settings.themeDark}</span><span class="locale-hi">{tHi.settings.themeDark}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.themeDark}</span><span class="locale-pt">{tPt.settings.themeDark}</span><span class="locale-es">{tEs.settings.themeDark}</span><span class="locale-it">{tIt.settings.themeDark}</span><span class="locale-hi">{tHi.settings.themeDark}</span><span class="locale-ar">{tAr.settings.themeDark}</span></span>
           </label>
           <label class="settings-option" for="settings-theme-light">
             <input type="radio" id="settings-theme-light" name="theme" value="light" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.themeLight}</span><span class="locale-pt">{tPt.settings.themeLight}</span><span class="locale-es">{tEs.settings.themeLight}</span><span class="locale-it">{tIt.settings.themeLight}</span><span class="locale-hi">{tHi.settings.themeLight}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.themeLight}</span><span class="locale-pt">{tPt.settings.themeLight}</span><span class="locale-es">{tEs.settings.themeLight}</span><span class="locale-it">{tIt.settings.themeLight}</span><span class="locale-hi">{tHi.settings.themeLight}</span><span class="locale-ar">{tAr.settings.themeLight}</span></span>
           </label>
         </div>
       </fieldset>
@@ -79,28 +82,32 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.language}</span>
           <span class="locale-pt">{tPt.settings.language}</span>
           <span class="locale-es">{tEs.settings.language}</span>
-          <span class="locale-it">{tIt.settings.language}</span><span class="locale-hi">{tHi.settings.language}</span>
+          <span class="locale-it">{tIt.settings.language}</span><span class="locale-hi">{tHi.settings.language}</span><span class="locale-ar">{tAr.settings.language}</span>
         </label>
         <div class="settings-options">
           <label class="settings-option" for="settings-lang-en">
             <input type="radio" id="settings-lang-en" name="lang" value="en" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageEn}</span><span class="locale-pt">{tPt.settings.languageEn}</span><span class="locale-es">{tEs.settings.languageEn}</span><span class="locale-it">{tIt.settings.languageEn}</span><span class="locale-hi">{tHi.settings.languageEn}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageEn}</span><span class="locale-pt">{tPt.settings.languageEn}</span><span class="locale-es">{tEs.settings.languageEn}</span><span class="locale-it">{tIt.settings.languageEn}</span><span class="locale-hi">{tHi.settings.languageEn}</span><span class="locale-ar">{tAr.settings.languageEn}</span></span>
           </label>
           <label class="settings-option" for="settings-lang-pt">
             <input type="radio" id="settings-lang-pt" name="lang" value="pt" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languagePt}</span><span class="locale-pt">{tPt.settings.languagePt}</span><span class="locale-es">{tEs.settings.languagePt}</span><span class="locale-it">{tIt.settings.languagePt}</span><span class="locale-hi">{tHi.settings.languagePt}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languagePt}</span><span class="locale-pt">{tPt.settings.languagePt}</span><span class="locale-es">{tEs.settings.languagePt}</span><span class="locale-it">{tIt.settings.languagePt}</span><span class="locale-hi">{tHi.settings.languagePt}</span><span class="locale-ar">{tAr.settings.languagePt}</span></span>
           </label>
           <label class="settings-option" for="settings-lang-es">
             <input type="radio" id="settings-lang-es" name="lang" value="es" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageEs}</span><span class="locale-pt">{tPt.settings.languageEs}</span><span class="locale-es">{tEs.settings.languageEs}</span><span class="locale-it">{tIt.settings.languageEs}</span><span class="locale-hi">{tHi.settings.languageEs}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageEs}</span><span class="locale-pt">{tPt.settings.languageEs}</span><span class="locale-es">{tEs.settings.languageEs}</span><span class="locale-it">{tIt.settings.languageEs}</span><span class="locale-hi">{tHi.settings.languageEs}</span><span class="locale-ar">{tAr.settings.languageEs}</span></span>
           </label>
           <label class="settings-option" for="settings-lang-it">
             <input type="radio" id="settings-lang-it" name="lang" value="it" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageIt}</span><span class="locale-pt">{tPt.settings.languageIt}</span><span class="locale-es">{tEs.settings.languageIt}</span><span class="locale-it">{tIt.settings.languageIt}</span><span class="locale-hi">{tHi.settings.languageIt}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageIt}</span><span class="locale-pt">{tPt.settings.languageIt}</span><span class="locale-es">{tEs.settings.languageIt}</span><span class="locale-it">{tIt.settings.languageIt}</span><span class="locale-hi">{tHi.settings.languageIt}</span><span class="locale-ar">{tAr.settings.languageIt}</span></span>
           </label>
           <label class="settings-option" for="settings-lang-hi">
             <input type="radio" id="settings-lang-hi" name="lang" value="hi" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageHi}</span><span class="locale-pt">{tPt.settings.languageHi}</span><span class="locale-es">{tEs.settings.languageHi}</span><span class="locale-it">{tIt.settings.languageHi}</span><span class="locale-hi">{tHi.settings.languageHi}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageHi}</span><span class="locale-pt">{tPt.settings.languageHi}</span><span class="locale-es">{tEs.settings.languageHi}</span><span class="locale-it">{tIt.settings.languageHi}</span><span class="locale-hi">{tHi.settings.languageHi}</span><span class="locale-ar">{tAr.settings.languageHi}</span></span>
+          </label>
+          <label class="settings-option" for="settings-lang-ar">
+            <input type="radio" id="settings-lang-ar" name="lang" value="ar" class="settings-option-input" />
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.languageAr}</span><span class="locale-pt">{tPt.settings.languageAr}</span><span class="locale-es">{tEs.settings.languageAr}</span><span class="locale-it">{tIt.settings.languageAr}</span><span class="locale-hi">{tHi.settings.languageAr}</span><span class="locale-ar">{tAr.settings.languageAr}</span></span>
           </label>
         </div>
       </fieldset>
@@ -110,20 +117,20 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.fontSize}</span>
           <span class="locale-pt">{tPt.settings.fontSize}</span>
           <span class="locale-es">{tEs.settings.fontSize}</span>
-          <span class="locale-it">{tIt.settings.fontSize}</span><span class="locale-hi">{tHi.settings.fontSize}</span>
+          <span class="locale-it">{tIt.settings.fontSize}</span><span class="locale-hi">{tHi.settings.fontSize}</span><span class="locale-ar">{tAr.settings.fontSize}</span>
         </label>
         <div class="settings-options">
           <label class="settings-option" for="settings-fontSize-small">
             <input type="radio" id="settings-fontSize-small" name="fontSize" value="small" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeSmall}</span><span class="locale-pt">{tPt.settings.fontSizeSmall}</span><span class="locale-es">{tEs.settings.fontSizeSmall}</span><span class="locale-it">{tIt.settings.fontSizeSmall}</span><span class="locale-hi">{tHi.settings.fontSizeSmall}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeSmall}</span><span class="locale-pt">{tPt.settings.fontSizeSmall}</span><span class="locale-es">{tEs.settings.fontSizeSmall}</span><span class="locale-it">{tIt.settings.fontSizeSmall}</span><span class="locale-hi">{tHi.settings.fontSizeSmall}</span><span class="locale-ar">{tAr.settings.fontSizeSmall}</span></span>
           </label>
           <label class="settings-option" for="settings-fontSize-medium">
             <input type="radio" id="settings-fontSize-medium" name="fontSize" value="medium" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeMedium}</span><span class="locale-pt">{tPt.settings.fontSizeMedium}</span><span class="locale-es">{tEs.settings.fontSizeMedium}</span><span class="locale-it">{tIt.settings.fontSizeMedium}</span><span class="locale-hi">{tHi.settings.fontSizeMedium}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeMedium}</span><span class="locale-pt">{tPt.settings.fontSizeMedium}</span><span class="locale-es">{tEs.settings.fontSizeMedium}</span><span class="locale-it">{tIt.settings.fontSizeMedium}</span><span class="locale-hi">{tHi.settings.fontSizeMedium}</span><span class="locale-ar">{tAr.settings.fontSizeMedium}</span></span>
           </label>
           <label class="settings-option" for="settings-fontSize-large">
             <input type="radio" id="settings-fontSize-large" name="fontSize" value="large" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeLarge}</span><span class="locale-pt">{tPt.settings.fontSizeLarge}</span><span class="locale-es">{tEs.settings.fontSizeLarge}</span><span class="locale-it">{tIt.settings.fontSizeLarge}</span><span class="locale-hi">{tHi.settings.fontSizeLarge}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontSizeLarge}</span><span class="locale-pt">{tPt.settings.fontSizeLarge}</span><span class="locale-es">{tEs.settings.fontSizeLarge}</span><span class="locale-it">{tIt.settings.fontSizeLarge}</span><span class="locale-hi">{tHi.settings.fontSizeLarge}</span><span class="locale-ar">{tAr.settings.fontSizeLarge}</span></span>
           </label>
         </div>
       </fieldset>
@@ -133,16 +140,16 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.fontFamily}</span>
           <span class="locale-pt">{tPt.settings.fontFamily}</span>
           <span class="locale-es">{tEs.settings.fontFamily}</span>
-          <span class="locale-it">{tIt.settings.fontFamily}</span><span class="locale-hi">{tHi.settings.fontFamily}</span>
+          <span class="locale-it">{tIt.settings.fontFamily}</span><span class="locale-hi">{tHi.settings.fontFamily}</span><span class="locale-ar">{tAr.settings.fontFamily}</span>
         </label>
         <div class="settings-options">
           <label class="settings-option" for="settings-fontFamily-sans">
             <input type="radio" id="settings-fontFamily-sans" name="fontFamily" value="sans" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontFamilySans}</span><span class="locale-pt">{tPt.settings.fontFamilySans}</span><span class="locale-es">{tEs.settings.fontFamilySans}</span><span class="locale-it">{tIt.settings.fontFamilySans}</span><span class="locale-hi">{tHi.settings.fontFamilySans}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontFamilySans}</span><span class="locale-pt">{tPt.settings.fontFamilySans}</span><span class="locale-es">{tEs.settings.fontFamilySans}</span><span class="locale-it">{tIt.settings.fontFamilySans}</span><span class="locale-hi">{tHi.settings.fontFamilySans}</span><span class="locale-ar">{tAr.settings.fontFamilySans}</span></span>
           </label>
           <label class="settings-option" for="settings-fontFamily-serif">
             <input type="radio" id="settings-fontFamily-serif" name="fontFamily" value="serif" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontFamilySerif}</span><span class="locale-pt">{tPt.settings.fontFamilySerif}</span><span class="locale-es">{tEs.settings.fontFamilySerif}</span><span class="locale-it">{tIt.settings.fontFamilySerif}</span><span class="locale-hi">{tHi.settings.fontFamilySerif}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.fontFamilySerif}</span><span class="locale-pt">{tPt.settings.fontFamilySerif}</span><span class="locale-es">{tEs.settings.fontFamilySerif}</span><span class="locale-it">{tIt.settings.fontFamilySerif}</span><span class="locale-hi">{tHi.settings.fontFamilySerif}</span><span class="locale-ar">{tAr.settings.fontFamilySerif}</span></span>
           </label>
         </div>
       </fieldset>
@@ -152,20 +159,20 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.spacing}</span>
           <span class="locale-pt">{tPt.settings.spacing}</span>
           <span class="locale-es">{tEs.settings.spacing}</span>
-          <span class="locale-it">{tIt.settings.spacing}</span><span class="locale-hi">{tHi.settings.spacing}</span>
+          <span class="locale-it">{tIt.settings.spacing}</span><span class="locale-hi">{tHi.settings.spacing}</span><span class="locale-ar">{tAr.settings.spacing}</span>
         </label>
         <div class="settings-options">
           <label class="settings-option" for="settings-spacing-tight">
             <input type="radio" id="settings-spacing-tight" name="spacing" value="tight" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingTight}</span><span class="locale-pt">{tPt.settings.spacingTight}</span><span class="locale-es">{tEs.settings.spacingTight}</span><span class="locale-it">{tIt.settings.spacingTight}</span><span class="locale-hi">{tHi.settings.spacingTight}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingTight}</span><span class="locale-pt">{tPt.settings.spacingTight}</span><span class="locale-es">{tEs.settings.spacingTight}</span><span class="locale-it">{tIt.settings.spacingTight}</span><span class="locale-hi">{tHi.settings.spacingTight}</span><span class="locale-ar">{tAr.settings.spacingTight}</span></span>
           </label>
           <label class="settings-option" for="settings-spacing-normal">
             <input type="radio" id="settings-spacing-normal" name="spacing" value="normal" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingNormal}</span><span class="locale-pt">{tPt.settings.spacingNormal}</span><span class="locale-es">{tEs.settings.spacingNormal}</span><span class="locale-it">{tIt.settings.spacingNormal}</span><span class="locale-hi">{tHi.settings.spacingNormal}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingNormal}</span><span class="locale-pt">{tPt.settings.spacingNormal}</span><span class="locale-es">{tEs.settings.spacingNormal}</span><span class="locale-it">{tIt.settings.spacingNormal}</span><span class="locale-hi">{tHi.settings.spacingNormal}</span><span class="locale-ar">{tAr.settings.spacingNormal}</span></span>
           </label>
           <label class="settings-option" for="settings-spacing-relaxed">
             <input type="radio" id="settings-spacing-relaxed" name="spacing" value="relaxed" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingRelaxed}</span><span class="locale-pt">{tPt.settings.spacingRelaxed}</span><span class="locale-es">{tEs.settings.spacingRelaxed}</span><span class="locale-it">{tIt.settings.spacingRelaxed}</span><span class="locale-hi">{tHi.settings.spacingRelaxed}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.spacingRelaxed}</span><span class="locale-pt">{tPt.settings.spacingRelaxed}</span><span class="locale-es">{tEs.settings.spacingRelaxed}</span><span class="locale-it">{tIt.settings.spacingRelaxed}</span><span class="locale-hi">{tHi.settings.spacingRelaxed}</span><span class="locale-ar">{tAr.settings.spacingRelaxed}</span></span>
           </label>
         </div>
       </fieldset>
@@ -175,39 +182,40 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.verseTint}</span>
           <span class="locale-pt">{tPt.settings.verseTint}</span>
           <span class="locale-es">{tEs.settings.verseTint}</span>
-          <span class="locale-it">{tIt.settings.verseTint}</span><span class="locale-hi">{tHi.settings.verseTint}</span>
+          <span class="locale-it">{tIt.settings.verseTint}</span><span class="locale-hi">{tHi.settings.verseTint}</span><span class="locale-ar">{tAr.settings.verseTint}</span>
         </label>
         <p class="settings-field-hint" style="color: var(--sc-text-subtle)">
-          <span class="locale-en">One colour and its variations for original script, transliteration, and translation.</span>
-          <span class="locale-pt">Uma cor e as suas variações para o texto original, transliteração e tradução.</span>
-          <span class="locale-es">Un color y sus variaciones para el texto original, transliteración y traducción.</span>
-          <span class="locale-it">Un colore e le sue variazioni per testo originale, traslitterazione e traduzione.</span>
-          <span class="locale-hi">मूल लिपि, लिप्यंतरण और अनुवाद के लिए एक रंग और उसके रूपांतर।</span>
+          <span class="locale-en">{tEn.settings.verseTintHint}</span>
+          <span class="locale-pt">{tPt.settings.verseTintHint}</span>
+          <span class="locale-es">{tEs.settings.verseTintHint}</span>
+          <span class="locale-it">{tIt.settings.verseTintHint}</span>
+          <span class="locale-hi">{tHi.settings.verseTintHint}</span>
+          <span class="locale-ar" dir="rtl">{tAr.settings.verseTintHint}</span>
         </p>
         <div class="settings-options">
           <label class="settings-option" for="settings-verseTint-default">
             <input type="radio" id="settings-verseTint-default" name="verseTint" value="default" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.verseTintDefault}</span><span class="locale-pt">{tPt.settings.verseTintDefault}</span><span class="locale-es">{tEs.settings.verseTintDefault}</span><span class="locale-it">{tIt.settings.verseTintDefault}</span><span class="locale-hi">{tHi.settings.verseTintDefault}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.verseTintDefault}</span><span class="locale-pt">{tPt.settings.verseTintDefault}</span><span class="locale-es">{tEs.settings.verseTintDefault}</span><span class="locale-it">{tIt.settings.verseTintDefault}</span><span class="locale-hi">{tHi.settings.verseTintDefault}</span><span class="locale-ar">{tAr.settings.verseTintDefault}</span></span>
           </label>
           <label class="settings-option" for="settings-verseTint-green">
             <input type="radio" id="settings-verseTint-green" name="verseTint" value="green" class="settings-option-input" />
-            <span class="settings-option-text" style="color: #4a6b5c"><span class="locale-en">{tEn.settings.verseTintGreen}</span><span class="locale-pt">{tPt.settings.verseTintGreen}</span><span class="locale-es">{tEs.settings.verseTintGreen}</span><span class="locale-it">{tIt.settings.verseTintGreen}</span><span class="locale-hi">{tHi.settings.verseTintGreen}</span></span>
+            <span class="settings-option-text" style="color: #4a6b5c"><span class="locale-en">{tEn.settings.verseTintGreen}</span><span class="locale-pt">{tPt.settings.verseTintGreen}</span><span class="locale-es">{tEs.settings.verseTintGreen}</span><span class="locale-it">{tIt.settings.verseTintGreen}</span><span class="locale-hi">{tHi.settings.verseTintGreen}</span><span class="locale-ar">{tAr.settings.verseTintGreen}</span></span>
           </label>
           <label class="settings-option" for="settings-verseTint-blue">
             <input type="radio" id="settings-verseTint-blue" name="verseTint" value="blue" class="settings-option-input" />
-            <span class="settings-option-text" style="color: #526b7a"><span class="locale-en">{tEn.settings.verseTintBlue}</span><span class="locale-pt">{tPt.settings.verseTintBlue}</span><span class="locale-es">{tEs.settings.verseTintBlue}</span><span class="locale-it">{tIt.settings.verseTintBlue}</span><span class="locale-hi">{tHi.settings.verseTintBlue}</span></span>
+            <span class="settings-option-text" style="color: #526b7a"><span class="locale-en">{tEn.settings.verseTintBlue}</span><span class="locale-pt">{tPt.settings.verseTintBlue}</span><span class="locale-es">{tEs.settings.verseTintBlue}</span><span class="locale-it">{tIt.settings.verseTintBlue}</span><span class="locale-hi">{tHi.settings.verseTintBlue}</span><span class="locale-ar">{tAr.settings.verseTintBlue}</span></span>
           </label>
           <label class="settings-option" for="settings-verseTint-amber">
             <input type="radio" id="settings-verseTint-amber" name="verseTint" value="amber" class="settings-option-input" />
-            <span class="settings-option-text" style="color: #7a6b58"><span class="locale-en">{tEn.settings.verseTintAmber}</span><span class="locale-pt">{tPt.settings.verseTintAmber}</span><span class="locale-es">{tEs.settings.verseTintAmber}</span><span class="locale-it">{tIt.settings.verseTintAmber}</span><span class="locale-hi">{tHi.settings.verseTintAmber}</span></span>
+            <span class="settings-option-text" style="color: #7a6b58"><span class="locale-en">{tEn.settings.verseTintAmber}</span><span class="locale-pt">{tPt.settings.verseTintAmber}</span><span class="locale-es">{tEs.settings.verseTintAmber}</span><span class="locale-it">{tIt.settings.verseTintAmber}</span><span class="locale-hi">{tHi.settings.verseTintAmber}</span><span class="locale-ar">{tAr.settings.verseTintAmber}</span></span>
           </label>
           <label class="settings-option" for="settings-verseTint-rose">
             <input type="radio" id="settings-verseTint-rose" name="verseTint" value="rose" class="settings-option-input" />
-            <span class="settings-option-text" style="color: #7a6068"><span class="locale-en">{tEn.settings.verseTintRose}</span><span class="locale-pt">{tPt.settings.verseTintRose}</span><span class="locale-es">{tEs.settings.verseTintRose}</span><span class="locale-it">{tIt.settings.verseTintRose}</span><span class="locale-hi">{tHi.settings.verseTintRose}</span></span>
+            <span class="settings-option-text" style="color: #7a6068"><span class="locale-en">{tEn.settings.verseTintRose}</span><span class="locale-pt">{tPt.settings.verseTintRose}</span><span class="locale-es">{tEs.settings.verseTintRose}</span><span class="locale-it">{tIt.settings.verseTintRose}</span><span class="locale-hi">{tHi.settings.verseTintRose}</span><span class="locale-ar">{tAr.settings.verseTintRose}</span></span>
           </label>
           <label class="settings-option" for="settings-verseTint-violet">
             <input type="radio" id="settings-verseTint-violet" name="verseTint" value="violet" class="settings-option-input" />
-            <span class="settings-option-text" style="color: #6a6278"><span class="locale-en">{tEn.settings.verseTintViolet}</span><span class="locale-pt">{tPt.settings.verseTintViolet}</span><span class="locale-es">{tEs.settings.verseTintViolet}</span><span class="locale-it">{tIt.settings.verseTintViolet}</span><span class="locale-hi">{tHi.settings.verseTintViolet}</span></span>
+            <span class="settings-option-text" style="color: #6a6278"><span class="locale-en">{tEn.settings.verseTintViolet}</span><span class="locale-pt">{tPt.settings.verseTintViolet}</span><span class="locale-es">{tEs.settings.verseTintViolet}</span><span class="locale-it">{tIt.settings.verseTintViolet}</span><span class="locale-hi">{tHi.settings.verseTintViolet}</span><span class="locale-ar">{tAr.settings.verseTintViolet}</span></span>
           </label>
         </div>
       </fieldset>
@@ -217,28 +225,28 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.textColor}</span>
           <span class="locale-pt">{tPt.settings.textColor}</span>
           <span class="locale-es">{tEs.settings.textColor}</span>
-          <span class="locale-it">{tIt.settings.textColor}</span><span class="locale-hi">{tHi.settings.textColor}</span>
+          <span class="locale-it">{tIt.settings.textColor}</span><span class="locale-hi">{tHi.settings.textColor}</span><span class="locale-ar">{tAr.settings.textColor}</span>
         </label>
         <div class="settings-options">
           <label class="settings-option" for="settings-textColor-default">
             <input type="radio" id="settings-textColor-default" name="textColor" value="default" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorDefault}</span><span class="locale-pt">{tPt.settings.textColorDefault}</span><span class="locale-es">{tEs.settings.textColorDefault}</span><span class="locale-it">{tIt.settings.textColorDefault}</span><span class="locale-hi">{tHi.settings.textColorDefault}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorDefault}</span><span class="locale-pt">{tPt.settings.textColorDefault}</span><span class="locale-es">{tEs.settings.textColorDefault}</span><span class="locale-it">{tIt.settings.textColorDefault}</span><span class="locale-hi">{tHi.settings.textColorDefault}</span><span class="locale-ar">{tAr.settings.textColorDefault}</span></span>
           </label>
           <label class="settings-option" for="settings-textColor-moss">
             <input type="radio" id="settings-textColor-moss" name="textColor" value="moss" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorMoss}</span><span class="locale-pt">{tPt.settings.textColorMoss}</span><span class="locale-es">{tEs.settings.textColorMoss}</span><span class="locale-it">{tIt.settings.textColorMoss}</span><span class="locale-hi">{tHi.settings.textColorMoss}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorMoss}</span><span class="locale-pt">{tPt.settings.textColorMoss}</span><span class="locale-es">{tEs.settings.textColorMoss}</span><span class="locale-it">{tIt.settings.textColorMoss}</span><span class="locale-hi">{tHi.settings.textColorMoss}</span><span class="locale-ar">{tAr.settings.textColorMoss}</span></span>
           </label>
           <label class="settings-option" for="settings-textColor-sepia">
             <input type="radio" id="settings-textColor-sepia" name="textColor" value="sepia" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorSepia}</span><span class="locale-pt">{tPt.settings.textColorSepia}</span><span class="locale-es">{tEs.settings.textColorSepia}</span><span class="locale-it">{tIt.settings.textColorSepia}</span><span class="locale-hi">{tHi.settings.textColorSepia}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorSepia}</span><span class="locale-pt">{tPt.settings.textColorSepia}</span><span class="locale-es">{tEs.settings.textColorSepia}</span><span class="locale-it">{tIt.settings.textColorSepia}</span><span class="locale-hi">{tHi.settings.textColorSepia}</span><span class="locale-ar">{tAr.settings.textColorSepia}</span></span>
           </label>
           <label class="settings-option" for="settings-textColor-soft">
             <input type="radio" id="settings-textColor-soft" name="textColor" value="soft" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorSoft}</span><span class="locale-pt">{tPt.settings.textColorSoft}</span><span class="locale-es">{tEs.settings.textColorSoft}</span><span class="locale-it">{tIt.settings.textColorSoft}</span><span class="locale-hi">{tHi.settings.textColorSoft}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorSoft}</span><span class="locale-pt">{tPt.settings.textColorSoft}</span><span class="locale-es">{tEs.settings.textColorSoft}</span><span class="locale-it">{tIt.settings.textColorSoft}</span><span class="locale-hi">{tHi.settings.textColorSoft}</span><span class="locale-ar">{tAr.settings.textColorSoft}</span></span>
           </label>
           <label class="settings-option" for="settings-textColor-ink">
             <input type="radio" id="settings-textColor-ink" name="textColor" value="ink" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorInk}</span><span class="locale-pt">{tPt.settings.textColorInk}</span><span class="locale-es">{tEs.settings.textColorInk}</span><span class="locale-it">{tIt.settings.textColorInk}</span><span class="locale-hi">{tHi.settings.textColorInk}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.textColorInk}</span><span class="locale-pt">{tPt.settings.textColorInk}</span><span class="locale-es">{tEs.settings.textColorInk}</span><span class="locale-it">{tIt.settings.textColorInk}</span><span class="locale-hi">{tHi.settings.textColorInk}</span><span class="locale-ar">{tAr.settings.textColorInk}</span></span>
           </label>
         </div>
       </fieldset>
@@ -248,36 +256,36 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.bgColor}</span>
           <span class="locale-pt">{tPt.settings.bgColor}</span>
           <span class="locale-es">{tEs.settings.bgColor}</span>
-          <span class="locale-it">{tIt.settings.bgColor}</span><span class="locale-hi">{tHi.settings.bgColor}</span>
+          <span class="locale-it">{tIt.settings.bgColor}</span><span class="locale-hi">{tHi.settings.bgColor}</span><span class="locale-ar">{tAr.settings.bgColor}</span>
         </label>
         <div class="settings-options">
           <label class="settings-option" for="settings-bg-default">
             <input type="radio" id="settings-bg-default" name="bg" value="default" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorDefault}</span><span class="locale-pt">{tPt.settings.bgColorDefault}</span><span class="locale-es">{tEs.settings.bgColorDefault}</span><span class="locale-it">{tIt.settings.bgColorDefault}</span><span class="locale-hi">{tHi.settings.bgColorDefault}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorDefault}</span><span class="locale-pt">{tPt.settings.bgColorDefault}</span><span class="locale-es">{tEs.settings.bgColorDefault}</span><span class="locale-it">{tIt.settings.bgColorDefault}</span><span class="locale-hi">{tHi.settings.bgColorDefault}</span><span class="locale-ar">{tAr.settings.bgColorDefault}</span></span>
           </label>
           <label class="settings-option" for="settings-bg-cream">
             <input type="radio" id="settings-bg-cream" name="bg" value="cream" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorCream}</span><span class="locale-pt">{tPt.settings.bgColorCream}</span><span class="locale-es">{tEs.settings.bgColorCream}</span><span class="locale-it">{tIt.settings.bgColorCream}</span><span class="locale-hi">{tHi.settings.bgColorCream}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorCream}</span><span class="locale-pt">{tPt.settings.bgColorCream}</span><span class="locale-es">{tEs.settings.bgColorCream}</span><span class="locale-it">{tIt.settings.bgColorCream}</span><span class="locale-hi">{tHi.settings.bgColorCream}</span><span class="locale-ar">{tAr.settings.bgColorCream}</span></span>
           </label>
           <label class="settings-option" for="settings-bg-paper">
             <input type="radio" id="settings-bg-paper" name="bg" value="paper" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorPaper}</span><span class="locale-pt">{tPt.settings.bgColorPaper}</span><span class="locale-es">{tEs.settings.bgColorPaper}</span><span class="locale-it">{tIt.settings.bgColorPaper}</span><span class="locale-hi">{tHi.settings.bgColorPaper}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorPaper}</span><span class="locale-pt">{tPt.settings.bgColorPaper}</span><span class="locale-es">{tEs.settings.bgColorPaper}</span><span class="locale-it">{tIt.settings.bgColorPaper}</span><span class="locale-hi">{tHi.settings.bgColorPaper}</span><span class="locale-ar">{tAr.settings.bgColorPaper}</span></span>
           </label>
           <label class="settings-option" for="settings-bg-snow">
             <input type="radio" id="settings-bg-snow" name="bg" value="snow" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorSnow}</span><span class="locale-pt">{tPt.settings.bgColorSnow}</span><span class="locale-es">{tEs.settings.bgColorSnow}</span><span class="locale-it">{tIt.settings.bgColorSnow}</span><span class="locale-hi">{tHi.settings.bgColorSnow}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorSnow}</span><span class="locale-pt">{tPt.settings.bgColorSnow}</span><span class="locale-es">{tEs.settings.bgColorSnow}</span><span class="locale-it">{tIt.settings.bgColorSnow}</span><span class="locale-hi">{tHi.settings.bgColorSnow}</span><span class="locale-ar">{tAr.settings.bgColorSnow}</span></span>
           </label>
           <label class="settings-option" for="settings-bg-mint">
             <input type="radio" id="settings-bg-mint" name="bg" value="mint" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorMint}</span><span class="locale-pt">{tPt.settings.bgColorMint}</span><span class="locale-es">{tEs.settings.bgColorMint}</span><span class="locale-it">{tIt.settings.bgColorMint}</span><span class="locale-hi">{tHi.settings.bgColorMint}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorMint}</span><span class="locale-pt">{tPt.settings.bgColorMint}</span><span class="locale-es">{tEs.settings.bgColorMint}</span><span class="locale-it">{tIt.settings.bgColorMint}</span><span class="locale-hi">{tHi.settings.bgColorMint}</span><span class="locale-ar">{tAr.settings.bgColorMint}</span></span>
           </label>
           <label class="settings-option" for="settings-bg-charcoal">
             <input type="radio" id="settings-bg-charcoal" name="bg" value="charcoal" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorCharcoal}</span><span class="locale-pt">{tPt.settings.bgColorCharcoal}</span><span class="locale-es">{tEs.settings.bgColorCharcoal}</span><span class="locale-it">{tIt.settings.bgColorCharcoal}</span><span class="locale-hi">{tHi.settings.bgColorCharcoal}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorCharcoal}</span><span class="locale-pt">{tPt.settings.bgColorCharcoal}</span><span class="locale-es">{tEs.settings.bgColorCharcoal}</span><span class="locale-it">{tIt.settings.bgColorCharcoal}</span><span class="locale-hi">{tHi.settings.bgColorCharcoal}</span><span class="locale-ar">{tAr.settings.bgColorCharcoal}</span></span>
           </label>
           <label class="settings-option" for="settings-bg-navy">
             <input type="radio" id="settings-bg-navy" name="bg" value="navy" class="settings-option-input" />
-            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorNavy}</span><span class="locale-pt">{tPt.settings.bgColorNavy}</span><span class="locale-es">{tEs.settings.bgColorNavy}</span><span class="locale-it">{tIt.settings.bgColorNavy}</span><span class="locale-hi">{tHi.settings.bgColorNavy}</span></span>
+            <span class="settings-option-text"><span class="locale-en">{tEn.settings.bgColorNavy}</span><span class="locale-pt">{tPt.settings.bgColorNavy}</span><span class="locale-es">{tEs.settings.bgColorNavy}</span><span class="locale-it">{tIt.settings.bgColorNavy}</span><span class="locale-hi">{tHi.settings.bgColorNavy}</span><span class="locale-ar">{tAr.settings.bgColorNavy}</span></span>
           </label>
         </div>
       </fieldset>
@@ -287,13 +295,13 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.offlineTitle}</span>
           <span class="locale-pt">{tPt.settings.offlineTitle}</span>
           <span class="locale-es">{tEs.settings.offlineTitle}</span>
-          <span class="locale-it">{tIt.settings.offlineTitle}</span><span class="locale-hi">{tHi.settings.offlineTitle}</span>
+          <span class="locale-it">{tIt.settings.offlineTitle}</span><span class="locale-hi">{tHi.settings.offlineTitle}</span><span class="locale-ar">{tAr.settings.offlineTitle}</span>
         </label>
         <p class="settings-field-hint" style="color: var(--sc-text-subtle)">
           <span class="locale-en">{tEn.settings.offlineIntro}</span>
           <span class="locale-pt">{tPt.settings.offlineIntro}</span>
           <span class="locale-es">{tEs.settings.offlineIntro}</span>
-          <span class="locale-it">{tIt.settings.offlineIntro}</span><span class="locale-hi">{tHi.settings.offlineIntro}</span>
+          <span class="locale-it">{tIt.settings.offlineIntro}</span><span class="locale-hi">{tHi.settings.offlineIntro}</span><span class="locale-ar">{tAr.settings.offlineIntro}</span>
         </p>
         <SaveOfflineToggle
           mode="toolbar"
@@ -306,26 +314,26 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-en">{tEn.settings.offlineSavedHeading}</span>
           <span class="locale-pt">{tPt.settings.offlineSavedHeading}</span>
           <span class="locale-es">{tEs.settings.offlineSavedHeading}</span>
-          <span class="locale-it">{tIt.settings.offlineSavedHeading}</span><span class="locale-hi">{tHi.settings.offlineSavedHeading}</span>
+          <span class="locale-it">{tIt.settings.offlineSavedHeading}</span><span class="locale-hi">{tHi.settings.offlineSavedHeading}</span><span class="locale-ar">{tAr.settings.offlineSavedHeading}</span>
         </p>
         <div id="settings-offline-saved-list" class="min-h-[1rem]"></div>
         <p id="settings-offline-empty" class="text-sm" style="color: var(--sc-text-muted)" hidden>
           <span class="locale-en">{tEn.settings.offlineEmpty}</span>
           <span class="locale-pt">{tPt.settings.offlineEmpty}</span>
           <span class="locale-es">{tEs.settings.offlineEmpty}</span>
-          <span class="locale-it">{tIt.settings.offlineEmpty}</span><span class="locale-hi">{tHi.settings.offlineEmpty}</span>
+          <span class="locale-it">{tIt.settings.offlineEmpty}</span><span class="locale-hi">{tHi.settings.offlineEmpty}</span><span class="locale-ar">{tAr.settings.offlineEmpty}</span>
         </p>
         <p id="settings-offline-unsupported" class="text-sm" style="color: var(--sc-text-muted)" hidden>
           <span class="locale-en">{tEn.settings.offlineNotSupported}</span>
           <span class="locale-pt">{tPt.settings.offlineNotSupported}</span>
           <span class="locale-es">{tEs.settings.offlineNotSupported}</span>
-          <span class="locale-it">{tIt.settings.offlineNotSupported}</span><span class="locale-hi">{tHi.settings.offlineNotSupported}</span>
+          <span class="locale-it">{tIt.settings.offlineNotSupported}</span><span class="locale-hi">{tHi.settings.offlineNotSupported}</span><span class="locale-ar">{tAr.settings.offlineNotSupported}</span>
         </p>
         <div id="settings-offline-chants-index-label" class="sr-only" aria-hidden="true">
           <span class="locale-en">{tEn.settings.offlineChantsIndexLabel}</span>
           <span class="locale-pt">{tPt.settings.offlineChantsIndexLabel}</span>
           <span class="locale-es">{tEs.settings.offlineChantsIndexLabel}</span>
-          <span class="locale-it">{tIt.settings.offlineChantsIndexLabel}</span><span class="locale-hi">{tHi.settings.offlineChantsIndexLabel}</span>
+          <span class="locale-it">{tIt.settings.offlineChantsIndexLabel}</span><span class="locale-hi">{tHi.settings.offlineChantsIndexLabel}</span><span class="locale-ar">{tAr.settings.offlineChantsIndexLabel}</span>
         </div>
       </fieldset>
 
@@ -333,7 +341,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         <span class="locale-en">{tEn.settings.saved}</span>
         <span class="locale-pt">{tPt.settings.saved}</span>
         <span class="locale-es">{tEs.settings.saved}</span>
-        <span class="locale-it">{tIt.settings.saved}</span><span class="locale-hi">{tHi.settings.saved}</span>
+        <span class="locale-it">{tIt.settings.saved}</span><span class="locale-hi">{tHi.settings.saved}</span><span class="locale-ar">{tAr.settings.saved}</span>
       </p>
     </form>
   </PageShell>

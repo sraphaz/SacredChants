@@ -31,23 +31,24 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const resolvedLocale = propsLocale ?? getLocaleFromUrl(Astro.url.searchParams);
 const initialLocale: Locale = resolvedLocale;
 const seo = PAGE_SEO[initialLocale];
 const description = descriptionProp ?? seo.siteDefaultDescription;
 
 const navItems = [
-  { path: '', labelByLocale: { en: tEn.nav.home, pt: tPt.nav.home, es: tEs.nav.home, it: tIt.nav.home, hi: tHi.nav.home } },
-  { path: 'chants/', labelByLocale: { en: tEn.nav.chants, pt: tPt.nav.chants, es: tEs.nav.chants, it: tIt.nav.chants, hi: tHi.nav.chants } },
-  { path: 'traditions/', labelByLocale: { en: tEn.nav.traditions, pt: tPt.nav.traditions, es: tEs.nav.traditions, it: tIt.nav.traditions, hi: tHi.nav.traditions } },
-  { path: 'knowledge/', labelByLocale: { en: tEn.nav.knowledge, pt: tPt.nav.knowledge, es: tEs.nav.knowledge, it: tIt.nav.knowledge, hi: tHi.nav.knowledge } },
-  { path: 'contribute/', labelByLocale: { en: tEn.nav.contribute, pt: tPt.nav.contribute, es: tEs.nav.contribute, it: tIt.nav.contribute, hi: tHi.nav.contribute } },
-  { path: 'settings/', labelByLocale: { en: tEn.nav.settings, pt: tPt.nav.settings, es: tEs.nav.settings, it: tIt.nav.settings, hi: tHi.nav.settings } },
+  { path: '', labelByLocale: { en: tEn.nav.home, pt: tPt.nav.home, es: tEs.nav.home, it: tIt.nav.home, hi: tHi.nav.home, ar: tAr.nav.home } },
+  { path: 'chants/', labelByLocale: { en: tEn.nav.chants, pt: tPt.nav.chants, es: tEs.nav.chants, it: tIt.nav.chants, hi: tHi.nav.chants, ar: tAr.nav.chants } },
+  { path: 'traditions/', labelByLocale: { en: tEn.nav.traditions, pt: tPt.nav.traditions, es: tEs.nav.traditions, it: tIt.nav.traditions, hi: tHi.nav.traditions, ar: tAr.nav.traditions } },
+  { path: 'knowledge/', labelByLocale: { en: tEn.nav.knowledge, pt: tPt.nav.knowledge, es: tEs.nav.knowledge, it: tIt.nav.knowledge, hi: tHi.nav.knowledge, ar: tAr.nav.knowledge } },
+  { path: 'contribute/', labelByLocale: { en: tEn.nav.contribute, pt: tPt.nav.contribute, es: tEs.nav.contribute, it: tIt.nav.contribute, hi: tHi.nav.contribute, ar: tAr.nav.contribute } },
+  { path: 'settings/', labelByLocale: { en: tEn.nav.settings, pt: tPt.nav.settings, es: tEs.nav.settings, it: tIt.nav.settings, hi: tHi.nav.settings, ar: tAr.nav.settings } },
 ];
 ---
 
 <!doctype html>
-<html lang={initialLocale} data-locale={initialLocale}>
+<html lang={initialLocale} data-locale={initialLocale} dir={initialLocale === 'ar' ? 'rtl' : 'ltr'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -135,7 +136,7 @@ const navItems = [
     </main>
     <footer class="sc-footer border-t py-8 mt-auto">
       <div class="max-w-content mx-auto px-page-x text-center text-sm">
-        <FooterTaglines taglineByLocale={{ en: tEn.home.tagline, pt: tPt.home.tagline, es: tEs.home.tagline, it: tIt.home.tagline, hi: tHi.home.tagline }} />
+        <FooterTaglines taglineByLocale={{ en: tEn.home.tagline, pt: tPt.home.tagline, es: tEs.home.tagline, it: tIt.home.tagline, hi: tHi.home.tagline, ar: tAr.home.tagline }} />
         <p class="mt-1" style="color: var(--sc-text-subtle)">
           <a href="https://github.com/sraphaz/SacredChants" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--sc-text-subtle)">GitHub</a>
           <span class="mx-1">·</span> {seo.footerLine}

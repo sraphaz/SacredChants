@@ -57,6 +57,17 @@ test.describe('Locale / idioma', () => {
     await expect(page.locator('.locale-hi').first()).toBeVisible({ timeout: 5000 });
   });
 
+  test('?lang=ar define locale ar, combobox AR e texto árabe visível', async ({ page }) => {
+    await page.goto('/knowledge/?lang=ar');
+    await expect(page).toHaveURL(/\?lang=ar/);
+    const html = page.locator('html');
+    await expect(html).toHaveAttribute('data-locale', 'ar');
+    await expect(html).toHaveAttribute('dir', 'rtl');
+    const select = page.locator('#sc-locale-select');
+    await expect(select).toHaveValue('ar');
+    await expect(page.locator('.locale-ar').first()).toBeVisible({ timeout: 5000 });
+  });
+
   test('select PT then select EN stays on English (no redirect back to PT)', async ({ page }) => {
     await page.goto('/?lang=pt');
     await expect(page).toHaveURL(/\?lang=pt/);

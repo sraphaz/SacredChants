@@ -4,20 +4,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ——— Locale switch (EN / PT / ES / IT / HI) — show one language based on data-locale ——— */
-[data-locale="en"] :where(.locale-pt, .locale-es, .locale-it, .locale-hi) {
+/* ——— Locale switch (EN / PT / ES / IT / HI / AR) — show one language based on data-locale ——— */
+[data-locale="en"] :where(.locale-pt, .locale-es, .locale-it, .locale-hi, .locale-ar) {
   display: none !important;
 }
-[data-locale="pt"] :where(.locale-en, .locale-es, .locale-it, .locale-hi) {
+[data-locale="pt"] :where(.locale-en, .locale-es, .locale-it, .locale-hi, .locale-ar) {
   display: none !important;
 }
-[data-locale="es"] :where(.locale-en, .locale-pt, .locale-it, .locale-hi) {
+[data-locale="es"] :where(.locale-en, .locale-pt, .locale-it, .locale-hi, .locale-ar) {
   display: none !important;
 }
-[data-locale="it"] :where(.locale-en, .locale-pt, .locale-es, .locale-hi) {
+[data-locale="it"] :where(.locale-en, .locale-pt, .locale-es, .locale-hi, .locale-ar) {
   display: none !important;
 }
-[data-locale="hi"] :where(.locale-en, .locale-pt, .locale-es, .locale-it) {
+[data-locale="hi"] :where(.locale-en, .locale-pt, .locale-es, .locale-it, .locale-ar) {
+  display: none !important;
+}
+[data-locale="ar"] :where(.locale-en, .locale-pt, .locale-es, .locale-it, .locale-hi) {
   display: none !important;
 }
 
@@ -29,10 +32,19 @@
 [data-locale="hi"] .contribute-review-preview :where(.locale-en, .locale-pt, .locale-es, .locale-it) {
   display: block !important;
 }
+[data-locale="ar"] .contribute-review-preview :where(.locale-en, .locale-pt, .locale-es, .locale-it) {
+  display: block !important;
+}
 
 /* Devanagari readability when UI is Hindi */
 html[data-locale='hi'] {
   font-family: var(--sc-font-body), 'Noto Sans Devanagari', Mangal, 'Nirmala UI', sans-serif;
+}
+
+/* Arabic UI: RTL + readable Arabic fonts */
+html[data-locale='ar'] {
+  direction: rtl;
+  font-family: var(--sc-font-body), 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
 }
 
 @layer base {
@@ -247,6 +259,10 @@ html[data-locale='hi'] {
 
 .prose-chant .translations [data-lang="hi"]::before {
   content: 'HI — ';
+}
+
+.prose-chant .translations [data-lang="ar"]::before {
+  content: 'AR — ';
 }
 
 .prose-chant .verse-block__explanation {

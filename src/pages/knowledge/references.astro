@@ -15,6 +15,7 @@ const tPt = ui.pt;
 const tEs = ui.es;
 const tIt = ui.it;
 const tHi = ui.hi;
+const tAr = ui.ar;
 const localeQuery = langQuery(locale);
 const FULL_BASE = getFullBase(Astro.url);
 const pageUrlForOffline = buildCanonicalPageUrl(
@@ -38,6 +39,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.references,
         it: tIt.knowledge.references,
         hi: tHi.knowledge.references,
+        ar: tAr.knowledge.references,
       }}
       backLabelByLocale={{
         en: tEn.knowledge.backToKnowledge,
@@ -45,6 +47,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
         es: tEs.knowledge.backToKnowledge,
         it: tIt.knowledge.backToKnowledge,
         hi: tHi.knowledge.backToKnowledge,
+        ar: tAr.knowledge.backToKnowledge,
       }}
     />
 
@@ -64,6 +67,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Textos clásicos</span>
           <span class="locale-it">Testi classici</span>
           <span class="locale-hi">शास्त्रीय ग्रंथ</span>
+          <span class="locale-ar" dir="rtl">نصوص كلاسيكية</span>
         </h2>
         <ul class="list-disc pl-6 space-y-2">
           <li class="locale-en"><strong>Hatha Yoga Pradīpikā</strong> (Svātmārāma) — Nada Yoga as a central meditation technique to still the mind.</li>
@@ -81,6 +85,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <li class="locale-hi"><strong>हठयोगप्रदीपिका</strong> (स्वात्माराम) — मन को शांत करने हेतु नाद योग।</li>
           <li class="locale-hi"><strong>नादबिंदु उपनिषद्</strong> — अंतर्गत ध्वनि व अनाहत नाद।</li>
           <li class="locale-hi"><strong>पंचदशी</strong> (अध्याय 2, स्वामी कृष्णानंद) — पंच महाभूतों का विवेक।</li>
+          <li class="locale-ar" dir="rtl"><strong>هاثا يوغا براديبيكا</strong> (سفاتماراما) — نادا يوغ كتقنية تأمّل مركزية لسكينة العقل.</li>
+          <li class="locale-ar" dir="rtl"><strong>نادا بندو أوبنشاد</strong> — نصّ عن الصوت الداخلي والصوت غير المضروب (<em>anāhata</em>).</li>
+          <li class="locale-ar" dir="rtl"><strong>بانشاداسي</strong> (مثل الفصل 2، سوامي كريشنانندا) — تمييز العناصر (بانشا مَهَابْهُوتَا).</li>
         </ul>
       </section>
 
@@ -91,6 +98,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <span class="locale-es">Fuentes en línea y modernas</span>
           <span class="locale-it">Fonti online e moderne</span>
           <span class="locale-hi">ऑनलाइन व आधुनिक स्रोत</span>
+          <span class="locale-ar" dir="rtl">مصادر حديثة وعبر الإنترنت</span>
         </h2>
         <ul class="list-disc pl-6 space-y-2">
           <li class="locale-en"><strong>Wikipedia:</strong> “<a href="https://en.wikipedia.org/wiki/N%C4%81da_yoga" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Nāda yoga</a>”, “<a href="https://en.wikipedia.org/wiki/Pancha_Bhuta" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Pancha Bhuta</a>”, “<a href="https://en.wikipedia.org/wiki/Anahata_(sound)" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Anahata (sound)</a>”.</li>
@@ -112,6 +120,10 @@ const pageUrlForOffline = buildCanonicalPageUrl(
           <li class="locale-hi"><strong>Wikipedia:</strong> «<a href="https://en.wikipedia.org/wiki/N%C4%81da_yoga" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">नाद योग</a>», «<a href="https://en.wikipedia.org/wiki/Pancha_Bhuta" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">पंच भूत</a>», «<a href="https://en.wikipedia.org/wiki/Anahata_(sound)" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">अनाहत (ध्वनि)</a>»।</li>
           <li class="locale-hi"><strong>Dharmawiki</strong> — पंचमहाभूत (पाँच तत्व, गुण, शरीर व ब्रह्मांड)।</li>
           <li class="locale-hi"><strong>Nada Yoga Society</strong>, <strong>Yoga Basics</strong> — नाद योग व ध्वनि-योग का परिचय।</li>
+          <li class="locale-ar" dir="rtl"><strong>Wikipedia:</strong> «<a href="https://en.wikipedia.org/wiki/N%C4%81da_yoga" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Nāda yoga</a>»، «<a href="https://en.wikipedia.org/wiki/Pancha_Bhuta" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Pancha Bhuta</a>»، «<a href="https://en.wikipedia.org/wiki/Anahata_(sound)" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Anahata (sound)</a>».</li>
+          <li class="locale-ar" dir="rtl"><strong>Dharmawiki</strong> — «<a href="https://dharmawiki.org/index.php/Panchamahabhutas" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--sc-accent)">Panchamahabhutas</a>» (العناصر الخمسة والصفات والجسد والكون).</li>
+          <li class="locale-ar" dir="rtl"><strong>The Yoga Institute</strong> — «Pancha Bhoota» (العناصر الخمسة في اليوغا والصحة).</li>
+          <li class="locale-ar" dir="rtl"><strong>Nada Yoga Society</strong>، <strong>Yoga Basics</strong> — مقدمات إلى نادا يوغ ويوغا الصوت.</li>
         </ul>
       </section>
 
@@ -129,6 +141,9 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       </p>
       <p class="locale-hi text-sm mt-8" style="color: var(--sc-text-subtle)">
         यह सूची आगे पढ़ने के लिए है। Sacred Chants किसी एक परंपरा या व्याख्या का समर्थन नहीं करता; उद्देश्य मानवता की विरासत के रूप में ज्ञान संरक्षित व साझा करना है।
+      </p>
+      <p class="locale-ar text-sm mt-8" dir="rtl" style="color: var(--sc-text-subtle)">
+        تُقدَّم هذه القائمة للدراسة الإضافية. لا يؤيّد Sacred Chants تقليدًا أو تفسيرًا واحدًا؛ الهدف الحفاظ على المعرفة ومشاركتها كجزء من إرث البشرية.
       </p>
     </div>
   </PageShell>
