@@ -64,8 +64,7 @@ export const uiAr = {
     aboutTitle: 'عن هذا الترنيم',
     shareWithAutoplay: 'مشاركة الرابط (تشغيل تلقائي + مزامنة)',
     interpretedBy: 'الأداء',
-    translationFallback:
-      'ترجمات المقاطع بهذه اللغة غير متوفرة بعد؛ يُعرض الإنجليزية.',
+    translationFallback: 'ترجمات المقاطع بهذه اللغة غير متوفرة بعد.',
   },
   traditions: {
     title: 'التقاليد',

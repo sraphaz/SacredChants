@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import type { Chant } from '../content/schemas/chant';
 import type { Locale } from '../i18n/strings';
+import { chantMetaDescription } from '../utils/chant-page';
 
 interface Props {
   chant: Chant;
@@ -9,16 +10,7 @@ interface Props {
 }
 
 const { chant, locale } = Astro.props;
-const desc = chant.description;
-const descriptionForMeta =
-  (locale && desc ? (desc as Record<string, string>)[locale] : undefined) ??
-  desc?.en ??
-  desc?.pt ??
-  desc?.es ??
-  desc?.it ??
-  desc?.hi ??
-  desc?.ar ??
-  '';
+const descriptionForMeta = chantMetaDescription(chant.description, locale);
 ---
 
 <BaseLayout title={chant.title} description={descriptionForMeta} locale={locale}>

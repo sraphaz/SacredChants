@@ -1,6 +1,11 @@
 ---
 import type { ChantVerse as ChantVerseType, ChantLine } from '../content/schemas/chant';
 import { ui, SUPPORTED_LOCALES } from '../i18n/strings';
+import type { Locale } from '../i18n/strings';
+import {
+  lineTranslationForLocale,
+  verseExplanationForLocale,
+} from '../utils/chant-page';
 
 interface Props {
   verse: ChantVerseType;
@@ -61,10 +66,12 @@ function explanationHasAnyLocale(exp: ChantVerseType['explanation'] | undefined)
   </p>
   <div class="translations">
     {VERSE_LOCALES.map((loc) => {
-      const fromLocale = line.translations[loc];
-      const text = fromLocale ?? line.translations.en ?? '';
+      const text = lineTranslationForLocale(line.translations, loc as Locale);
       if (!text) return null;
-      const contentLang = fromLocale ? loc : 'en';
+      const own = line.translations[loc as keyof typeof line.translations];
+      const usedOwn =
+        typeof own === 'string' && own.trim().length > 0;
+      const contentLang = usedOwn ? loc : 'en';
       return (
         <p
           class={`locale-${loc}`}
@@ -80,7 +87,10 @@ function explanationHasAnyLocale(exp: ChantVerseType['explanation'] | undefined)
   {showExplanation && explanationHasAnyLocale(verse.explanation) && (
     <>
       {VERSE_LOCALES.map((loc) => {
-        const explanationText = verse.explanation?.[loc] ?? verse.explanation?.en ?? verse.explanation?.pt ?? '';
+        const explanationText = verseExplanationForLocale(
+          verse.explanation,
+          loc as Locale
+        );
         return explanationText ? (
           <div
             class={`verse-block__explanation locale-${loc}`}

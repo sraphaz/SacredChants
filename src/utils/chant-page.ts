@@ -5,6 +5,97 @@
  */
 
 import type { Chant, ChantVerse, ChantLine } from '../content/schemas/chant';
+import type { Locale } from '../i18n/strings';
+
+type DescObj = {
+  en?: string;
+  pt?: string;
+  es?: string;
+  it?: string;
+  hi?: string;
+  ar?: string;
+};
+
+/**
+ * Verse line translation for UI: hi/ar only show that locale (no English fallback).
+ */
+export function lineTranslationForLocale(
+  translations: ChantLine['translations'],
+  loc: Locale
+): string {
+  const raw = translations[loc];
+  if (loc === 'hi' || loc === 'ar') {
+    return typeof raw === 'string' && raw.trim().length > 0 ? raw : '';
+  }
+  return (raw ?? translations.en ?? '') as string;
+}
+
+/**
+ * Verse explanation for UI: same rule as line translations for hi/ar.
+ */
+export function verseExplanationForLocale(
+  exp: ChantVerse['explanation'] | undefined,
+  loc: Locale
+): string {
+  if (!exp) return '';
+  const raw = exp[loc];
+  if (loc === 'hi' || loc === 'ar') {
+    return typeof raw === 'string' && raw.trim().length > 0 ? raw : '';
+  }
+  return (raw ?? exp.en ?? exp.pt ?? '') as string;
+}
+
+/** Card / list description by UI locale (hi/ar: no cross-locale fallback). */
+export function descriptionForLocale(
+  chantDesc: Chant['description'],
+  locale: Locale
+): string {
+  if (typeof chantDesc === 'string') return chantDesc;
+  const obj: DescObj =
+    chantDesc && typeof chantDesc === 'object'
+      ? (chantDesc as DescObj)
+      : {};
+  switch (locale) {
+    case 'en':
+      return obj.en ?? obj.pt ?? '';
+    case 'pt':
+      return obj.pt ?? obj.en ?? '';
+    case 'es':
+      return obj.es ?? obj.en ?? obj.pt ?? '';
+    case 'it':
+      return obj.it ?? obj.en ?? obj.pt ?? '';
+    case 'hi':
+      return obj.hi ?? '';
+    case 'ar':
+      return obj.ar ?? '';
+    default:
+      return obj.en ?? obj.pt ?? '';
+  }
+}
+
+/** Meta description for layout: hi/ar pages do not fall back to English. */
+export function chantMetaDescription(
+  desc: Chant['description'],
+  locale: Locale | undefined
+): string {
+  if (!desc) return '';
+  if (typeof desc === 'string') return desc;
+  const d = desc as DescObj;
+  if (locale === 'hi' || locale === 'ar') {
+    const v = locale ? d[locale] : undefined;
+    return typeof v === 'string' ? v : '';
+  }
+  return (
+    (locale ? d[locale] : undefined) ??
+    d.en ??
+    d.pt ??
+    d.es ??
+    d.it ??
+    d.hi ??
+    d.ar ??
+    ''
+  );
+}
 
 /** Sorted verses by order (used by sync lines and lines-with-meta). */
 function getSortedVerses(chant: Chant): ChantVerse[] {
