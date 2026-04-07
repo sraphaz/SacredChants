@@ -219,7 +219,7 @@ const translationFallbackByLocale: Record<
       style="background: var(--sc-bg-elevated); color: var(--sc-text-muted); border-color: var(--sc-border);"
       role="status"
     >
-      {translationFallbackByLocale[locale]}
+      {translationFallbackByLocale[locale as 'es' | 'it' | 'hi' | 'ar']}
     </p>
   )}
   <section class="chant-verses" aria-label="Verses">

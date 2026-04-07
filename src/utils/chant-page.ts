@@ -27,7 +27,8 @@ export function lineTranslationForLocale(
   if (loc === 'hi' || loc === 'ar') {
     return typeof raw === 'string' && raw.trim().length > 0 ? raw : '';
   }
-  return (raw ?? translations.en ?? '') as string;
+  if (typeof raw === 'string' && raw.trim().length > 0) return raw;
+  return (translations.en ?? '') as string;
 }
 
 /**
@@ -42,7 +43,8 @@ export function verseExplanationForLocale(
   if (loc === 'hi' || loc === 'ar') {
     return typeof raw === 'string' && raw.trim().length > 0 ? raw : '';
   }
-  return (raw ?? exp.en ?? exp.pt ?? '') as string;
+  if (typeof raw === 'string' && raw.trim().length > 0) return raw;
+  return (exp.en ?? exp.pt ?? '') as string;
 }
 
 /** Card / list description by UI locale (hi/ar: no cross-locale fallback). */

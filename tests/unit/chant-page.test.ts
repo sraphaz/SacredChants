@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import type { Chant } from '../../src/content/schemas/chant';
 import {
   lineTranslationForLocale,
   verseExplanationForLocale,
@@ -31,6 +32,12 @@ describe('lineTranslationForLocale', () => {
 
   it('falls back to English for es when es is missing', () => {
     expect(lineTranslationForLocale(translations, 'es')).toBe('English line');
+  });
+
+  it('treats whitespace-only locale string as missing and falls back to en', () => {
+    expect(
+      lineTranslationForLocale({ ...translations, es: '   \n' }, 'es')
+    ).toBe('English line');
   });
 });
 
@@ -82,5 +89,15 @@ describe('chantMetaDescription', () => {
 
   it('uses locale chain when not hi/ar', () => {
     expect(chantMetaDescription(desc, 'es')).toBe('Meta en');
+  });
+
+  it('uses en chain when locale is undefined', () => {
+    expect(chantMetaDescription(desc, undefined)).toBe('Meta en');
+  });
+
+  it('returns string description unchanged regardless of locale', () => {
+    expect(
+      chantMetaDescription('Plain string' as unknown as Chant['description'], 'es')
+    ).toBe('Plain string');
   });
 });

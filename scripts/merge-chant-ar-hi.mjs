@@ -39,8 +39,8 @@ function mergeChant(slug) {
   if (bundle.descriptionAr) {
     chant.description = { ...chant.description, ar: bundle.descriptionAr };
   }
-  if (bundle.aboutAr && chant.about) {
-    chant.about = { ...chant.about, ar: bundle.aboutAr };
+  if (bundle.aboutAr) {
+    chant.about = { ...(chant.about ?? {}), ar: bundle.aboutAr };
   }
 
   const flat = flattenLines(chant.verses);
@@ -52,22 +52,48 @@ function mergeChant(slug) {
       `${slug}: lineTranslationsAr length ${arLines.length} !== ${flat.length} lines`
     );
   }
-  if (!skipHiVerses && hiLines.length) {
+  if (!skipHiVerses) {
     if (hiLines.length !== flat.length) {
       throw new Error(
         `${slug}: lineTranslationsHi length ${hiLines.length} !== ${flat.length} lines`
+      );
+    }
+    const blankHi = hiLines.findIndex(
+      (s) => typeof s !== 'string' || s.trim().length === 0
+    );
+    if (blankHi !== -1) {
+      throw new Error(
+        `${slug}: lineTranslationsHi[${blankHi}] is empty or whitespace-only`
       );
     }
   }
 
   flat.forEach((line, i) => {
     line.translations = { ...line.translations, ar: arLines[i] };
-    if (!skipHiVerses && hiLines.length) {
+    if (!skipHiVerses) {
       line.translations = { ...line.translations, hi: hiLines[i] };
     }
   });
 
+  const versesWithExplanation = chant.verses.filter((v) => v.explanation);
   if (bundle.verseExplanationAr || bundle.verseExplanationHi) {
+    if (
+      bundle.verseExplanationAr &&
+      bundle.verseExplanationAr.length !== versesWithExplanation.length
+    ) {
+      throw new Error(
+        `${slug}: verseExplanationAr length ${bundle.verseExplanationAr.length} !== ${versesWithExplanation.length} explanation blocks`
+      );
+    }
+    if (
+      !skipHiVerses &&
+      bundle.verseExplanationHi &&
+      bundle.verseExplanationHi.length !== versesWithExplanation.length
+    ) {
+      throw new Error(
+        `${slug}: verseExplanationHi length ${bundle.verseExplanationHi.length} !== ${versesWithExplanation.length} explanation blocks`
+      );
+    }
     let ei = 0;
     for (const v of chant.verses) {
       if (!v.explanation) continue;
