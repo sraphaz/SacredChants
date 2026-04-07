@@ -60,6 +60,23 @@ const hasIt = hasTranslation(chant, 'it');
 const hasHi = hasTranslation(chant, 'hi');
 const hasAr = hasTranslation(chant, 'ar');
 
+/** Aviso só no idioma da UI e só quando esse idioma não tem tradução nos versos (evita faixa vazia em pt/en). */
+const showTranslationFallback =
+  (locale === 'es' && !hasEs) ||
+  (locale === 'it' && !hasIt) ||
+  (locale === 'hi' && !hasHi) ||
+  (locale === 'ar' && !hasAr);
+
+const translationFallbackByLocale: Record<
+  'es' | 'it' | 'hi' | 'ar',
+  string
+> = {
+  es: tEs.chant.translationFallback,
+  it: tIt.chant.translationFallback,
+  hi: tHi.chant.translationFallback,
+  ar: tAr.chant.translationFallback,
+};
+
 ---
 
 <ChantLayout chant={chant} locale={locale}>
@@ -196,12 +213,13 @@ const hasAr = hasTranslation(chant, 'ar');
       />
     </nav>
   </div>
-  {(!hasEs || !hasIt || !hasHi || !hasAr) && (
-    <p class="chant-translation-fallback mb-4 px-2 py-2 rounded text-sm" style="background: var(--sc-bg-muted, #f0f0f0); color: var(--sc-text-muted, #666);" role="status">
-      {!hasEs && <span class="locale-es">{tEs.chant.translationFallback}</span>}
-      {!hasIt && <span class="locale-it">{tIt.chant.translationFallback}</span>}
-      {!hasHi && <span class="locale-hi">{tHi.chant.translationFallback}</span>}
-      {!hasAr && <span class="locale-ar">{tAr.chant.translationFallback}</span>}
+  {showTranslationFallback && (
+    <p
+      class="chant-translation-fallback mb-4 px-2 py-2 rounded text-sm border"
+      style="background: var(--sc-bg-elevated); color: var(--sc-text-muted); border-color: var(--sc-border);"
+      role="status"
+    >
+      {translationFallbackByLocale[locale as 'es' | 'it' | 'hi' | 'ar']}
     </p>
   )}
   <section class="chant-verses" aria-label="Verses">

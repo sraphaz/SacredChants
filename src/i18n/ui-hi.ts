@@ -65,7 +65,7 @@ export const uiHi = {
     shareWithAutoplay: 'लिंक साझा करें (ऑटोप्ले + सिंक)',
     interpretedBy: 'गायन',
     translationFallback:
-      'इस भाषा में श्लोक अनुवाद अभी उपलब्ध नहीं हैं; अंग्रे़ी दिखाई जा रही है।',
+      'इस भाषा में श्लोक अनुवाद अभी उपलब्ध नहीं हैं।',
   },
   traditions: {
     title: 'परंपराएँ',

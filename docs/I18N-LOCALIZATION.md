@@ -31,20 +31,20 @@ Fallback: se um locale estiver em falta, usa-se `en` ou `pt` por ordem. A UI mos
 
 ## Cânticos localizados
 
-Todos os cânticos têm **en** e **pt** completos. **es**, **it**, **hi** e **ar** são opcionais; quando um destes falta nos versos, aplica-se o fallback acima.
+Todos os cânticos têm **en** e **pt** completos. **es**, **it**, **hi** e **ar** nos versos seguem o schema; onde falta um locale, aplica-se o fallback acima.
+
+**Árabe e hindi nos JSON:** as traduções `ar` e `hi` das linhas (e textos longos em bundle) vivem em `scripts/chant-locales/<slug>.json` e fundem-se no conteúdo com `npm run chant:merge-locales` (`scripts/merge-chant-ar-hi.mjs`). Para cânticos já em **hindi/awadhi** (ex.: Hanuman Chalisa), **não** se acrescenta `hi` nas linhas do verso — o texto original já está nessa língua; mantém-se `hi` em `description`/`about` quando existir.
 
 | Cântico | description | about | Versos (translations) | explanation |
 |---------|-------------|-------|------------------------|-------------|
-| shanti-mantra | ✓ | ✓ | ✓ (1 linha) | — |
-| ganapati-mantra | ✓ | ✓ | ✓ (1 verso) | — |
-| om-nama-shivaya | ✓ | ✓ | ✓ (1 verso) | — |
-| karpura-gauram | ✓ | ✓ | ✓ (2 linhas) | — |
-| twameva-mata | ✓ | ✓ | ✓ (4 linhas) | — |
-| gayatri | ✓ | ✓ | ✓ (4 linhas) | ✓ |
-| shivopasana-mantra | ✓ | ✓ | ✓ (12 versos) | — |
-| hanuman-chalisa | ✓ | ✓ | ✓ (86 blocos) | — |
-
-> **Nota sobre Hanuman Chalisa:** Alguns blocos em `es`/`it`/`hi`/`ar` podem usar ainda o texto em inglês como placeholder. A UI continua a funcionar com fallback; futuras contribuições podem completar as traduções.
+| shanti-mantra | ✓ (6) | ✓ (6) | ✓ 1 linha (en,pt,es,it,hi,ar) | — |
+| ganapati-mantra | ✓ (6) | ✓ (6) | ✓ 1 linha (en,pt,es,it,hi,ar) | — |
+| om-nama-shivaya | ✓ (6) | ✓ (6) | ✓ 1 linha (en,pt,es,it,hi,ar) | — |
+| karpura-gauram | ✓ (6) | ✓ (6) | ✓ 2 linhas (en,pt,es,it,hi,ar) | — |
+| twameva-mata | ✓ (6) | ✓ (6) | ✓ 4 linhas (en,pt,es,it,hi,ar) | — |
+| gayatri | ✓ (6) | ✓ (6) | ✓ 4 linhas (en,pt,es,it,hi,ar) | ✓ (6) |
+| shivopasana-mantra | ✓ (6) | ✓ (6) | ✓ 12 linhas (en,pt,es,it,hi,ar) | — |
+| hanuman-chalisa | ✓ (6) | ✓ (6) | ✓ 86 linhas (en,pt,es,it,ar; sem hi nas linhas) | ✓ 4 blocos (en,pt,es,it,ar) |
 
 ---
 

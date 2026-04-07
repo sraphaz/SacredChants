@@ -37,7 +37,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:server": "node scripts/start-preview-e2e.js",
     "test:e2e:docker": "docker build -f Dockerfile.e2e -t sacred-chants-e2e . && docker run --rm --ipc=host sacred-chants-e2e",
-    "chant:new": "node scripts/generate-chant.js"
+    "chant:new": "node scripts/generate-chant.js",
+    "chant:merge-locales": "node scripts/merge-chant-ar-hi.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.0",

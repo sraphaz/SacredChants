@@ -3,6 +3,7 @@ import type { Chant } from '../content/schemas/chant';
 import { langQuery, SUPPORTED_LOCALES } from '../i18n/strings';
 import type { Locale } from '../i18n/strings';
 import { getFullBase } from '../utils/base';
+import { descriptionForLocale } from '../utils/chant-page';
 
 const FULL_BASE = getFullBase(Astro.url);
 
@@ -11,23 +12,6 @@ interface Props {
 }
 
 const { chant } = Astro.props;
-
-function getDescriptionByLocale(chantDesc: Chant['description'], locale: Locale): string {
-  if (typeof chantDesc === 'string') return chantDesc;
-  const obj =
-    chantDesc && typeof chantDesc === 'object'
-      ? (chantDesc as { en?: string; pt?: string; es?: string; it?: string; hi?: string; ar?: string })
-      : {};
-  switch (locale) {
-    case 'en': return obj.en ?? obj.pt ?? '';
-    case 'pt': return obj.pt ?? obj.en ?? '';
-    case 'es': return obj.es ?? obj.en ?? obj.pt ?? '';
-    case 'it': return obj.it ?? obj.en ?? obj.pt ?? '';
-    case 'hi': return obj.hi ?? obj.en ?? obj.pt ?? '';
-    case 'ar': return obj.ar ?? obj.en ?? obj.pt ?? '';
-    default: return obj.en ?? obj.pt ?? '';
-  }
-}
 
 const AUDIO_ICON_TITLE_BY_LOCALE: Record<Locale, string> = {
   en: 'Has audio',
@@ -41,7 +25,7 @@ const AUDIO_ICON_TITLE_BY_LOCALE: Record<Locale, string> = {
 const CARD_LOCALES = [...SUPPORTED_LOCALES].map((locale) => ({
   locale,
   href: `${FULL_BASE}chants/${chant.slug}/${langQuery(locale)}`,
-  description: getDescriptionByLocale(chant.description, locale),
+  description: descriptionForLocale(chant.description, locale),
   audioTitle: AUDIO_ICON_TITLE_BY_LOCALE[locale],
 }));
 ---
