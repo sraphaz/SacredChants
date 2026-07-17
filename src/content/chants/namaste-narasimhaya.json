@@ -337,77 +337,181 @@
     {
       "order": 5,
       "explanation": {
-        "en": "Closing kīrtana: jaya to Nṛsiṃhadeva, then the Prahlāda–Nṛsiṃha refrain repeated as in this recording — celebration of the bond that called the Lord forth.",
-        "pt": "Kīrtana final: jaya a Nṛsiṃhadeva e depois o refrão Prahlāda–Nṛsiṃha repetido como nesta gravação — celebração do vínculo que fez o Senhor aparecer.",
-        "es": "Kīrtana final: jaya a Nṛsiṃhadeva y al vínculo con Prahlāda — el devoto por quien el Señor apareció. Contemplativo: la oración termina no en el miedo a las garras, sino en la celebración de la relación que las hizo surgir.",
-        "it": "Kīrtana finale: jaya a Nṛsiṃhadeva e al legame con Prahlāda — il devoto per cui il Signore apparve. Contemplativo: la preghiera non finisce nel timore degli artigli, ma nella celebrazione della relazione che li ha fatti sorgere.",
-        "ar": "ختام الكيرتان: جايا لنْرِسِيمْهَادِيفا ولعلاقة پْرَهْلادَا — الصلاة تنتهي بالاحتفال لا بالخوف.",
-        "hi": "समापन कीर्तन: नृसिंहदेव और प्रह्लाद को जय — प्रार्थना भय में नहीं, संबंध के उत्सव में समाप्त होती है।"
+        "en": "Closing kīrtana as sung: jayo and Nṛsiṃhadeva calls, then Prahlāda–Nṛsiṃha, ending with Prahlāda Mahārāja.",
+        "pt": "Kīrtana final como cantado: jayos e chamados a Nṛsiṃhadeva, depois Prahlāda–Nṛsiṃha, fechando com Prahlāda Mahārāja.",
+        "es": "Kīrtana final como se canta: jayos y llamadas a Nṛsiṃhadeva, luego Prahlāda–Nṛsiṃha, cerrando con Prahlāda Mahārāja.",
+        "it": "Kīrtana finale come cantato: jayo e richiami a Nṛsiṃhadeva, poi Prahlāda–Nṛsiṃha, chiudendo con Prahlāda Mahārāja.",
+        "ar": "ختام الكيرتان كما يُغنّى: جايو ونْرِسِيمْهَادِيفا ثم پْرَهْلادَا–نْرِسِيمْهَا، ويُختَم بپْرَهْلادَا مَهَارَاجَا.",
+        "hi": "समापन कीर्तन जैसा गाया गया: जयो और नृसिंहदेव, फिर प्रह्लाद–नृसिंहो, अन्त में प्रह्लाद महाराज।"
       },
       "lines": [
         {
-          "start": 161.6,
-          "original": "जय नृसिंहदेव",
-          "transliteration": "jaya nṛsiṃhadeva",
+          "start": 161.7,
+          "original": "जयो",
+          "transliteration": "jayo",
           "translations": {
-            "en": "Glory to Lord Nṛsiṃhadeva!",
-            "pt": "Glória ao Senhor Nṛsiṃhadeva!",
-            "es": "¡Gloria al Señor Nṛsiṃhadeva!",
-            "it": "Gloria al Signore Nṛsiṃhadeva!",
-            "ar": "المجد للسيد نْرِسِيمْهَادِيفا!",
-            "hi": "जय नृसिंहदेव!"
+            "en": "Glory!",
+            "pt": "Glória!",
+            "es": "¡Gloria!",
+            "it": "Gloria!",
+            "ar": "المجد!",
+            "hi": "जय!"
           }
         },
         {
-          "start": 168.1,
-          "original": "जय प्रह्लाद नृसिंह",
-          "transliteration": "jaya prahlāda nṛsiṃha",
+          "start": 163.6,
+          "original": "नृसिंहदेव",
+          "transliteration": "nṛsiṃhadeva",
           "translations": {
-            "en": "Glory to Prahlāda — glory to Nṛsiṃha!",
-            "pt": "Glória a Prahlāda — glória a Nṛsiṃha!",
-            "es": "¡Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "it": "Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "ar": "المجد لپْرَهْلادَا — المجد لنْرِسِيمْهَا!",
-            "hi": "जय प्रह्लाद — जय नृसिंह!"
+            "en": "Nṛsiṃhadeva!",
+            "pt": "Nṛsiṃhadeva!",
+            "es": "¡Nṛsiṃhadeva!",
+            "it": "Nṛsiṃhadeva!",
+            "ar": "نْرِسِيمْهَادِيفا!",
+            "hi": "नृसिंहदेव!"
+          }
+        },
+        {
+          "start": 165.5,
+          "original": "नृसिंहदेव",
+          "transliteration": "nṛsiṃhadeva",
+          "translations": {
+            "en": "Nṛsiṃhadeva!",
+            "pt": "Nṛsiṃhadeva!",
+            "es": "¡Nṛsiṃhadeva!",
+            "it": "Nṛsiṃhadeva!",
+            "ar": "نْرِسِيمْهَادِيفا!",
+            "hi": "नृसिंहदेव!"
+          }
+        },
+        {
+          "start": 168.4,
+          "original": "नृसिंहदेव",
+          "transliteration": "nṛsiṃhadeva",
+          "translations": {
+            "en": "Nṛsiṃhadeva!",
+            "pt": "Nṛsiṃhadeva!",
+            "es": "¡Nṛsiṃhadeva!",
+            "it": "Nṛsiṃhadeva!",
+            "ar": "نْرِسِيمْهَادِيفا!",
+            "hi": "नृसिंहदेव!"
+          }
+        },
+        {
+          "start": 169.9,
+          "original": "जयो नृसिंहदेव",
+          "transliteration": "jayo nṛsiṃhadeva",
+          "translations": {
+            "en": "Glory to Nṛsiṃhadeva!",
+            "pt": "Glória a Nṛsiṃhadeva!",
+            "es": "¡Gloria a Nṛsiṃhadeva!",
+            "it": "Gloria a Nṛsiṃhadeva!",
+            "ar": "المجد لنْرِسِيمْهَادِيفا!",
+            "hi": "जयो नृसिंहदेव!"
+          }
+        },
+        {
+          "start": 172.5,
+          "original": "जयो प्रह्लाद नृसिंहो",
+          "transliteration": "jayo prahlāda nṛsiṃho",
+          "translations": {
+            "en": "Glory to Prahlāda — Nṛsiṃha!",
+            "pt": "Glória a Prahlāda — Nṛsiṃha!",
+            "es": "¡Gloria a Prahlāda — Nṛsiṃha!",
+            "it": "Gloria a Prahlāda — Nṛsiṃha!",
+            "ar": "المجد لپْرَهْلادَا — نْرِسِيمْهَا!",
+            "hi": "जयो प्रह्लाद नृसिंहो!"
+          }
+        },
+        {
+          "start": 175.2,
+          "original": "प्रह्लाद नृसिंहो",
+          "transliteration": "prahlāda nṛsiṃho",
+          "translations": {
+            "en": "Prahlāda — Nṛsiṃha!",
+            "pt": "Prahlāda — Nṛsiṃha!",
+            "es": "¡Prahlāda — Nṛsiṃha!",
+            "it": "Prahlāda — Nṛsiṃha!",
+            "ar": "پْرَهْلادَا — نْرِسِيمْهَا!",
+            "hi": "प्रह्लाद नृसिंहो!"
           }
         },
         {
           "start": 176.9,
-          "original": "जय प्रह्लाद नृसिंह",
-          "transliteration": "jaya prahlāda nṛsiṃha",
+          "original": "प्रह्लाद नृसिंहो जय",
+          "transliteration": "prahlāda nṛsiṃho jaya",
           "translations": {
-            "en": "Glory to Prahlāda — glory to Nṛsiṃha!",
-            "pt": "Glória a Prahlāda — glória a Nṛsiṃha!",
-            "es": "¡Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "it": "Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "ar": "المجد لپْرَهْلادَا — المجد لنْرِسِيمْهَا!",
-            "hi": "जय प्रह्लाद — जय नृसिंह!"
+            "en": "Prahlāda — Nṛsiṃha — glory!",
+            "pt": "Prahlāda — Nṛsiṃha — glória!",
+            "es": "¡Prahlāda — Nṛsiṃha — gloria!",
+            "it": "Prahlāda — Nṛsiṃha — gloria!",
+            "ar": "پْرَهْلادَا — نْرِسِيمْهَا — المجد!",
+            "hi": "प्रह्लाद नृसिंहो जय!"
           }
         },
         {
-          "start": 178.8,
-          "original": "जय प्रह्लाद नृसिंह",
-          "transliteration": "jaya prahlāda nṛsiṃha",
+          "start": 179.5,
+          "original": "प्रह्लाद नृसिंहो जय",
+          "transliteration": "prahlāda nṛsiṃho jaya",
           "translations": {
-            "en": "Glory to Prahlāda — glory to Nṛsiṃha!",
-            "pt": "Glória a Prahlāda — glória a Nṛsiṃha!",
-            "es": "¡Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "it": "Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "ar": "المجد لپْرَهْلادَا — المجد لنْرِسِيمْهَا!",
-            "hi": "जय प्रह्लाद — जय नृसिंह!"
+            "en": "Prahlāda — Nṛsiṃha — glory!",
+            "pt": "Prahlāda — Nṛsiṃha — glória!",
+            "es": "¡Prahlāda — Nṛsiṃha — gloria!",
+            "it": "Prahlāda — Nṛsiṃha — gloria!",
+            "ar": "پْرَهْلادَا — نْرِسِيمْهَا — المجد!",
+            "hi": "प्रह्लाद नृसिंहो जय!"
           }
         },
         {
-          "start": 181,
-          "original": "जय प्रह्लाद नृसिंह",
-          "transliteration": "jaya prahlāda nṛsiṃha",
+          "start": 181.2,
+          "original": "प्रह्लाद महाराज",
+          "transliteration": "prahlāda mahārāja",
           "translations": {
-            "en": "Glory to Prahlāda — glory to Nṛsiṃha!",
-            "pt": "Glória a Prahlāda — glória a Nṛsiṃha!",
-            "es": "¡Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "it": "Gloria a Prahlāda — gloria a Nṛsiṃha!",
-            "ar": "المجد لپْرَهْلادَا — المجد لنْرِسِيمْهَا!",
-            "hi": "जय प्रह्लाद — जय नृसिंह!"
+            "en": "Prahlāda Mahārāja!",
+            "pt": "Prahlāda Mahārāja!",
+            "es": "¡Prahlāda Mahārāja!",
+            "it": "Prahlāda Mahārāja!",
+            "ar": "پْرَهْلادَا مَهَارَاجَا!",
+            "hi": "प्रह्लाद महाराज!"
+          }
+        },
+        {
+          "start": 183.2,
+          "original": "प्रह्लाद महाराज",
+          "transliteration": "prahlāda mahārāja",
+          "translations": {
+            "en": "Prahlāda Mahārāja!",
+            "pt": "Prahlāda Mahārāja!",
+            "es": "¡Prahlāda Mahārāja!",
+            "it": "Prahlāda Mahārāja!",
+            "ar": "پْرَهْلادَا مَهَارَاجَا!",
+            "hi": "प्रह्लाद महाराज!"
+          }
+        },
+        {
+          "start": 185.5,
+          "original": "प्रह्लाद महाराज",
+          "transliteration": "prahlāda mahārāja",
+          "translations": {
+            "en": "Prahlāda Mahārāja!",
+            "pt": "Prahlāda Mahārāja!",
+            "es": "¡Prahlāda Mahārāja!",
+            "it": "Prahlāda Mahārāja!",
+            "ar": "پْرَهْلادَا مَهَارَاجَا!",
+            "hi": "प्रह्लाद महाराज!"
+          }
+        },
+        {
+          "start": 188.1,
+          "original": "जयो प्रह्लाद महाराज",
+          "transliteration": "jayo prahlāda mahārāja",
+          "translations": {
+            "en": "Glory to Prahlāda Mahārāja!",
+            "pt": "Glória a Prahlāda Mahārāja!",
+            "es": "¡Gloria a Prahlāda Mahārāja!",
+            "it": "Gloria a Prahlāda Mahārāja!",
+            "ar": "المجد لپْرَهْلادَا مَهَارَاجَا!",
+            "hi": "जयो प्रह्लाद महाराज!"
           }
         }
       ]
