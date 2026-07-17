@@ -408,8 +408,7 @@ const f = t.contribute.form;
 
 <script define:vars={{ apiOrigin, formT: f, submitSuccessMsg: t.contribute.submitSuccess, viewPR: t.contribute.viewPR }}>
   const root = document.getElementById('contribute-form-root');
-  if (root?.getAttribute('data-contribute-app-url')) return;
-
+  if (!root?.getAttribute('data-contribute-app-url')) {
   const base = (root?.getAttribute('data-api-origin') ?? '') || '';
   const loginRequired = document.getElementById('form-login-required');
   const wizard = document.getElementById('form-wizard');
@@ -968,4 +967,5 @@ const f = t.contribute.form;
   document.getElementById('btn-add-verse')?.addEventListener('click', addVerse);
   document.getElementById('btn-submit-pr')?.addEventListener('click', submitPR);
   document.getElementById('btn-save-draft')?.addEventListener('click', saveDraft);
+  }
 </script>

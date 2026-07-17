@@ -55,7 +55,8 @@ export const chantSchema = z.object({
     ar: z.string().optional(),
   }),
   tags: z.array(z.string()).default([]),
-  audio: z.string().url().optional(),
+  /** Absolute URL or site-relative path (e.g. /audio/slug.mp3). */
+  audio: z.union([z.string().url(), z.string().startsWith('/')]).optional(),
   /** Interpreter or performer name for the audio recording. Optional; shown when audio is set. */
   interpreter: z.string().optional(),
   /** Total duration in seconds (for reference / future UI). Optional. */
@@ -67,7 +68,7 @@ export const chantSchema = z.object({
   /** Bandcamp track/page URL for "Listen on Bandcamp" link. Optional when bandcampEmbedSrc is set. */
   bandcampUrl: z.string().url().optional(),
   /** Optional path to album art image for player bar (e.g. /images/bandcamp-hanuman-chalisa.png). When set, shown in the 2rem square instead of embed. */
-  bandcampArtImage: z.string().optional(),
+  bandcampArtImage: z.union([z.string().url(), z.string().startsWith('/')]).optional(),
   /** Long "about" text: meaning, context, history. Optional. */
   about: z
     .object({

@@ -227,7 +227,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
   },
 }}>
   const root = document.getElementById('contribute-root');
-  if (root?.getAttribute('data-contribute-app-url')) return;
+  if (!root?.getAttribute('data-contribute-app-url')) {
   const loginCta = document.getElementById('contribute-login-cta');
   const authenticated = document.getElementById('contribute-authenticated');
   const welcomeMsg = document.getElementById('contribute-welcome-msg');
@@ -314,4 +314,5 @@ const pageUrlForOffline = buildCanonicalPageUrl(
       root?.classList.remove('contribute-auth-pending');
       if (emptyEl) emptyEl.classList.remove('hidden');
     });
+  }
 </script>
