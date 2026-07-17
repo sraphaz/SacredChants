@@ -4,15 +4,19 @@ Thank you for considering contributing. This document explains how to add new ch
 
 ## Adding a new chant
 
+For the full agent-oriented pipeline (JSON, locales, MP3, SRT timestamps, whisper repair), see **`AGENTS.md`** and **`.cursor/skills/chant-ingestion/SKILL.md`**.
+
 ### 1. Create a JSON file
 
 Create a new file in `src/content/chants/`. The **filename** (without `.json`) will be the chant’s URL slug, e.g.:
 
 - `src/content/chants/hanuman-chalisa.json` → `/chants/hanuman-chalisa`
 
+Scaffold stub: `npm run chant:new [slug]`.
+
 ### 2. Follow the chant schema
 
-Each file must validate against the Zod schema. Required fields:
+Each file must validate against the Zod schema (`src/content/schemas/chant.ts`). Required fields:
 
 | Field         | Type     | Description                          |
 |---------------|----------|--------------------------------------|
@@ -20,44 +24,59 @@ Each file must validate against the Zod schema. Required fields:
 | `title`       | string   | Display title                        |
 | `tradition`   | string   | e.g. Hindu, Buddhist, Indigenous     |
 | `language`    | string   | Original language name               |
-| `description` | string   | Short description                    |
+| `description` | object   | Short intro per locale (`en`/`pt` required; `es`/`it`/`hi`/`ar` optional) |
 | `verses`      | array    | At least one verse (see below)       |
 
-Optional: `origin`, `script`, `tags` (string[]), `audio` (URL), `spotifyUrl` (URL).
+Optional: `origin`, `script`, `tags` (string[]), `audio`, `interpreter`, `duration`, `spotifyUrl`, `about`, Bandcamp fields.
 
 **Audio and lyric sync**
 
-- **`audio`** — URL to an MP3/OGG file. If present, an audio player is shown on the chant page.
-- **`spotifyUrl`** — Link to the track on Spotify. Shown as “Listen on Spotify” (no playback sync; Spotify does not expose playback position).
-- **Lyric sync** — To have the current verse highlight and follow the audio (and allow clicking a verse to jump to that time), add a **`startTime`** (number, seconds from start) to each verse. Example: `"order": 1, "startTime": 0, "original": "..."`. Only verses with `startTime` are synced; you can add it to some verses only.
+- **`audio`** — site path to MP3 (e.g. `/audio/my-chant.mp3` under `public/audio/`). Required for in-page karaoke.
+- **`spotifyUrl`** — “Listen on Spotify” link only. **No playback sync** (Spotify does not expose position). Karaoke always needs the local MP3.
+- **Lyric sync** — each **line** has `start` (seconds). The player highlights and seeks by line. Missing or wrong `start` values break karaoke even if Spotify is linked.
+
+Arabic/Hindi line strings often live in `scripts/chant-locales/<slug>.json` and merge via `npm run chant:merge-locales`.
 
 ### 3. Verse structure
 
 Each item in `verses` must have:
 
 - `order` — number (1, 2, 3, …)
-- `startTime` — optional number (seconds from start of audio) for lyric sync
+- `lines` — array of line objects (at least one)
+
+Each **line** has:
+
+- `start` — number (seconds from start of audio) for lyric sync
 - `original` — text in original script
-- `transliteration` — romanized form
-- `translations` — object with optional `pt` and `en` strings
+- `transliteration` — romanized form (IAST preferred for Sanskrit)
+- `translations` — object with optional `en`, `pt`, `es`, `it`, `hi`, `ar`
+
+Optional per verse: `explanation` (same locale keys).
 
 Example:
 
 ```json
 {
   "order": 1,
-  "original": "श्रीगुरु चरण सरोज रज",
-  "transliteration": "śrī guru charaṇa sarōja raja",
-  "translations": {
-    "pt": "Com a poeira dos pés de lótus do venerável Guru",
-    "en": "With the dust of the lotus feet of the revered Guru"
-  }
+  "lines": [
+    {
+      "start": 10.0,
+      "original": "श्रीगुरु चरण सरोज रज",
+      "transliteration": "śrī guru charaṇa sarōja raja",
+      "translations": {
+        "pt": "Com a poeira dos pés de lótus do venerável Guru",
+        "en": "With the dust of the lotus feet of the revered Guru"
+      }
+    }
+  ]
 }
 ```
 
+Apply timestamps from SRT anchors: `node scripts/apply-chant-timestamps.mjs <slug> --anchors <file.json> [--duration SEC]`.
+
 ### 4. Validate and preview
 
-- Run `npm run dev` and open `/chants/your-slug`.
+- Run `npm run build` (schema validation) and `npm run dev`; open `/chants/your-slug`.
 - The build will fail if the schema is invalid (e.g. missing required field or wrong type).
 
 ### 5. Submit a pull request
