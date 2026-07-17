@@ -38,12 +38,12 @@
     {
       "order": 1,
       "explanation": {
-        "en": "Traditional: obeisance to Narasiṃha who delights Prahlāda and whose nails chisel the stone-hard chest of Hiraṇyakaśipu. Contemplative: the same presence that protects devotion also cuts through hardened ego — ferocity in service of love.",
-        "pt": "Tradicional: reverência a Narasiṃha que alegra Prahlāda e cujas unhas cinzelam o peito de pedra de Hiraṇyakaśipu. Contemplativo: a mesma presença que protege a devoção também corta o ego endurecido — ferocidade a serviço do amor.",
-        "es": "Tradicional: reverencia a Narasiṃha que alegra a Prahlāda y cuyas uñas cincelan el pecho de piedra de Hiraṇyakaśipu. Contemplativo: la misma presencia que protege la devoción también corta el ego endurecido — ferocidad al servicio del amor.",
-        "it": "Tradizionale: riverenza a Narasiṃha che rallegra Prahlāda e le cui unghie scalpellano il petto di pietra di Hiraṇyakaśipu. Contemplativo: la stessa presenza che protegge la devozione taglia anche l'ego indurito — ferocia al servizio dell'amore.",
-        "ar": "تقليدي: انحناء لناراسيمْهَا الذي يُفرِح پْرَهْلادَا وأظافره تنحت صدر هِيرانْيَاكَشِيبُو الحجري. تأمّلي: الحضور الذي يحمي التقوى يقطع أيضًا الأنا المتصلّبة.",
-        "hi": "पारंपरिक: प्रह्लाद को आनंद देने वाले और हिरण्यकशिपु की पत्थर-सी छाती को नखों से चीरने वाले नरसिंह को नमन। चिंतन: जो भक्ति की रक्षा करता है वही कठोर अहंकार को भी काटता है।"
+        "en": "Traditional: obeisance to Narasiṃha who delights Prahlāda and whose nails chisel the stone-hard chest of Hiraṇyakaśipu. In this recording the opening line is sung twice (second pass ~17s), then the verse completes; contemplatively, the same presence that protects devotion also cuts through hardened ego.",
+        "pt": "Tradicional: reverência a Narasiṃha que alegra Prahlāda e cujas unhas cinzelam o peito de pedra de Hiraṇyakaśipu. Nesta gravação a linha de abertura é cantada duas vezes (segunda passagem ~17s), depois o verso completa-se; contemplativo: a mesma presença que protege a devoção também corta o ego endurecido.",
+        "es": "Tradicional: reverencia a Narasiṃha que alegra a Prahlāda y cuyas uñas cincelan el pecho de piedra de Hiraṇyakaśipu. En esta grabación la línea de apertura se canta dos veces (segunda pasada ~17s), luego el verso se completa; contemplativo: la misma presencia que protege la devoción también corta el ego endurecido.",
+        "it": "Tradizionale: riverenza a Narasiṃha che rallegra Prahlāda e le cui unghie scalpellano il petto di pietra di Hiraṇyakaśipu. In questa registrazione la riga di apertura è cantata due volte (seconda passata ~17s), poi il verso si completa; contemplativo: la stessa presenza che protegge la devozione taglia anche l'ego indurito.",
+        "ar": "تقليدي: انحناء لناراسيمْهَا الذي يُفرِح پْرَهْلادَا. في هذا التسجيل يُعاد سطر الافتتاح (~17ث) ثم يكتمل البيت.",
+        "hi": "पारंपरिक: प्रह्लाद को आनंद देने वाले नरसिंह को नमन। इस रिकॉर्डिंग में पहली पंक्ति दो बार (~17से) गायी जाती है, फिर श्लोक पूरा होता है।"
       },
       "lines": [
         {
@@ -60,7 +60,20 @@
           }
         },
         {
-          "start": 19.2,
+          "start": 17,
+          "original": "नमस्ते नरसिंहाय",
+          "transliteration": "namas te narasiṃhāya",
+          "translations": {
+            "en": "I offer my obeisances to Lord Narasiṃha.",
+            "pt": "Ofereço minhas reverências ao Senhor Narasiṃha.",
+            "es": "Ofrezco mis reverencias al Señor Narasiṃha.",
+            "it": "Offro le mie riverenze al Signore Narasiṃha.",
+            "ar": "أقدّم انحناءاتي للسيد ناراسيمْهَا.",
+            "hi": "श्री नरसिंह को मेरा नमन।"
+          }
+        },
+        {
+          "start": 25.2,
           "original": "प्रह्लादाह्लाददायिने",
           "transliteration": "prahlādāhlāda-dāyine",
           "translations": {
@@ -73,7 +86,7 @@
           }
         },
         {
-          "start": 33.1,
+          "start": 33.4,
           "original": "हिरण्यकशिपोर्वक्षः",
           "transliteration": "hiraṇyakaśipor vakṣaḥ",
           "translations": {
@@ -86,7 +99,7 @@
           }
         },
         {
-          "start": 41,
+          "start": 42,
           "original": "शिलाटङ्कनखालये",
           "transliteration": "śilā-ṭaṅka-nakhālaye",
           "translations": {
@@ -203,7 +216,7 @@
           }
         },
         {
-          "start": 100.3,
+          "start": 100,
           "original": "केशव धृतनरहरिरूप",
           "transliteration": "keśava dhṛta-narahari-rūpa",
           "translations": {
@@ -217,6 +230,19 @@
         },
         {
           "start": 105.2,
+          "original": "जय जगदीश हरे",
+          "transliteration": "jaya jagadīśa hare",
+          "translations": {
+            "en": "Glory to you, O Lord of the universe, O Hari!",
+            "pt": "Glória a Ti, ó Senhor do universo, ó Hari!",
+            "es": "¡Gloria a Ti, oh Señor del universo, oh Hari!",
+            "it": "Gloria a Te, o Signore dell'universo, o Hari!",
+            "ar": "المجد لك، يا ربّ الكون، يا هاري!",
+            "hi": "जय जगदीश हरे!"
+          }
+        },
+        {
+          "start": 110.8,
           "original": "जय जगदीश हरे",
           "transliteration": "jaya jagadīśa hare",
           "translations": {
@@ -281,7 +307,7 @@
           }
         },
         {
-          "start": 145.2,
+          "start": 145.5,
           "original": "जय जगदीश हरे",
           "transliteration": "jaya jagadīśa hare",
           "translations": {
@@ -298,8 +324,8 @@
     {
       "order": 5,
       "explanation": {
-        "en": "Closing kīrtana: jaya to Nṛsiṃhadeva and to the bond with Prahlāda — the devotee for whom the Lord appeared. Contemplative: the prayer ends not in fear of the claws, but in celebration of the relationship that called them forth.",
-        "pt": "Kīrtana final: jaya a Nṛsiṃhadeva e ao vínculo com Prahlāda — o devoto por quem o Senhor apareceu. Contemplativo: a oração termina não no medo das garras, mas na celebração da relação que as fez surgir.",
+        "en": "Closing kīrtana: jaya to Nṛsiṃhadeva, then the Prahlāda–Nṛsiṃha refrain repeated as in this recording — celebration of the bond that called the Lord forth.",
+        "pt": "Kīrtana final: jaya a Nṛsiṃhadeva e depois o refrão Prahlāda–Nṛsiṃha repetido como nesta gravação — celebração do vínculo que fez o Senhor aparecer.",
         "es": "Kīrtana final: jaya a Nṛsiṃhadeva y al vínculo con Prahlāda — el devoto por quien el Señor apareció. Contemplativo: la oración termina no en el miedo a las garras, sino en la celebración de la relación que las hizo surgir.",
         "it": "Kīrtana finale: jaya a Nṛsiṃhadeva e al legame con Prahlāda — il devoto per cui il Signore apparve. Contemplativo: la preghiera non finisce nel timore degli artigli, ma nella celebrazione della relazione che li ha fatti sorgere.",
         "ar": "ختام الكيرتان: جايا لنْرِسِيمْهَادِيفا ولعلاقة پْرَهْلادَا — الصلاة تنتهي بالاحتفال لا بالخوف.",
@@ -320,7 +346,46 @@
           }
         },
         {
-          "start": 173.5,
+          "start": 168.1,
+          "original": "जय प्रह्लाद नृसिंह",
+          "transliteration": "jaya prahlāda nṛsiṃha",
+          "translations": {
+            "en": "Glory to Prahlāda — glory to Nṛsiṃha!",
+            "pt": "Glória a Prahlāda — glória a Nṛsiṃha!",
+            "es": "¡Gloria a Prahlāda — gloria a Nṛsiṃha!",
+            "it": "Gloria a Prahlāda — gloria a Nṛsiṃha!",
+            "ar": "المجد لپْرَهْلادَا — المجد لنْرِسِيمْهَا!",
+            "hi": "जय प्रह्लाद — जय नृसिंह!"
+          }
+        },
+        {
+          "start": 176.9,
+          "original": "जय प्रह्लाद नृसिंह",
+          "transliteration": "jaya prahlāda nṛsiṃha",
+          "translations": {
+            "en": "Glory to Prahlāda — glory to Nṛsiṃha!",
+            "pt": "Glória a Prahlāda — glória a Nṛsiṃha!",
+            "es": "¡Gloria a Prahlāda — gloria a Nṛsiṃha!",
+            "it": "Gloria a Prahlāda — gloria a Nṛsiṃha!",
+            "ar": "المجد لپْرَهْلادَا — المجد لنْرِسِيمْهَا!",
+            "hi": "जय प्रह्लाद — जय नृसिंह!"
+          }
+        },
+        {
+          "start": 178.8,
+          "original": "जय प्रह्लाद नृसिंह",
+          "transliteration": "jaya prahlāda nṛsiṃha",
+          "translations": {
+            "en": "Glory to Prahlāda — glory to Nṛsiṃha!",
+            "pt": "Glória a Prahlāda — glória a Nṛsiṃha!",
+            "es": "¡Gloria a Prahlāda — gloria a Nṛsiṃha!",
+            "it": "Gloria a Prahlāda — gloria a Nṛsiṃha!",
+            "ar": "المجد لپْرَهْلادَا — المجد لنْرِسِيمْهَا!",
+            "hi": "जय प्रह्लाद — जय नृसिंह!"
+          }
+        },
+        {
+          "start": 181,
           "original": "जय प्रह्लाद नृसिंह",
           "transliteration": "jaya prahlāda nṛsiṃha",
           "translations": {
