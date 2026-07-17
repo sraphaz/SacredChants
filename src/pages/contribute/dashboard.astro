@@ -90,7 +90,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
 
 <script define:vars={{ stateOpen: t.contribute.stateOpen, stateMerged: t.contribute.stateMerged, stateClosed: t.contribute.stateClosed, viewPR: t.contribute.viewPR, closePRLabel: t.contribute.closePR, confirmClosePR: t.contribute.confirmClosePR, prClosed: t.contribute.prClosed, noContributionsYet: t.contribute.noContributionsYet, draftBadge: t.contribute.draftBadge, continueDraft: t.contribute.continueDraft, currentLocale: locale, formPathPrefix }}>
   const root = document.getElementById('dashboard-root');
-  if (root?.getAttribute('data-contribute-app-url')) return;
+  if (!root?.getAttribute('data-contribute-app-url')) {
   const base = root?.getAttribute('data-api-origin') ?? '';
   const loginRequired = document.getElementById('dashboard-login-required');
   const listEl = document.getElementById('dashboard-list');
@@ -210,4 +210,5 @@ const pageUrlForOffline = buildCanonicalPageUrl(
     .catch(() => {
       renderList([]);
     });
+  }
 </script>
