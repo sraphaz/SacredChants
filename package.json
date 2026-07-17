@@ -55,7 +55,7 @@
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/github": "^10.0.2",
     "@semantic-release/release-notes-generator": "^14.1.1",
-    "@types/node": "^25.5.0",
+    "@types/node": "^26.1.1",
     "@vercel/node": "^5.6.23",
     "cross-env": "^10.1.0",
     "semantic-release": "^25.0.7",
