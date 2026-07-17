@@ -42,7 +42,7 @@
     "chant:apply-timestamps": "node scripts/apply-chant-timestamps.mjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/mdx": "^7.0.3",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.16.0",
     "jose": "^6.2.3",
