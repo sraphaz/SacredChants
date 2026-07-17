@@ -3,17 +3,27 @@
  *
  * Source: TurboScribe word-level SRT (ASR text is noisy; times are used as anchors).
  * Gap ~4:21–6:00: ASR collapsed; times interpolated from singing pace.
+ * Verse 31 (garjantam…): refined with faster-whisper on an MP3 segment.
  *
  * Run: node scripts/apply-narasimha-timestamps.mjs
+ *
+ * Generic path for other mantras:
+ *   node scripts/apply-chant-timestamps.mjs <slug> --anchors <file.json> [--duration SEC]
+ * See .cursor/skills/chant-ingestion/SKILL.md
  */
-import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {
+  applyAnchorsToChant,
+  chantPathForSlug,
+  formatReport,
+} from './lib/chant-timestamps.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CHANT_PATH = path.join(__dirname, '..', 'src', 'content', 'chants', 'narasimha-kavacham.json');
+const ROOT = path.join(__dirname, '..');
+const CHANT_PATH = chantPathForSlug(ROOT, 'narasimha-kavacham');
 
-/** Known start times (seconds) by flat line index — from SRT anchors. */
+/** Known start times (seconds) by flat line index — from SRT / whisper anchors. */
 const ANCHORS = {
   // v1 — nṛsiṃha-kavacaṃ… / sarva-rakṣā…
   0: 13.4,
@@ -76,86 +86,24 @@ const ANCHORS = {
   // v30 kimatra… / manasā…
   58: 565.4,
   59: 573.9,
-  // v31 garjantaṃ (4 lines) — first sung pass in SRT
+  // v31 garjantaṃ (4 lines) — refined against the MP3 with word timestamps
   60: 584.0, // garjantaṃ garjayantaṃ…
-  61: 598.6, // dīpyantaṃ tāpayantaṃ… (SRT तपयंतं)
-  62: 605.5, // krandantaṃ… (repeat section onset)
-  63: 650.0, // vīkṣantaṃ pūrayantaṃ… namāmi (late pass)
-  // v32 colophon — end of sung garjantam / before outro
-  64: 693.0,
+  61: 596.7, // dīpyantaṃ tāpayantaṃ…
+  62: 611.9, // krandantaṃ roṣayantaṃ…
+  63: 626.9, // vīkṣantaṃ pūrayantaṃ… namāmi
+  // v32 colophon — sung three times; highlight from its first pass
+  64: 641.5,
 };
 
-const TOTAL_LINES = 65;
-
-function fillTimes(anchors, total) {
-  const times = new Array(total).fill(null);
-  for (const [k, v] of Object.entries(anchors)) {
-    times[+k] = v;
-  }
-  // interpolate nulls between known anchors
-  let i = 0;
-  while (i < total) {
-    if (times[i] != null) {
-      i++;
-      continue;
-    }
-    let prev = i - 1;
-    while (prev >= 0 && times[prev] == null) prev--;
-    let next = i + 1;
-    while (next < total && times[next] == null) next++;
-    if (prev < 0 || next >= total) {
-      throw new Error(`Cannot interpolate line ${i}: missing boundary anchors`);
-    }
-    const span = next - prev;
-    const t0 = times[prev];
-    const t1 = times[next];
-    for (let j = prev + 1; j < next; j++) {
-      const frac = (j - prev) / span;
-      times[j] = Math.round((t0 + (t1 - t0) * frac) * 10) / 10;
-    }
-    i = next;
-  }
-  return times.map((t) => Math.round(t * 10) / 10);
-}
-
-const times = fillTimes(ANCHORS, TOTAL_LINES);
-const chant = JSON.parse(fs.readFileSync(CHANT_PATH, 'utf8'));
-
-let idx = 0;
-const report = [];
-for (const verse of chant.verses) {
-  for (const line of verse.lines) {
-    const start = times[idx];
-    line.start = start;
-    report.push({
-      idx,
-      verse: verse.order,
-      start,
-      translit: line.transliteration.slice(0, 48),
-      anchored: Object.prototype.hasOwnProperty.call(ANCHORS, String(idx)),
-    });
-    idx++;
-  }
-}
-
-if (idx !== TOTAL_LINES) {
-  throw new Error(`Line count mismatch: applied ${idx}, expected ${TOTAL_LINES}`);
-}
-
 // Duration from Spotify / SRT outro (~13:18 usable; track 13:33)
-chant.duration = 813;
+const DURATION = 813;
 
-fs.writeFileSync(CHANT_PATH, JSON.stringify(chant, null, 2) + '\n');
+const { report, lineCount } = applyAnchorsToChant({
+  chantPath: CHANT_PATH,
+  anchors: ANCHORS,
+  duration: DURATION,
+});
 
-console.log('Applied timestamps to', idx, 'lines\n');
-console.log(
-  report
-    .map(
-      (r) =>
-        `${String(r.idx).padStart(2)} v${String(r.verse).padStart(2)} ${r.start
-          .toFixed(1)
-          .padStart(6)}s ${r.anchored ? '*' : ' '} ${r.translit}`
-    )
-    .join('\n')
-);
-console.log('\n* = SRT anchor, others interpolated');
+console.log('Applied timestamps to', lineCount, 'lines\n');
+console.log(formatReport(report));
+console.log('\n* = SRT/whisper anchor, others interpolated');
