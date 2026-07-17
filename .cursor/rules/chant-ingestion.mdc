@@ -1,0 +1,14 @@
+---
+description: Pointer to the chant/mantra ingestion skill when adding or syncing chants
+globs: src/content/chants/**/*.json,scripts/**/*timestamp*,scripts/chant-locales/**,public/audio/**
+alwaysApply: false
+---
+
+# Chant ingestion
+
+When creating a new chant, wiring audio, or aligning karaoke timestamps, follow:
+
+`.cursor/skills/chant-ingestion/SKILL.md`
+
+- Karaoke needs local MP3 + `lines[].start` — not Spotify alone.
+- Prefer `scripts/lib/chant-timestamps.mjs` / `scripts/apply-chant-timestamps.mjs`.
