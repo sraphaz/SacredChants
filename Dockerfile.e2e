@@ -1,6 +1,6 @@
 # E2E em ambiente isolado: imagem Playwright (Node + Chromium) + app
 # Manter a tag alinhada com @playwright/test em package.json (browsers embutidos; SKIP_BROWSER_DOWNLOAD=1).
-FROM mcr.microsoft.com/playwright:v1.59.0-jammy
+FROM mcr.microsoft.com/playwright:v1.61.1-jammy
 
 WORKDIR /app
 

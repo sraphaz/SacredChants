@@ -1,12 +1,28 @@
 # Dependabot: keep dependencies up to date
 # https://docs.github.com/en/code-security/dependabot
+#
+# Patch/minor PRs (and major for selected tooling like vercel) are auto-merged
+# by .github/workflows/dependabot-auto-merge.yml once build/lint/e2e pass.
 
 version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "monthly"
-    open-pull-requests-limit: 5
+      interval: "weekly"
+    open-pull-requests-limit: 10
     labels:
       - "dependencies"
+    # Keep lockfile conflicts rarer by grouping non-major tooling bumps.
+    groups:
+      vercel-cli:
+        patterns:
+          - "vercel"
+          - "@vercel/*"
+      semantic-release:
+        patterns:
+          - "semantic-release"
+          - "@semantic-release/*"
+        update-types:
+          - "minor"
+          - "patch"

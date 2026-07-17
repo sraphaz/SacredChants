@@ -1,8 +1,6 @@
 @import './design-tokens.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../../tailwind.config.mjs';
 
 /* ——— Locale switch (EN / PT / ES / IT / HI / AR) — show one language based on data-locale ——— */
 [data-locale="en"] :where(.locale-pt, .locale-es, .locale-it, .locale-hi, .locale-ar) {

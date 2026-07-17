@@ -16,6 +16,18 @@ O merge para `main` **só é permitido após todos os checks do CI passarem**. R
 
 Enquanto algum check falhar ou a branch estiver desactualizada, o botão de merge fica desactivado.
 
+## Auto-merge do Dependabot
+
+O repositório tem **Allow auto-merge** activo. O workflow
+`.github/workflows/dependabot-auto-merge.yml` activa auto-merge (squash) em PRs do
+Dependabot para:
+
+- updates **patch** e **minor**;
+- updates **major** só de tooling seguro (ex.: `vercel`, `semantic-release`, …).
+
+O merge só acontece depois de `build`, `lint` e `e2e` passarem (branch protection).
+Majors de frameworks (ex.: Astro) ficam para revisão manual.
+
 ## Como aplicar ou actualizar a proteção (gh CLI)
 
 Requer permissões de **admin** no repositório:
