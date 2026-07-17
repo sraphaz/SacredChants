@@ -1,11 +1,12 @@
 ---
 name: chant-ingestion
 description: >-
-  Ingest a new Sacred Chants mantra end-to-end: chant JSON (Devanagari, IAST,
-  translations), locale merge (ar/hi), local MP3 audio, word-level SRT → line
-  timestamps with interpolation, ffmpeg + faster-whisper repair when ASR fails,
-  schema validate, preview, commit. Use when adding a new chant/mantra/kavacham,
-  aligning karaoke timestamps, applying SRT timings, or wiring public/audio MP3.
+  Ingest a new Sacred Chants mantra end-to-end: Sanskrit lock (Devanagari + IAST
+  research), parallel locale packs, chant JSON, locale merge (ar/hi), local MP3,
+  word-level SRT → line timestamps with interpolation, ffmpeg + faster-whisper
+  repair when ASR fails, schema validate, preview, commit. Use when adding a new
+  chant/mantra/kavacham, aligning karaoke timestamps, applying SRT timings,
+  wiring public/audio MP3, or reviewing Sanskrit text / translations.
 ---
 
 # Chant / mantra ingestion pipeline
@@ -18,19 +19,92 @@ Repo-local skill for Sacred Chants. Follow this for every new mantra so tooling 
 2. Sync field is **`lines[].start`** (seconds), not a verse-level `startTime`. Schema: `src/content/schemas/chant.ts`.
 3. Do not rewrite unrelated chants. One chant per PR preferred.
 4. Prefer the shared timestamp lib over one-off copy-paste.
+5. **Sanskrit lock before locales.** For Sanskrit (or Devanagari-script) mantras, do not parallelize translations until Devanagari + IAST are researched, cross-checked, and locked. See phases below.
 
 ## Checklist
 
 ```
 Task Progress:
-- [ ] 1. Scaffold chant JSON + fill text (original, IAST, en/pt/es/it)
-- [ ] 2. Bundle ar/hi in scripts/chant-locales/ + merge
-- [ ] 3. Copy MP3 → public/audio/<slug>.mp3; set audio, duration, interpreter
-- [ ] 4. Optional: spotifyUrl (listen-only link)
-- [ ] 5. Word-level SRT → anchors → apply timestamps
-- [ ] 6. If mid-track ASR fails: ffmpeg segment + faster-whisper refine
-- [ ] 7. Validate (build / schema), preview, commit
+- [ ] 1. Gate: Sanskrit lock (research + Devanagari/IAST review) — if language is Sanskrit
+- [ ] 2. Parallel locale packs (en+pt, es+it, hi+ar) after lock — fill missing / improve weak
+- [ ] 3. Scaffold/finalize chant JSON (locked original + IAST + translations)
+- [ ] 4. Bundle ar/hi in scripts/chant-locales/ + merge
+- [ ] 5. Copy MP3 → public/audio/<slug>.mp3; set audio, duration, interpreter
+- [ ] 6. Optional: spotifyUrl (listen-only link)
+- [ ] 7. Word-level SRT → anchors → apply timestamps
+- [ ] 8. If mid-track ASR fails: ffmpeg segment + faster-whisper refine
+- [ ] 9. Validate (build / schema), preview, commit
 ```
+
+Quality checklist (locales priority): [`.agents/checklists/chant-content.checklist.md`](../../../.agents/checklists/chant-content.checklist.md).
+
+---
+
+## Phase A — Gate: Sanskrit lock
+
+**When:** `language` is Sanskrit (or the chant is traditionally Sanskrit with Devanagari `original` lines). Skip this gate for vernacular-only chants (e.g. pure Hindi bhajan with no Sanskrit source layer).
+
+**Goal:** Lock `lines[].original` (Devanagari) and `lines[].transliteration` (IAST) before any translation workstream edits meanings.
+
+### Research
+
+1. Gather **at least two** independent sources when possible (public-domain stotra sites, critical editions, user PDF, published booklet). Note variants.
+2. Prefer the reading that matches **how it is sung** on the target recording (line breaks, repeated refrains, omitted verses).
+3. Cross-check Devanagari ↔ IAST line-by-line (same sandhi, same anusvāra/visarga choices).
+4. If SRT/ASR exists early: use it only as a **phonetic hint** for sung form — never trust ASR spelling as the lock.
+
+### Sanskrit review checklist
+
+- [ ] Sandhi consistent with chosen edition (no random splits that break meter/meaning)
+- [ ] Anusvāra (ं / ṃ) and visarga (ः / ḥ) correct; final -m/-n not mangled
+- [ ] IAST diacritics complete: ā ī ū ṛ ṝ ḷ ṅ ñ ṇ ś ṣ ḥ ṃ (no ASCII shortcuts in locked text)
+- [ ] Avagraha (ऽ / ') and daṇḍa where the source tradition uses them
+- [ ] Proper names / epithets stable (e.g. Narasiṃha / Nṛsiṃha — pick one IAST form and keep it)
+- [ ] Common ASR false friends rejected (e.g. nara-simha vs narasiṃha; random Latin lookalikes)
+- [ ] Line segmentation matches sung delivery (refrain repeats get their own lines if sung)
+- [ ] Sources cited in the PR/commit notes or `about` when non-obvious
+
+**Lock criterion:** orchestrator (or Sanskrit workstream) declares Devanagari + IAST stable. Only then launch Phase B.
+
+### Parallelism during the gate
+
+You may run **one** deep-research Task (A) while scaffolding slug/audio/SRT paths — but **do not** start locale meaning packs until the lock is done.
+
+---
+
+## Phase B — Parallel locale packs
+
+**When:** Sanskrit text is locked (or chant is non-Sanskrit and line text is already stable).
+
+**Do not** create six permanent language agents. The **orchestrating agent** launches short-lived parallel Task workstreams, then merges results into one chant JSON (+ ar/hi bundle).
+
+### Recommended Task split (launch concurrently)
+
+| Stream | Scope | Writes |
+|--------|--------|--------|
+| **(A)** Sanskrit fidelity | Already done in Phase A; re-open only if lock regressions appear | `original`, `transliteration` only |
+| **(B)** Meaning core | **en + pt** line translations, `description`, `about`, key `explanation` | `translations.en/pt`, descriptions |
+| **(C)** Romance parity | **es + it** (match en/pt sense; natural idiom) | `translations.es/it` |
+| **(D)** hi + ar bundle | Hindi + Arabic arrays + optional description/about/explanation | `scripts/chant-locales/<slug>.json` |
+
+Priority if time-boxed: **pt → en → es/it → hi/ar** (see chant-content checklist).
+
+### Orchestrator merge rules
+
+1. Streams must **not** rewrite locked Devanagari/IAST (except stream A on explicit unlock).
+2. Keep glossary consistency across locales (kavaca, dhyāna, names).
+3. Dual lens for `about` / `explanation`: tradition fidelity **and** contemplative accessibility (clear refuge/meaning without dogma dumping).
+4. After (D): `npm run chant:merge-locales`.
+5. One PR per chant; parallel Tasks are workstreams, not parallel PRs.
+
+### How another agent should invoke this
+
+1. Read this skill + checklist.
+2. If Sanskrit: finish **Phase A** (research Task) → mark lock.
+3. In **one message**, launch Tasks **B + C + D** in parallel (Cursor `Task` tool, multiple calls).
+4. Merge outputs → continue audio/SRT phases below.
+
+---
 
 ## 1. Create chant JSON
 
@@ -72,7 +146,7 @@ Structure (see Hanuman / Narasimha as references):
 }
 ```
 
-Sources: public-domain stotra sites, user PDF, or provided text. Keep Devanagari + IAST aligned line-by-line with how it is sung.
+Sources: public-domain stotra sites, user PDF, or provided text. Keep Devanagari + IAST aligned line-by-line with how it is sung (Phase A).
 
 ## 2. Arabic / Hindi locale merge
 
@@ -173,9 +247,11 @@ Commit (conventional): `feat: add <Title> chant` or `fix(<slug>): refine line ti
 | Generic apply | `scripts/apply-chant-timestamps.mjs` |
 | Example wrapper | `scripts/apply-narasimha-timestamps.mjs` |
 | Audio | `public/audio/<slug>.mp3` |
+| Domain consult | `arah.config.yaml` → `chant-content`; checklist under `.agents/checklists/` |
 | Human docs | `CONTRIBUTING.md`, `docs/I18N-LOCALIZATION.md` |
 | Extra detail | [reference.md](reference.md) |
 
 ## Additional resources
 
 - For SRT mapping tips, whisper repair, and Narasimha worked example → [reference.md](reference.md)
+- Domain brief / review invariants → `arah.config.yaml` (`chant-content`) + `.agents/checklists/chant-content.checklist.md`

@@ -98,8 +98,13 @@ const { report, lineCount } = applyAnchorsToChant({
 
 For machine-generated anchors without comments, use JSON + `apply-chant-timestamps.mjs` only.
 
+## Sanskrit lock + parallel locales
+
+See [SKILL.md](SKILL.md) Phase A (research / Devanagari+IAST lock) and Phase B (parallel Task packs: en+pt, es+it, hi+ar). Do not start locale streams until the Sanskrit gate passes.
+
 ## Related docs
 
 - `CONTRIBUTING.md` — human contributor overview
 - `docs/I18N-LOCALIZATION.md` — locale fields and merge rules
+- `.agents/checklists/chant-content.checklist.md` — Sanskrit + locale quality
 - `.github/ISSUE_TEMPLATE/new_chant.md` — issue template for proposals

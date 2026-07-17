@@ -2,13 +2,29 @@
 name: Chant Content
 mode: consult
 enrich: |
-    Cada canto tem JSON com Devanagari, IAST e traduções, locales (ar/hi), e
-    timestamps de karaokê. Karaokê exige public/audio/<slug>.mp3 + lines[].start.
-    Spotify (spotifyUrl) é listen-only. Siga o skill de ingestão em
-    .cursor/skills/chant-ingestion/SKILL.md e o schema em src/content/schemas/chant.ts.
+    Pipeline de execução: .cursor/skills/chant-ingestion/SKILL.md (não duplicar aqui).
+    
+    Sanskrit gate: se language=Sanskrit (ou original em Devanagari), pesquisar fontes,
+    travar Devanagari + IAST (tradição + forma cantada/SRT) ANTES de traduzir.
+    Só depois o orquestrador lança Task em paralelo: (B) en+pt, (C) es+it, (D) hi+ar bundle.
+    Não criar um agente permanente por língua.
+    
+    Fidelidade: tradução linha-a-linha; não embelezar o original; termos/nomes estáveis.
+    Lente dual (padrão deepen Narasimha): about/explanation servem tradição (bhakti, símbolos)
+    e acessibilidade contemplativa (medo → refúgio, sem dogma).
+    
+    Locales: prioridade pt → en → es/it → hi/ar. ar/hi via scripts/chant-locales/ + merge.
+    Se language é Hindi/Awadhi, não forçar hi nas linhas. Karaoke = MP3 + lines[].start;
+    spotifyUrl é listen-only.
+    
+    Checklist: .agents/checklists/chant-content.checklist.md
 validate: |
-    Validar schema do canto, consistência de locales, e alinhamento dos
-    timestamps antes do merge. Não commitar segredos nem áudio fora de public/audio.
+    Schema do canto (chant.ts) e lengths do merge ar/hi sem blanks indevidos.
+    Sanskrit: diacríticos IAST, sandhi/anusvāra razoáveis, original alinhado ao canto.
+    Locales: en/pt completos; es/it em paridade quando o canto é full; hi/ar via bundle.
+    Timestamps: âncoras documentadas quando houver SRT; duration ≈ último start; monotonic.
+    Não commitar segredos nem áudio fora de public/audio/.
+    Parecer consultivo apenas — execução continua no skill chant-ingestion.
 autonomy:
   - consult_post
 scope:
