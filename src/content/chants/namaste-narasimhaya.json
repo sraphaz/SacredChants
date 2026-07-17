@@ -116,18 +116,18 @@
     {
       "order": 2,
       "explanation": {
-        "en": "Traditional: Narasiṃha is here and there; wherever one goes, he is present — within and without; surrender to him as origin and refuge. Contemplative: protection is not escape from the world but discovery that the refuge already walks with you and rests in the heart.",
-        "pt": "Tradicional: Narasiṃha está aqui e ali; aonde se vá, ele está presente — dentro e fora; rende-se a ele como origem e refúgio. Contemplativo: proteção não é fuga do mundo, mas descobrir que o refúgio já caminha consigo e habita o coração.",
-        "es": "Tradicional: Narasiṃha está aquí y allá; adondequiera que se vaya, está presente — dentro y fuera; ríndete a él como origen y refugio. Contemplativo: la protección no es huir del mundo, sino descubrir que el refugio ya camina contigo y habita el corazón.",
-        "it": "Tradizionale: Narasiṃha è qui e là; dovunque si vada, è presente — dentro e fuori; arrenditi a lui come origine e rifugio. Contemplativo: la protezione non è fuga dal mondo, ma scoprire che il rifugio già cammina con te e abita il cuore.",
-        "ar": "تقليدي: ناراسيمْهَا هنا وهناك؛ أينما ذهبت فهو حاضر — داخلًا وخارجًا؛ التسليم له كأصل وملجأ. تأمّلي: الحماية ليست هروبًا بل قرب القلب.",
-        "hi": "पारंपरिक: नृसिंह यहाँ-वहाँ; जहाँ जाएँ वहाँ मौजूद — भीतर और बाहर; आदि और शरण के रूप में समर्पण। चिंतन: सुरक्षा भागना नहीं, हृदय की निकटता है।"
+        "en": "Traditional: Narasiṃha is here and there; wherever one goes, he is present — within and without; surrender to him as origin and refuge. Contemplative: protection is not escape from the world but discovery that the refuge already walks with you and rests in the heart. (Sung form: nṛsiṃho; classical texts often write nṛsiṃhaḥ with visarga.)",
+        "pt": "Tradicional: Narasiṃha está aqui e ali; aonde se vá, ele está presente — dentro e fora; rende-se a ele como origem e refúgio. Contemplativo: proteção não é fuga do mundo, mas descobrir que o refúgio já caminha consigo e habita o coração. (Forma cantada: nṛsiṃho; o texto clássico costuma ter nṛsiṃhaḥ com visarga.)",
+        "es": "Tradicional: Narasiṃha está aquí y allá; adondequiera que se vaya, está presente — dentro y fuera; ríndete a él como origen y refugio. Contemplativo: la protección no es huir del mundo, sino descubrir que el refugio ya camina contigo y habita el corazón. (Forma cantada: nṛsiṃho; el texto clásico suele escribir nṛsiṃhaḥ con visarga.)",
+        "it": "Tradizionale: Narasiṃha è qui e là; dovunque si vada, è presente — dentro e fuori; arrenditi a lui come origine e rifugio. Contemplativo: la protezione non è fuga dal mondo, ma scoprire che il rifugio già cammina con te e abita il cuore. (Forma cantata: nṛsiṃho; il testo classico spesso ha nṛsiṃhaḥ con visarga.)",
+        "ar": "تقليدي: ناراسيمْهَا هنا وهناك. (الشكل المغنّى: nṛsiṃho؛ الكلاسيكي غالبًا nṛsiṃhaḥ.)",
+        "hi": "पारंपरिक: नृसिंह यहाँ-वहाँ। (गायन रूप: nṛsiṃho; शास्त्र में प्रायः nṛsiṃhaḥ विसर्ग के साथ।)"
       },
       "lines": [
         {
           "start": 49.7,
-          "original": "इतो नृसिंहः परतो नृसिंहः",
-          "transliteration": "ito nṛsiṃhaḥ parato nṛsiṃhaḥ",
+          "original": "इतो नृसिंहो परतो नृसिंहो",
+          "transliteration": "ito nṛsiṃho parato nṛsiṃho",
           "translations": {
             "en": "Nṛsiṃha is here; Nṛsiṃha is also there.",
             "pt": "Nṛsiṃha está aqui; Nṛsiṃha também está ali.",
@@ -138,7 +138,7 @@
           }
         },
         {
-          "start": 55.8,
+          "start": 57,
           "original": "यतो यतो यामि ततो नृसिंहः",
           "transliteration": "yato yato yāmi tato nṛsiṃhaḥ",
           "translations": {
