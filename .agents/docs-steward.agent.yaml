@@ -1,0 +1,20 @@
+id: docs-steward
+name: Docs Steward
+description: Taxonomia, índices, sync-docs e consistência documental.
+triggers:
+  - pull_request:opened
+  - manual
+scope:
+  paths:
+    - docs/**
+    - AGENTS.md
+    - README.md
+  may_code: true
+  max_diff_files: 20
+skills:
+  - sync-docs
+  - doc-taxonomy
+checklist: checklists/docs-steward.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true

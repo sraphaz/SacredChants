@@ -1,0 +1,21 @@
+id: qa
+name: Review / QA Agent
+description: Checklist de qualidade, coesão, testes e aderência a specs em todo PR.
+triggers:
+  - pull_request:opened
+  - pull_request:synchronize
+scope:
+  paths:
+    - "**"
+  may_code: false
+skills:
+  - code-review
+  - craft-review
+  - run-tests
+  - spec-validate
+  - harness-run
+checklist: checklists/qa.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true
+  comment_only: true

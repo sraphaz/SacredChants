@@ -1,0 +1,5 @@
+id: doc-taxonomy
+description: Valida taxonomia e organização documental.
+run:
+  script: scripts/agents/sync-docs-check.ps1
+success: exit_code == 0

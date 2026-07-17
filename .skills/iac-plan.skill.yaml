@@ -1,0 +1,5 @@
+id: iac-plan
+description: Plano de infraestrutura (dry-run).
+run:
+  script: scripts/agents/run-gates.ps1
+success: exit_code == 0

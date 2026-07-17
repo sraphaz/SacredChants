@@ -1,0 +1,19 @@
+id: planner
+name: Planner
+description: Converte backlog em issues, specs e fila de fases priorizada.
+triggers:
+  - manual
+  - issue:opened
+scope:
+  paths:
+    - docs/backlog/**
+    - docs/_meta/PHASE_QUEUE.yaml
+    - docs/specs/**
+  may_code: false
+skills:
+  - backlog-to-issue
+  - spec-author
+checklist: checklists/planner.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true

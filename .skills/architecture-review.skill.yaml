@@ -1,0 +1,5 @@
+id: architecture-review
+description: Revisão arquitetural de mudanças estruturais.
+run:
+  script: scripts/agents/craft-review-check.ps1
+success: exit_code == 0

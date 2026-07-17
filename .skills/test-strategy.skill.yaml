@@ -1,0 +1,11 @@
+id: test-strategy
+description: |
+  Estratégia de testes consultiva (TEA) — risk-based, a11y e gates de CI
+  a partir de docs/specs, NFRs e arquitetura.
+run:
+  consult: test-architect
+outputs:
+  - docs/testing/test-strategy.md
+guardrails:
+  consult_only: true
+  requires_specs_or_architecture: true

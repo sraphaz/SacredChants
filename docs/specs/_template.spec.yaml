@@ -1,0 +1,12 @@
+id: example-feature
+title: Example feature spec
+status: draft
+version: 1
+acceptance:
+  - id: AC-01
+    when: user submits valid input
+    then: system persists record and returns 201
+    status: pending
+harness:
+  commands:
+    - pwsh ./scripts/agents/invoke-skill.ps1 -Skill run-tests -Area backend

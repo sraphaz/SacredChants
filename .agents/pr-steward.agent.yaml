@@ -1,0 +1,20 @@
+id: pr-steward
+name: PR Steward
+description: Resolve apontamentos de bots, aplica ready-for-merge quando CI verde.
+triggers:
+  - pull_request:opened
+  - pull_request:synchronize
+  - check_suite:completed
+scope:
+  paths:
+    - .github/**
+  may_code: true
+  max_diff_files: 10
+skills:
+  - address-bot-review
+  - respond-bot-review
+  - next-phase
+checklist: checklists/pr-steward.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true

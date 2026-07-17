@@ -1,0 +1,20 @@
+id: spec-steward
+name: Spec Steward
+description: Autoria, validação e harness de specs SDD.
+triggers:
+  - pull_request:opened
+  - manual
+scope:
+  paths:
+    - docs/specs/**
+    - scripts/harness/**
+  may_code: true
+  max_diff_files: 15
+skills:
+  - spec-author
+  - spec-validate
+  - harness-run
+checklist: checklists/spec-steward.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true

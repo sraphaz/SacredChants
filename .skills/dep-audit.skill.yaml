@@ -1,0 +1,6 @@
+id: dep-audit
+description: Auditoria de dependências (npm/dotnet/etc.).
+run:
+  script: scripts/agents/run-gates.ps1
+  args: [-Gate, security]
+success: exit_code == 0

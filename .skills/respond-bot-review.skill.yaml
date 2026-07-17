@@ -1,0 +1,5 @@
+id: respond-bot-review
+description: Responde comentários de bots no PR.
+run:
+  script: scripts/agents/agent-conduct-check.ps1
+success: exit_code == 0

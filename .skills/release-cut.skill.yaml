@@ -1,0 +1,5 @@
+id: release-cut
+description: Prepara corte de release (tag, changelog).
+run:
+  script: scripts/agents/next-phase.ps1
+success: exit_code == 0
