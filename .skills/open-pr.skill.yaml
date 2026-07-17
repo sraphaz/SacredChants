@@ -1,0 +1,5 @@
+id: open-pr
+description: Abre pull request com template e metadados ARAH.
+run:
+  script: scripts/agents/open-pr.ps1
+success: exit_code == 0

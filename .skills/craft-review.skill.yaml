@@ -1,0 +1,5 @@
+id: craft-review
+description: Revisão de craft — coesão, escopo, convenções.
+run:
+  script: scripts/agents/craft-review-check.ps1
+success: exit_code == 0

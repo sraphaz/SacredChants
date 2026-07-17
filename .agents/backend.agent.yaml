@@ -1,0 +1,22 @@
+id: backend
+name: Backend Agent
+description: Implementa API, serviços e lógica server-side dentro do escopo permitido.
+triggers:
+  - issue:labeled
+  - manual
+scope:
+  paths:
+    - backend/**
+    - src/**/api/**
+    - services/**
+  may_code: true
+  max_diff_files: 25
+skills:
+  - run-tests
+  - craft-review
+  - sync-docs
+  - open-pr
+checklist: checklists/backend.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true

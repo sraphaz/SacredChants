@@ -1,0 +1,26 @@
+id: solutions-architect
+name: Solutions Architect
+description: ADRs, arquitetura, diagramas e revisão estrutural.
+triggers:
+  - manual
+  - pull_request:opened
+scope:
+  paths:
+    - docs/architecture/**
+    - docs/design/**
+  may_code: true
+  max_diff_files: 15
+skills:
+  - architecture-review
+  - register-adr
+  - craft-review
+  - test-strategy
+domain_consults:
+  - architecture-documenter
+  - clean-craft-advisor
+  - test-architect
+checklist: checklists/solutions-architect.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true
+  adr_required_for_structural_decisions: true

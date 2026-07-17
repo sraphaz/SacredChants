@@ -1,0 +1,16 @@
+﻿# Coreografia de domínio — gerada por domain-sync.ps1 (não editar à mão)
+version: 1
+updated: 2026-07-17
+rules:
+  - id: domain-chant-content
+    paths:
+      - src/content/chants/**
+      - src/content/schemas/**
+      - scripts/**chant**
+      - scripts/lib/chant-timestamps.mjs
+      - public/audio/**
+    agents:
+      - id: chant-content
+        type: domain
+        autonomy: [consult_post]
+

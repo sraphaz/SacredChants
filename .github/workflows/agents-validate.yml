@@ -1,0 +1,65 @@
+name: Agents Validate
+
+on:
+  pull_request:
+    paths:
+      - '.agents/**'
+      - '.skills/**'
+      - 'AGENTS.md'
+      - 'arah.config.yaml'
+      - 'scripts/agents/**'
+      - 'scripts/harness/**'
+      - 'docs/specs/**'
+      - 'docs/_meta/**'
+  push:
+    branches: [main]
+    paths:
+      - '.agents/**'
+      - '.skills/**'
+      - 'AGENTS.md'
+      - 'arah.config.yaml'
+      - 'scripts/agents/**'
+      - 'scripts/harness/**'
+      - 'docs/specs/**'
+      - 'docs/_meta/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate agent & skill manifests
+        shell: pwsh
+        run: ./scripts/agents/validate-manifests.ps1
+
+  validate-agent-graph:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Export Agent Graph
+        shell: pwsh
+        run: ./scripts/agents/export-agent-graph.ps1
+      - name: Validate Agent Graph
+        shell: pwsh
+        run: ./scripts/harness/validate-agent-graph.ps1
+
+  harness-sync-check:
+    runs-on: ubuntu-latest
+    if: vars.ARAH_HARNESS_PATH != ''
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check kernel drift
+        shell: pwsh
+        run: |
+          if (Test-Path "${{ vars.ARAH_HARNESS_PATH }}/cli/sync-check.ps1") {
+            & "${{ vars.ARAH_HARNESS_PATH }}/cli/sync-check.ps1" -Target $PWD
+          } else {
+            Write-Host "ARAH_HARNESS_PATH not configured — skip drift check"
+          }

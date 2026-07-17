@@ -1,0 +1,5 @@
+id: sync-docs
+description: Verifica e sincroniza documentação obrigatória.
+run:
+  script: scripts/agents/sync-docs-check.ps1
+success: exit_code == 0

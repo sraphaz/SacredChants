@@ -1,0 +1,24 @@
+﻿id: chant-content
+name: Chant Content
+mode: consult
+enrich: |
+    Cada canto tem JSON com Devanagari, IAST e traduções, locales (ar/hi), e
+    timestamps de karaokê. Karaokê exige public/audio/<slug>.mp3 + lines[].start.
+    Spotify (spotifyUrl) é listen-only. Siga o skill de ingestão em
+    .cursor/skills/chant-ingestion/SKILL.md e o schema em src/content/schemas/chant.ts.
+validate: |
+    Validar schema do canto, consistência de locales, e alinhamento dos
+    timestamps antes do merge. Não commitar segredos nem áudio fora de public/audio.
+autonomy:
+  - consult_post
+scope:
+  paths:
+    - src/content/chants/**
+    - src/content/schemas/**
+    - scripts/**chant**
+    - scripts/lib/chant-timestamps.mjs
+    - public/audio/**
+
+guardrails:
+  no_merge: true
+  consult_only: true

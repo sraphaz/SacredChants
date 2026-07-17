@@ -1,0 +1,2462 @@
+{
+    "schema":  ".agents/agent-graph.schema.yaml",
+    "version":  1,
+    "generator":  "scripts/agents/export-agent-graph.ps1",
+    "generated_at":  "2026-07-17T15:44:33Z",
+    "sources":  [
+                    ".agents/choreography.yaml",
+                    ".agents/**/*.agent.yaml",
+                    ".skills/*.skill.yaml",
+                    "docs/specs/**/*.spec.yaml",
+                    ".github/workflows/*.yml"
+                ],
+    "stats":  {
+                  "agents":  15,
+                  "skills":  19,
+                  "rules":  8,
+                  "paths":  32,
+                  "domains":  0,
+                  "specs":  0,
+                  "harnesses":  0,
+                  "tests":  0,
+                  "guardrails":  16,
+                  "workflows":  4,
+                  "review_gates":  5,
+                  "edges":  211
+              },
+    "nodes":  {
+                  "agents":  [
+                                 {
+                                     "id":  "backend",
+                                     "name":  "Backend Agent",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/backend.agent.yaml",
+                                     "skills":  [
+                                                    "run-tests",
+                                                    "craft-review",
+                                                    "sync-docs",
+                                                    "open-pr"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "backend/**",
+                                                   "src/**/api/**",
+                                                   "services/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "docs-steward",
+                                     "name":  "Docs Steward",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/docs-steward.agent.yaml",
+                                     "skills":  [
+                                                    "sync-docs",
+                                                    "doc-taxonomy"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "docs/**",
+                                                   "AGENTS.md",
+                                                   "README.md"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "architecture-documenter",
+                                     "name":  "Architecture Documenter",
+                                     "kind":  "domain",
+                                     "manifest":  ".agents/domain/architecture-documenter.agent.yaml",
+                                     "skills":  [
+                                                    "architecture-review",
+                                                    "register-adr",
+                                                    "doc-taxonomy"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "docs/architecture/**",
+                                                   "docs/adr/**",
+                                                   "docs/design/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "max_autonomy":  "consult",
+                                                        "adr_required_for_structural_decisions":  "true",
+                                                        "consult_only":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "chant-content",
+                                     "name":  "Chant Content",
+                                     "kind":  "domain",
+                                     "manifest":  ".agents/domain/chant-content.agent.yaml",
+                                     "skills":  [
+
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "src/content/chants/**",
+                                                   "src/content/schemas/**",
+                                                   "scripts/**chant**",
+                                                   "scripts/lib/chant-timestamps.mjs",
+                                                   "public/audio/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "consult_only":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "clean-craft-advisor",
+                                     "name":  "Clean Craft Advisor",
+                                     "kind":  "domain",
+                                     "manifest":  ".agents/domain/clean-craft-advisor.agent.yaml",
+                                     "skills":  [
+                                                    "craft-review"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "docs/architecture/**",
+                                                   "docs/design/**",
+                                                   "backend/**",
+                                                   "frontend/**",
+                                                   "src/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "consult_only":  "true",
+                                                        "max_autonomy":  "consult",
+                                                        "no_stack_prescription":  "true",
+                                                        "complements_not_replaces_linter":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "test-architect",
+                                     "name":  "Test Architect",
+                                     "kind":  "domain",
+                                     "manifest":  ".agents/domain/test-architect.agent.yaml",
+                                     "skills":  [
+                                                    "test-strategy",
+                                                    "run-tests"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "docs/specs/**",
+                                                   "docs/architecture/**",
+                                                   "docs/testing/**",
+                                                   "tests/**",
+                                                   "e2e/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "max_autonomy":  "consult",
+                                                        "no_side_effects":  "true",
+                                                        "risk_based":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "frontend",
+                                     "name":  "Frontend Agent",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/frontend.agent.yaml",
+                                     "skills":  [
+                                                    "run-tests",
+                                                    "craft-review",
+                                                    "sync-docs",
+                                                    "open-pr"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "frontend/**",
+                                                   "apps/web/**",
+                                                   "apps/mobile/**",
+                                                   "src/**/ui/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "orchestrator",
+                                     "name":  "Orquestrador",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/orchestrator.agent.yaml",
+                                     "skills":  [
+                                                    "backlog-to-issue",
+                                                    "open-pr",
+                                                    "harness-run"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "planner",
+                                     "name":  "Planner",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/planner.agent.yaml",
+                                     "skills":  [
+                                                    "backlog-to-issue",
+                                                    "spec-author"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "docs/backlog/**",
+                                                   "docs/_meta/PHASE_QUEUE.yaml",
+                                                   "docs/specs/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "pr-steward",
+                                     "name":  "PR Steward",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/pr-steward.agent.yaml",
+                                     "skills":  [
+                                                    "address-bot-review",
+                                                    "respond-bot-review",
+                                                    "next-phase"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   ".github/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "qa",
+                                     "name":  "Review / QA Agent",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/qa.agent.yaml",
+                                     "skills":  [
+                                                    "code-review",
+                                                    "craft-review",
+                                                    "run-tests",
+                                                    "spec-validate",
+                                                    "harness-run"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true",
+                                                        "comment_only":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "release",
+                                     "name":  "Release / DevOps",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/release.agent.yaml",
+                                     "skills":  [
+                                                    "release-cut",
+                                                    "iac-plan",
+                                                    "run-tests"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   ".github/workflows/**",
+                                                   "infrastructure/**",
+                                                   "docker-compose*.yml",
+                                                   "Dockerfile"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "security",
+                                     "name":  "Security Agent",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/security.agent.yaml",
+                                     "skills":  [
+                                                    "dep-audit",
+                                                    "code-review"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true",
+                                                        "comment_only":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "solutions-architect",
+                                     "name":  "Solutions Architect",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/solutions-architect.agent.yaml",
+                                     "skills":  [
+                                                    "architecture-review",
+                                                    "register-adr",
+                                                    "craft-review",
+                                                    "test-strategy"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "docs/architecture/**",
+                                                   "docs/design/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true",
+                                                        "adr_required_for_structural_decisions":  "true"
+                                                    }
+                                 },
+                                 {
+                                     "id":  "spec-steward",
+                                     "name":  "Spec Steward",
+                                     "kind":  "operational",
+                                     "manifest":  ".agents/spec-steward.agent.yaml",
+                                     "skills":  [
+                                                    "spec-author",
+                                                    "spec-validate",
+                                                    "harness-run"
+                                                ],
+                                     "consults":  {
+                                                      "domain":  [
+
+                                                                 ],
+                                                      "specialists":  [
+
+                                                                      ]
+                                                  },
+                                     "paths":  [
+                                                   "docs/specs/**",
+                                                   "scripts/harness/**"
+                                               ],
+                                     "guardrails":  {
+                                                        "no_merge":  "true",
+                                                        "require_ci":  "true"
+                                                    }
+                                 }
+                             ],
+                  "skills":  [
+                                 {
+                                     "id":  "address-bot-review",
+                                     "description":  "Endereça apontamentos de bots no PR.",
+                                     "manifest":  ".skills/address-bot-review.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "architecture-review",
+                                     "description":  "Revisão arquitetural de mudanças estruturais.",
+                                     "manifest":  ".skills/architecture-review.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "backlog-to-issue",
+                                     "description":  "Converte item de backlog em issue GitHub.",
+                                     "manifest":  ".skills/backlog-to-issue.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "code-review",
+                                     "description":  "Revisão estrutural de PR (checklist QA).",
+                                     "manifest":  ".skills/code-review.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "craft-review",
+                                     "description":  "Revisão de craft — coesão, escopo, convenções.",
+                                     "manifest":  ".skills/craft-review.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "dep-audit",
+                                     "description":  "Auditoria de dependências (npm/dotnet/etc.).",
+                                     "manifest":  ".skills/dep-audit.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "doc-taxonomy",
+                                     "description":  "Valida taxonomia e organização documental.",
+                                     "manifest":  ".skills/doc-taxonomy.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "harness-run",
+                                     "description":  "Executa harness SDD ligado à spec/fase.",
+                                     "manifest":  ".skills/harness-run.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "iac-plan",
+                                     "description":  "Plano de infraestrutura (dry-run).",
+                                     "manifest":  ".skills/iac-plan.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "next-phase",
+                                     "description":  "Avança fila de fases após merge.",
+                                     "manifest":  ".skills/next-phase.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "open-pr",
+                                     "description":  "Abre pull request com template e metadados ARAH.",
+                                     "manifest":  ".skills/open-pr.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "register-adr",
+                                     "description":  "Registra Architecture Decision Record.",
+                                     "manifest":  ".skills/register-adr.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "release-cut",
+                                     "description":  "Prepara corte de release (tag, changelog).",
+                                     "manifest":  ".skills/release-cut.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "respond-bot-review",
+                                     "description":  "Responde comentários de bots no PR.",
+                                     "manifest":  ".skills/respond-bot-review.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "run-tests",
+                                     "description":  "Roda a suíte de testes da área alterada (comandos em arah.config.yaml).",
+                                     "manifest":  ".skills/run-tests.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "spec-author",
+                                     "description":  "Autoria de spec SDD a partir de template.",
+                                     "manifest":  ".skills/spec-author.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "spec-validate",
+                                     "description":  "Valida specs YAML contra schema e gates DOD.",
+                                     "manifest":  ".skills/spec-validate.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "sync-docs",
+                                     "description":  "Verifica e sincroniza documentação obrigatória.",
+                                     "manifest":  ".skills/sync-docs.skill.yaml"
+                                 },
+                                 {
+                                     "id":  "test-strategy",
+                                     "description":  "|",
+                                     "manifest":  ".skills/test-strategy.skill.yaml"
+                                 }
+                             ],
+                  "rules":  [
+                                {
+                                    "paths":  [
+                                                  "src/content/chants/**",
+                                                  "src/content/schemas/**",
+                                                  "scripts/**chant**",
+                                                  "scripts/lib/chant-timestamps.mjs",
+                                                  "public/audio/**"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+
+                                                                  ],
+                                                       "id":  "chant-content",
+                                                       "type":  "domain",
+                                                       "autonomy":  [
+                                                                        "consult_post"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  null,
+                                    "id":  "domain-chant-content"
+                                },
+                                {
+                                    "paths":  [
+                                                  "docs/specs/**",
+                                                  "scripts/harness/**"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+                                                                      "spec-validate",
+                                                                      "harness-run"
+                                                                  ],
+                                                       "id":  "spec-steward",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  null,
+                                    "id":  "specs-sdd"
+                                },
+                                {
+                                    "paths":  [
+                                                  "docs/architecture/**",
+                                                  "docs/design/**",
+                                                  "docs/adr/**"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+                                                                      "architecture-review",
+                                                                      "register-adr",
+                                                                      "craft-review"
+                                                                  ],
+                                                       "id":  "solutions-architect",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+                                                                      "architecture-review",
+                                                                      "register-adr",
+                                                                      "doc-taxonomy"
+                                                                  ],
+                                                       "id":  "architecture-documenter",
+                                                       "type":  "domain",
+                                                       "autonomy":  [
+                                                                        "consult"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+                                                                      "craft-review"
+                                                                  ],
+                                                       "id":  "clean-craft-advisor",
+                                                       "type":  "domain",
+                                                       "autonomy":  [
+                                                                        "consult"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  null,
+                                    "id":  "architecture-docs"
+                                },
+                                {
+                                    "paths":  [
+                                                  "docs/testing/**",
+                                                  "tests/**",
+                                                  "e2e/**"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+                                                                      "test-strategy",
+                                                                      "run-tests"
+                                                                  ],
+                                                       "id":  "test-architect",
+                                                       "type":  "domain",
+                                                       "autonomy":  [
+                                                                        "consult"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+                                                                      "run-tests",
+                                                                      "craft-review"
+                                                                  ],
+                                                       "id":  "qa",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  null,
+                                    "id":  "testing-strategy"
+                                },
+                                {
+                                    "paths":  [
+                                                  "backend/**",
+                                                  "src/**/api/**",
+                                                  "services/**"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+                                                                      "craft-review"
+                                                                  ],
+                                                       "id":  "backend",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+                                                                      "craft-review"
+                                                                  ],
+                                                       "id":  "solutions-architect",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "consult_post",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  null,
+                                    "id":  "craft-backend"
+                                },
+                                {
+                                    "paths":  [
+                                                  "frontend/**",
+                                                  "apps/web/**",
+                                                  "apps/mobile/**"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+                                                                      "craft-review"
+                                                                  ],
+                                                       "id":  "frontend",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  null,
+                                    "id":  "craft-frontend"
+                                },
+                                {
+                                    "paths":  [
+                                                  ".github/workflows/**",
+                                                  "infrastructure/**",
+                                                  "docker-compose*.yml",
+                                                  "Dockerfile"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+
+                                                                  ],
+                                                       "id":  "release",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  null,
+                                    "id":  "infra-deploy"
+                                },
+                                {
+                                    "paths":  [
+                                                  "**"
+                                              ],
+                                    "agents":  [
+                                                   {
+                                                       "skills":  [
+                                                                      "craft-review",
+                                                                      "run-tests"
+                                                                  ],
+                                                       "id":  "qa",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+
+                                                                  ],
+                                                       "id":  "pr-steward",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "activate"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+                                                                      "craft-review"
+                                                                  ],
+                                                       "id":  "clean-craft-advisor",
+                                                       "type":  "domain",
+                                                       "autonomy":  [
+                                                                        "consult"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+                                                                      "test-strategy"
+                                                                  ],
+                                                       "id":  "test-architect",
+                                                       "type":  "domain",
+                                                       "autonomy":  [
+                                                                        "consult"
+                                                                    ]
+                                                   },
+                                                   {
+                                                       "skills":  [
+                                                                      "dep-audit",
+                                                                      "code-review"
+                                                                  ],
+                                                       "id":  "security",
+                                                       "type":  "operational",
+                                                       "autonomy":  [
+                                                                        "consult",
+                                                                        "invoke_skill"
+                                                                    ]
+                                                   }
+                                               ],
+                                    "when":  "pull_request",
+                                    "id":  "pr-always"
+                                }
+                            ],
+                  "paths":  [
+                                {
+                                    "pattern":  "**",
+                                    "rules":  [
+                                                  "pr-always"
+                                              ],
+                                    "agents":  [
+                                                   "qa",
+                                                   "security"
+                                               ]
+                                },
+                                {
+                                    "pattern":  ".github/**",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "pr-steward"
+                                               ]
+                                },
+                                {
+                                    "pattern":  ".github/workflows/**",
+                                    "rules":  [
+                                                  "infra-deploy"
+                                              ],
+                                    "agents":  [
+                                                   "release"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "AGENTS.md",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "docs-steward"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "apps/mobile/**",
+                                    "rules":  [
+                                                  "craft-frontend"
+                                              ],
+                                    "agents":  [
+                                                   "frontend"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "apps/web/**",
+                                    "rules":  [
+                                                  "craft-frontend"
+                                              ],
+                                    "agents":  [
+                                                   "frontend"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "backend/**",
+                                    "rules":  [
+                                                  "craft-backend"
+                                              ],
+                                    "agents":  [
+                                                   "backend",
+                                                   "clean-craft-advisor"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docker-compose*.yml",
+                                    "rules":  [
+                                                  "infra-deploy"
+                                              ],
+                                    "agents":  [
+                                                   "release"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "Dockerfile",
+                                    "rules":  [
+                                                  "infra-deploy"
+                                              ],
+                                    "agents":  [
+                                                   "release"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/**",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "docs-steward"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/_meta/PHASE_QUEUE.yaml",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "planner"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/adr/**",
+                                    "rules":  [
+                                                  "architecture-docs"
+                                              ],
+                                    "agents":  [
+                                                   "architecture-documenter"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/architecture/**",
+                                    "rules":  [
+                                                  "architecture-docs"
+                                              ],
+                                    "agents":  [
+                                                   "architecture-documenter",
+                                                   "clean-craft-advisor",
+                                                   "test-architect",
+                                                   "solutions-architect"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/backlog/**",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "planner"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/design/**",
+                                    "rules":  [
+                                                  "architecture-docs"
+                                              ],
+                                    "agents":  [
+                                                   "architecture-documenter",
+                                                   "clean-craft-advisor",
+                                                   "solutions-architect"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/specs/**",
+                                    "rules":  [
+                                                  "specs-sdd"
+                                              ],
+                                    "agents":  [
+                                                   "test-architect",
+                                                   "planner",
+                                                   "spec-steward"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "docs/testing/**",
+                                    "rules":  [
+                                                  "testing-strategy"
+                                              ],
+                                    "agents":  [
+                                                   "test-architect"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "e2e/**",
+                                    "rules":  [
+                                                  "testing-strategy"
+                                              ],
+                                    "agents":  [
+                                                   "test-architect"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "frontend/**",
+                                    "rules":  [
+                                                  "craft-frontend"
+                                              ],
+                                    "agents":  [
+                                                   "clean-craft-advisor",
+                                                   "frontend"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "infrastructure/**",
+                                    "rules":  [
+                                                  "infra-deploy"
+                                              ],
+                                    "agents":  [
+                                                   "release"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "public/audio/**",
+                                    "rules":  [
+                                                  "domain-chant-content"
+                                              ],
+                                    "agents":  [
+                                                   "chant-content"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "README.md",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "docs-steward"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "scripts/**chant**",
+                                    "rules":  [
+                                                  "domain-chant-content"
+                                              ],
+                                    "agents":  [
+                                                   "chant-content"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "scripts/harness/**",
+                                    "rules":  [
+                                                  "specs-sdd"
+                                              ],
+                                    "agents":  [
+                                                   "spec-steward"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "scripts/lib/chant-timestamps.mjs",
+                                    "rules":  [
+                                                  "domain-chant-content"
+                                              ],
+                                    "agents":  [
+                                                   "chant-content"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "services/**",
+                                    "rules":  [
+                                                  "craft-backend"
+                                              ],
+                                    "agents":  [
+                                                   "backend"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "src/**",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "clean-craft-advisor"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "src/**/api/**",
+                                    "rules":  [
+                                                  "craft-backend"
+                                              ],
+                                    "agents":  [
+                                                   "backend"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "src/**/ui/**",
+                                    "rules":  [
+
+                                              ],
+                                    "agents":  [
+                                                   "frontend"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "src/content/chants/**",
+                                    "rules":  [
+                                                  "domain-chant-content"
+                                              ],
+                                    "agents":  [
+                                                   "chant-content"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "src/content/schemas/**",
+                                    "rules":  [
+                                                  "domain-chant-content"
+                                              ],
+                                    "agents":  [
+                                                   "chant-content"
+                                               ]
+                                },
+                                {
+                                    "pattern":  "tests/**",
+                                    "rules":  [
+                                                  "testing-strategy"
+                                              ],
+                                    "agents":  [
+                                                   "test-architect"
+                                               ]
+                                }
+                            ],
+                  "domains":  [
+
+                              ],
+                  "specs":  [
+
+                            ],
+                  "harnesses":  [
+
+                                ],
+                  "tests":  [
+
+                            ],
+                  "guardrails":  [
+                                     {
+                                         "id":  "adr_required_for_structural_decisions",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "clean-architecture",
+                                         "executable":  true
+                                     },
+                                     {
+                                         "id":  "comment_only",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "complements_not_replaces_linter",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "consult_only",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "max_autonomy",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "no_merge",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "no_side_effects",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "no_stack_prescription",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "no-merge-automatic",
+                                         "executable":  true
+                                     },
+                                     {
+                                         "id":  "no-secrets-in-repo",
+                                         "executable":  true
+                                     },
+                                     {
+                                         "id":  "production-gate-human",
+                                         "executable":  true
+                                     },
+                                     {
+                                         "id":  "require_ci",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "risk_based",
+                                         "executable":  false
+                                     },
+                                     {
+                                         "id":  "sync-docs-on-behavior-change",
+                                         "executable":  true
+                                     },
+                                     {
+                                         "id":  "territory-data-stays-on-instance",
+                                         "executable":  true
+                                     }
+                                 ],
+                  "workflows":  [
+                                    {
+                                        "id":  "agents-validate.yml",
+                                        "path":  ".github/workflows/agents-validate.yml",
+                                        "role":  "Valida manifests de agentes/skills"
+                                    },
+                                    {
+                                        "id":  "ai-validate-pr.yml",
+                                        "path":  ".github/workflows/ai-validate-pr.yml",
+                                        "role":  null
+                                    },
+                                    {
+                                        "id":  "ci.yml",
+                                        "path":  ".github/workflows/ci.yml",
+                                        "role":  "Build + testes"
+                                    },
+                                    {
+                                        "id":  "deploy.yml",
+                                        "path":  ".github/workflows/deploy.yml",
+                                        "role":  null
+                                    }
+                                ],
+                  "review_gates":  [
+                                       {
+                                           "id":  "ci",
+                                           "kind":  "automated",
+                                           "description":  "CI verde obrigatório (ci.yml + agents-gates.yml)"
+                                       },
+                                       {
+                                           "id":  "qa",
+                                           "kind":  "automated",
+                                           "description":  "QA ativado pela rule pr-always"
+                                       },
+                                       {
+                                           "id":  "bot-review",
+                                           "kind":  "bot",
+                                           "description":  "Apontamentos de bots resolvidos (CodeRabbit, CodeQL, ...)"
+                                       },
+                                       {
+                                           "id":  "pr-steward",
+                                           "kind":  "automated",
+                                           "description":  "Aplica ready-for-merge só com gates OK"
+                                       },
+                                       {
+                                           "id":  "human-review",
+                                           "kind":  "human",
+                                           "description":  "Merge humano obrigatório (guardrail no_merge)"
+                                       }
+                                   ]
+              },
+    "edges":  [
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "agent:architecture-documenter",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "agent:clean-craft-advisor",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "agent:solutions-architect",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:craft-backend",
+                      "to":  "agent:backend",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:craft-backend",
+                      "to":  "agent:solutions-architect",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:craft-frontend",
+                      "to":  "agent:frontend",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:domain-chant-content",
+                      "to":  "agent:chant-content",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:infra-deploy",
+                      "to":  "agent:release",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "agent:clean-craft-advisor",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "agent:pr-steward",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "agent:qa",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "agent:security",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "agent:test-architect",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:specs-sdd",
+                      "to":  "agent:spec-steward",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:testing-strategy",
+                      "to":  "agent:qa",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "rule:testing-strategy",
+                      "to":  "agent:test-architect",
+                      "type":  "activates_agent"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "guardrail:adr_required_for_structural_decisions",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "guardrail:consult_only",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:backend",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:backend",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:chant-content",
+                      "to":  "guardrail:consult_only",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:chant-content",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:clean-craft-advisor",
+                      "to":  "guardrail:complements_not_replaces_linter",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:clean-craft-advisor",
+                      "to":  "guardrail:consult_only",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:clean-craft-advisor",
+                      "to":  "guardrail:no_stack_prescription",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:docs-steward",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:docs-steward",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:frontend",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:frontend",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:orchestrator",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:orchestrator",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:planner",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:planner",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:pr-steward",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:pr-steward",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "guardrail:comment_only",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:release",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:release",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:security",
+                      "to":  "guardrail:comment_only",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:security",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:security",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "guardrail:adr_required_for_structural_decisions",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:spec-steward",
+                      "to":  "guardrail:no_merge",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:spec-steward",
+                      "to":  "guardrail:require_ci",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:test-architect",
+                      "to":  "guardrail:no_side_effects",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:test-architect",
+                      "to":  "guardrail:risk_based",
+                      "type":  "blocked_by_guardrail",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "guardrail:clean-architecture",
+                      "to":  "workflow:agents-validate.yml",
+                      "type":  "enforced_by_workflow"
+                  },
+                  {
+                      "from":  "guardrail:no-merge-automatic",
+                      "to":  "workflow:agents-validate.yml",
+                      "type":  "enforced_by_workflow"
+                  },
+                  {
+                      "from":  "guardrail:no-secrets-in-repo",
+                      "to":  "workflow:agents-validate.yml",
+                      "type":  "enforced_by_workflow"
+                  },
+                  {
+                      "from":  "guardrail:production-gate-human",
+                      "to":  "workflow:agents-validate.yml",
+                      "type":  "enforced_by_workflow"
+                  },
+                  {
+                      "from":  "guardrail:sync-docs-on-behavior-change",
+                      "to":  "workflow:agents-validate.yml",
+                      "type":  "enforced_by_workflow"
+                  },
+                  {
+                      "from":  "guardrail:territory-data-stays-on-instance",
+                      "to":  "workflow:agents-validate.yml",
+                      "type":  "enforced_by_workflow"
+                  },
+                  {
+                      "from":  "path:**",
+                      "to":  "rule:pr-always",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:.github/workflows/**",
+                      "to":  "rule:infra-deploy",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:apps/mobile/**",
+                      "to":  "rule:craft-frontend",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:apps/web/**",
+                      "to":  "rule:craft-frontend",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:backend/**",
+                      "to":  "rule:craft-backend",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:docker-compose*.yml",
+                      "to":  "rule:infra-deploy",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:Dockerfile",
+                      "to":  "rule:infra-deploy",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:docs/adr/**",
+                      "to":  "rule:architecture-docs",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:docs/architecture/**",
+                      "to":  "rule:architecture-docs",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:docs/design/**",
+                      "to":  "rule:architecture-docs",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:docs/specs/**",
+                      "to":  "rule:specs-sdd",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:docs/testing/**",
+                      "to":  "rule:testing-strategy",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:e2e/**",
+                      "to":  "rule:testing-strategy",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:frontend/**",
+                      "to":  "rule:craft-frontend",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:infrastructure/**",
+                      "to":  "rule:infra-deploy",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:public/audio/**",
+                      "to":  "rule:domain-chant-content",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:scripts/**chant**",
+                      "to":  "rule:domain-chant-content",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:scripts/harness/**",
+                      "to":  "rule:specs-sdd",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:scripts/lib/chant-timestamps.mjs",
+                      "to":  "rule:domain-chant-content",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:services/**",
+                      "to":  "rule:craft-backend",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:src/**/api/**",
+                      "to":  "rule:craft-backend",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:src/content/chants/**",
+                      "to":  "rule:domain-chant-content",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:src/content/schemas/**",
+                      "to":  "rule:domain-chant-content",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "path:tests/**",
+                      "to":  "rule:testing-strategy",
+                      "type":  "matches_rule"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "skill:architecture-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "skill:architecture-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "skill:doc-taxonomy",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "skill:doc-taxonomy",
+                      "type":  "may_invoke_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "skill:register-adr",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:architecture-documenter",
+                      "to":  "skill:register-adr",
+                      "type":  "may_invoke_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "agent:backend",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:backend",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "craft-backend"
+                  },
+                  {
+                      "from":  "agent:backend",
+                      "to":  "skill:open-pr",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:backend",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:backend",
+                      "to":  "skill:sync-docs",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:clean-craft-advisor",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:clean-craft-advisor",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "agent:clean-craft-advisor",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "agent:docs-steward",
+                      "to":  "skill:doc-taxonomy",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:docs-steward",
+                      "to":  "skill:sync-docs",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:frontend",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "craft-frontend"
+                  },
+                  {
+                      "from":  "agent:frontend",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:frontend",
+                      "to":  "skill:open-pr",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:frontend",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:frontend",
+                      "to":  "skill:sync-docs",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:orchestrator",
+                      "to":  "skill:backlog-to-issue",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:orchestrator",
+                      "to":  "skill:harness-run",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:orchestrator",
+                      "to":  "skill:open-pr",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:planner",
+                      "to":  "skill:backlog-to-issue",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:planner",
+                      "to":  "skill:spec-author",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:pr-steward",
+                      "to":  "skill:address-bot-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:pr-steward",
+                      "to":  "skill:next-phase",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:pr-steward",
+                      "to":  "skill:respond-bot-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:code-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:harness-run",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "agent:qa",
+                      "to":  "skill:spec-validate",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:release",
+                      "to":  "skill:iac-plan",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:release",
+                      "to":  "skill:release-cut",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:release",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:security",
+                      "to":  "skill:code-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "agent:security",
+                      "to":  "skill:code-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:security",
+                      "to":  "skill:dep-audit",
+                      "type":  "may_invoke_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "agent:security",
+                      "to":  "skill:dep-audit",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:architecture-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:architecture-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "craft-backend"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:craft-review",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:register-adr",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:register-adr",
+                      "type":  "may_invoke_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "agent:solutions-architect",
+                      "to":  "skill:test-strategy",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:spec-steward",
+                      "to":  "skill:harness-run",
+                      "type":  "may_invoke_skill",
+                      "via":  "specs-sdd"
+                  },
+                  {
+                      "from":  "agent:spec-steward",
+                      "to":  "skill:harness-run",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:spec-steward",
+                      "to":  "skill:spec-author",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:spec-steward",
+                      "to":  "skill:spec-validate",
+                      "type":  "may_invoke_skill",
+                      "via":  "specs-sdd"
+                  },
+                  {
+                      "from":  "agent:spec-steward",
+                      "to":  "skill:spec-validate",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:test-architect",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "agent:test-architect",
+                      "to":  "skill:run-tests",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:test-architect",
+                      "to":  "skill:test-strategy",
+                      "type":  "may_invoke_skill",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "agent:test-architect",
+                      "to":  "skill:test-strategy",
+                      "type":  "may_invoke_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "agent:test-architect",
+                      "to":  "skill:test-strategy",
+                      "type":  "may_invoke_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "gate:bot-review",
+                      "to":  "gate:pr-steward",
+                      "type":  "requires_human_review"
+                  },
+                  {
+                      "from":  "gate:ci",
+                      "to":  "gate:pr-steward",
+                      "type":  "requires_human_review"
+                  },
+                  {
+                      "from":  "gate:pr-steward",
+                      "to":  "gate:human-review",
+                      "type":  "requires_human_review"
+                  },
+                  {
+                      "from":  "gate:qa",
+                      "to":  "gate:pr-steward",
+                      "type":  "requires_human_review"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "skill:architecture-review",
+                      "type":  "requires_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "skill:architecture-review",
+                      "type":  "requires_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "skill:doc-taxonomy",
+                      "type":  "requires_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "skill:register-adr",
+                      "type":  "requires_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "rule:architecture-docs",
+                      "to":  "skill:register-adr",
+                      "type":  "requires_skill",
+                      "via":  "architecture-docs"
+                  },
+                  {
+                      "from":  "rule:craft-backend",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "craft-backend"
+                  },
+                  {
+                      "from":  "rule:craft-backend",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "craft-backend"
+                  },
+                  {
+                      "from":  "rule:craft-frontend",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "craft-frontend"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "skill:code-review",
+                      "type":  "requires_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "skill:dep-audit",
+                      "type":  "requires_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "skill:run-tests",
+                      "type":  "requires_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "rule:pr-always",
+                      "to":  "skill:test-strategy",
+                      "type":  "requires_skill",
+                      "via":  "pr-always"
+                  },
+                  {
+                      "from":  "rule:specs-sdd",
+                      "to":  "skill:harness-run",
+                      "type":  "requires_skill",
+                      "via":  "specs-sdd"
+                  },
+                  {
+                      "from":  "rule:specs-sdd",
+                      "to":  "skill:spec-validate",
+                      "type":  "requires_skill",
+                      "via":  "specs-sdd"
+                  },
+                  {
+                      "from":  "rule:testing-strategy",
+                      "to":  "skill:craft-review",
+                      "type":  "requires_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "rule:testing-strategy",
+                      "to":  "skill:run-tests",
+                      "type":  "requires_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "rule:testing-strategy",
+                      "to":  "skill:run-tests",
+                      "type":  "requires_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "rule:testing-strategy",
+                      "to":  "skill:test-strategy",
+                      "type":  "requires_skill",
+                      "via":  "testing-strategy"
+                  },
+                  {
+                      "from":  "path:**",
+                      "to":  "agent:qa",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:**",
+                      "to":  "agent:security",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:.github/**",
+                      "to":  "agent:pr-steward",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:.github/workflows/**",
+                      "to":  "agent:release",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:AGENTS.md",
+                      "to":  "agent:docs-steward",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:apps/mobile/**",
+                      "to":  "agent:frontend",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:apps/web/**",
+                      "to":  "agent:frontend",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:backend/**",
+                      "to":  "agent:backend",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:backend/**",
+                      "to":  "agent:clean-craft-advisor",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docker-compose*.yml",
+                      "to":  "agent:release",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:Dockerfile",
+                      "to":  "agent:release",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/**",
+                      "to":  "agent:docs-steward",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/_meta/PHASE_QUEUE.yaml",
+                      "to":  "agent:planner",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/adr/**",
+                      "to":  "agent:architecture-documenter",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/architecture/**",
+                      "to":  "agent:architecture-documenter",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/architecture/**",
+                      "to":  "agent:clean-craft-advisor",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/architecture/**",
+                      "to":  "agent:solutions-architect",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/architecture/**",
+                      "to":  "agent:test-architect",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/backlog/**",
+                      "to":  "agent:planner",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/design/**",
+                      "to":  "agent:architecture-documenter",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/design/**",
+                      "to":  "agent:clean-craft-advisor",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/design/**",
+                      "to":  "agent:solutions-architect",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/specs/**",
+                      "to":  "agent:planner",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/specs/**",
+                      "to":  "agent:spec-steward",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/specs/**",
+                      "to":  "agent:test-architect",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:docs/testing/**",
+                      "to":  "agent:test-architect",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:e2e/**",
+                      "to":  "agent:test-architect",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:frontend/**",
+                      "to":  "agent:clean-craft-advisor",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:frontend/**",
+                      "to":  "agent:frontend",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:infrastructure/**",
+                      "to":  "agent:release",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:public/audio/**",
+                      "to":  "agent:chant-content",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:README.md",
+                      "to":  "agent:docs-steward",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:scripts/**chant**",
+                      "to":  "agent:chant-content",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:scripts/harness/**",
+                      "to":  "agent:spec-steward",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:scripts/lib/chant-timestamps.mjs",
+                      "to":  "agent:chant-content",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:services/**",
+                      "to":  "agent:backend",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:src/**/api/**",
+                      "to":  "agent:backend",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:src/**/ui/**",
+                      "to":  "agent:frontend",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:src/**",
+                      "to":  "agent:clean-craft-advisor",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:src/content/chants/**",
+                      "to":  "agent:chant-content",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:src/content/schemas/**",
+                      "to":  "agent:chant-content",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  },
+                  {
+                      "from":  "path:tests/**",
+                      "to":  "agent:test-architect",
+                      "type":  "scopes_agent",
+                      "via":  "manifest"
+                  }
+              ]
+}

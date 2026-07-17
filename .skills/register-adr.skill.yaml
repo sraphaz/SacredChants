@@ -1,0 +1,5 @@
+id: register-adr
+description: Registra Architecture Decision Record.
+run:
+  script: scripts/agents/register-adr.ps1
+success: exit_code == 0

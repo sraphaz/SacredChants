@@ -1,0 +1,69 @@
+# Autonomy levels — ARAH Harness
+# Source of truth for choreography, audit trails, and human gates.
+version: "1.0"
+updated: 2026-07-06
+
+levels:
+  observe:
+    rank: 0
+    description: Read session, specs, choreography — no writes
+  consult:
+    rank: 1
+    description: Domain advisory — no artifact changes
+  route:
+    rank: 2
+    description: Suggest handoff and options — orchestrator
+  activate:
+    rank: 3
+    description: Write manifests, specs, docs in scope
+  invoke_skill:
+    rank: 4
+    description: Run skills/scripts (run-tests, spec-validate, etc.)
+  side_effect:
+    rank: 5
+    description: Release, deploy hooks, external registry
+  public:
+    rank: 6
+    description: Public release — always requires explicit human gate
+
+agent_defaults:
+  orchestrator: route
+  planner: activate
+  spec-steward: invoke_skill
+  solutions-architect: activate
+  architecture-documenter: consult
+  clean-craft-advisor: consult
+  test-architect: consult
+  backend: activate
+  frontend: activate
+  qa: invoke_skill
+  pr-steward: activate
+  release: side_effect
+  security: consult
+
+human_gates:
+  spec_before_work:
+    required_before: [invoke_skill, side_effect]
+    approval_stage: spec_before_work
+  release_approval:
+    required_before: [side_effect]
+    approval_stage: release_approval
+  destructive:
+    required_before: [side_effect]
+    approval_stage: destructive
+    always_explicit_user: true
+
+actions:
+  - session.read
+  - session.write
+  - domain.consult
+  - route.handoff
+  - skill.invoke
+  - pr.comment
+  - release.cut
+  - deploy.trigger
+  - human.gate.requested
+  - human.gate.approved
+  - human.gate.denied
+  - choreography.resolve
+  - autonomy.blocked
