@@ -21,13 +21,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable auto-merge for version updates
-        # Patch/minor always; major only for known-safe tooling (CLI/CI), not app frameworks.
+        # Patch/minor always; major only for release/deploy CLI tooling (not test/app frameworks).
         if: |
           steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
           steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
           (
             steps.metadata.outputs.update-type == 'version-update:semver-major' &&
-            contains(fromJSON('["vercel","semantic-release","@semantic-release/commit-analyzer","@semantic-release/github","@semantic-release/release-notes-generator","@types/node","typescript","cross-env","serve","sharp","vitest","@playwright/test"]'), steps.metadata.outputs.dependency-names)
+            contains(fromJSON('["vercel","semantic-release","@semantic-release/commit-analyzer","@semantic-release/github","@semantic-release/release-notes-generator","@types/node","typescript","cross-env","serve"]'), steps.metadata.outputs.dependency-names)
           )
         run: gh pr merge --auto --squash "$PR_URL"
         env:
