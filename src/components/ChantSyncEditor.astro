@@ -1,0 +1,114 @@
+---
+import { SUPPORTED_LOCALES, type Locale } from '../i18n/strings';
+
+interface SyncEditorLabels {
+  editSync: string;
+  editOn: string;
+  editOff: string;
+  line: string;
+  nudgeHint: string;
+  editHint: string;
+  draftSaved: string;
+  draftRestored: string;
+  copyJson: string;
+  downloadJson: string;
+  reset: string;
+  openPr: string;
+  copied: string;
+  copyFailed: string;
+  downloaded: string;
+  resetDone: string;
+  nudged: string;
+  noChanges: string;
+  prSubmitting: string;
+  prOk: string;
+  prFailed: string;
+  prAuth: string;
+  prUnavailable: string;
+  hotkeys: string;
+}
+
+interface Props {
+  slug: string;
+  labelsByLocale: Record<Locale, SyncEditorLabels>;
+  apiOrigin?: string;
+}
+
+const { slug, labelsByLocale, apiOrigin = '' } = Astro.props;
+const locales = [...SUPPORTED_LOCALES] as Locale[];
+const en = labelsByLocale.en;
+---
+
+<aside
+  id="chant-sync-editor"
+  class="chant-sync-rail"
+  hidden
+  data-slug={slug}
+  data-api-origin={apiOrigin}
+  aria-label={en.editSync}
+>
+  <!-- Idle: hairline on the right edge -->
+  <div class="chant-sync-rail__edge" aria-hidden="true"></div>
+
+  <!-- Revealed: slim vertical jog slider -->
+  <div
+    id="chant-sync-editor-pad"
+    class="chant-sync-rail__dial"
+    role="slider"
+    aria-orientation="vertical"
+    aria-label={en.nudgeHint}
+    aria-valuetext=""
+    tabindex="0"
+  >
+    <span id="chant-sync-editor-start" class="chant-sync-rail__start"></span>
+    <span id="chant-sync-editor-line" class="chant-sync-rail__line" hidden></span>
+    <span id="chant-sync-editor-dirty" class="chant-sync-rail__dot" hidden title={en.draftSaved} aria-label={en.draftSaved}></span>
+
+    <div
+      id="chant-sync-rail-track"
+      class="chant-sync-rail__track"
+      aria-hidden="true"
+    >
+      <div class="chant-sync-rail__groove"></div>
+      <div id="chant-sync-rail-thumb" class="chant-sync-rail__thumb"></div>
+    </div>
+
+    <div class="chant-sync-rail__menu-wrap">
+      <button
+        type="button"
+        id="chant-sync-rail-menu-btn"
+        class="chant-sync-rail__menu-btn"
+        aria-expanded="false"
+        aria-controls="chant-sync-rail-menu"
+        aria-haspopup="true"
+        title="…"
+      >
+        ·
+      </button>
+      <div id="chant-sync-rail-menu" class="chant-sync-rail__menu" hidden role="menu">
+        <button type="button" role="menuitem" id="chant-sync-export-copy" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].copyJson}</span>
+          ))}
+        </button>
+        <button type="button" role="menuitem" id="chant-sync-export-download" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].downloadJson}</span>
+          ))}
+        </button>
+        <button type="button" role="menuitem" id="chant-sync-editor-reset" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].reset}</span>
+          ))}
+        </button>
+        <button type="button" role="menuitem" id="chant-sync-export-pr" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].openPr}</span>
+          ))}
+        </button>
+      </div>
+    </div>
+
+    <p id="chant-sync-editor-status" class="chant-sync-rail__status" hidden role="status"></p>
+  </div>
+</aside>

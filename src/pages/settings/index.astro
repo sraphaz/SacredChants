@@ -3,11 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { ui, getLocaleFromUrl, SUPPORTED_LOCALES } from '../../i18n/strings';
-import { getFullBase } from '../../utils/base';
+import { getFullBase, getBasePath } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 
 const locale = getLocaleFromUrl(Astro.url.searchParams);
 const FULL_BASE = getFullBase(Astro.url);
+const basePath = getBasePath();
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -603,7 +604,7 @@ const pageUrlForOffline = buildCanonicalPageUrl(
     }
   </style>
 
-  <script type="module" src={`${FULL_BASE}scripts/settings-offline-panel.js`}></script>
+  <script type="module" src={`${basePath}scripts/settings-offline-panel.js`}></script>
   <script is:inline define:vars={{ supportedLocalesJson }}>
     (function() {
       var STORAGE = 'sacred-chants-';

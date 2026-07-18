@@ -14,7 +14,8 @@ export const getBasePath = (): string =>
 
 /**
  * Returns the full base URL of the site (origin + base path).
- * Use for absolute hrefs (e.g. /chants/, /knowledge/).
+ * Prefer getBasePath() for <base href>, scripts, and same-origin nav so a
+ * production-built dist remains portable under local `astro preview`.
  *
  * @param url - Typically Astro.url or request URL (must have .origin)
  * @returns e.g. "https://example.com/" or "https://example.com/base/"
