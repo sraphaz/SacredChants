@@ -18,9 +18,9 @@ const distIndex = join(root, 'dist', 'index.html');
 /** Porta fixa para o Playwright bater certo com `webServer.url` (defeito: 4174 — fora da 4321 do `astro dev`). */
 const previewPort = (process.env.E2E_PREVIEW_PORT || '').trim() || '4174';
 /**
- * O build estático usa `site` (astro.config) para `<base href>` e URLs absolutas de scripts.
- * Sem isto, o preview em 127.0.0.1 carregaria JS/CSS de produção e o locale na URL (ex. ?lang=ar)
- * não coincidia com o bundle antigo — E2E falhavam de forma intermitente/errática.
+ * O build estático usa `site` (astro.config) como Astro.url.origin em links absolutos
+ * (offline canonical, etc.). Assets/nav usam path-only base, mas SITE_ORIGIN local
+ * mantém o resto alinhado ao host do Playwright (evita E2E intermitente com ?lang=ar).
  */
 const previewOrigin = `http://127.0.0.1:${previewPort}`;
 const childEnv = {

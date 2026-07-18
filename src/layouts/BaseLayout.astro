@@ -9,15 +9,17 @@ import {
   type Locale,
 } from '../i18n/strings';
 import { PAGE_SEO } from '../i18n/page-seo';
-import { getFullBase, getBasePath } from '../utils/base';
+import { getBasePath } from '../utils/base';
 import NavLinkList from '../components/NavLinkList.astro';
 import FooterTaglines from '../components/FooterTaglines.astro';
 
-const FULL_BASE = getFullBase(Astro.url);
+/**
+ * Path-only base (e.g. "/") for <base href>, assets, and in-app links.
+ * Must NOT bake Astro.site origin — a production-built dist served via
+ * `astro preview` on 127.0.0.1 would otherwise pull JS/CSS from sacredchants.org
+ * (bare HTML / broken page) and break the PWA manifest origin check.
+ */
 const basePath = getBasePath();
-const pathname = Astro.url.pathname;
-const pathWithBase = pathname.startsWith(basePath) || pathname === basePath.replace(/\/$/, '') ? pathname : basePath.replace(/\/$/, '') + (pathname.startsWith('/') ? pathname : '/' + pathname);
-const FULL_PATH = Astro.url.origin + (pathWithBase.startsWith('/') ? pathWithBase : '/' + pathWithBase);
 
 interface Props {
   title: string;
@@ -52,15 +54,15 @@ const navItems = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href={FULL_BASE} />
-    <link rel="icon" type="image/png" sizes="32x32" href={`${FULL_BASE}favicon.png`} />
-    <link rel="apple-touch-icon" href={`${FULL_BASE}apple-touch-icon.png`} />
-    <link rel="manifest" href={`${FULL_BASE}manifest.webmanifest`} />
+    <base href={basePath} />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${basePath}favicon.png`} />
+    <link rel="apple-touch-icon" href={`${basePath}apple-touch-icon.png`} />
+    <link rel="manifest" href={`${basePath}manifest.webmanifest`} />
     <meta name="theme-color" content="#1a1a1a" />
     <meta name="description" content={description} />
     <title>{title} | Sacred Chants</title>
-    <script is:inline src={`${FULL_BASE}scripts/sc-locale-url-data.js`}></script>
-    <script is:inline src={`${FULL_BASE}scripts/init-theme-locale.js`}></script>
+    <script is:inline src={`${basePath}scripts/sc-locale-url-data.js`}></script>
+    <script is:inline src={`${basePath}scripts/init-theme-locale.js`}></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <header class="sc-header backdrop-blur" id="sc-header">
@@ -68,7 +70,7 @@ const navItems = [
         <div class="sc-header__brand shrink-0">
           {SUPPORTED_LOCALES.map((loc) => (
             <a
-              href={`${FULL_BASE}${langQuery(loc)}`}
+              href={`${basePath}${langQuery(loc)}`}
               class={`locale-${loc} font-serif text-base sc-header-a whitespace-nowrap`}
             >
               <span class={`locale-${loc}`}>Sacred Chants</span>
@@ -77,7 +79,7 @@ const navItems = [
         </div>
         <div class="sc-header__menu-inline">
           <ul class="sc-header__menu">
-            <NavLinkList fullBase={FULL_BASE} items={navItems} />
+            <NavLinkList fullBase={basePath} items={navItems} />
             <li class="sc-header__menu-lang-row">
               <label for="sc-locale-select" class="sr-only">{seo.localeSelectAriaLabel}</label>
               <select id="sc-locale-select" class="sc-locale-select" aria-label={seo.localeSelectAriaLabel} data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
@@ -105,7 +107,7 @@ const navItems = [
     <div class="sc-header__drawer-backdrop" id="sc-header-drawer-backdrop" aria-hidden="true"></div>
     <div class="sc-header__drawer" id="sc-header-drawer" role="navigation" aria-label={seo.siteMenuAriaLabel}>
       <ul class="sc-header__drawer-menu">
-        <NavLinkList fullBase={FULL_BASE} items={navItems} />
+        <NavLinkList fullBase={basePath} items={navItems} />
         <li class="sc-header__menu-lang-row">
           <label for="sc-locale-select-drawer" class="sr-only">{seo.localeSelectAriaLabel}</label>
           <select id="sc-locale-select-drawer" class="sc-locale-select" aria-label={seo.localeSelectAriaLabel} data-initial-locale={initialLocale} data-supported-locales={JSON.stringify([...SUPPORTED_LOCALES])}>
@@ -118,12 +120,14 @@ const navItems = [
         </li>
       </ul>
     </div>
-    <script is:inline src={`${FULL_BASE}scripts/drawer.js`}></script>
-    <script is:inline src={`${FULL_BASE}scripts/locale-select.js`}></script>
+    <script is:inline src={`${basePath}scripts/drawer.js`}></script>
+    <script is:inline src={`${basePath}scripts/locale-select.js`}></script>
     <script is:inline>
       (function () {
         if (!('serviceWorker' in navigator)) return;
-        if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
+        var host = location.hostname;
+        var isLocal = host === 'localhost' || host === '127.0.0.1';
+        if (location.protocol !== 'https:' && !isLocal) return;
         var base = document.querySelector('base');
         var swUrl = base ? new URL('sw.js', base.href).href : '/sw.js';
         window.addEventListener('load', function () {
@@ -143,6 +147,6 @@ const navItems = [
         </p>
       </div>
     </footer>
-    <script type="module" src={`${FULL_BASE}scripts/save-offline.js`}></script>
+    <script type="module" src={`${basePath}scripts/save-offline.js`}></script>
   </body>
 </html>

@@ -8,7 +8,7 @@ import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getEntry, getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl, SUPPORTED_LOCALES, type Locale } from '../../i18n/strings';
 import { getBandcampArtUrl } from '../../utils/bandcamp';
-import { getFullBase, getBasePath } from '../../utils/base';
+import { getBasePath } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 import {
   getAudioUrl,
@@ -41,14 +41,14 @@ if (!entry) {
 
 const chant = { ...entry.data, slug: entry.id };
 
-const FULL_BASE = getFullBase(Astro.url);
 const BASE_PATH = getBasePath();
 const pageUrlForOffline = buildCanonicalPageUrl(
   Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
-const audioUrlForPlayer = getAudioUrl(chant, FULL_BASE);
+/** Path-only so local preview/dev play the local MP3, not production. */
+const audioUrlForPlayer = getAudioUrl(chant, BASE_PATH);
 const apiOrigin = (import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN as string) ?? '';
 
 const bandcampArtImage =
@@ -233,7 +233,7 @@ const syncEditorLabelsByLocale = {
       )}
       {chant.audio && (
         <a
-          href={`${FULL_BASE}chants/${chant.slug}?autoplay=1&sync=1`}
+          href={`${BASE_PATH}chants/${chant.slug}?autoplay=1&sync=1`}
           class="chant-action-link inline-flex items-center gap-1.5 py-1 transition-colors hover:opacity-90"
           style="color: var(--sc-text-muted);"
           title="Copy or share this link so the chant opens with audio playing and lyrics sync on"
