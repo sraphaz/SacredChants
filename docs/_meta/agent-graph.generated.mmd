@@ -26,22 +26,22 @@ flowchart LR
     agent_clean_craft_advisor{{"clean-craft-advisor"}}
     agent_test_architect{{"test-architect"}}
   end
-  rule_architecture_docs --> agent_architecture_documenter
-  rule_architecture_docs --> agent_clean_craft_advisor
+  rule_architecture_docs -. consulta .-> agent_architecture_documenter
+  rule_architecture_docs -. consulta .-> agent_clean_craft_advisor
   rule_architecture_docs --> agent_solutions_architect
   rule_craft_backend --> agent_backend
   rule_craft_backend --> agent_solutions_architect
   rule_craft_frontend --> agent_frontend
-  rule_domain_chant_content --> agent_chant_content
+  rule_domain_chant_content -. consulta .-> agent_chant_content
   rule_infra_deploy --> agent_release
-  rule_pr_always --> agent_clean_craft_advisor
+  rule_pr_always -. consulta .-> agent_clean_craft_advisor
   rule_pr_always --> agent_pr_steward
   rule_pr_always --> agent_qa
   rule_pr_always --> agent_security
-  rule_pr_always --> agent_test_architect
+  rule_pr_always -. consulta .-> agent_test_architect
   rule_specs_sdd --> agent_spec_steward
   rule_testing_strategy --> agent_qa
-  rule_testing_strategy --> agent_test_architect
+  rule_testing_strategy -. consulta .-> agent_test_architect
   subgraph REVIEW["Pipeline de revisão (termina em humano)"]
     gate_ci["ci"]
     gate_qa["qa"]

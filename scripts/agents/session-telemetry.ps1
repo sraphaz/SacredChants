@@ -133,7 +133,7 @@ function Read-ActiveManifest {
     if (-not (Test-Path $ActiveFile)) { return $null }
     try {
         $raw = Get-Content $ActiveFile -Raw -Encoding UTF8
-        if ($raw.CharCodeAt(0) -eq 0xFEFF) { $raw = $raw.Substring(1) }
+        if ($raw.Length -ge 1 -and [int][char]$raw[0] -eq 0xFEFF) { $raw = $raw.Substring(1) }
         return ($raw | ConvertFrom-Json)
     } catch {
         return $null
@@ -203,7 +203,7 @@ function Migrate-LegacyState {
     if ($existing.Count -gt 0) { return }
     try {
         $raw = Get-Content $LegacyStateFile -Raw -Encoding UTF8
-        if ($raw.CharCodeAt(0) -eq 0xFEFF) { $raw = $raw.Substring(1) }
+        if ($raw.Length -ge 1 -and [int][char]$raw[0] -eq 0xFEFF) { $raw = $raw.Substring(1) }
         $obj = $raw | ConvertFrom-Json
         $sid = if ($obj.session_id) { [string]$obj.session_id } else { 'legacy' }
         $safe = Sanitize-SessionId -Id $sid

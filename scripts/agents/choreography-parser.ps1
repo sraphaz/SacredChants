@@ -41,7 +41,8 @@ function Parse-ChoreographyRules {
                 if ($chunk -match '(?m)^        skills:\s*\[(.+)\]') {
                     $skills = $Matches[1] -split ',' | ForEach-Object { $_.Trim() }
                 }
-                $agents += @{ id = $aid; type = $type; autonomy = @($autonomy); skills = @($skills) }
+                # Exporters/validators read `.kind`; choreograph/session still use `.type`.
+                $agents += @{ id = $aid; type = $type; kind = $type; autonomy = @($autonomy); skills = @($skills) }
             }
         }
         $rules += @{ id = $ruleId; when = $when; paths = @($paths); agents = @($agents) }
