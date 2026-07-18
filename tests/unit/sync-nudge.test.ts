@@ -9,22 +9,32 @@ import {
 } from '../../src/utils/sync-nudge';
 
 describe('nudgeStart', () => {
-  it('shifts the active line by delta', () => {
-    expect(nudgeStart([0, 10, 20], 1, 0.5)).toEqual([0, 10.5, 20]);
+  it('cascades delta from active line forward', () => {
+    expect(nudgeStart([0, 10, 20, 30], 1, 0.5)).toEqual([0, 10.5, 20.5, 30.5]);
   });
 
-  it('clamps against previous neighbor', () => {
+  it('does not shift lines before the active index', () => {
+    expect(nudgeStart([0, 10, 20], 2, -1)).toEqual([0, 10, 19]);
+  });
+
+  it('clamps effective delta against previous neighbor then cascades', () => {
     const out = nudgeStart([0, 10, 20], 1, -100);
-    expect(out[1]).toBe(roundStart(0 + SYNC_MIN_GAP));
+    const expectedAt1 = roundStart(0 + SYNC_MIN_GAP);
+    const effective = roundStart(expectedAt1 - 10);
+    expect(out[0]).toBe(0);
+    expect(out[1]).toBe(expectedAt1);
+    expect(out[2]).toBe(roundStart(20 + effective));
   });
 
-  it('clamps against next neighbor', () => {
-    const out = nudgeStart([0, 10, 20], 1, 100);
-    expect(out[1]).toBe(roundStart(20 - SYNC_MIN_GAP));
+  it('does not go below zero on first line (cascades remainder)', () => {
+    expect(nudgeStart([1, 10, 20], 0, -5)).toEqual([0, 9, 19]);
   });
 
-  it('does not go below zero on first line', () => {
-    expect(nudgeStart([1, 10], 0, -5)[0]).toBe(0);
+  it('preserves relative gaps among cascaded lines', () => {
+    const out = nudgeStart([0, 5, 8, 15], 1, 2);
+    expect(out).toEqual([0, 7, 10, 17]);
+    expect(roundStart(out[2]! - out[1]!)).toBe(3);
+    expect(roundStart(out[3]! - out[2]!)).toBe(7);
   });
 });
 

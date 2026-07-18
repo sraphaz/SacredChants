@@ -17,19 +17,26 @@
     return Math.round(sec * 1000) / 1000;
   }
 
+  /** Cascade Δ from active index forward (j >= index). */
   function nudgeStart(starts, index, delta) {
-    if (index < 0 || index >= starts.length || !isFinite(delta)) {
+    if (index < 0 || index >= starts.length || !isFinite(delta) || delta === 0) {
       return starts.slice();
     }
     var next = starts.slice();
     var prevMin = index > 0 ? next[index - 1] + MIN_GAP : 0;
-    var nextMax =
-      index + 1 < next.length ? next[index + 1] - MIN_GAP : Infinity;
-    var value = roundStart(next[index] + delta);
-    if (value < prevMin) value = roundStart(prevMin);
-    if (value > nextMax) value = roundStart(nextMax);
-    if (value < 0) value = 0;
-    next[index] = value;
+    var effective = delta;
+    var proposed = next[index] + delta;
+    if (proposed < prevMin) {
+      effective = prevMin - next[index];
+    }
+    if (index === 0 && next[0] + effective < 0) {
+      effective = -next[0];
+    }
+    effective = roundStart(effective);
+    if (effective === 0) return next;
+    for (var j = index; j < next.length; j++) {
+      next[j] = roundStart(Math.max(0, next[j] + effective));
+    }
     return next;
   }
 

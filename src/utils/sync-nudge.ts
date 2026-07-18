@@ -29,28 +29,34 @@ export function roundStart(sec: number): number {
 }
 
 /**
- * Nudge start at index by delta seconds, clamping so order is preserved
- * (start[i] stays between neighbors with SYNC_MIN_GAP).
+ * Nudge start at index by delta seconds and cascade the same shift to all
+ * later lines (j >= index). Relative gaps among the cascaded block stay
+ * intact. Only clamps against the previous line (and 0) — never shifts
+ * lines before the active index.
  */
 export function nudgeStart(
   starts: number[],
   index: number,
   delta: number
 ): number[] {
-  if (index < 0 || index >= starts.length || !Number.isFinite(delta)) {
+  if (index < 0 || index >= starts.length || !Number.isFinite(delta) || delta === 0) {
     return starts.slice();
   }
   const next = starts.slice();
   const prevMin = index > 0 ? next[index - 1]! + SYNC_MIN_GAP : 0;
-  const nextMax =
-    index + 1 < next.length
-      ? next[index + 1]! - SYNC_MIN_GAP
-      : Number.POSITIVE_INFINITY;
-  let value = roundStart(next[index]! + delta);
-  if (value < prevMin) value = roundStart(prevMin);
-  if (value > nextMax) value = roundStart(nextMax);
-  if (value < 0) value = 0;
-  next[index] = value;
+  let effective = delta;
+  const proposed = next[index]! + delta;
+  if (proposed < prevMin) {
+    effective = prevMin - next[index]!;
+  }
+  if (index === 0 && next[0]! + effective < 0) {
+    effective = -next[0]!;
+  }
+  effective = roundStart(effective);
+  if (effective === 0) return next;
+  for (let j = index; j < next.length; j++) {
+    next[j] = roundStart(Math.max(0, next[j]! + effective));
+  }
   return next;
 }
 
