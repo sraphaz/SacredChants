@@ -1,0 +1,114 @@
+# Coreografia de agentes — kernel ARAH (genérico)
+# Regras de domínio são mescladas no init a partir de arah.config.yaml
+version: 2
+updated: 2026-07-04
+policy: |
+  Regras aplicadas após roteamento do orquestrador. Agentes de domínio (negócio)
+  publicam parecer consultivo; operacionais ativam checklist + skills.
+
+rules:
+  - id: specs-sdd
+    paths:
+      - docs/specs/**
+      - scripts/harness/**
+    agents:
+      - id: spec-steward
+        type: operational
+        autonomy: [activate, invoke_skill]
+        skills: [spec-validate, harness-run]
+
+  - id: architecture-docs
+    paths:
+      - docs/architecture/**
+      - docs/design/**
+      - docs/adr/**
+    agents:
+      - id: solutions-architect
+        type: operational
+        autonomy: [activate, invoke_skill]
+        skills: [architecture-review, register-adr, craft-review]
+      - id: architecture-documenter
+        type: domain
+        autonomy: [consult]
+        skills: [architecture-review, register-adr, doc-taxonomy]
+      - id: clean-craft-advisor
+        type: domain
+        autonomy: [consult]
+        skills: [craft-review]
+
+  - id: testing-strategy
+    paths:
+      - docs/testing/**
+      - tests/**
+      - e2e/**
+    agents:
+      - id: test-architect
+        type: domain
+        autonomy: [consult]
+        skills: [test-strategy, run-tests]
+      - id: qa
+        type: operational
+        autonomy: [activate, invoke_skill]
+        skills: [run-tests, craft-review]
+
+  - id: craft-backend
+    paths:
+      - backend/**
+      - src/**/api/**
+      - services/**
+    agents:
+      - id: backend
+        type: operational
+        autonomy: [activate, invoke_skill]
+        skills: [craft-review]
+      - id: solutions-architect
+        type: operational
+        autonomy: [consult_post, invoke_skill]
+        skills: [craft-review]
+
+  - id: craft-frontend
+    paths:
+      - frontend/**
+      - apps/web/**
+      - apps/mobile/**
+    agents:
+      - id: frontend
+        type: operational
+        autonomy: [activate, invoke_skill]
+        skills: [craft-review]
+
+  - id: infra-deploy
+    paths:
+      - .github/workflows/**
+      - infrastructure/**
+      - docker-compose*.yml
+      - Dockerfile
+    agents:
+      - id: release
+        type: operational
+        autonomy: [activate]
+
+  - id: pr-always
+    paths:
+      - "**"
+    when: pull_request
+    agents:
+      - id: qa
+        type: operational
+        autonomy: [activate, invoke_skill]
+        skills: [craft-review, run-tests]
+      - id: pr-steward
+        type: operational
+        autonomy: [activate]
+      - id: clean-craft-advisor
+        type: domain
+        autonomy: [consult]
+        skills: [craft-review]
+      - id: test-architect
+        type: domain
+        autonomy: [consult]
+        skills: [test-strategy]
+      - id: security
+        type: operational
+        autonomy: [consult, invoke_skill]
+        skills: [dep-audit, code-review]

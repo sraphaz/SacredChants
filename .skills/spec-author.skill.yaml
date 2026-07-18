@@ -1,0 +1,5 @@
+id: spec-author
+description: Autoria de spec SDD a partir de template.
+run:
+  script: scripts/agents/spec-gate-check.ps1
+success: exit_code == 0

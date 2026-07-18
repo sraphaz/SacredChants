@@ -1,0 +1,18 @@
+id: security
+name: Security Agent
+description: Auditoria de dependências, secrets e compliance.
+triggers:
+  - pull_request:opened
+  - schedule
+scope:
+  paths:
+    - "**"
+  may_code: false
+skills:
+  - dep-audit
+  - code-review
+checklist: checklists/security.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true
+  comment_only: true

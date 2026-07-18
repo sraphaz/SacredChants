@@ -1,0 +1,55 @@
+flowchart LR
+  %% Gerado por scripts/agents/export-agent-graph.ps1 — não editar à mão
+  subgraph CHOREOGRAPHY["Coreografia (paths -> rules)"]
+    rule_architecture_docs["architecture-docs"]
+    rule_craft_backend["craft-backend"]
+    rule_craft_frontend["craft-frontend"]
+    rule_domain_chant_content["domain-chant-content"]
+    rule_infra_deploy["infra-deploy"]
+    rule_pr_always["pr-always"]
+    rule_specs_sdd["specs-sdd"]
+    rule_testing_strategy["testing-strategy"]
+  end
+  subgraph OPERATIONAL["Agentes operacionais"]
+    agent_backend(["backend"])
+    agent_frontend(["frontend"])
+    agent_pr_steward(["pr-steward"])
+    agent_qa(["qa"])
+    agent_release(["release"])
+    agent_security(["security"])
+    agent_solutions_architect(["solutions-architect"])
+    agent_spec_steward(["spec-steward"])
+  end
+  subgraph DOMAIN["Agentes de domínio (consultivos)"]
+    agent_architecture_documenter{{"architecture-documenter"}}
+    agent_chant_content{{"chant-content"}}
+    agent_clean_craft_advisor{{"clean-craft-advisor"}}
+    agent_test_architect{{"test-architect"}}
+  end
+  rule_architecture_docs -. consulta .-> agent_architecture_documenter
+  rule_architecture_docs -. consulta .-> agent_clean_craft_advisor
+  rule_architecture_docs --> agent_solutions_architect
+  rule_craft_backend --> agent_backend
+  rule_craft_backend --> agent_solutions_architect
+  rule_craft_frontend --> agent_frontend
+  rule_domain_chant_content -. consulta .-> agent_chant_content
+  rule_infra_deploy --> agent_release
+  rule_pr_always -. consulta .-> agent_clean_craft_advisor
+  rule_pr_always --> agent_pr_steward
+  rule_pr_always --> agent_qa
+  rule_pr_always --> agent_security
+  rule_pr_always -. consulta .-> agent_test_architect
+  rule_specs_sdd --> agent_spec_steward
+  rule_testing_strategy --> agent_qa
+  rule_testing_strategy -. consulta .-> agent_test_architect
+  subgraph REVIEW["Pipeline de revisão (termina em humano)"]
+    gate_ci["ci"]
+    gate_qa["qa"]
+    gate_bot_review["bot-review"]
+    gate_pr_steward["pr-steward"]
+    gate_human_review[["human-review"]]
+  end
+  gate_bot_review --> gate_pr_steward
+  gate_ci --> gate_pr_steward
+  gate_pr_steward --> gate_human_review
+  gate_qa --> gate_pr_steward
