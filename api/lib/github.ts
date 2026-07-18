@@ -99,3 +99,86 @@ export async function createContributionPR(params: CreatePRParams): Promise<{ pr
     branch: branchName,
   };
 }
+
+/** Parameters for creating a karaoke sync (timestamps-only) update PR. */
+export interface CreateSyncPRParams {
+  title: string;
+  body: string;
+  slug: string;
+  chantJson: string;
+  branchFrom?: string;
+}
+
+/**
+ * Creates a branch from ref, updates an existing chant JSON with new timestamps, opens a PR.
+ */
+export async function createSyncUpdatePR(
+  params: CreateSyncPRParams
+): Promise<{ prNumber: number; prUrl: string; branch: string }> {
+  const octokit = getOctokit();
+  const branchName = `sync/${params.slug}-${Date.now()}`;
+  const ref = params.branchFrom || 'main';
+
+  const { data: refData } = await octokit.rest.repos.getBranch({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    branch: ref,
+  });
+
+  await octokit.rest.git.createRef({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    ref: `refs/heads/${branchName}`,
+    sha: refData.commit.sha,
+  });
+
+  const path = `src/content/chants/${params.slug}.json`;
+  const { data: existing } = await octokit.rest.repos.getContent({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    path,
+    ref: branchName,
+  });
+
+  if (Array.isArray(existing) || existing.type !== 'file' || !('sha' in existing)) {
+    throw new Error(`Chant file not found: ${path}`);
+  }
+
+  const content = Buffer.from(params.chantJson, 'utf-8').toString('base64');
+
+  await octokit.rest.repos.createOrUpdateFileContents({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    path,
+    message: `fix(sync): update karaoke timestamps for ${params.slug}`,
+    content,
+    branch: branchName,
+    sha: existing.sha,
+  });
+
+  const { data: pr } = await octokit.rest.pulls.create({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    title: params.title,
+    body: params.body,
+    head: branchName,
+    base: ref,
+  });
+
+  try {
+    await octokit.rest.issues.addLabels({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      issue_number: pr.number,
+      labels: ['contribution'],
+    });
+  } catch {
+    // Label may not exist
+  }
+
+  return {
+    prNumber: pr.number,
+    prUrl: pr.html_url ?? `https://github.com/${REPO_OWNER}/${REPO_NAME}/pull/${pr.number}`,
+    branch: branchName,
+  };
+}

@@ -1,0 +1,97 @@
+---
+import { SUPPORTED_LOCALES, type Locale } from '../i18n/strings';
+
+interface SyncEditorLabels {
+  editSync: string;
+  editOn: string;
+  editOff: string;
+  line: string;
+  nudgeHint: string;
+  editHint: string;
+  draftSaved: string;
+  draftRestored: string;
+  copyJson: string;
+  downloadJson: string;
+  reset: string;
+  openPr: string;
+  copied: string;
+  copyFailed: string;
+  downloaded: string;
+  resetDone: string;
+  nudged: string;
+  noChanges: string;
+  prSubmitting: string;
+  prOk: string;
+  prFailed: string;
+  prAuth: string;
+  prUnavailable: string;
+  hotkeys: string;
+}
+
+interface Props {
+  slug: string;
+  labelsByLocale: Record<Locale, SyncEditorLabels>;
+  apiOrigin?: string;
+}
+
+const { slug, labelsByLocale, apiOrigin = '' } = Astro.props;
+const locales = [...SUPPORTED_LOCALES] as Locale[];
+const en = labelsByLocale.en;
+---
+
+<aside
+  id="chant-sync-editor"
+  class="chant-sync-editor"
+  hidden
+  data-slug={slug}
+  data-api-origin={apiOrigin}
+  aria-label={en.editSync}
+>
+  <div id="chant-sync-editor-panel" class="chant-sync-editor__panel">
+    <div class="chant-sync-editor__row chant-sync-editor__row--meta">
+      <span id="chant-sync-editor-line" class="chant-sync-editor__meta"></span>
+      <span id="chant-sync-editor-start" class="chant-sync-editor__meta chant-sync-editor__meta--start"></span>
+      <span id="chant-sync-editor-dirty" class="chant-sync-editor__dirty" hidden></span>
+    </div>
+
+    <div class="chant-sync-editor__row chant-sync-editor__nudges" role="group" aria-label={en.nudgeHint}>
+      <button type="button" class="chant-sync-editor__btn" data-nudge="-1" title="-1s">−1</button>
+      <button type="button" class="chant-sync-editor__btn" data-nudge="-0.5" title="-0.5s">−0.5</button>
+      <button type="button" class="chant-sync-editor__btn" data-nudge="-0.1" title="-0.1s">−0.1</button>
+      <button type="button" class="chant-sync-editor__btn chant-sync-editor__btn--accent" data-nudge="0.1" title="+0.1s">+0.1</button>
+      <button type="button" class="chant-sync-editor__btn chant-sync-editor__btn--accent" data-nudge="0.5" title="+0.5s">+0.5</button>
+      <button type="button" class="chant-sync-editor__btn chant-sync-editor__btn--accent" data-nudge="1" title="+1s">+1</button>
+    </div>
+
+    <p class="chant-sync-editor__hotkeys">
+      {locales.map((loc) => (
+        <span class={`locale-${loc}`}>{labelsByLocale[loc].hotkeys}</span>
+      ))}
+    </p>
+
+    <div class="chant-sync-editor__row chant-sync-editor__actions">
+      <button type="button" id="chant-sync-export-copy" class="chant-sync-editor__btn chant-sync-editor__btn--text">
+        {locales.map((loc) => (
+          <span class={`locale-${loc}`}>{labelsByLocale[loc].copyJson}</span>
+        ))}
+      </button>
+      <button type="button" id="chant-sync-export-download" class="chant-sync-editor__btn chant-sync-editor__btn--text">
+        {locales.map((loc) => (
+          <span class={`locale-${loc}`}>{labelsByLocale[loc].downloadJson}</span>
+        ))}
+      </button>
+      <button type="button" id="chant-sync-editor-reset" class="chant-sync-editor__btn chant-sync-editor__btn--text">
+        {locales.map((loc) => (
+          <span class={`locale-${loc}`}>{labelsByLocale[loc].reset}</span>
+        ))}
+      </button>
+      <button type="button" id="chant-sync-export-pr" class="chant-sync-editor__btn chant-sync-editor__btn--text">
+        {locales.map((loc) => (
+          <span class={`locale-${loc}`}>{labelsByLocale[loc].openPr}</span>
+        ))}
+      </button>
+    </div>
+
+    <p id="chant-sync-editor-status" class="chant-sync-editor__status" hidden role="status"></p>
+  </div>
+</aside>

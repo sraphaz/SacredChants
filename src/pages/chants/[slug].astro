@@ -3,11 +3,12 @@ import ChantLayout from '../../layouts/ChantLayout.astro';
 import ChantHeader from '../../components/ChantHeader.astro';
 import ChantVerse from '../../components/ChantVerse.astro';
 import ChantPlayerBar from '../../components/ChantPlayerBar.astro';
+import ChantSyncEditor from '../../components/ChantSyncEditor.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getEntry, getCollection } from 'astro:content';
-import { ui, getLocaleFromUrl, SUPPORTED_LOCALES } from '../../i18n/strings';
+import { ui, getLocaleFromUrl, SUPPORTED_LOCALES, type Locale } from '../../i18n/strings';
 import { getBandcampArtUrl } from '../../utils/bandcamp';
-import { getFullBase } from '../../utils/base';
+import { getFullBase, getBasePath } from '../../utils/base';
 import { buildCanonicalPageUrl } from '../../utils/offline-page-url';
 import {
   getAudioUrl,
@@ -41,12 +42,14 @@ if (!entry) {
 const chant = { ...entry.data, slug: entry.id };
 
 const FULL_BASE = getFullBase(Astro.url);
+const BASE_PATH = getBasePath();
 const pageUrlForOffline = buildCanonicalPageUrl(
   Astro.url.origin,
   Astro.url.pathname,
   Astro.url.search
 );
 const audioUrlForPlayer = getAudioUrl(chant, FULL_BASE);
+const apiOrigin = (import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN as string) ?? '';
 
 const bandcampArtImage =
   chant.bandcampArtImage ??
@@ -76,6 +79,44 @@ const translationFallbackByLocale: Record<
   hi: tHi.chant.translationFallback,
   ar: tAr.chant.translationFallback,
 };
+
+function syncEditorLabels(t: (typeof ui)[Locale]) {
+  return {
+    editSync: t.chant.editSync,
+    editOn: t.chant.editSyncOn,
+    editOff: t.chant.editSyncOff,
+    line: t.chant.syncEditLine,
+    nudgeHint: t.chant.syncEditNudgeHint,
+    editHint: t.chant.syncEditHint,
+    draftSaved: t.chant.syncEditDraftSaved,
+    draftRestored: t.chant.syncEditDraftRestored,
+    copyJson: t.chant.syncEditCopyJson,
+    downloadJson: t.chant.syncEditDownloadJson,
+    reset: t.chant.syncEditReset,
+    openPr: t.chant.syncEditOpenPr,
+    copied: t.chant.syncEditCopied,
+    copyFailed: t.chant.syncEditCopyFailed,
+    downloaded: t.chant.syncEditDownloaded,
+    resetDone: t.chant.syncEditResetDone,
+    nudged: t.chant.syncEditNudged,
+    noChanges: t.chant.syncEditNoChanges,
+    prSubmitting: t.chant.syncEditPrSubmitting,
+    prOk: t.chant.syncEditPrOk,
+    prFailed: t.chant.syncEditPrFailed,
+    prAuth: t.chant.syncEditPrAuth,
+    prUnavailable: t.chant.syncEditPrUnavailable,
+    hotkeys: t.chant.syncEditHotkeys,
+  };
+}
+
+const syncEditorLabelsByLocale = {
+  en: syncEditorLabels(tEn),
+  pt: syncEditorLabels(tPt),
+  es: syncEditorLabels(tEs),
+  it: syncEditorLabels(tIt),
+  hi: syncEditorLabels(tHi),
+  ar: syncEditorLabels(tAr),
+} as const;
 
 ---
 
@@ -206,6 +247,24 @@ const translationFallbackByLocale: Record<
           <span class="locale-ar">{tAr.chant.shareWithAutoplay}</span>
         </a>
       )}
+      {hasSync && (
+        <button
+          type="button"
+          id="chant-sync-edit-toggle"
+          class="chant-action-link inline-flex items-center gap-1.5 py-1 cursor-pointer border-0 bg-transparent transition-colors hover:opacity-90"
+          style="color: var(--sc-text-muted);"
+          aria-pressed="false"
+          data-edit-on=""
+        >
+          <span aria-hidden="true">✎</span>
+          <span class="locale-en">{tEn.chant.editSync}</span>
+          <span class="locale-pt">{tPt.chant.editSync}</span>
+          <span class="locale-es">{tEs.chant.editSync}</span>
+          <span class="locale-it">{tIt.chant.editSync}</span>
+          <span class="locale-hi">{tHi.chant.editSync}</span>
+          <span class="locale-ar">{tAr.chant.editSync}</span>
+        </button>
+      )}
       <SaveOfflineToggle
         mode="chantFeedback"
         storageSlug={chant.slug}
@@ -213,6 +272,13 @@ const translationFallbackByLocale: Record<
       />
     </nav>
   </div>
+  {hasSync && (
+    <ChantSyncEditor
+      slug={chant.slug}
+      labelsByLocale={syncEditorLabelsByLocale}
+      apiOrigin={apiOrigin}
+    />
+  )}
   {showTranslationFallback && (
     <p
       class="chant-translation-fallback mb-4 px-2 py-2 rounded text-sm border"
@@ -277,7 +343,14 @@ const translationFallbackByLocale: Record<
     document.getElementById('chant-download-pdf-btn')?.addEventListener('click', function() { window.print(); });
   </script>
   {hasSync && (
-    <script is:inline define:vars={{ syncLocalesJson: JSON.stringify([...SUPPORTED_LOCALES]) }}>
+    <>
+    <script is:inline src={`${BASE_PATH}scripts/chant-sync-editor.js`}></script>
+    <script is:inline define:vars={{
+      syncLocalesJson: JSON.stringify([...SUPPORTED_LOCALES]),
+      chantSlug: chant.slug,
+      apiOrigin,
+      editorLabelsJson: JSON.stringify(syncEditorLabelsByLocale),
+    }}>
       (function() {
         var STORAGE_KEY = 'chant-sync-enabled';
         var audio = document.getElementById('chant-audio');
@@ -295,6 +368,7 @@ const translationFallbackByLocale: Record<
         if (!audio || !list || !syncLines.length) return;
         var blocks = list.querySelectorAll('.verse-block[data-sync-index]');
         var lastActiveIndex = -1;
+        var baselineStarts = syncLines.map(function(l) { return Number(l.start); });
 
         var SYNC_LOCALES = [];
         try { SYNC_LOCALES = JSON.parse(syncLocalesJson); } catch (e) { SYNC_LOCALES = ['en','pt','es','it','hi','ar']; }
@@ -380,6 +454,21 @@ const translationFallbackByLocale: Record<
           });
         }
 
+        function applyStartsToDom(starts) {
+          for (var i = 0; i < syncLines.length && i < starts.length; i++) {
+            syncLines[i].start = starts[i];
+          }
+          blocks.forEach(function(el) {
+            var i = Number(el.getAttribute('data-sync-index'));
+            if (!isNaN(i) && starts[i] != null) {
+              el.setAttribute('data-start-time', String(starts[i]));
+            }
+          });
+          if (list) {
+            list.setAttribute('data-sync-lines', JSON.stringify(syncLines));
+          }
+        }
+
         var syncEnabled = getSyncEnabled();
         setSyncEnabled(syncEnabled);
         if (syncEnabled) {
@@ -427,7 +516,39 @@ const translationFallbackByLocale: Record<
             }
           });
         });
+
+        function refreshHighlight() {
+          if (!getSyncEnabled()) return;
+          var index = getCurrentLineIndex(audio.currentTime);
+          lastActiveIndex = index;
+          setActive(index, false);
+        }
+
+        var labelsAll = {};
+        try { labelsAll = JSON.parse(editorLabelsJson); } catch (e) { labelsAll = {}; }
+        var uiLocale = (document.documentElement.dataset && document.documentElement.dataset.locale) || 'en';
+        var labels = labelsAll[uiLocale] || labelsAll.en || {};
+
+        if (typeof window.SacredChantsSyncEditorInit === 'function') {
+          window.SacredChantsSyncEditorInit({
+            slug: chantSlug,
+            baselineStarts: baselineStarts,
+            apiOrigin: apiOrigin || '',
+            labels: labels,
+            getStarts: function() {
+              return syncLines.map(function(l) { return Number(l.start); });
+            },
+            setStarts: function(starts) {
+              applyStartsToDom(starts);
+            },
+            getActiveIndex: function() {
+              return getCurrentLineIndex(audio.currentTime);
+            },
+            refreshHighlight: refreshHighlight,
+          });
+        }
       })();
     </script>
+    </>
   )}
 </ChantLayout>
