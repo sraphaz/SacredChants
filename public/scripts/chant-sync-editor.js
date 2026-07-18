@@ -453,15 +453,8 @@
 
     if (prBtn) {
       prBtn.addEventListener('click', function () {
+        // Empty apiOrigin = same-origin (PUBLIC_CONTRIBUTE_API_ORIGIN unset).
         var apiOrigin = (opts.apiOrigin || '').replace(/\/$/, '');
-        if (!apiOrigin) {
-          setStatus(
-            labels.prUnavailable ||
-              'PR submit needs the contribute API. Download JSON instead.',
-            true
-          );
-          return;
-        }
         var starts = opts.getStarts().map(roundStart);
         if (startsEqual(starts, baseline)) {
           setStatus(labels.noChanges || 'No changes to submit', true);

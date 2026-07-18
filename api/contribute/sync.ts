@@ -74,14 +74,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'Chant JSON in repo is invalid' });
   }
 
+  // Validate shape, but keep the raw repo object so Zod strip does not drop
+  // locales/metadata (es/it/hi/ar, interpreter, etc.) from the timestamps-only PR.
   const validated = chantSchema.safeParse(chantParsed);
   if (!validated.success) {
     return res.status(500).json({ error: 'Chant schema validation failed for repo file' });
   }
 
-  let updated;
+  type ChantWithVerses = {
+    title?: string;
+    verses: Array<{ order: number; lines: Array<{ start: number }> }>;
+  };
+  if (
+    !chantParsed ||
+    typeof chantParsed !== 'object' ||
+    !Array.isArray((chantParsed as ChantWithVerses).verses)
+  ) {
+    return res.status(500).json({ error: 'Chant JSON in repo is missing verses' });
+  }
+
+  let updated: ChantWithVerses;
   try {
-    updated = applyStartsToChantVerses(validated.data, starts);
+    updated = applyStartsToChantVerses(chantParsed as ChantWithVerses, starts);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Could not apply starts';
     return res.status(400).json({ error: message });
@@ -95,9 +109,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
-  const chant = revalidated.data;
-  const chantJson = JSON.stringify(chant, null, 2) + '\n';
+  const chantJson = JSON.stringify(updated, null, 2) + '\n';
   const contributeOrigin = process.env.CONTRIBUTE_ORIGIN || 'https://app.sacredchants.org';
+  const title =
+    typeof updated.title === 'string' && updated.title
+      ? updated.title
+      : validated.data.title;
   const changed = starts
     .map((to, i) => {
       const flatBefore = validated.data.verses
@@ -113,7 +130,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const prBody = [
     '## Summary',
     '',
-    `Karaoke timestamp sync for **${chant.title}** (\`${slug}\`) by @${user.login}.`,
+    `Karaoke timestamp sync for **${title}** (\`${slug}\`) by @${user.login}.`,
     '',
     '## Changes',
     '',
@@ -130,7 +147,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const result = await createSyncUpdatePR({
-      title: `Sync: ${chant.title} timestamps by @${user.login}`,
+      title: `Sync: ${title} timestamps by @${user.login}`,
       body: prBody,
       slug,
       chantJson,
