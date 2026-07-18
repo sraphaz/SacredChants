@@ -112,7 +112,7 @@ export const ui = {
       editSyncOff: 'Off',
       syncEditLine: 'Line',
       syncEditNudgeHint: 'Nudge current line start',
-      syncEditHint: 'Listen and nudge the highlighted line. Draft saves in this browser.',
+      syncEditHint: 'Hover the edge strip to adjust the active line. Draft saves in this browser.',
       syncEditDraftSaved: 'Draft saved locally',
       syncEditDraftRestored: 'Local draft restored',
       syncEditCopyJson: 'Copy JSON',
@@ -131,7 +131,7 @@ export const ui = {
       syncEditPrAuth: 'Sign in via Contribute (GitHub) to open a sync PR.',
       syncEditPrUnavailable:
         'PR submit needs the contribute API. Download the JSON patch instead.',
-      syncEditHotkeys: '[ ] ±0.1s · { } ±0.5s · Shift+←/→ ±1s',
+      syncEditHotkeys: 'Scroll or drag ↕ · Shift+scroll ±0.5s',
     },
     traditions: {
       title: 'Traditions',
@@ -401,7 +401,7 @@ export const ui = {
       editSyncOff: 'Off',
       syncEditLine: 'Linha',
       syncEditNudgeHint: 'Ajustar início da linha atual',
-      syncEditHint: 'Ouça e ajuste a linha destacada. O rascunho guarda-se neste browser.',
+      syncEditHint: 'Passe o rato no risco da borda para ajustar a linha ativa. O rascunho guarda-se neste browser.',
       syncEditDraftSaved: 'Rascunho guardado localmente',
       syncEditDraftRestored: 'Rascunho local restaurado',
       syncEditCopyJson: 'Copiar JSON',
@@ -420,7 +420,7 @@ export const ui = {
       syncEditPrAuth: 'Inicie sessão em Contribute (GitHub) para abrir um PR de sync.',
       syncEditPrUnavailable:
         'O envio de PR precisa da API de contribute. Descarregue o JSON em vez disso.',
-      syncEditHotkeys: '[ ] ±0.1s · { } ±0.5s · Shift+←/→ ±1s',
+      syncEditHotkeys: 'Scroll ou arrastar ↕ · Shift+scroll ±0.5s',
     },
     traditions: {
       title: 'Tradições',
@@ -690,7 +690,7 @@ export const ui = {
       editSyncOff: 'Off',
       syncEditLine: 'Línea',
       syncEditNudgeHint: 'Ajustar inicio de la línea actual',
-      syncEditHint: 'Escucha y ajusta la línea resaltada. El borrador se guarda en este navegador.',
+      syncEditHint: 'Pasa el cursor por el borde para ajustar la línea activa. El borrador se guarda en este navegador.',
       syncEditDraftSaved: 'Borrador guardado localmente',
       syncEditDraftRestored: 'Borrador local restaurado',
       syncEditCopyJson: 'Copiar JSON',
@@ -709,7 +709,7 @@ export const ui = {
       syncEditPrAuth: 'Inicia sesión en Contribute (GitHub) para abrir un PR de sync.',
       syncEditPrUnavailable:
         'Enviar PR requiere la API de contribute. Descarga el JSON en su lugar.',
-      syncEditHotkeys: '[ ] ±0.1s · { } ±0.5s · Shift+←/→ ±1s',
+      syncEditHotkeys: 'Scroll o arrastrar ↕ · Shift+scroll ±0.5s',
     },
     traditions: {
       title: 'Tradiciones',
@@ -998,7 +998,7 @@ export const ui = {
       syncEditPrAuth: 'Accedi via Contribute (GitHub) per aprire un PR di sync.',
       syncEditPrUnavailable:
         'L’invio del PR richiede l’API contribute. Scarica invece il JSON.',
-      syncEditHotkeys: '[ ] ±0.1s · { } ±0.5s · Shift+←/→ ±1s',
+      syncEditHotkeys: 'Scroll o trascina ↕ · Shift+scroll ±0.5s',
     },
     traditions: {
       title: 'Tradizioni',

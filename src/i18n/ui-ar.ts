@@ -89,7 +89,7 @@ export const uiAr = {
     syncEditPrAuth: 'سجّل الدخول عبر Contribute (GitHub) لفتح PR مزامنة.',
     syncEditPrUnavailable:
       'إرسال PR يحتاج واجهة contribute. نزّل JSON بدلاً من ذلك.',
-    syncEditHotkeys: '[ ] ±0.1s · { } ±0.5s · Shift+←/→ ±1s',
+    syncEditHotkeys: 'مرّر أو اسحب ↕ · Shift+scroll ±0.5s',
   },
   traditions: {
     title: 'التقاليد',

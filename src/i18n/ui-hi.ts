@@ -91,7 +91,7 @@ export const uiHi = {
     syncEditPrAuth: 'सिंक PR के लिए Contribute (GitHub) से साइन इन करें।',
     syncEditPrUnavailable:
       'PR के लिए contribute API चाहिए। इसके बजाय JSON डाउनलोड करें।',
-    syncEditHotkeys: '[ ] ±0.1s · { } ±0.5s · Shift+←/→ ±1s',
+    syncEditHotkeys: 'स्क्रॉल या खींचें ↕ · Shift+scroll ±0.5s',
   },
   traditions: {
     title: 'परंपराएँ',

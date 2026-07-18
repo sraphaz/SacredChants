@@ -41,57 +41,74 @@ const en = labelsByLocale.en;
 
 <aside
   id="chant-sync-editor"
-  class="chant-sync-editor"
+  class="chant-sync-rail"
   hidden
   data-slug={slug}
   data-api-origin={apiOrigin}
   aria-label={en.editSync}
 >
-  <div id="chant-sync-editor-panel" class="chant-sync-editor__panel">
-    <div class="chant-sync-editor__row chant-sync-editor__row--meta">
-      <span id="chant-sync-editor-line" class="chant-sync-editor__meta"></span>
-      <span id="chant-sync-editor-start" class="chant-sync-editor__meta chant-sync-editor__meta--start"></span>
-      <span id="chant-sync-editor-dirty" class="chant-sync-editor__dirty" hidden></span>
+  <!-- Idle: thin edge; hover/focus/touch expands the pad -->
+  <div class="chant-sync-rail__edge" aria-hidden="true"></div>
+
+  <div
+    id="chant-sync-editor-pad"
+    class="chant-sync-rail__pad"
+    role="group"
+    aria-label={en.nudgeHint}
+    tabindex="0"
+  >
+    <div class="chant-sync-rail__meta">
+      <span id="chant-sync-editor-line" class="chant-sync-rail__line"></span>
+      <span id="chant-sync-editor-start" class="chant-sync-rail__start"></span>
+      <span id="chant-sync-editor-dirty" class="chant-sync-rail__dot" hidden title={en.draftSaved} aria-label={en.draftSaved}>·</span>
     </div>
 
-    <div class="chant-sync-editor__row chant-sync-editor__nudges" role="group" aria-label={en.nudgeHint}>
-      <button type="button" class="chant-sync-editor__btn" data-nudge="-1" title="-1s">−1</button>
-      <button type="button" class="chant-sync-editor__btn" data-nudge="-0.5" title="-0.5s">−0.5</button>
-      <button type="button" class="chant-sync-editor__btn" data-nudge="-0.1" title="-0.1s">−0.1</button>
-      <button type="button" class="chant-sync-editor__btn chant-sync-editor__btn--accent" data-nudge="0.1" title="+0.1s">+0.1</button>
-      <button type="button" class="chant-sync-editor__btn chant-sync-editor__btn--accent" data-nudge="0.5" title="+0.5s">+0.5</button>
-      <button type="button" class="chant-sync-editor__btn chant-sync-editor__btn--accent" data-nudge="1" title="+1s">+1</button>
-    </div>
-
-    <p class="chant-sync-editor__hotkeys">
+    <p class="chant-sync-rail__hint">
       {locales.map((loc) => (
         <span class={`locale-${loc}`}>{labelsByLocale[loc].hotkeys}</span>
       ))}
     </p>
 
-    <div class="chant-sync-editor__row chant-sync-editor__actions">
-      <button type="button" id="chant-sync-export-copy" class="chant-sync-editor__btn chant-sync-editor__btn--text">
-        {locales.map((loc) => (
-          <span class={`locale-${loc}`}>{labelsByLocale[loc].copyJson}</span>
-        ))}
-      </button>
-      <button type="button" id="chant-sync-export-download" class="chant-sync-editor__btn chant-sync-editor__btn--text">
-        {locales.map((loc) => (
-          <span class={`locale-${loc}`}>{labelsByLocale[loc].downloadJson}</span>
-        ))}
-      </button>
-      <button type="button" id="chant-sync-editor-reset" class="chant-sync-editor__btn chant-sync-editor__btn--text">
-        {locales.map((loc) => (
-          <span class={`locale-${loc}`}>{labelsByLocale[loc].reset}</span>
-        ))}
-      </button>
-      <button type="button" id="chant-sync-export-pr" class="chant-sync-editor__btn chant-sync-editor__btn--text">
-        {locales.map((loc) => (
-          <span class={`locale-${loc}`}>{labelsByLocale[loc].openPr}</span>
-        ))}
-      </button>
+    <div class="chant-sync-rail__micro">
+      <button type="button" class="chant-sync-rail__tick" data-nudge="-0.1" title="-0.1s" aria-label="-0.1s">−</button>
+      <button type="button" class="chant-sync-rail__tick" data-nudge="0.1" title="+0.1s" aria-label="+0.1s">+</button>
     </div>
 
-    <p id="chant-sync-editor-status" class="chant-sync-editor__status" hidden role="status"></p>
+    <div class="chant-sync-rail__menu-wrap">
+      <button
+        type="button"
+        id="chant-sync-rail-menu-btn"
+        class="chant-sync-rail__menu-btn"
+        aria-expanded="false"
+        aria-controls="chant-sync-rail-menu"
+        aria-haspopup="true"
+      >
+        ···
+      </button>
+      <div id="chant-sync-rail-menu" class="chant-sync-rail__menu" hidden role="menu">
+        <button type="button" role="menuitem" id="chant-sync-export-copy" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].copyJson}</span>
+          ))}
+        </button>
+        <button type="button" role="menuitem" id="chant-sync-export-download" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].downloadJson}</span>
+          ))}
+        </button>
+        <button type="button" role="menuitem" id="chant-sync-editor-reset" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].reset}</span>
+          ))}
+        </button>
+        <button type="button" role="menuitem" id="chant-sync-export-pr" class="chant-sync-rail__menu-item">
+          {locales.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].openPr}</span>
+          ))}
+        </button>
+      </div>
+    </div>
+
+    <p id="chant-sync-editor-status" class="chant-sync-rail__status" hidden role="status"></p>
   </div>
 </aside>
