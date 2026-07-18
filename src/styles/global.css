@@ -1055,139 +1055,144 @@ body.sc-drawer-open {
   }
 }
 
-/* ——— Karaoke sync rail (overlay; no layout reflow) ——— */
+/* ——— Karaoke sync jog-slider (overlay; no layout reflow) ——— */
 .chant-sync-rail {
   position: fixed;
   top: 50%;
   right: 0;
   z-index: 45;
   transform: translateY(-50%);
-  width: 0.35rem;
-  height: 4.5rem;
+  width: 0.28rem;
+  height: 5.5rem;
   margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
   pointer-events: auto;
-  transition: width 0.18s ease, height 0.18s ease;
 }
 .chant-sync-rail[hidden] {
   display: none !important;
 }
 .chant-sync-rail__edge {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 0.2rem;
-  height: 100%;
-  border-radius: 0.15rem 0 0 0.15rem;
+  inset: 0 0 0 auto;
+  width: 0.18rem;
+  border-radius: 0.12rem 0 0 0.12rem;
   background: var(--sc-text-subtle);
-  opacity: 0.45;
-  transition: opacity 0.18s ease, width 0.18s ease;
+  opacity: 0.4;
+  transition: opacity 0.15s ease;
 }
 .chant-sync-rail:hover .chant-sync-rail__edge,
-.chant-sync-rail[data-revealed='true'] .chant-sync-rail__edge {
+.chant-sync-rail[data-revealed='true'] .chant-sync-rail__edge,
+.chant-sync-rail:focus-within .chant-sync-rail__edge {
   opacity: 0;
-  width: 0;
+  pointer-events: none;
 }
-.chant-sync-rail__pad {
+/* Narrow vertical dial */
+.chant-sync-rail__dial {
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translateY(-50%) translateX(0.4rem);
-  width: 7.5rem;
-  padding: 0.55rem 0.6rem;
+  transform: translateY(-50%) translateX(0.35rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  width: 1.65rem;
+  padding: 0.4rem 0.2rem 0.25rem;
   border: 1px solid var(--sc-border);
   border-right: 0;
-  border-radius: 0.45rem 0 0 0.45rem;
+  border-radius: 0.85rem 0 0 0.85rem;
   background: var(--sc-bg-elevated);
-  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.06);
+  box-shadow: -1px 0 10px rgba(0, 0, 0, 0.05);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
-  cursor: ns-resize;
+  transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s;
   user-select: none;
   touch-action: none;
+  outline: none;
 }
-.chant-sync-rail[data-revealed='true'],
-.chant-sync-rail:focus-within {
-  width: 7.75rem;
-  height: auto;
-  min-height: 4.5rem;
-}
-.chant-sync-rail[data-revealed='true'] .chant-sync-rail__pad,
-.chant-sync-rail:focus-within .chant-sync-rail__pad {
+.chant-sync-rail[data-revealed='true'] .chant-sync-rail__dial,
+.chant-sync-rail:focus-within .chant-sync-rail__dial {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translateY(-50%) translateX(0);
 }
-.chant-sync-rail[data-dragging='true'] .chant-sync-rail__pad {
+.chant-sync-rail[data-dragging='true'] .chant-sync-rail__dial {
   border-color: var(--sc-text-muted);
 }
-.chant-sync-rail__meta {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-  margin-bottom: 0.25rem;
-}
-.chant-sync-rail__line {
-  font-size: var(--sc-font-size-xs);
-  color: var(--sc-text-subtle);
-}
 .chant-sync-rail__start {
-  font-size: var(--sc-font-size-sm);
+  font-size: 0.62rem;
   font-variant-numeric: tabular-nums;
   font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--sc-text);
+  line-height: 1;
+  writing-mode: horizontal-tb;
+}
+.chant-sync-rail[data-dirty='true'] .chant-sync-rail__start::after {
+  content: '';
+  display: inline-block;
+  width: 0.28rem;
+  height: 0.28rem;
+  margin-left: 0.15rem;
+  border-radius: 50%;
+  background: var(--sc-text-subtle);
+  vertical-align: middle;
 }
 .chant-sync-rail__dot {
-  color: var(--sc-text-subtle);
-  font-size: 1rem;
-  line-height: 1;
+  display: none;
 }
-.chant-sync-rail__hint {
-  margin: 0 0 0.35rem;
-  font-size: 0.65rem;
-  line-height: 1.3;
-  color: var(--sc-text-subtle);
+.chant-sync-rail__track {
+  position: relative;
+  width: 100%;
+  height: 5.75rem;
+  cursor: ns-resize;
 }
-.chant-sync-rail__micro {
-  display: flex;
-  gap: 0.25rem;
-  margin-bottom: 0.25rem;
+.chant-sync-rail__groove {
+  position: absolute;
+  left: 50%;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 1px;
+  background: var(--sc-border);
 }
-.chant-sync-rail__tick {
-  flex: 1;
-  padding: 0.15rem 0;
-  font-size: var(--sc-font-size-sm);
-  line-height: 1.2;
-  border: 1px solid var(--sc-border);
-  border-radius: 0.25rem;
+.chant-sync-rail__thumb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.85rem;
+  height: 0.85rem;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 50%;
+  border: 1.5px solid var(--sc-text-muted);
   background: var(--sc-bg);
-  color: var(--sc-text-muted);
-  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  cursor: grab;
+  z-index: 1;
 }
-.chant-sync-rail__tick:hover {
+.chant-sync-rail[data-dragging='true'] .chant-sync-rail__thumb {
+  cursor: grabbing;
   background: var(--sc-accent-soft);
-  color: var(--sc-text);
-}
-.chant-sync-rail__tick:focus-visible {
-  outline: 2px solid var(--sc-accent);
-  outline-offset: 1px;
+  border-color: var(--sc-text);
 }
 .chant-sync-rail__menu-wrap {
   position: relative;
+  width: 100%;
 }
 .chant-sync-rail__menu-btn {
+  display: block;
   width: 100%;
-  padding: 0.1rem 0;
+  padding: 0;
   border: 0;
   background: transparent;
   color: var(--sc-text-subtle);
-  font-size: var(--sc-font-size-sm);
-  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  line-height: 1;
   cursor: pointer;
 }
 .chant-sync-rail__menu-btn:hover,
@@ -1196,14 +1201,15 @@ body.sc-drawer-open {
 }
 .chant-sync-rail__menu {
   position: absolute;
-  right: 0;
-  bottom: calc(100% + 0.25rem);
-  min-width: 100%;
-  padding: 0.25rem 0;
+  right: 0.15rem;
+  bottom: calc(100% + 0.35rem);
+  min-width: 7.5rem;
+  padding: 0.2rem 0;
   border: 1px solid var(--sc-border);
   border-radius: 0.35rem;
   background: var(--sc-bg-elevated);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  z-index: 2;
 }
 .chant-sync-rail__menu-item {
   display: block;
@@ -1211,7 +1217,7 @@ body.sc-drawer-open {
   padding: 0.35rem 0.55rem;
   border: 0;
   background: transparent;
-  text-align: left;
+  text-align: start;
   font-size: var(--sc-font-size-xs);
   color: var(--sc-text-muted);
   cursor: pointer;
@@ -1222,10 +1228,17 @@ body.sc-drawer-open {
   color: var(--sc-text);
 }
 .chant-sync-rail__status {
-  margin: 0.3rem 0 0;
-  font-size: 0.65rem;
+  position: absolute;
+  right: calc(100% + 0.4rem);
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  max-width: 8rem;
+  font-size: 0.62rem;
   line-height: 1.25;
   color: var(--sc-text-muted);
+  white-space: normal;
+  pointer-events: none;
 }
 .chant-sync-rail__status[data-error='true'] {
   color: #9a3412;
@@ -1240,18 +1253,20 @@ html[data-sync-editing='true'] #chant-sync-edit-toggle {
 @media (max-width: 767px) {
   .chant-sync-rail {
     top: auto;
-    bottom: 1.25rem;
-    right: 0;
+    bottom: 1.5rem;
+    height: 4rem;
     transform: none;
-    height: 2.75rem;
   }
-  .chant-sync-rail__pad {
+  .chant-sync-rail__dial {
     top: auto;
     bottom: 0;
-    transform: translateX(0.4rem);
+    transform: translateX(0.35rem);
   }
-  .chant-sync-rail[data-revealed='true'] .chant-sync-rail__pad,
-  .chant-sync-rail:focus-within .chant-sync-rail__pad {
+  .chant-sync-rail[data-revealed='true'] .chant-sync-rail__dial,
+  .chant-sync-rail:focus-within .chant-sync-rail__dial {
     transform: translateX(0);
+  }
+  .chant-sync-rail__track {
+    height: 5rem;
   }
 }

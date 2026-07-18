@@ -47,31 +47,30 @@ const en = labelsByLocale.en;
   data-api-origin={apiOrigin}
   aria-label={en.editSync}
 >
-  <!-- Idle: thin edge; hover/focus/touch expands the pad -->
+  <!-- Idle: hairline on the right edge -->
   <div class="chant-sync-rail__edge" aria-hidden="true"></div>
 
+  <!-- Revealed: slim vertical jog slider -->
   <div
     id="chant-sync-editor-pad"
-    class="chant-sync-rail__pad"
-    role="group"
+    class="chant-sync-rail__dial"
+    role="slider"
+    aria-orientation="vertical"
     aria-label={en.nudgeHint}
+    aria-valuetext=""
     tabindex="0"
   >
-    <div class="chant-sync-rail__meta">
-      <span id="chant-sync-editor-line" class="chant-sync-rail__line"></span>
-      <span id="chant-sync-editor-start" class="chant-sync-rail__start"></span>
-      <span id="chant-sync-editor-dirty" class="chant-sync-rail__dot" hidden title={en.draftSaved} aria-label={en.draftSaved}>·</span>
-    </div>
+    <span id="chant-sync-editor-start" class="chant-sync-rail__start"></span>
+    <span id="chant-sync-editor-line" class="chant-sync-rail__line" hidden></span>
+    <span id="chant-sync-editor-dirty" class="chant-sync-rail__dot" hidden title={en.draftSaved} aria-label={en.draftSaved}></span>
 
-    <p class="chant-sync-rail__hint">
-      {locales.map((loc) => (
-        <span class={`locale-${loc}`}>{labelsByLocale[loc].hotkeys}</span>
-      ))}
-    </p>
-
-    <div class="chant-sync-rail__micro">
-      <button type="button" class="chant-sync-rail__tick" data-nudge="-0.1" title="-0.1s" aria-label="-0.1s">−</button>
-      <button type="button" class="chant-sync-rail__tick" data-nudge="0.1" title="+0.1s" aria-label="+0.1s">+</button>
+    <div
+      id="chant-sync-rail-track"
+      class="chant-sync-rail__track"
+      aria-hidden="true"
+    >
+      <div class="chant-sync-rail__groove"></div>
+      <div id="chant-sync-rail-thumb" class="chant-sync-rail__thumb"></div>
     </div>
 
     <div class="chant-sync-rail__menu-wrap">
@@ -82,8 +81,9 @@ const en = labelsByLocale.en;
         aria-expanded="false"
         aria-controls="chant-sync-rail-menu"
         aria-haspopup="true"
+        title="…"
       >
-        ···
+        ·
       </button>
       <div id="chant-sync-rail-menu" class="chant-sync-rail__menu" hidden role="menu">
         <button type="button" role="menuitem" id="chant-sync-export-copy" class="chant-sync-rail__menu-item">

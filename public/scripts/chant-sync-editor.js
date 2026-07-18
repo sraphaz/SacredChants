@@ -1,6 +1,6 @@
 /**
- * Minimal karaoke sync rail: thin idle edge, hover/touch to reveal.
- * Scroll wheel / vertical drag nudges the active line start.
+ * Slim vertical jog-slider for karaoke sync.
+ * Idle: hairline edge. Hover: narrow dial. Drag thumb ↕ to nudge start.
  */
 (function () {
   'use strict';
@@ -8,7 +8,10 @@
   var MIN_GAP = 0.05;
   var DRAFT_PREFIX = 'sc-sync-draft:';
   var WHEEL_STEP = 0.1;
-  var DRAG_PX_PER_SEC = 80;
+  /** Pixels of drag per 1 second of time nudge */
+  var DRAG_PX_PER_SEC = 70;
+  /** Max thumb travel from center (px) for visual jog */
+  var THUMB_TRAVEL = 36;
 
   function roundStart(sec) {
     return Math.round(sec * 1000) / 1000;
@@ -117,9 +120,6 @@
     return true;
   }
 
-  /**
-   * @param {object} opts
-   */
   function init(opts) {
     var slug = opts.slug;
     var baseline = opts.baselineStarts.slice();
@@ -128,6 +128,8 @@
 
     var editToggle = document.getElementById('chant-sync-edit-toggle');
     var pad = document.getElementById('chant-sync-editor-pad');
+    var track = document.getElementById('chant-sync-rail-track');
+    var thumb = document.getElementById('chant-sync-rail-thumb');
     var lineMeta = document.getElementById('chant-sync-editor-line');
     var startMeta = document.getElementById('chant-sync-editor-start');
     var dirtyEl = document.getElementById('chant-sync-editor-dirty');
@@ -141,8 +143,10 @@
     var menuOpen = false;
     var hideTimer = null;
     var dragging = false;
+    var dragOriginY = 0;
     var dragLastY = 0;
     var dragAccum = 0;
+    var thumbOffset = 0;
 
     var params = new URLSearchParams(window.location.search);
     if (params.get('edit') === '1' || params.get('edit') === 'true') {
@@ -156,20 +160,41 @@
       statusEl.setAttribute('data-error', isError ? 'true' : '');
     }
 
+    function setThumbOffset(px, animate) {
+      thumbOffset = Math.max(-THUMB_TRAVEL, Math.min(THUMB_TRAVEL, px));
+      if (!thumb) return;
+      if (animate) {
+        thumb.style.transition = 'transform 0.22s ease';
+      } else {
+        thumb.style.transition = 'none';
+      }
+      thumb.style.transform = 'translateX(-50%) translateY(calc(-50% + ' + thumbOffset + 'px))';
+    }
+
+    function resetThumb() {
+      setThumbOffset(0, true);
+    }
+
     function setRevealed(on) {
       revealed = !!on;
       root.setAttribute('data-revealed', revealed ? 'true' : '');
       if (!revealed && menuOpen) setMenuOpen(false);
+      if (!revealed && !dragging) resetThumb();
     }
 
     function scheduleHide() {
       if (dragging || menuOpen) return;
       clearTimeout(hideTimer);
       hideTimer = setTimeout(function () {
-        if (!dragging && !menuOpen && !root.matches(':hover') && !(pad && pad === document.activeElement)) {
+        if (
+          !dragging &&
+          !menuOpen &&
+          !root.matches(':hover') &&
+          !(pad && pad === document.activeElement)
+        ) {
           setRevealed(false);
         }
-      }, 400);
+      }, 450);
     }
 
     function cancelHide() {
@@ -189,16 +214,20 @@
     function updateMeta() {
       var starts = opts.getStarts();
       var idx = opts.getActiveIndex();
+      var t = starts[idx];
       if (lineMeta) {
-        lineMeta.textContent =
-          (labels.line || 'Line') + ' ' + (idx + 1);
+        lineMeta.textContent = String(idx + 1);
       }
-      if (startMeta && starts[idx] != null) {
-        startMeta.textContent = formatSec(starts[idx]);
+      if (startMeta && t != null) {
+        startMeta.textContent = formatSec(t);
+      }
+      if (pad && t != null) {
+        pad.setAttribute('aria-valuetext', formatSec(t));
       }
       var dirty = !startsEqual(starts, baseline);
       if (dirtyEl) {
         dirtyEl.hidden = !dirty;
+        root.setAttribute('data-dirty', dirty ? 'true' : '');
       }
       if (editToggle) {
         editToggle.setAttribute('aria-pressed', editing ? 'true' : 'false');
@@ -226,8 +255,6 @@
       applyStarts(next, true);
       if (!quiet) {
         setStatus(formatSec(next[idx]), false);
-      } else if (startMeta && next[idx] != null) {
-        startMeta.textContent = formatSec(next[idx]);
       }
     }
 
@@ -237,11 +264,11 @@
         setMenuOpen(false);
         setRevealed(false);
         setStatus('', false);
+        resetThumb();
       }
       updateMeta();
     }
 
-    // Restore draft
     var draft = loadDraft(slug, baseline.length);
     if (draft) {
       applyStarts(draft, false);
@@ -255,7 +282,6 @@
       });
     }
 
-    // Reveal on hover / focus; collapse shortly after leave
     root.addEventListener('pointerenter', function () {
       if (!editing) return;
       cancelHide();
@@ -274,7 +300,6 @@
       });
     }
 
-    // Mobile: tap edge/pad toggles pin reveal
     root.addEventListener(
       'pointerup',
       function (e) {
@@ -282,35 +307,40 @@
         if (e.pointerType === 'touch' || e.pointerType === 'pen') {
           if (menu && menu.contains(e.target)) return;
           if (menuBtn && (e.target === menuBtn || menuBtn.contains(e.target))) return;
-          if (!revealed) {
-            setRevealed(true);
-          }
+          if (!revealed) setRevealed(true);
         }
       },
       true
     );
 
-    // Scroll wheel → nudge (±0.1s per notch; shift = ±0.5)
+    // Secondary: scroll on dial
     root.addEventListener(
       'wheel',
       function (e) {
-        if (!editing) return;
+        if (!editing || !revealed) return;
         e.preventDefault();
-        setRevealed(true);
         var step = e.shiftKey ? 0.5 : WHEEL_STEP;
         var delta = e.deltaY > 0 ? step : -step;
         doNudge(delta, true);
+        // Brief visual jog in scroll direction
+        setThumbOffset(e.deltaY > 0 ? 10 : -10, true);
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(function () {
+          if (!dragging) resetThumb();
+        }, 180);
       },
       { passive: false }
     );
 
-    // Vertical drag / press-and-hold drag on pad
     function onDragMove(e) {
       if (!dragging) return;
-      var dy = e.clientY - dragLastY;
+      var totalDy = e.clientY - dragOriginY;
+      var stepDy = e.clientY - dragLastY;
       dragLastY = e.clientY;
-      // Drag up → earlier (negative start); drag down → later
-      dragAccum += -dy / DRAG_PX_PER_SEC;
+      // Visual: thumb follows pull (clamped)
+      setThumbOffset(totalDy, false);
+      // Time: drag up (negative dy) → earlier
+      dragAccum += -stepDy / DRAG_PX_PER_SEC;
       if (Math.abs(dragAccum) >= 0.05) {
         var chunk = roundStart(dragAccum);
         dragAccum -= chunk;
@@ -325,38 +355,41 @@
       document.removeEventListener('pointermove', onDragMove);
       document.removeEventListener('pointerup', onDragEnd);
       document.removeEventListener('pointercancel', onDragEnd);
+      resetThumb();
       scheduleHide();
     }
 
-    if (pad) {
-      pad.addEventListener('pointerdown', function (e) {
-        if (!editing) return;
-        if (e.button != null && e.button !== 0) return;
-        if (menuBtn && (e.target === menuBtn || menuBtn.contains(e.target))) return;
-        if (menu && menu.contains(e.target)) return;
-        if (e.target && e.target.closest && e.target.closest('[data-nudge]')) return;
-        dragging = true;
-        dragLastY = e.clientY;
-        dragAccum = 0;
-        root.setAttribute('data-dragging', 'true');
-        setRevealed(true);
-        cancelHide();
-        try {
-          pad.setPointerCapture(e.pointerId);
-        } catch (err) {}
-        document.addEventListener('pointermove', onDragMove);
-        document.addEventListener('pointerup', onDragEnd);
-        document.addEventListener('pointercancel', onDragEnd);
-        e.preventDefault();
-      });
+    function startDrag(e) {
+      if (!editing) return;
+      if (e.button != null && e.button !== 0) return;
+      if (menuBtn && (e.target === menuBtn || menuBtn.contains(e.target))) return;
+      if (menu && menu.contains(e.target)) return;
+      dragging = true;
+      dragOriginY = e.clientY;
+      dragLastY = e.clientY;
+      dragAccum = 0;
+      root.setAttribute('data-dragging', 'true');
+      setRevealed(true);
+      cancelHide();
+      setThumbOffset(0, false);
+      try {
+        if (pad) pad.setPointerCapture(e.pointerId);
+      } catch (err) {}
+      document.addEventListener('pointermove', onDragMove);
+      document.addEventListener('pointerup', onDragEnd);
+      document.addEventListener('pointercancel', onDragEnd);
+      e.preventDefault();
     }
 
-    root.querySelectorAll('[data-nudge]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var d = parseFloat(btn.getAttribute('data-nudge') || '0');
-        if (!isNaN(d)) doNudge(d, false);
+    if (track) track.addEventListener('pointerdown', startDrag);
+    if (thumb) thumb.addEventListener('pointerdown', startDrag);
+    if (pad) {
+      pad.addEventListener('pointerdown', function (e) {
+        if (e.target === startMeta || (startMeta && startMeta.contains(e.target))) {
+          startDrag(e);
+        }
       });
-    });
+    }
 
     if (menuBtn && menu) {
       menuBtn.addEventListener('click', function (e) {
@@ -482,12 +515,12 @@
       if (e.metaKey || e.ctrlKey || e.altKey) return;
 
       var delta = null;
-      if (e.key === '[') delta = -0.1;
+      if (e.key === 'ArrowUp') delta = -0.1;
+      else if (e.key === 'ArrowDown') delta = 0.1;
+      else if (e.key === '[') delta = -0.1;
       else if (e.key === ']') delta = 0.1;
       else if (e.key === '{') delta = -0.5;
       else if (e.key === '}') delta = 0.5;
-      else if (e.key === 'ArrowLeft' && e.shiftKey) delta = -1;
-      else if (e.key === 'ArrowRight' && e.shiftKey) delta = 1;
       else if (e.key === 'Escape') {
         if (menuOpen) {
           setMenuOpen(false);
@@ -502,6 +535,11 @@
       e.preventDefault();
       setRevealed(true);
       doNudge(delta, false);
+      setThumbOffset(delta > 0 ? 8 : -8, true);
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        if (!dragging) resetThumb();
+      }, 180);
     });
 
     var audio = document.getElementById('chant-audio');
@@ -511,6 +549,7 @@
       });
     }
 
+    resetThumb();
     setEditing(editing);
     updateMeta();
     if (editing) setRevealed(false);

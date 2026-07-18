@@ -111,8 +111,8 @@ export const ui = {
       editSyncOn: 'Editing',
       editSyncOff: 'Off',
       syncEditLine: 'Line',
-      syncEditNudgeHint: 'Nudge current line start',
-      syncEditHint: 'Hover the edge strip to adjust the active line. Draft saves in this browser.',
+      syncEditNudgeHint: 'Pull slider to adjust active line start',
+      syncEditHint: 'Hover the edge, pull the dial up or down. Draft saves in this browser.',
       syncEditDraftSaved: 'Draft saved locally',
       syncEditDraftRestored: 'Local draft restored',
       syncEditCopyJson: 'Copy JSON',
@@ -131,7 +131,7 @@ export const ui = {
       syncEditPrAuth: 'Sign in via Contribute (GitHub) to open a sync PR.',
       syncEditPrUnavailable:
         'PR submit needs the contribute API. Download the JSON patch instead.',
-      syncEditHotkeys: 'Scroll or drag ↕ · Shift+scroll ±0.5s',
+      syncEditHotkeys: 'Pull ↕ to nudge time',
     },
     traditions: {
       title: 'Traditions',
@@ -400,8 +400,8 @@ export const ui = {
       editSyncOn: 'A editar',
       editSyncOff: 'Off',
       syncEditLine: 'Linha',
-      syncEditNudgeHint: 'Ajustar início da linha atual',
-      syncEditHint: 'Passe o rato no risco da borda para ajustar a linha ativa. O rascunho guarda-se neste browser.',
+      syncEditNudgeHint: 'Puxar o slider para ajustar o início da linha ativa',
+      syncEditHint: 'Passe o rato no risco e puxe o dial para cima ou para baixo. O rascunho guarda-se neste browser.',
       syncEditDraftSaved: 'Rascunho guardado localmente',
       syncEditDraftRestored: 'Rascunho local restaurado',
       syncEditCopyJson: 'Copiar JSON',
@@ -420,7 +420,7 @@ export const ui = {
       syncEditPrAuth: 'Inicie sessão em Contribute (GitHub) para abrir um PR de sync.',
       syncEditPrUnavailable:
         'O envio de PR precisa da API de contribute. Descarregue o JSON em vez disso.',
-      syncEditHotkeys: 'Scroll ou arrastar ↕ · Shift+scroll ±0.5s',
+      syncEditHotkeys: 'Puxar ↕ para ajustar o tempo',
     },
     traditions: {
       title: 'Tradições',
