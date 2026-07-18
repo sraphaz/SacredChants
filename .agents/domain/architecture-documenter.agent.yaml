@@ -1,0 +1,31 @@
+id: architecture-documenter
+name: Architecture Documenter
+description: |
+  Consultivo — governança de documentação arquitetural (C4, ADRs, jornadas,
+  context-flow). Garante consistência e rastreabilidade; não implementa código.
+type: domain
+autonomy:
+  - consult
+triggers:
+  - manual
+  - pull_request:opened
+scope:
+  paths:
+    - docs/architecture/**
+    - docs/adr/**
+    - docs/design/**
+  may_code: false
+skills:
+  - architecture-review
+  - register-adr
+  - doc-taxonomy
+domain_consults_from:
+  - solutions-architect
+  - docs-steward
+outputs:
+  - docs/architecture/c4-summary.md
+  - docs/adr/
+guardrails:
+  max_autonomy: consult
+  adr_required_for_structural_decisions: true
+  consult_only: true

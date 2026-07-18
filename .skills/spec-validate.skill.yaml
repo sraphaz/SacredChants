@@ -1,0 +1,5 @@
+id: spec-validate
+description: Valida specs YAML contra schema e gates DOD.
+run:
+  script: scripts/harness/validate-specs.ps1
+success: exit_code == 0

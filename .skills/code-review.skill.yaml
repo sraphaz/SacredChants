@@ -1,0 +1,5 @@
+id: code-review
+description: Revisão estrutural de PR (checklist QA).
+run:
+  script: scripts/agents/agent-conduct-check.ps1
+success: exit_code == 0

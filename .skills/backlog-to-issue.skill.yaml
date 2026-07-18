@@ -1,0 +1,5 @@
+id: backlog-to-issue
+description: Converte item de backlog em issue GitHub.
+run:
+  script: scripts/agents/backlog-to-issue.ps1
+success: exit_code == 0

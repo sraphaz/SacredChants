@@ -27,3 +27,8 @@ blob-report/
 # pnpm-lock.yaml
 
 .vercel
+
+# ARAH Harness runtime telemetry / audit (not committed)
+.cursor/arah-live/
+.arah/audit/
+.arah/observability/

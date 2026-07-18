@@ -1,0 +1,10 @@
+id: run-tests
+description: Roda a suíte de testes da área alterada (comandos em arah.config.yaml).
+inputs:
+  area:
+    type: enum
+    values: [backend, frontend, all]
+run:
+  from_config: tests
+success: exit_code == 0
+on_fail: comment_pr_and_return_to_agent
