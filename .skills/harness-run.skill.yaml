@@ -1,0 +1,5 @@
+id: harness-run
+description: Executa harness SDD ligado à spec/fase.
+run:
+  script: scripts/harness/run-harness.ps1
+success: exit_code == 0

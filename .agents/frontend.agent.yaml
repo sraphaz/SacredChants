@@ -1,0 +1,23 @@
+id: frontend
+name: Frontend Agent
+description: Implementa UI web ou mobile dentro do escopo permitido.
+triggers:
+  - issue:labeled
+  - manual
+scope:
+  paths:
+    - frontend/**
+    - apps/web/**
+    - apps/mobile/**
+    - src/**/ui/**
+  may_code: true
+  max_diff_files: 25
+skills:
+  - run-tests
+  - craft-review
+  - sync-docs
+  - open-pr
+checklist: checklists/frontend.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true

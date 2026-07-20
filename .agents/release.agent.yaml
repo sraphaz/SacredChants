@@ -1,0 +1,22 @@
+id: release
+name: Release / DevOps
+description: CI/CD, versões, infraestrutura e deploy.
+triggers:
+  - manual
+  - workflow_dispatch
+scope:
+  paths:
+    - .github/workflows/**
+    - infrastructure/**
+    - docker-compose*.yml
+    - Dockerfile
+  may_code: true
+  max_diff_files: 15
+skills:
+  - release-cut
+  - iac-plan
+  - run-tests
+checklist: checklists/release.checklist.md
+guardrails:
+  no_merge: true
+  require_ci: true
