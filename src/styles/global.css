@@ -221,6 +221,166 @@ html[data-locale='ar'] {
   letter-spacing: var(--sc-tracking-wide);
 }
 
+.prose-chant .chant-word {
+  font: inherit;
+  font-style: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.prose-chant .chant-word--gloss {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: help;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--sc-verse-transliteration) 55%, transparent);
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.prose-chant .chant-word--gloss:hover,
+.prose-chant .chant-word--gloss:focus-visible {
+  color: var(--sc-accent);
+  text-decoration-color: var(--sc-accent);
+  outline: none;
+}
+
+.prose-chant .chant-word--gloss:focus-visible {
+  border-radius: 0.15em;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--sc-accent) 35%, transparent);
+}
+
+/* Glossary popover */
+.chant-glossary-popover {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.chant-glossary-popover[hidden] {
+  display: none;
+}
+
+.chant-glossary-popover__backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--sc-bg) 35%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.chant-glossary-popover__panel {
+  position: relative;
+  z-index: 1;
+  width: min(32rem, 100%);
+  max-height: min(70vh, 28rem);
+  overflow: auto;
+  padding: 1.25rem 1.35rem 1.5rem;
+  border-radius: 0.75rem 0.75rem 0.5rem 0.5rem;
+  background: var(--sc-bg-elevated);
+  color: var(--sc-text);
+  border: 1px solid var(--sc-border);
+  box-shadow: 0 -8px 32px color-mix(in srgb, var(--sc-text) 12%, transparent);
+  animation: chant-glossary-rise 0.28s ease;
+}
+
+@media (min-width: 768px) {
+  .chant-glossary-popover {
+    align-items: center;
+  }
+  .chant-glossary-popover__panel {
+    border-radius: 0.75rem;
+    max-height: min(65vh, 26rem);
+  }
+}
+
+@keyframes chant-glossary-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chant-glossary-popover__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  border: 0;
+  background: transparent;
+  color: var(--sc-text-muted);
+  font-size: var(--sc-font-size-sm);
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+}
+
+.chant-glossary-popover__close:hover {
+  color: var(--sc-text);
+}
+
+.chant-glossary-popover__header {
+  padding-right: 3.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.chant-glossary-popover__iast {
+  margin: 0;
+  font-family: var(--sc-font-serif);
+  font-size: calc(var(--sc-font-size-xl) * var(--sc-font-size-scale));
+  font-style: italic;
+  letter-spacing: var(--sc-tracking-wide);
+  color: var(--sc-verse-transliteration);
+}
+
+.chant-glossary-popover__original {
+  margin: 0.2rem 0 0;
+  font-family: var(--sc-font-serif);
+  font-size: calc(var(--sc-font-size-lg) * var(--sc-font-size-scale));
+  color: var(--sc-verse-original);
+}
+
+.chant-glossary-popover__brief {
+  margin: 0 0 0.85rem;
+  font-size: calc(var(--sc-font-size-base) * var(--sc-font-size-scale));
+  line-height: var(--sc-leading-relaxed);
+  color: var(--sc-text);
+}
+
+.chant-glossary-popover__deep-label {
+  margin: 0 0 0.35rem;
+  font-size: var(--sc-font-size-sm);
+  font-weight: 600;
+  letter-spacing: var(--sc-tracking-label);
+  text-transform: uppercase;
+  color: var(--sc-text-muted);
+}
+
+.chant-glossary-popover__deep {
+  margin: 0;
+  font-size: calc(var(--sc-font-size-sm) * var(--sc-font-size-scale));
+  line-height: var(--sc-leading-relaxed);
+  color: var(--sc-text-muted);
+  white-space: pre-wrap;
+}
+
+body.chant-glossary-open {
+  overflow: hidden;
+}
+
 .prose-chant .translations {
   font-size: calc(var(--sc-font-size-lg) * var(--sc-font-size-scale));
   line-height: var(--sc-leading-relaxed);

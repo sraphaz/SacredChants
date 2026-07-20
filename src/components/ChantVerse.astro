@@ -1,11 +1,17 @@
 ---
 import type { ChantVerse as ChantVerseType, ChantLine } from '../content/schemas/chant';
+import type { ChantGlossaryEntry } from '../content/schemas/glossary';
 import { ui, SUPPORTED_LOCALES } from '../i18n/strings';
 import type { Locale } from '../i18n/strings';
 import {
   lineTranslationForLocale,
   verseExplanationForLocale,
 } from '../utils/chant-page';
+import {
+  tokenizeGlossaryLine,
+  glossaryEntryId,
+} from '../utils/chant-glossary';
+import ChantGlossWord from './ChantGlossWord.astro';
 
 interface Props {
   verse: ChantVerseType;
@@ -16,9 +22,18 @@ interface Props {
   showVerseLabel?: boolean;
   /** Show verse explanation (true for last line of verse). */
   showExplanation?: boolean;
+  /** Optional glossary lookup map (normalized key → entry). */
+  glossaryLookup?: Map<string, ChantGlossaryEntry>;
 }
 
-const { verse, line, syncIndex, showVerseLabel = true, showExplanation = false } = Astro.props;
+const {
+  verse,
+  line,
+  syncIndex,
+  showVerseLabel = true,
+  showExplanation = false,
+  glossaryLookup,
+} = Astro.props;
 const tEn = ui.en;
 const tPt = ui.pt;
 const tEs = ui.es;
@@ -43,6 +58,11 @@ function explanationHasAnyLocale(exp: ChantVerseType['explanation'] | undefined)
     return typeof s === 'string' && s.trim().length > 0;
   });
 }
+
+const hasGlossary = Boolean(glossaryLookup && glossaryLookup.size > 0);
+const translitPieces = hasGlossary
+  ? tokenizeGlossaryLine(line.transliteration, glossaryLookup!, glossaryEntryId)
+  : null;
 ---
 
 <div
@@ -61,8 +81,20 @@ function explanationHasAnyLocale(exp: ChantVerseType['explanation'] | undefined)
   <p class="original" dir="auto" lang="und">
     {line.original}
   </p>
-  <p class="transliteration" dir="ltr">
-    {line.transliteration}
+  <p class="transliteration" dir="ltr" lang="sa-Latn">
+    {translitPieces
+      ? translitPieces.map((piece) =>
+          piece.type === 'text' ? (
+            piece.value
+          ) : (
+            <ChantGlossWord
+              value={piece.value}
+              interactive={piece.hasEntry === true}
+              entryId={piece.hasEntry ? piece.entryId : undefined}
+            />
+          )
+        )
+      : line.transliteration}
   </p>
   <div class="translations">
     {VERSE_LOCALES.map((loc) => {

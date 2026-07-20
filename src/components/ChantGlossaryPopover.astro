@@ -1,0 +1,53 @@
+---
+/**
+ * Single shared popover for Sanskrit glossary meanings (filled by chant-glossary.js).
+ */
+import { ui, SUPPORTED_LOCALES } from '../i18n/strings';
+
+const tEn = ui.en;
+const tPt = ui.pt;
+const tEs = ui.es;
+const tIt = ui.it;
+const tHi = ui.hi;
+const tAr = ui.ar;
+---
+
+<div
+  id="chant-glossary-popover"
+  class="chant-glossary-popover"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="chant-glossary-popover-title"
+  hidden
+>
+  <div class="chant-glossary-popover__backdrop" data-glossary-close tabindex="-1"></div>
+  <div class="chant-glossary-popover__panel">
+    <button
+      type="button"
+      class="chant-glossary-popover__close"
+      data-glossary-close
+      aria-label="Close"
+    >
+      <span class="locale-en" aria-hidden="true">{tEn.chant.glossaryClose}</span>
+      <span class="locale-pt" aria-hidden="true">{tPt.chant.glossaryClose}</span>
+      <span class="locale-es" aria-hidden="true">{tEs.chant.glossaryClose}</span>
+      <span class="locale-it" aria-hidden="true">{tIt.chant.glossaryClose}</span>
+      <span class="locale-hi" aria-hidden="true">{tHi.chant.glossaryClose}</span>
+      <span class="locale-ar" aria-hidden="true">{tAr.chant.glossaryClose}</span>
+    </button>
+    <header class="chant-glossary-popover__header">
+      <p id="chant-glossary-popover-title" class="chant-glossary-popover__iast"></p>
+      <p class="chant-glossary-popover__original" hidden></p>
+    </header>
+    <p class="chant-glossary-popover__brief"></p>
+    <div class="chant-glossary-popover__deep-label">
+      {SUPPORTED_LOCALES.map((loc) => {
+        const t = ui[loc];
+        return (
+          <span class={`locale-${loc}`}>{t.chant.glossaryDeepLabel}</span>
+        );
+      })}
+    </div>
+    <p class="chant-glossary-popover__deep"></p>
+  </div>
+</div>

@@ -90,6 +90,10 @@ export const uiAr = {
     syncEditPrUnavailable:
       'إرسال PR يحتاج واجهة contribute. نزّل JSON بدلاً من ذلك.',
     syncEditHotkeys: 'مرّر أو اسحب ↕ · Shift+scroll ±0.5s',
+    glossaryClose: 'إغلاق',
+    glossaryDeepLabel: 'معنى أعمق',
+    glossaryHint:
+      'كلمات سنسكريتية بخط منقّط: انقر (أو اضغط مطوّلاً على الجوال) لمعنى أعمق.',
   },
   traditions: {
     title: 'التقاليد',
