@@ -70,4 +70,4 @@ Shared timestamp tooling: `scripts/lib/chant-timestamps.mjs`, `scripts/apply-cha
 - Schema: `src/content/schemas/chant.ts`
 - Locale merge: `npm run chant:merge-locales`
 - Human contributing guide: `CONTRIBUTING.md`
-- Bug queue for agents: see **Bug queue for agents** above (`./scripts/agents/pickup-agent-queue.ps1`)
+- Bug queue for agents: see **Bug queue for agents** above (`pickup-agent-queue.ps1` → `resolve-agent-queue-issue.ps1 -OpenPr`)
