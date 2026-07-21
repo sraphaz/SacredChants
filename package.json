@@ -56,13 +56,13 @@
     "@semantic-release/github": "^12.0.9",
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@types/node": "^26.1.1",
-    "@vercel/node": "^5.6.23",
+    "@vercel/node": "^5.8.26",
     "cross-env": "^10.1.0",
     "semantic-release": "^25.0.8",
     "serve": "^14.2.6",
     "sharp": "^0.35.3",
-    "typescript": "^7.0.2",
-    "vercel": "^53.0.1",
+    "typescript": "5.8.3",
+    "vercel": "^56.4.1",
     "vitest": "^4.1.10"
   }
 }
