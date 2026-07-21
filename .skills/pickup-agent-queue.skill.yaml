@@ -1,0 +1,31 @@
+id: pickup-agent-queue
+description: >
+  Pickup da fila agent-queue até PR autónomo: escolhe a próxima issue, orienta ARAH
+  (fix → verificar), e abre PR via resolve-agent-queue-issue.ps1 -OpenPr.
+  Humanos fazem merge — nunca merge automático.
+run:
+  script: scripts/agents/pickup-agent-queue.ps1
+success: exit_code == 0
+guardrails:
+  - no_merge
+  - propose_only_default
+  - no_force_push_main
+  - no_secrets_in_commits
+references:
+  - AGENTS.md
+  - scripts/agents/resolve-agent-queue-issue.ps1
+  - .agents/domain/bug-report.agent.yaml
+steps:
+  - id: pickup
+    run: scripts/agents/pickup-agent-queue.ps1 -WriteBody -Json
+  - id: claim_optional
+    run: scripts/agents/resolve-agent-queue-issue.ps1 -IssueNumber <n> -Claim
+  - id: arah_task
+    note: ./scripts/agents/execute-task.ps1 -Objective "Fix #<n>: …" -Area <area> -WorkClass standard
+  - id: implement
+    note: Minimal fix + focused tests (agent / Cursor)
+  - id: verify
+    note: npm run test:unit -- <focused> or e2e as needed
+  - id: open_pr
+    run: scripts/agents/resolve-agent-queue-issue.ps1 -IssueNumber <n> -OpenPr -Paths <files…>
+    note: Creates fix/agent-queue-N-slug, commit, push -u, gh pr create (Fixes #N), comments issue; never merges

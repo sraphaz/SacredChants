@@ -70,7 +70,7 @@ export const PAGE_SEO: Record<Locale, PageSeoBundle> = {
       soundAttributes:
         'Altura, volume, timbre e como os atributos do som se relacionam com os cinco elementos e harmonizam quem escuta.',
       balanceAndHealing:
-        'A distinção entre equilíbrio momentâneo e cura mais profunda. Som sagrado, dissolução do ego e contacto com o ser integral.',
+        'A distinção entre equilíbrio momentâneo e cura mais profunda. Som sagrado, dissolução do ego e contato com o ser integral.',
       soundAndHumanity:
         'Som e humanidade: como culturas no mundo cultivaram o canto; som na natureza; o sagrado e estados interiores canalizados pelo som.',
       references: 'Referências e leitura adicional sobre Nada Yoga e os cinco elementos.',
