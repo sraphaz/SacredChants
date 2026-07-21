@@ -132,6 +132,10 @@ export const ui = {
       syncEditPrUnavailable:
         'PR submit needs the contribute API. Download the JSON patch instead.',
       syncEditHotkeys: 'Pull ↕ to nudge time',
+      glossaryClose: 'Close',
+      glossaryDeepLabel: 'Deeper meaning',
+      glossaryHint:
+        'Sanskrit words with a dotted underline: click (or press and hold on mobile) for a deeper meaning.',
     },
     traditions: {
       title: 'Traditions',
@@ -421,6 +425,10 @@ export const ui = {
       syncEditPrUnavailable:
         'O envio de PR precisa da API de contribute. Descarregue o JSON em vez disso.',
       syncEditHotkeys: 'Puxar ↕ para ajustar o tempo',
+      glossaryClose: 'Fechar',
+      glossaryDeepLabel: 'Significado profundo',
+      glossaryHint:
+        'Palavras em sânscrito com sublinhado pontilhado: clique (ou pressione e segure no telemóvel) para um significado mais profundo.',
     },
     traditions: {
       title: 'Tradições',
@@ -710,6 +718,10 @@ export const ui = {
       syncEditPrUnavailable:
         'Enviar PR requiere la API de contribute. Descarga el JSON en su lugar.',
       syncEditHotkeys: 'Scroll o arrastrar ↕ · Shift+scroll ±0.5s',
+      glossaryClose: 'Cerrar',
+      glossaryDeepLabel: 'Significado profundo',
+      glossaryHint:
+        'Palabras en sánscrito con subrayado de puntos: haz clic (o mantén pulsado en el móvil) para un significado más profundo.',
     },
     traditions: {
       title: 'Tradiciones',
@@ -999,6 +1011,10 @@ export const ui = {
       syncEditPrUnavailable:
         'L’invio del PR richiede l’API contribute. Scarica invece il JSON.',
       syncEditHotkeys: 'Scroll o trascina ↕ · Shift+scroll ±0.5s',
+      glossaryClose: 'Chiudi',
+      glossaryDeepLabel: 'Significato profondo',
+      glossaryHint:
+        'Parole in sanscrito con sottolineatura punteggiata: clic (o tieni premuto sul mobile) per un significato più profondo.',
     },
     traditions: {
       title: 'Tradizioni',

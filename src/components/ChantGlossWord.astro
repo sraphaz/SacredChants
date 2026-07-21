@@ -1,0 +1,25 @@
+---
+/**
+ * Interactive Sanskrit word: click (desktop) / long-press (mobile) opens glossary popover.
+ */
+interface Props {
+  value: string;
+  entryId?: string;
+  interactive?: boolean;
+}
+
+const { value, entryId, interactive = false } = Astro.props;
+---
+
+{interactive && entryId ? (
+  <button
+    type="button"
+    class="chant-word chant-word--gloss"
+    data-glossary-id={entryId}
+    aria-haspopup="dialog"
+  >
+    {value}
+  </button>
+) : (
+  <span class="chant-word">{value}</span>
+)}

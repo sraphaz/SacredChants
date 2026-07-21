@@ -92,6 +92,10 @@ export const uiHi = {
     syncEditPrUnavailable:
       'PR के लिए contribute API चाहिए। इसके बजाय JSON डाउनलोड करें।',
     syncEditHotkeys: 'स्क्रॉल या खींचें ↕ · Shift+scroll ±0.5s',
+    glossaryClose: 'बंद करें',
+    glossaryDeepLabel: 'गहन अर्थ',
+    glossaryHint:
+      'बिंदुओं वाली रेखा वाली संस्कृत शब्द: क्लिक करें (या मोबाइल पर दबाकर रखें) गहरा अर्थ देखने के लिए।',
   },
   traditions: {
     title: 'परंपराएँ',
