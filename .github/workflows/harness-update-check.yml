@@ -1,0 +1,39 @@
+# ARAH — notifica quando o pin `.arah-version` está atrás do GitHub Release.
+# Padrão de mercado: Releases (upstream) + scheduled check (consumidor) → issue.
+# Docs: https://github.com/sraphaz/arah-harness/blob/main/docs/UPDATE_NOTIFICATIONS.md
+name: Harness Update Check
+
+on:
+  schedule:
+    # Segundas 14:00 UTC
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check harness pin vs latest release
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          $script = Join-Path $PWD 'scripts/agents/check-harness-update.ps1'
+          if (-not (Test-Path $script)) {
+            Write-Host 'check-harness-update.ps1 missing — run arah update -Force'
+            exit 0
+          }
+          # Notify abre/atualiza issue; não falha o job só por estar outdated
+          # (a notificação é o produto). Use -FailIfOutdated em CI estrito se quiser.
+          & $script -Notify
+          if ($LASTEXITCODE -eq 1) { exit 1 }
+          exit 0

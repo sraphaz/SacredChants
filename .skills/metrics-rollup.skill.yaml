@@ -1,0 +1,9 @@
+id: metrics-rollup
+description: Economy Intelligence — agrega audit/live/signals em scorecard de eficiência.
+run:
+  script: scripts/agents/metrics-rollup.ps1
+success: exit_code == 0
+guardrails:
+  - local_runtime_only
+  - no_auto_merge
+  - propose_via_evolve

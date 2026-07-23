@@ -1,0 +1,79 @@
+# discovery.schema.yaml — proposta de observação do repositório
+schema: arah-harness/discovery
+version: 0.1.0
+
+description: |
+  Artefato gerado por arah discover. Observa stack, estrutura e pistas de domínio.
+  Nunca aplica mudanças silenciosamente — Apply só escreve candidaturas em
+  arah.config.yaml (domains/specialists) para revisão humana + domain sync.
+
+fields:
+  schema:
+    type: string
+    required: true
+    default: arah-harness/discovery
+  generated_at:
+    type: string
+    required: true
+  project:
+    type: string
+  confidence:
+    type: enum[low, medium, high]
+  stack:
+    type: stack_block
+    required: true
+  structure:
+    type: structure_block
+  proposed_domains:
+    type: list<proposed_domain>
+  proposed_specialists:
+    type: list<proposed_specialist>
+  notes:
+    type: list<string>
+
+types:
+  stack_block:
+    languages:
+      type: list<string>
+    frameworks:
+      type: list<string>
+    package_managers:
+      type: list<string>
+    evidence:
+      type: list<string>
+
+  structure_block:
+    monorepo:
+      type: bool
+    top_dirs:
+      type: list<string>
+    app_roots:
+      type: list<string>
+
+  proposed_domain:
+    id:
+      type: string
+      required: true
+    name:
+      type: string
+      required: true
+    paths:
+      type: list<string>
+      required: true
+    rationale:
+      type: string
+    confidence:
+      type: enum[low, medium, high]
+
+  proposed_specialist:
+    id:
+      type: string
+      required: true
+    stack:
+      type: string
+      required: true
+    paths:
+      type: list<string>
+      required: true
+    rationale:
+      type: string
