@@ -1,0 +1,111 @@
+# organism.schema.yaml — manifesto TechOrganism no repositório
+schema: arah-harness/organism
+version: 0.1.0
+
+description: |
+  Manifesto ontogênico do TechOrganism: células (agentes), tecidos (grupos),
+  vias de sinalização e papéis. Gerado no bootstrap e atualizado por propostas
+  de evolução (nunca mutação silenciosa do kernel).
+
+fields:
+  schema:
+    type: string
+    required: true
+    default: arah-harness/organism
+  version:
+    type: string
+    required: true
+  generated_at:
+    type: string
+    required: true
+  project:
+    type: string
+  metaphor:
+    type: string
+    default: |
+      TechOrganism = organismo tecnológico no repo. Agentes = células. Grupos = tecidos.
+      Sinais tipados = comunicação química auditável. Evolução = seleção via PR.
+  cells:
+    type: list<cell>
+    required: true
+  tissues:
+    type: list<tissue>
+  signaling:
+    type: signaling_block
+  homeostasis:
+    type: homeostasis_block
+  evolution:
+    type: evolution_policy_block
+
+types:
+  cell:
+    id:
+      type: string
+      required: true
+    kind:
+      type: enum[operational, domain, specialist]
+      required: true
+    role:
+      type: string
+      required: true
+    paths:
+      type: list<string>
+    can_emit:
+      type: list<string>
+      description: Tipos de sinal que a célula pode emitir
+    can_receive:
+      type: list<string>
+    max_autonomy:
+      type: enum[observe, consult, route, activate, invoke_skill, side_effect, public]
+
+  tissue:
+    id:
+      type: string
+      required: true
+    purpose:
+      type: string
+    members:
+      type: list<string>
+      required: true
+    topic:
+      type: string
+      description: Tópico de sinal compartilhado (ex. delivery, craft, domain)
+
+  signaling_block:
+    bus_path:
+      type: string
+      default: .arah/local/bus/
+    default_mode:
+      type: enum[passive, active_propose]
+      default: passive
+      description: |
+        passive = arquivo + CI (economia de tokens).
+        active_propose = células podem emitir propose/coalesce; Apply humano.
+
+  homeostasis_block:
+    regenerate_command:
+      type: string
+      default: arah regenerate
+    doctor_command:
+      type: string
+      default: arah doctor
+    drift_check:
+      type: string
+      default: arah sync-check
+
+  evolution_policy_block:
+    mode:
+      type: enum[propose_only, propose_and_draft_pr]
+      default: propose_only
+    artifact:
+      type: string
+      default: docs/_meta/evolution.proposed.yaml
+    human_gate:
+      type: string
+      default: proposal_before_implementation
+    forbidden:
+      type: list<string>
+      default:
+        - silent_agent_spawn
+        - silent_kernel_rewrite
+        - auto_merge

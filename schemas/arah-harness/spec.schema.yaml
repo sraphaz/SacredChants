@@ -1,0 +1,36 @@
+# spec.schema.yaml — contrato de uma spec no repo governado (spec-before-work)
+# Specs vivem em docs/specs/. CI valida frontmatter contra este schema.
+
+schema: arah-harness/spec
+version: 0.1.0
+
+fields:
+  id:          {type: string, required: true}          # ex.: spec-alertas-sms
+  title:       {type: string, required: true}
+  status:      {type: enum[draft, active, superseded, retired], required: true}
+  owner:       {type: string, required: true}          # humano responsável
+  covers:      {type: list<glob>, required: true}      # paths de código cobertos pela spec
+  depends_on:  {type: list<string>}                    # outras specs
+  source:      {type: string}                          # origem (ex.: sky-forge package artifact)
+  acceptance:  {type: list<string>}                    # como validar que o código honra a spec
+  updated_at:  {type: date, required: true}
+  body:        markdown                                # conteúdo livre abaixo do frontmatter
+
+validations_expected:
+  - "status=active exige covers não vazio"
+  - "PR que altera path coberto por spec active exige mudança na spec OU label spec-reviewed"
+  - "superseded exige apontar sucessora em depends_on/notes"
+
+example: |
+  ---
+  id: spec-alertas-sms
+  title: Alertas por SMS
+  status: active
+  owner: ana-lima
+  covers: ["apps/alertas/**"]
+  depends_on: [spec-coleta-local]
+  source: sky-forge:pkg-estufa-v1/handoff-solution
+  acceptance: ["regra de disparo testada", "fallback e-mail funciona sem provedor SMS"]
+  updated_at: 2026-07-10
+  ---
+  ## Contexto ...

@@ -1,0 +1,8 @@
+id: regenerate-harness
+description: Homeostase — update/sync/discover/organism/evolve/graph/doctor no consumidor.
+run:
+  script: scripts/agents/regenerate-harness.ps1
+success: exit_code == 0
+guardrails:
+  - preserves_arah_config
+  - proposals_via_docs_meta
