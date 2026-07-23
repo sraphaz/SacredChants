@@ -92,6 +92,66 @@ test.describe('Practice rail (loop · 108 · restart)', () => {
     await expect(page.locator('#chant-audio')).toHaveJSProperty('paused', true);
   });
 
+  test('reiniciar após mala completa zera a contagem para uma nova rodada', async ({ page }) => {
+    await page.locator('#chant-practice-loop').click();
+
+    await page.evaluate(() => {
+      const api = (
+        window as unknown as {
+          SacredChantsPractice?: {
+            _setCount: (n: number) => void;
+            _setMalaTarget: (n: number) => void;
+          };
+        }
+      ).SacredChantsPractice;
+      if (!api) throw new Error('SacredChantsPractice missing');
+      api._setMalaTarget(3);
+      api._setCount(2);
+      const el = document.getElementById('chant-audio') as HTMLAudioElement;
+      el.pause();
+      el.dispatchEvent(new Event('ended'));
+    });
+
+    await expect(page.locator('#chant-practice-count')).toHaveAttribute('data-count', '3');
+    await page.locator('#chant-practice-restart').click();
+    await expect(page.locator('#chant-practice-count')).toHaveAttribute('data-count', '0');
+    await expect(page.locator('#chant-practice-rail')).not.toHaveAttribute('data-mala-complete', 'true');
+
+    await page.evaluate(() => {
+      const el = document.getElementById('chant-audio') as HTMLAudioElement;
+      el.pause();
+      el.dispatchEvent(new Event('ended'));
+    });
+
+    await expect(page.locator('#chant-practice-count')).toHaveAttribute('data-count', '1');
+  });
+
+  test('play preserva o status de mala completa enquanto o loop continua ativo', async ({ page }) => {
+    await page.locator('#chant-practice-loop').click();
+
+    await page.evaluate(() => {
+      const api = (
+        window as unknown as {
+          SacredChantsPractice?: {
+            _setCount: (n: number) => void;
+            _setMalaTarget: (n: number) => void;
+          };
+        }
+      ).SacredChantsPractice;
+      if (!api) throw new Error('SacredChantsPractice missing');
+      api._setMalaTarget(3);
+      api._setCount(2);
+      const el = document.getElementById('chant-audio') as HTMLAudioElement;
+      el.pause();
+      el.dispatchEvent(new Event('ended'));
+      el.dispatchEvent(new Event('play'));
+    });
+
+    await expect(page.locator('#chant-practice-count')).toHaveAttribute('data-count', '3');
+    await expect(page.locator('#chant-practice-rail')).toHaveAttribute('data-mala-complete', 'true');
+    await expect(page.locator('#chant-practice-status')).toBeVisible();
+  });
+
   test('sem loop, ended destaca o botão reiniciar', async ({ page }) => {
     await page.evaluate(() => {
       const el = document.getElementById('chant-audio') as HTMLAudioElement;

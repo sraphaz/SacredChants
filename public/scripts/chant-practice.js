@@ -123,7 +123,15 @@
       }
     }
 
+    function isMalaComplete() {
+      return loopOn && count >= malaTarget;
+    }
+
     function restart(play) {
+      if (isMalaComplete()) {
+        count = 0;
+        updateCountUi();
+      }
       hideStatus();
       setEndAffordance(false);
       try {
@@ -195,7 +203,7 @@
     audio.addEventListener('ended', onEnded);
     audio.addEventListener('play', function () {
       if (!audio.ended) setEndAffordance(false);
-      hideStatus();
+      if (!isMalaComplete()) hideStatus();
     });
     audio.addEventListener('timeupdate', onTimeUpdate);
 
