@@ -132,6 +132,10 @@ export const ui = {
       syncEditPrUnavailable:
         'PR submit needs the contribute API. Download the JSON patch instead.',
       syncEditHotkeys: 'Pull ↕ to nudge time',
+      practiceLoop: 'Loop',
+      practiceRestart: 'Restart',
+      practiceMalaComplete: 'Mala complete',
+      practiceRailLabel: 'Practice controls',
       glossaryClose: 'Close',
       glossaryDeepLabel: 'Deeper meaning',
       glossaryHint:
@@ -449,6 +453,10 @@ export const ui = {
       syncEditPrUnavailable:
         'O envio de PR precisa da API de contribute. Descarregue o JSON em vez disso.',
       syncEditHotkeys: 'Puxar ↕ para ajustar o tempo',
+      practiceLoop: 'Repetir',
+      practiceRestart: 'Reiniciar',
+      practiceMalaComplete: 'Mala completa',
+      practiceRailLabel: 'Controlos de prática',
       glossaryClose: 'Fechar',
       glossaryDeepLabel: 'Significado profundo',
       glossaryHint:
@@ -766,6 +774,10 @@ export const ui = {
       syncEditPrUnavailable:
         'Enviar PR requiere la API de contribute. Descarga el JSON en su lugar.',
       syncEditHotkeys: 'Scroll o arrastrar ↕ · Shift+scroll ±0.5s',
+      practiceLoop: 'Repetir',
+      practiceRestart: 'Reiniciar',
+      practiceMalaComplete: 'Mala completa',
+      practiceRailLabel: 'Controles de práctica',
       glossaryClose: 'Cerrar',
       glossaryDeepLabel: 'Significado profundo',
       glossaryHint:
@@ -1083,6 +1095,10 @@ export const ui = {
       syncEditPrUnavailable:
         'L’invio del PR richiede l’API contribute. Scarica invece il JSON.',
       syncEditHotkeys: 'Scroll o trascina ↕ · Shift+scroll ±0.5s',
+      practiceLoop: 'Ripeti',
+      practiceRestart: 'Ricomincia',
+      practiceMalaComplete: 'Mala completata',
+      practiceRailLabel: 'Controlli di pratica',
       glossaryClose: 'Chiudi',
       glossaryDeepLabel: 'Significato profondo',
       glossaryHint:
