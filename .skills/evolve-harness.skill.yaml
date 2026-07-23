@@ -1,0 +1,9 @@
+id: evolve-harness
+description: Ciclo de autoaprendizado — propõe melhorias a partir de audit/sinais/telemetria.
+run:
+  script: scripts/agents/evolve-harness.ps1
+success: exit_code == 0
+guardrails:
+  - propose_only
+  - no_silent_kernel_rewrite
+  - human_gate_proposal_before_implementation

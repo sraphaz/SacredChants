@@ -1,0 +1,8 @@
+id: discover-repo
+description: Observa stack/domínio do repositório e propõe células (domains/specialists).
+run:
+  script: scripts/agents/discover-repo.ps1
+success: exit_code == 0
+guardrails:
+  - propose_only_default
+  - human_apply_required_for_config_merge

@@ -1,0 +1,40 @@
+# agent-graph.schema.yaml — grafo de colaboração entre agentes de um repo
+# Declara quem pode acionar quem, com quais artefatos. Validador exige grafo acíclico
+# e humano em todo caminho que termina em mudança de estado do repo.
+
+schema: arah-harness/agent-graph
+version: 0.1.0
+
+fields:
+  version:    {type: string, required: true}
+  nodes:
+    type: list, required: true
+    item:
+      id:     {type: string}                    # agent id (de .agents/) ou 'human:<papel>'
+      kind:   {type: enum[agent, human]}
+  edges:
+    type: list, required: true
+    item:
+      from:      {type: string, required: true}
+      to:        {type: string, required: true}
+      trigger:   {type: string, required: true}    # evento que aciona (ex.: pr.opened)
+      artifact:  {type: string}                    # o que passa entre eles
+      approval:  {type: bool, default: false}      # true = esta aresta é um gate humano
+  terminal_actions:                                # ações que mudam estado do repo
+    type: list<string>                             # ex.: merge, release, spec.activate
+
+validations_expected:
+  - "grafo acíclico (entre agentes)"
+  - "todo caminho até terminal_action passa por >=1 aresta approval=true com node kind=human"
+  - "todo node agent existe em .agents/"
+
+example:
+  version: "1"
+  nodes:
+    - {id: pr-steward, kind: agent}
+    - {id: docs-scribe, kind: agent}
+    - {id: "human:maintainer", kind: human}
+  edges:
+    - {from: docs-scribe, to: pr-steward, trigger: pr.opened, artifact: pr-diff}
+    - {from: pr-steward, to: "human:maintainer", trigger: analysis.ready, artifact: review-summary, approval: true}
+  terminal_actions: [merge]

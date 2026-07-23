@@ -1,0 +1,47 @@
+# agent.schema.yaml — declaração de um agente operando num repo governado
+# Um arquivo por agente em .agents/. PR Steward valida PRs de agentes contra isto.
+
+schema: arah-harness/agent
+version: 0.1.0
+
+fields:
+  id:            {type: string, required: true}        # ex.: pr-steward
+  name:          {type: string, required: true}
+  purpose:       {type: string, required: true}        # uma frase; sem propósito, sem agente
+  human_owner:   {type: string, required: true}        # OBRIGATÓRIO: humano responsável
+  scope:
+    allowed_paths:   {type: list<glob>, required: true}
+    forbidden_paths: {type: list<glob>}
+    max_diff_lines:  {type: int, default: 400}
+    can_open_pr:     {type: bool, default: true}
+    can_merge:       {type: const, value: false}       # agentes NUNCA fazem merge
+    can_approve:     {type: const, value: false}       # aprovação é humana
+  tools:         {type: list<string>}                  # ferramentas permitidas
+  budget:
+    per_run:     {type: string}                        # ex.: "US$0.50"
+    monthly:     {type: string}
+  evaluation:
+    suite_ref:   {type: string}                        # suite de avaliação versionada
+    min_score:   {type: float}
+  escalation:    {type: string, required: true}        # quando parar e chamar humano
+
+validations_expected:
+  - "can_merge=false e can_approve=false são imutáveis"
+  - "todo agente tem human_owner e escalation"
+  - "allowed_paths não pode conter '.github/workflows/**' salvo agente de CI explícito"
+
+example:
+  id: pr-steward
+  name: "PR Steward"
+  purpose: "Analisar PRs: escopo, tamanho, DoD, presença de spec/ADR; comentar resumo estruturado."
+  human_owner: raphael
+  scope:
+    allowed_paths: []            # não escreve código; só comenta
+    max_diff_lines: 0
+    can_open_pr: false
+    can_merge: false
+    can_approve: false
+  tools: [read_repo, comment_pr, label_pr]
+  budget: {per_run: "US$0.10", monthly: "US$10"}
+  evaluation: {suite_ref: harness/evals/pr-steward.yaml, min_score: 0.9}
+  escalation: "diff fora de escopo, segredo detectado ou DoD violada → label needs-human e silêncio"

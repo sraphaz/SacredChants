@@ -1,0 +1,160 @@
+# JSON Schema (YAML) — ARAH Execution Contract v1.0
+# Validates deterministic task terminality (Execution Control Protocol).
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://arah.dev/schemas/arah-harness/execution-contract.schema.yaml
+title: ARAH Execution Contract
+description: >
+  Formal work instance for an executable human intention.
+  Exactly one primary_executor; terminal states done|blocked only.
+type: object
+additionalProperties: true
+required:
+  - version
+  - task_id
+  - objective
+  - work_class
+  - intent_type
+  - state
+  - limits
+  - counters
+
+properties:
+  version:
+    type: string
+    const: "1.0"
+  task_id:
+    type: string
+    pattern: "^task-[A-Za-z0-9._-]+$"
+  objective:
+    type: string
+    minLength: 1
+  work_class:
+    type: string
+    enum: [trivial, standard, architectural, release]
+  intent_type:
+    type: string
+    enum: [analysis, execution, review, planning]
+  state:
+    type: string
+    enum: [intake, routed, executing, verifying, done, blocked]
+  primary_executor:
+    type: ["string", "null"]
+  participants:
+    type: object
+    properties:
+      consultants:
+        type: array
+        items: { type: string }
+      reviewers:
+        type: array
+        items: { type: string }
+      subordinates:
+        type: array
+        items: { type: string }
+  scope:
+    type: object
+    properties:
+      allowed_paths:
+        type: array
+        items: { type: string }
+      forbidden_paths:
+        type: array
+        items: { type: string }
+      area:
+        type: string
+  execution:
+    type: object
+    properties:
+      expected_outputs:
+        type: array
+        items: { type: string }
+      verification_commands:
+        type: array
+        items: { type: string }
+      completion_evidence:
+        type: array
+        items: { type: string }
+  limits:
+    type: object
+    required: [max_handoffs, max_consultations, max_analysis_cycles]
+    properties:
+      max_handoffs: { type: integer, minimum: 0 }
+      max_consultations: { type: integer, minimum: 0 }
+      max_analysis_cycles: { type: integer, minimum: 0 }
+  counters:
+    type: object
+    required: [handoffs, consultations, analysis_cycles]
+    properties:
+      handoffs: { type: integer, minimum: 0 }
+      consultations: { type: integer, minimum: 0 }
+      analysis_cycles: { type: integer, minimum: 0 }
+  result:
+    type: object
+    properties:
+      changed_files:
+        type: array
+        items: { type: string }
+      commands_executed:
+        type: array
+        items: { type: string }
+      evidence:
+        type: array
+        items: { type: string }
+      blocking_reason:
+        type: ["string", "null"]
+  history:
+    type: array
+    items:
+      type: object
+      required: [at, from, to]
+      properties:
+        at: { type: string }
+        from: { type: string }
+        to: { type: string }
+        note: { type: string }
+  choreography_rule:
+    type: ["string", "null"]
+  policy:
+    type: object
+    properties:
+      spec_required: { type: boolean }
+      lightweight_spec: { type: boolean }
+      full_spec_required: { type: boolean }
+      release_approval_required: { type: boolean }
+      human_gate_required: { type: boolean }
+
+allOf:
+  - if:
+      properties:
+        state:
+          enum: [routed, executing, verifying, done, blocked]
+    then:
+      required: [primary_executor]
+      properties:
+        primary_executor:
+          type: string
+          minLength: 1
+  - if:
+      properties:
+        state: { const: done }
+    then:
+      properties:
+        execution:
+          type: object
+          required: [completion_evidence]
+          properties:
+            completion_evidence:
+              type: array
+              minItems: 1
+  - if:
+      properties:
+        state: { const: blocked }
+    then:
+      properties:
+        result:
+          type: object
+          required: [blocking_reason]
+          properties:
+            blocking_reason:
+              type: string
+              minLength: 1

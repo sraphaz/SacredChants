@@ -1,0 +1,78 @@
+# JSON Schema (YAML) — ARAH Consultation Result v1.0
+# Structured finite advice from a consultant back to the primary executor.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://arah.dev/schemas/arah-harness/consultation-result.schema.yaml
+title: ARAH Consultation Result
+description: >
+  Consultants return structured advice to the primary executor only.
+  They must not redefine the executor, call other consultants, or reopen routing.
+type: object
+additionalProperties: false
+required:
+  - version
+  - task_id
+  - consultant
+  - summary
+  - blocking
+  - scope_expansion_requested
+
+properties:
+  version:
+    type: string
+    const: "1.0"
+  task_id:
+    type: string
+    minLength: 1
+  consultant:
+    type: string
+    minLength: 1
+  summary:
+    type: string
+    minLength: 1
+    maxLength: 2000
+  recommendations:
+    type: array
+    items: { type: string }
+  risks:
+    type: array
+    items: { type: string }
+  constraints:
+    type: array
+    items: { type: string }
+  blocking:
+    type: object
+    required: [value]
+    properties:
+      value: { type: boolean }
+      reason:
+        type: ["string", "null"]
+      evidence:
+        type: ["string", "null"]
+  scope_expansion_requested:
+    type: object
+    required: [value]
+    properties:
+      value: { type: boolean }
+      paths:
+        type: array
+        items: { type: string }
+      justification:
+        type: ["string", "null"]
+
+allOf:
+  - if:
+      properties:
+        blocking:
+          properties:
+            value: { const: true }
+    then:
+      properties:
+        blocking:
+          required: [value, reason, evidence]
+          properties:
+            reason:
+              type: string
+              minLength: 1
+            evidence:
+              type: string
+              minLength: 1

@@ -1,0 +1,33 @@
+# pr-check.schema.yaml — checks de PR exigidos por um profile do harness
+# Instanciado por profile; CI executa; PR Steward comenta o resultado.
+
+schema: arah-harness/pr-check
+version: 0.1.0
+
+fields:
+  id:          {type: string, required: true}          # ex.: no-direct-main
+  name:        {type: string, required: true}
+  severity:    {type: enum[block, warn], required: true}
+  applies_to:  {type: enum[all, agents_only, humans_only], default: all}
+  rule:        {type: string, required: true}          # descrição executável da regra
+  remedy:      {type: string, required: true}          # o que fazer quando falha
+  profile_min: {type: enum[minimal, consulting, product, enterprise, open-source]}  # menor profile que inclui
+
+validations_expected:
+  - "severity=block exige remedy"
+  - "checks de agents_only referenciam .agents/ para escopo"
+
+examples:
+  - {id: no-direct-main,        name: "Sem commit direto em main",        severity: block, applies_to: all,
+     rule: "push em main só via PR aprovado", remedy: "abrir PR", profile_min: minimal}
+  - {id: no-secrets,            name: "Scan de segredos",                 severity: block, applies_to: all,
+     rule: "nenhum segredo detectável no diff", remedy: "remover e rotacionar segredo", profile_min: minimal}
+  - {id: spec-before-work,      name: "Spec atualizada",                  severity: block, applies_to: all,
+     rule: "PR tocando path coberto por spec active atualiza a spec ou traz label spec-reviewed",
+     remedy: "atualizar docs/specs/", profile_min: consulting}
+  - {id: agent-scope,           name: "Escopo do agente",                 severity: block, applies_to: agents_only,
+     rule: "diff dentro de allowed_paths e <= max_diff_lines", remedy: "reduzir escopo do PR", profile_min: minimal}
+  - {id: adr-for-structure,     name: "ADR para decisão estrutural",      severity: warn, applies_to: all,
+     rule: "mudança em arquitetura referencia ADR", remedy: "criar docs/adr/NNN.md", profile_min: product}
+  - {id: docs-synced,           name: "Docs sincronizadas",               severity: block, applies_to: all,
+     rule: "artefatos derivados regenerados no PR", remedy: "rodar export e commitar", profile_min: consulting}

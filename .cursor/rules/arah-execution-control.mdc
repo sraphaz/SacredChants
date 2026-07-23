@@ -1,0 +1,41 @@
+---
+description: Enforce ARAH execution terminality
+alwaysApply: true
+---
+
+# ARAH Execution Control Protocol
+
+For executable user requests (implement, fix, create, modify, remove, migrate, refactor):
+
+1. Read `AGENTS.md`.
+2. Resolve the matching choreography rule (`.agents/choreography.yaml`).
+3. Select **exactly one** `primary_executor`.
+4. Create or update the execution contract:
+
+```powershell
+powershell -File ./cli/arah.ps1 task create -Objective "…" -Area <area> -Class standard
+# or
+./scripts/agents/execute-task.ps1 -Objective "…" -Area backend -WorkClass standard
+```
+
+5. **Stop acting as the orchestrator after routing.** The primary executor conducts the session.
+6. Perform the requested repository changes within `scope.allowed_paths`.
+7. Consultants may only return structured `consultation-result` YAML under `.arah/local/execution/<task-id>/consultations/`.
+8. Do **not** create agent-to-agent conversational loops.
+9. Do **not** repeatedly analyze already identified problems.
+10. After execution starts (`state: executing`), do **not** return to `routed`.
+11. Verify the result (`verifying`).
+12. Finish only as **DONE** or **BLOCKED**:
+
+```powershell
+arah task complete -TaskId <id> -Evidence "Tests passed; path/to/file.ts updated"
+arah task block -TaskId <id> -Reason "Missing external credential X"
+```
+
+13. **DONE** requires concrete completion evidence (file change, command, test, or requested artifact).
+14. **BLOCKED** requires one precise missing dependency or human decision.
+
+When the request is to implement, fix, create, modify, remove, migrate or refactor:
+**analysis alone is not a valid completion result.**
+
+Principles preserved: human commands; agent executes; merge is human; everything via PR; minimal scope; proportional spec-before-code; agents propose and humans apply.
