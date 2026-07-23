@@ -1,0 +1,170 @@
+---
+import { SUPPORTED_LOCALES, type Locale } from '../i18n/strings';
+
+interface Props {
+  railLabelEn: string;
+  railLabelPt: string;
+  railLabelEs?: string;
+  railLabelIt?: string;
+  railLabelHi?: string;
+  railLabelAr?: string;
+  loopLabelEn: string;
+  loopLabelPt: string;
+  loopLabelEs?: string;
+  loopLabelIt?: string;
+  loopLabelHi?: string;
+  loopLabelAr?: string;
+  restartLabelEn: string;
+  restartLabelPt: string;
+  restartLabelEs?: string;
+  restartLabelIt?: string;
+  restartLabelHi?: string;
+  restartLabelAr?: string;
+  malaCompleteEn: string;
+  malaCompletePt: string;
+  malaCompleteEs?: string;
+  malaCompleteIt?: string;
+  malaCompleteHi?: string;
+  malaCompleteAr?: string;
+  locale?: Locale;
+}
+
+const {
+  railLabelEn,
+  railLabelPt,
+  railLabelEs = 'Practice controls',
+  railLabelIt = 'Practice controls',
+  railLabelHi = 'Practice controls',
+  railLabelAr = 'Practice controls',
+  loopLabelEn,
+  loopLabelPt,
+  loopLabelEs = 'Loop',
+  loopLabelIt = 'Loop',
+  loopLabelHi = 'Loop',
+  loopLabelAr = 'Loop',
+  restartLabelEn,
+  restartLabelPt,
+  restartLabelEs = 'Restart',
+  restartLabelIt = 'Restart',
+  restartLabelHi = 'Restart',
+  restartLabelAr = 'Restart',
+  malaCompleteEn,
+  malaCompletePt,
+  malaCompleteEs = 'Mala complete',
+  malaCompleteIt = 'Mala complete',
+  malaCompleteHi = 'Mala complete',
+  malaCompleteAr = 'Mala complete',
+  locale = 'en',
+} = Astro.props;
+
+const LOCALES = [...SUPPORTED_LOCALES] as const;
+const railLabels: Record<(typeof LOCALES)[number], string> = {
+  en: railLabelEn,
+  pt: railLabelPt,
+  es: railLabelEs,
+  it: railLabelIt,
+  hi: railLabelHi,
+  ar: railLabelAr,
+};
+const loopLabels: Record<(typeof LOCALES)[number], string> = {
+  en: loopLabelEn,
+  pt: loopLabelPt,
+  es: loopLabelEs,
+  it: loopLabelIt,
+  hi: loopLabelHi,
+  ar: loopLabelAr,
+};
+const restartLabels: Record<(typeof LOCALES)[number], string> = {
+  en: restartLabelEn,
+  pt: restartLabelPt,
+  es: restartLabelEs,
+  it: restartLabelIt,
+  hi: restartLabelHi,
+  ar: restartLabelAr,
+};
+const malaLabels: Record<(typeof LOCALES)[number], string> = {
+  en: malaCompleteEn,
+  pt: malaCompletePt,
+  es: malaCompleteEs,
+  it: malaCompleteIt,
+  hi: malaCompleteHi,
+  ar: malaCompleteAr,
+};
+const activeRail = railLabels[locale] ?? railLabelEn;
+const activeLoop = loopLabels[locale] ?? loopLabelEn;
+const activeRestart = restartLabels[locale] ?? restartLabelEn;
+---
+
+<div
+  class="chant-practice-rail"
+  id="chant-practice-rail"
+  role="group"
+  aria-label={activeRail}
+  data-mala-target="108"
+  data-loop-label-en={loopLabelEn}
+  data-loop-label-pt={loopLabelPt}
+  data-loop-label-es={loopLabelEs}
+  data-loop-label-it={loopLabelIt}
+  data-loop-label-hi={loopLabelHi}
+  data-loop-label-ar={loopLabelAr}
+  data-restart-label-en={restartLabelEn}
+  data-restart-label-pt={restartLabelPt}
+  data-restart-label-es={restartLabelEs}
+  data-restart-label-it={restartLabelIt}
+  data-restart-label-hi={restartLabelHi}
+  data-restart-label-ar={restartLabelAr}
+  data-mala-complete-en={malaCompleteEn}
+  data-mala-complete-pt={malaCompletePt}
+  data-mala-complete-es={malaCompleteEs}
+  data-mala-complete-it={malaCompleteIt}
+  data-mala-complete-hi={malaCompleteHi}
+  data-mala-complete-ar={malaCompleteAr}
+>
+  <button
+    type="button"
+    id="chant-practice-loop"
+    class="chant-practice-rail__btn"
+    aria-pressed="false"
+    aria-label={activeLoop}
+  >
+    <span class="chant-practice-rail__icon" aria-hidden="true">↻</span>
+    {LOCALES.map((loc) => (
+      <span class={`locale-${loc}`}>{loopLabels[loc]}</span>
+    ))}
+  </button>
+
+  <span
+    id="chant-practice-count"
+    class="chant-practice-rail__count"
+    aria-live="polite"
+    data-count="0"
+  >
+    <span class="chant-practice-rail__count-num">0</span>
+    <span aria-hidden="true"> / </span>
+    <span class="chant-practice-rail__count-target">108</span>
+  </span>
+
+  <button
+    type="button"
+    id="chant-practice-restart"
+    class="chant-practice-rail__btn"
+    aria-label={activeRestart}
+  >
+    <span class="chant-practice-rail__icon" aria-hidden="true">⏮</span>
+    {LOCALES.map((loc) => (
+      <span class={`locale-${loc}`}>{restartLabels[loc]}</span>
+    ))}
+  </button>
+
+  <p
+    id="chant-practice-status"
+    class="chant-practice-rail__status"
+    role="status"
+    aria-live="polite"
+    hidden
+  >
+    {LOCALES.map((loc) => (
+      <span class={`locale-${loc}`}>{malaLabels[loc]}</span>
+    ))}
+  </p>
+</div>
