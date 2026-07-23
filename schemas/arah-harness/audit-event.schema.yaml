@@ -1,0 +1,54 @@
+# audit-event.schema.yaml — evento na trilha de auditoria
+
+schema: arah-harness/audit-event
+version: 0.2.0
+
+description: |
+  Evento de ação de agente. Storage (v0.3.1+): .arah/local/audit/pending/<ULID>.json
+  com scrubbing de secrets antes da persistência.
+  Campos Economy Intelligence (M2) são opcionais e backward compatible.
+
+fields:
+  v:               {type: integer, required: true, default: 1}
+  ts:              {type: datetime, required: true}
+  correlation_id:  {type: string, required: true}
+  project:         {type: string, required: true}
+  agent_id:        {type: string, required: true}
+  action:          {type: string, required: true}
+  autonomy_level:  {type: string, required: true}
+  outcome:         {type: enum[ok, blocked, denied, error, pending], required: true}
+  human_gate:      {type: string, nullable: true}
+  details:         {type: string, description: "Scrubbed before persist"}
+  # Economy Intelligence (M2) — todos opcionais / backward compatible
+  session_id:      {type: string, nullable: true}
+  skill_id:        {type: string, nullable: true}
+  model:           {type: string, nullable: true}
+  tokens_in:       {type: int, nullable: true}
+  tokens_out:      {type: int, nullable: true}
+  latency_ms:      {type: int, nullable: true}
+  cost_usd:        {type: number, nullable: true}
+
+validations_expected:
+  - "outcome=blocked deve ter details ou human_gate quando gate pendente"
+  - "append-only / file-per-event — eventos nunca são editados in-place"
+  - "payloads passam por Protect-ArahSecrets antes do disco"
+  - "campos de economia ausentes são válidos (proxies M1)"
+
+example:
+  v: 1
+  ts: "2026-07-06T22:00:00Z"
+  correlation_id: a1b2c3d4e5f6
+  project: meu-projeto
+  agent_id: test-architect
+  action: domain.consult
+  autonomy_level: consult
+  outcome: ok
+  human_gate: null
+  details: "craft-review.md published"
+  session_id: sess-abc123
+  skill_id: architecture-review
+  model: gpt-5
+  tokens_in: 4200
+  tokens_out: 900
+  latency_ms: 12000
+  cost_usd: 0.04

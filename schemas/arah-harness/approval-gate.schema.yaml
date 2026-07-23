@@ -1,0 +1,47 @@
+# approval-gate.schema.yaml — gate humano exigido por um profile do harness
+# Gates travam transições de trabalho (não de git): implementação, release, handoff.
+
+schema: arah-harness/approval-gate
+version: 0.1.0
+
+fields:
+  id:           {type: string, required: true}         # ex.: proposal_before_implementation
+  name:         {type: string, required: true}
+  blocks:       {type: string, required: true}         # o que fica travado sem o gate
+  required_doc: {type: string, required: true}         # documento que precisa existir/estar assinado
+  approver:     {type: string, required: true}         # papel humano genérico
+  evidence:     {type: enum[file_present, signed_record, checklist_complete], required: true}
+  record_to:    {type: string, required: true}         # onde o aceite é registrado (ledger, arquivo)
+  waivable:     {type: bool, default: false}           # pode ser dispensado?
+  waiver_rule:  {type: string, required_if: waivable}  # quem pode dispensar e como fica registrado
+
+validations_expected:
+  - "evidence=file_present exige required_doc como path verificável"
+  - "waivable=true exige waiver_rule"
+  - "gate referenciado em harness-profile.options.approval_gates deve existir"
+
+examples:
+  - id: proposal_before_implementation
+    name: "Proposta aprovada antes de implementar"
+    blocks: "primeiro commit de implementação (fora de docs/)"
+    required_doc: "proposal-record aprovado (ledger do consumidor)"
+    approver: client_sponsor
+    evidence: signed_record
+    record_to: approval-ledger
+    waivable: false
+  - id: handoff_acceptance
+    name: "Aceite de handoff"
+    blocks: "encerramento da demanda / repartição final"
+    required_doc: "acceptance-criteria com todos os criteria verified|waived"
+    approver: client_sponsor
+    evidence: checklist_complete
+    record_to: approval-ledger
+    waivable: false
+  - id: contract_before_build
+    name: "Contrato por demanda assinado"
+    blocks: "estado construção"
+    required_doc: "contrato assinado por todos os alistados"
+    approver: steward
+    evidence: file_present
+    record_to: "demandas/<slug>/contratos/"
+    waivable: false

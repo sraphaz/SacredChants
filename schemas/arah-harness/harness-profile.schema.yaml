@@ -1,0 +1,68 @@
+# harness-profile.schema.yaml — declaração do profile instalado num repositório
+# Inclui harness-model (domain agents, governance, observability, audit) como first-class.
+
+schema: arah-harness/harness-profile
+version: 0.2.0
+extends_schema: arah-harness/harness-model
+
+fields:
+  harness:
+    version:      {type: semver, required: true}
+    profile:      {type: enum[minimal, consulting, product, enterprise, open-source], required: true}
+    installed_at: {type: datetime, required: true}
+    installed_by: {type: string, required: true}
+  project:
+    name:         {type: string, required: true}
+    owner:        {type: string}
+  model:
+    description: "Ver harness-model.schema.yaml — obrigatório em consulting+"
+    domain_agents:   {type: list<domain_agent_slot>, required: true}
+    governance:      {type: governance_block, required: true}
+    observability:   {type: observability_block, required: true}
+    audit:           {type: audit_block, required: true}
+  options:
+    type: map
+    known_keys:
+      spec_before_work:      {type: bool, default: true}
+      block_direct_main:     {type: bool, default: true}
+      secrets_scan:          {type: bool, default: true}
+      require_adr:           {type: bool}
+      approval_gates:        {type: list<string>}
+  managed_blocks:
+    type: list<string>
+  doctor:
+    last_run:     {type: datetime}
+    status:       {type: enum[ok, drift, failing]}
+    report_ref:   {type: string}
+
+validations_expected:
+  - "consulting+ exige model.domain_agents com slots required conforme tier_defaults"
+  - "model.governance.autonomy_source deve existir no repo"
+  - "model.audit.ledger_path e model.observability.metrics_summary declarados"
+
+example:
+  harness: {version: 0.2.3, profile: consulting, installed_at: 2026-07-06T22:00:00-03:00, installed_by: raphael}
+  project: {name: estufa-monitorada, owner: agrovale}
+  model:
+    domain_agents:
+      - {id: clean-craft-advisor, required: true, max_autonomy: consult, skills: [craft-review]}
+      - {id: test-architect, required: true, max_autonomy: consult, skills: [test-strategy]}
+      - {id: architecture-documenter, required: true, max_autonomy: consult, skills: [architecture-review, register-adr]}
+    governance:
+      autonomy_source: .agents/autonomy.yaml
+      human_gates: [spec_before_work, proposal_before_implementation, handoff_acceptance]
+      blocked_actions: [merge, approve, force_push, release.cut]
+    observability:
+      diagnostics: .cursor/arah-live/diagnostics.jsonl
+      session_traces: .cursor/arah-live/sessions/
+      metrics_summary: .arah/observability/summary.yaml
+      agent_graph: docs/_meta/agent-graph.generated.json
+    audit:
+      event_schema: arah-harness/audit-event
+      ledger_path: .arah/audit/events.jsonl
+      retention_policy: project_default
+      record_script: scripts/agents/record-agent-event.ps1
+  options:
+    spec_before_work: true
+    approval_gates: [proposal_before_implementation, handoff_acceptance]
+  managed_blocks: [AGENTS.md, docs/governance/, .github/workflows/harness-*, .agents/]

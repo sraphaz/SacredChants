@@ -1,0 +1,155 @@
+# harness-model.schema.yaml — modelo canônico do ARAH Harness
+# Domain agents, governança, observabilidade e auditoria são first-class — não add-ons.
+
+schema: arah-harness/harness-model
+version: 0.1.0
+
+description: |
+  Todo repo governado declara (via harness-profile.yaml ou profile de instalação)
+  os slots de domínio, níveis de autonomia, trilhas de observabilidade e ledger de auditoria.
+  validate-specs.ps1 e validate-agent-graph.ps1 rejeitam repos incompletos para o tier.
+
+fields:
+  domain_agents:
+    type: list<domain_agent_slot>
+    required: true
+    description: Slots de agentes consultivos — obrigatoriedade varia por profile tier.
+
+  governance:
+    type: governance_block
+    required: true
+
+  observability:
+    type: observability_block
+    required: true
+
+  audit:
+    type: audit_block
+    required: true
+
+types:
+  domain_agent_slot:
+    id:
+      type: enum[clean-craft-advisor, test-architect, architecture-documenter]
+      required: true
+    required:
+      type: bool
+      required: true
+    max_autonomy:
+      type: enum[observe, consult, route, activate, invoke_skill, side_effect, public]
+      required: true
+      constraint: "domain agents MUST be <= consult"
+    manifest_path:
+      type: string
+      default: ".agents/domain/{id}.agent.yaml"
+    skills:
+      type: list<string>
+
+  governance_block:
+    autonomy_source:
+      type: string
+      required: true
+      default: ".agents/autonomy.yaml"
+    autonomy_levels:
+      type: list<string>
+      required: true
+      default: [observe, consult, route, activate, invoke_skill, side_effect, public]
+    human_gates:
+      type: list<string>
+      required: true
+    blocked_actions:
+      type: list<string>
+      required: true
+      description: Ações sempre bloqueadas para agentes (merge, approve, force-push, etc.)
+
+  observability_block:
+    diagnostics:
+      type: string
+      required: true
+      default: ".cursor/arah-live/diagnostics.jsonl"
+    session_traces:
+      type: string
+      required: true
+      default: ".cursor/arah-live/sessions/"
+    metrics_summary:
+      type: string
+      required: true
+      default: ".arah/observability/summary.yaml"
+    metrics_digest:
+      type: string
+      required: false
+      default: "docs/_meta/metrics.digest.md"
+      description: Digest humano opcional gerado por arah metrics rollup -Digest
+    agent_graph:
+      type: string
+      default: "docs/_meta/agent-graph.generated.json"
+
+  audit_block:
+    event_schema:
+      type: string
+      required: true
+      default: "arah-harness/audit-event"
+    ledger_path:
+      type: string
+      required: true
+      default: ".arah/audit/events.jsonl"
+    retention_policy:
+      type: enum[local_dev, project_default, contractual]
+      required: true
+    record_script:
+      type: string
+      default: "scripts/agents/record-agent-event.ps1"
+
+tier_defaults:
+  minimal:
+    domain_agents:
+      - {id: architecture-documenter, required: true, max_autonomy: consult, skills: [architecture-review, register-adr]}
+      - {id: clean-craft-advisor, required: false, max_autonomy: consult, skills: [craft-review]}
+      - {id: test-architect, required: false, max_autonomy: consult, skills: [test-strategy]}
+    governance:
+      human_gates: []
+      blocked_actions: [merge, approve, force_push, delete_branch]
+    audit:
+      retention_policy: local_dev
+
+  consulting:
+    domain_agents:
+      - {id: clean-craft-advisor, required: true, max_autonomy: consult, skills: [craft-review]}
+      - {id: test-architect, required: true, max_autonomy: consult, skills: [test-strategy, run-tests]}
+      - {id: architecture-documenter, required: true, max_autonomy: consult, skills: [architecture-review, register-adr, doc-taxonomy]}
+    governance:
+      human_gates: [spec_before_work, proposal_before_implementation, handoff_acceptance]
+      blocked_actions: [merge, approve, force_push, release.cut, deploy.production]
+    audit:
+      retention_policy: project_default
+
+  product:
+    extends: consulting
+    governance:
+      human_gates: [spec_before_work, release_approval]
+    audit:
+      retention_policy: project_default
+
+  enterprise:
+    extends: product
+    audit:
+      retention_policy: contractual
+
+  open-source:
+    domain_agents:
+      - {id: architecture-documenter, required: true, max_autonomy: consult, skills: [architecture-review, register-adr]}
+      - {id: clean-craft-advisor, required: true, max_autonomy: consult, skills: [craft-review]}
+      - {id: test-architect, required: false, max_autonomy: consult, skills: [test-strategy]}
+    governance:
+      human_gates: [release_approval]
+      blocked_actions: [merge, approve, force_push]
+    audit:
+      retention_policy: project_default
+
+validations_expected:
+  - "domain agent required=true exige manifest em .agents/domain/{id}.agent.yaml"
+  - "domain agent max_autonomy > consult → exit 1"
+  - "governance.autonomy_source ausente no repo → exit 1 (consulting+)"
+  - "audit.ledger_path parent dir criável ou existente"
+  - "observability.metrics_summary referenciado em record-agent-event.ps1"
+  - "profile tier consulting+ exige os 3 domain agents required=true"

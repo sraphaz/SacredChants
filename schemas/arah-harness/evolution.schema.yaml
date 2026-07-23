@@ -1,0 +1,65 @@
+# evolution.schema.yaml — propostas de autoaprendizado do harness
+schema: arah-harness/evolution
+version: 0.2.0
+
+description: |
+  Resultado de arah evolve. Consome auditoria, telemetria, sinais e scorecard
+  de Economy Intelligence para propor melhorias em células, skills, workflows,
+  coreografia e eficiência. Apply gera patches revisáveis; nunca reescreve o
+  kernel em silêncio.
+
+fields:
+  schema:
+    type: string
+    required: true
+    default: arah-harness/evolution
+  generated_at:
+    type: string
+    required: true
+  based_on:
+    type: based_on_block
+  proposals:
+    type: list<proposal>
+    required: true
+  summary:
+    type: string
+
+types:
+  based_on_block:
+    audit_events:
+      type: int
+    signals:
+      type: int
+    live_events:
+      type: int
+    discovery_present:
+      type: bool
+    organism_present:
+      type: bool
+    metrics_semaphore:
+      type: string
+    blocked_rate:
+      type: number
+
+  proposal:
+    id:
+      type: string
+      required: true
+    kind:
+      type: enum[cell_definition, skill, choreography, workflow, communication, domain_config, economy]
+      required: true
+    target:
+      type: string
+      required: true
+    change:
+      type: string
+      required: true
+    rationale:
+      type: string
+    confidence:
+      type: enum[low, medium, high]
+    evidence:
+      type: list<string>
+    human_gate:
+      type: string
+      default: proposal_before_implementation

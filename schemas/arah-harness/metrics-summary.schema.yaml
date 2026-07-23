@@ -1,0 +1,106 @@
+# metrics-summary.schema.yaml — scorecard de Economy Intelligence
+schema: arah-harness/metrics-summary
+version: 0.1.0
+
+description: |
+  Agregado escrito por arah metrics rollup em .arah/observability/summary.yaml.
+  Combina proxies de trabalho (turns/outcomes) com tokens/custo quando disponíveis.
+  Runtime local (gitignore); digest markdown opcional em docs/_meta/.
+
+fields:
+  schema:
+    type: string
+    required: true
+    default: arah-harness/metrics-summary
+  generated_at:
+    type: string
+    required: true
+  updated_at:
+    type: string
+  project:
+    type: string
+    required: true
+  window:
+    type: window_block
+  totals:
+    type: totals_block
+    required: true
+  efficiency:
+    type: efficiency_block
+    required: true
+  by_agent:
+    type: map
+  by_action:
+    type: map
+  by_outcome:
+    type: map
+  roi_hints:
+    type: list<string>
+  # backward-compatible thin fields (record-agent-event)
+  total_events:
+    type: int
+  last_agent:
+    type: string
+  last_action:
+    type: string
+  last_outcome:
+    type: string
+
+types:
+  window_block:
+    audit_events: { type: int }
+    signals: { type: int }
+    live_events: { type: int }
+    last_n: { type: int }
+
+  totals_block:
+    events: { type: int, required: true }
+    ok: { type: int }
+    blocked: { type: int }
+    denied: { type: int }
+    error: { type: int }
+    pending: { type: int }
+    tokens_in: { type: int }
+    tokens_out: { type: int }
+    cost_usd: { type: number }
+    tokens_observed: { type: bool }
+
+  efficiency_block:
+    blocked_rate: { type: number, required: true }
+    error_rate: { type: number }
+    ok_rate: { type: number }
+    unique_correlations: { type: int }
+    semaphore:
+      type: enum[productive, neutral, expensive, insufficient_data]
+      required: true
+    rationale: { type: string }
+
+validations_expected:
+  - "blocked_rate = (blocked+denied) / events quando events > 0"
+  - "semaphore insufficient_data quando events < 5"
+  - "tokens_* e cost_usd são 0 quando nenhum evento traz campos de economia"
+
+example:
+  schema: arah-harness/metrics-summary
+  generated_at: "2026-07-17T23:00:00Z"
+  project: arah-harness
+  totals:
+    events: 42
+    ok: 36
+    blocked: 4
+    denied: 1
+    error: 1
+    pending: 0
+    tokens_in: 12000
+    tokens_out: 3000
+    cost_usd: 0.18
+    tokens_observed: true
+  efficiency:
+    blocked_rate: 0.119
+    error_rate: 0.024
+    ok_rate: 0.857
+    unique_correlations: 11
+    semaphore: neutral
+    rationale: "blocked_rate moderado; tokens observados"
+  roi_hints:
+    - "blocked_rate>10%: revisar human_gates frequentes"
