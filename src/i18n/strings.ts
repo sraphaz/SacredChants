@@ -136,6 +136,10 @@ export const ui = {
       practiceRestart: 'Restart',
       practiceMalaComplete: 'Mala complete',
       practiceRailLabel: 'Practice controls',
+      glossaryClose: 'Close',
+      glossaryDeepLabel: 'Deeper meaning',
+      glossaryHint:
+        'Sanskrit words with a dotted underline: click (or press and hold on mobile) for a deeper meaning.',
     },
     traditions: {
       title: 'Traditions',
@@ -429,6 +433,10 @@ export const ui = {
       practiceRestart: 'Reiniciar',
       practiceMalaComplete: 'Mala completa',
       practiceRailLabel: 'Controlos de prática',
+      glossaryClose: 'Fechar',
+      glossaryDeepLabel: 'Significado profundo',
+      glossaryHint:
+        'Palavras em sânscrito com sublinhado pontilhado: clique (ou pressione e segure no telemóvel) para um significado mais profundo.',
     },
     traditions: {
       title: 'Tradições',
@@ -722,6 +730,10 @@ export const ui = {
       practiceRestart: 'Reiniciar',
       practiceMalaComplete: 'Mala completa',
       practiceRailLabel: 'Controles de práctica',
+      glossaryClose: 'Cerrar',
+      glossaryDeepLabel: 'Significado profundo',
+      glossaryHint:
+        'Palabras en sánscrito con subrayado de puntos: haz clic (o mantén pulsado en el móvil) para un significado más profundo.',
     },
     traditions: {
       title: 'Tradiciones',
@@ -1015,6 +1027,10 @@ export const ui = {
       practiceRestart: 'Ricomincia',
       practiceMalaComplete: 'Mala completata',
       practiceRailLabel: 'Controlli di pratica',
+      glossaryClose: 'Chiudi',
+      glossaryDeepLabel: 'Significato profondo',
+      glossaryHint:
+        'Parole in sanscrito con sottolineatura punteggiata: clic (o tieni premuto sul mobile) per un significato più profondo.',
     },
     traditions: {
       title: 'Tradizioni',

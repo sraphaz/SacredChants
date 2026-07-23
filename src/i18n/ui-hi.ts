@@ -96,6 +96,10 @@ export const uiHi = {
     practiceRestart: 'फिर से शुरू',
     practiceMalaComplete: 'माला पूर्ण',
     practiceRailLabel: 'अभ्यास नियंत्रण',
+    glossaryClose: 'बंद करें',
+    glossaryDeepLabel: 'गहन अर्थ',
+    glossaryHint:
+      'बिंदुओं वाली रेखा वाली संस्कृत शब्द: क्लिक करें (या मोबाइल पर दबाकर रखें) गहरा अर्थ देखने के लिए।',
   },
   traditions: {
     title: 'परंपराएँ',

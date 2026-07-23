@@ -94,6 +94,10 @@ export const uiAr = {
     practiceRestart: 'إعادة',
     practiceMalaComplete: 'اكتملت المالا',
     practiceRailLabel: 'عناصر التحكم في الممارسة',
+    glossaryClose: 'إغلاق',
+    glossaryDeepLabel: 'معنى أعمق',
+    glossaryHint:
+      'كلمات سنسكريتية بخط منقّط: انقر (أو اضغط مطوّلاً على الجوال) لمعنى أعمق.',
   },
   traditions: {
     title: 'التقاليد',

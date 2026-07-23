@@ -5,6 +5,7 @@ import ChantVerse from '../../components/ChantVerse.astro';
 import ChantPlayerBar from '../../components/ChantPlayerBar.astro';
 import ChantPracticeRail from '../../components/ChantPracticeRail.astro';
 import ChantSyncEditor from '../../components/ChantSyncEditor.astro';
+import ChantGlossaryPopover from '../../components/ChantGlossaryPopover.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getEntry, getCollection } from 'astro:content';
 import { ui, getLocaleFromUrl, SUPPORTED_LOCALES, type Locale } from '../../i18n/strings';
@@ -17,6 +18,12 @@ import {
   getLinesWithMeta,
   hasTranslation,
 } from '../../utils/chant-page';
+import {
+  loadChantGlossary,
+  buildGlossaryLookup,
+  glossaryEntryId,
+} from '../../utils/chant-glossary';
+import type { ChantGlossaryEntry } from '../../content/schemas/glossary';
 
 export async function getStaticPaths() {
   const chants = await getCollection('chants');
@@ -63,6 +70,18 @@ const hasEs = hasTranslation(chant, 'es');
 const hasIt = hasTranslation(chant, 'it');
 const hasHi = hasTranslation(chant, 'hi');
 const hasAr = hasTranslation(chant, 'ar');
+
+const glossaryEntries = loadChantGlossary(chant.slug);
+const glossaryLookup = glossaryEntries
+  ? buildGlossaryLookup(glossaryEntries)
+  : undefined;
+const glossaryById: Record<string, ChantGlossaryEntry> = {};
+if (glossaryEntries) {
+  for (const entry of glossaryEntries) {
+    glossaryById[glossaryEntryId(entry)] = entry;
+  }
+}
+const hasGlossary = Boolean(glossaryEntries && glossaryEntries.length > 0);
 
 /** Aviso só no idioma da UI e só quando esse idioma não tem tradução nos versos (evita faixa vazia em pt/en). */
 const showTranslationFallback =
@@ -320,13 +339,41 @@ const syncEditorLabelsByLocale = {
       {translationFallbackByLocale[locale as 'es' | 'it' | 'hi' | 'ar']}
     </p>
   )}
+  {hasGlossary && (
+    <p
+      class="chant-glossary-hint mb-4 text-sm"
+      style="color: var(--sc-text-muted);"
+    >
+      <span class="locale-en">{tEn.chant.glossaryHint}</span>
+      <span class="locale-pt">{tPt.chant.glossaryHint}</span>
+      <span class="locale-es">{tEs.chant.glossaryHint}</span>
+      <span class="locale-it">{tIt.chant.glossaryHint}</span>
+      <span class="locale-hi">{tHi.chant.glossaryHint}</span>
+      <span class="locale-ar">{tAr.chant.glossaryHint}</span>
+    </p>
+  )}
   <section class="chant-verses" aria-label="Verses">
       <div class="chant-verses__list" id="chant-verses-list" data-sync-lines={JSON.stringify(syncLines)}>
         {linesWithMeta.map(({ verse, line, syncIndex, showVerseLabel, showExplanation }) => (
-          <ChantVerse verse={verse} line={line} syncIndex={syncIndex} showVerseLabel={showVerseLabel} showExplanation={showExplanation} />
+          <ChantVerse
+            verse={verse}
+            line={line}
+            syncIndex={syncIndex}
+            showVerseLabel={showVerseLabel}
+            showExplanation={showExplanation}
+            glossaryLookup={glossaryLookup}
+          />
         ))}
       </div>
     </section>
+
+    {hasGlossary && (
+      <>
+        <script type="application/json" id="chant-glossary-data" set:html={JSON.stringify(glossaryById)} />
+        <ChantGlossaryPopover />
+        <script is:inline src={`${BASE_PATH}scripts/chant-glossary.js`}></script>
+      </>
+    )}
 
     {(chant.about?.en || chant.about?.pt || chant.about?.es || chant.about?.it || chant.about?.hi || chant.about?.ar) && (
     <section class="chant-about mt-section-gap mb-section" aria-labelledby="chant-about-title">

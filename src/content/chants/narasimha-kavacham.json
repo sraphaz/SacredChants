@@ -43,8 +43,8 @@
           "original": "नृसिंहकवचं वक्ष्ये प्रह्लादेनोदितं पुरा।",
           "transliteration": "nṛsiṃha-kavacaṃ vakṣye prahlādenoditaṃ purā |",
           "translations": {
-            "en": "I shall now recite the Narasiṃha-kavaca, formerly spoken by Prahlāda Mahārāja.",
-            "pt": "Recitarei agora o Narasiṃha-kavaca, outrora proclamado por Prahlāda Mahārāja.",
+            "en": "I shall now unfold the Narasiṃha-kavaca — the armor-prayer formerly spoken by Prahlāda Mahārāja.",
+            "pt": "Vou agora revelar o Narasiṃha-kavaca — a oração-armadura outrora proclamada por Prahlāda Mahārāja.",
             "es": "Recitaré ahora el Narasiṃha-kavaca, antiguamente proclamado por Prahlāda Mahārāja.",
             "it": "Reciterò ora il Narasiṃha-kavaca, un tempo proclamato da Prahlāda Mahārāja.",
             "ar": "سأتلو الآن درع ناراسيمها، الذي قاله قديمًا براهلادا مهراجا.",
@@ -56,8 +56,8 @@
           "original": "सर्वरक्षाकरं पुण्यं सर्वोपद्रवनाशनम्॥",
           "transliteration": "sarva-rakṣā-karaṃ puṇyaṃ sarvopadrava-nāśanam ||",
           "translations": {
-            "en": "It is most pious, vanquishes all impediments, and grants complete protection.",
-            "pt": "É sumamente piedoso, dissipando todos os impedimentos e concedendo proteção completa.",
+            "en": "It is sacred merit itself: it grants complete protection and dissolves every calamity that harasses the soul.",
+            "pt": "É mérito sagrado em si: concede proteção completa e dissolve toda calamidade que assedia a alma.",
             "es": "Es sumamente piadoso, disipa todos los impedimentos y concede protección completa.",
             "it": "È sommamente pio, dissolve ogni impedimento e concede protezione completa.",
             "ar": "إنه بالغ التقوى، يبدّد كل العوائق ويمنح حماية تامة.",
@@ -277,8 +277,8 @@
           "original": "स्वहृत्कमलसंवासं कृत्वा तु कवचं पठेत्।",
           "transliteration": "sva-hṛt-kamala-saṃvāsaṃ kṛtvā tu kavacaṃ paṭhet |",
           "translations": {
-            "en": "Having seated the Lord upon the lotus of one's heart, one should recite the kavaca:",
-            "pt": "Tendo colocado o Senhor no lótus do próprio coração, deve-se recitar o kavaca:",
+            "en": "Having made the Lord dwell in the lotus of one’s own heart, one should recite this kavaca:",
+            "pt": "Tendo feito o Senhor habitar no lótus do próprio coração, deve-se recitar este kavaca:",
             "es": "Habiendo asentado al Señor en el loto del propio corazón, se debe recitar el kavaca:",
             "it": "Avendo posto il Signore nel loto del proprio cuore, si reciti il kavaca:",
             "ar": "بعد إسكان الرب في لوتس القلب، ينبغي تلاوة الكافَتشا:",
@@ -313,15 +313,15 @@
       "lines": [
         {
           "start": 148.9,
-          "original": "सर्वगोऽपि स्तम्भवासः फलं मे रक्षतु ध्वनिम्।",
-          "transliteration": "sarvago 'pi stambha-vāsaḥ phalaṃ me rakṣatu dhvanim |",
+          "original": "सर्वगोऽपि स्तम्भवासः फालं मे रक्षतु ध्वनिम्।",
+          "transliteration": "sarvago 'pi stambha-vāsaḥ phālaṃ me rakṣatu dhvanim |",
           "translations": {
-            "en": "Although all-pervading, He dwelt in the pillar (for Prahlāda); may He protect the fruit of my acts and my speech.",
-            "pt": "Embora onipresente, habitou na coluna (por Prahlāda); que proteja o fruto das minhas ações e a minha fala.",
-            "es": "Aunque omnipresente, habitó en la columna (por Prahlāda); que proteja el fruto de mis actos y mi habla.",
-            "it": "Benché onnipresente, dimorò nella colonna (per Prahlāda); protegga il frutto delle mie azioni e la mia parola.",
-            "ar": "مع أنه كليّ الحضور، سكن في عمود؛ فليحمِ ثمرة أعمالي وكلامي.",
-            "hi": "सर्वव्यापी होकर भी स्तंभ में वास करने वाले मेरे फल और ध्वनि की रक्षा करें।"
+            "en": "Although all-pervading, He dwelt in the pillar; may He protect my forehead and my voice.",
+            "pt": "Embora onipresente, habitou na coluna; que proteja a minha testa e a minha voz.",
+            "es": "Aunque omnipresente, habitó en la columna; que proteja mi frente y mi voz.",
+            "it": "Benché onnipresente, dimorò nella colonna; protegga la mia fronte e la mia voce.",
+            "ar": "مع أنه كليّ الحضور، سكن في العمود؛ فليحمِ جبيني وصوتي.",
+            "hi": "सर्वव्यापी होकर भी स्तंभ में वास करने वाले मेरी भाल और ध्वनि की रक्षा करें।"
           }
         },
         {
@@ -339,12 +339,12 @@
         }
       ],
       "explanation": {
-        "en": "Stambha-vāsa, “dweller in the pillar,” directly recalls the Prahlāda story: when Hiraṇyakaśipu mocked the idea that Viṣṇu was everywhere, Narasiṃha emerged from a pillar. The verse asks protection for the fruit of action and for speech or sound, as if saying: may what I do and what I utter be held by truth. The eyes are guarded by moon, sun, and fire, symbols of His cooling, illuminating, and purifying gaze.",
-        "pt": "Stambha-vāsa, “aquele que habita a coluna”, remete diretamente à história de Prahlāda: quando Hiraṇyakaśipu zombou da ideia de que Viṣṇu estava em toda parte, Narasiṃha emergiu de uma coluna. O verso pede proteção para o fruto da ação e para a fala ou o som, como se dissesse: que o que eu faço e o que eu pronuncio sejam sustentados pela verdade. Os olhos são guardados por lua, sol e fogo, símbolos do Seu olhar que refresca, ilumina e purifica.",
-        "es": "Stambha-vāsa, “el que habita en la columna”, recuerda directamente la historia de Prahlāda: cuando Hiraṇyakaśipu se burló de que Viṣṇu estuviera en todas partes, Narasiṃha emergió de un pilar. El verso pide protección para el fruto de la acción y para la voz o el sonido: que lo que hago y pronuncio sea sostenido por la verdad. Los ojos son guardados por luna, sol y fuego, símbolos de su mirada que refresca, ilumina y purifica.",
-        "it": "Stambha-vāsa, “abitante della colonna”, richiama direttamente la storia di Prahlāda: quando Hiraṇyakaśipu derise l’idea che Viṣṇu fosse ovunque, Narasiṃha emerse da un pilastro. Il verso chiede protezione per il frutto dell’azione e per voce o suono: che ciò che faccio e pronuncio sia sostenuto dalla verità. Gli occhi sono custoditi da luna, sole e fuoco, simboli del suo sguardo che rinfresca, illumina e purifica.",
-        "ar": "«ساكن العمود» يذكّر مباشرة بقصة براهلادا: عندما سخر هيرانياكاشيبو من وجود فيشنو في كل مكان، ظهر ناراسيمها من العمود. طلب حماية ثمر العمل والصوت يعني: ليكن ما أفعله وما أقوله محمولًا بالحق. والعينان كالقمر والشمس والنار ترمز إلى نظرة تبرد وتنير وتطهّر.",
-        "hi": "स्तम्भ-वास सीधे प्रह्लाद की कथा याद दिलाता है: जब हिरण्यकशिपु ने पूछा कि विष्णु क्या इस खंभे में भी हैं, नृसिंह उसी से प्रकट हुए। कर्म-फल और वाणी की रक्षा माँगना है कि मेरा करना और बोलना सत्य में रहे। चंद्र, सूर्य और अग्नि जैसे नेत्र शीतलता, प्रकाश और शुद्धि के प्रतीक हैं।"
+        "en": "Stambha-vāsa, “dweller in the pillar,” directly recalls the Prahlāda story: when Hiraṇyakaśipu mocked the idea that Viṣṇu was everywhere, Narasiṃha emerged from a pillar. In aṅga-rakṣā the verse next asks protection for phāla (forehead) and dhvani (voice/sound) — insight and sacred utterance held together. The eyes are guarded by moon, sun, and fire, symbols of His cooling, illuminating, and purifying gaze.",
+        "pt": "Stambha-vāsa, “aquele que habita a coluna”, remete diretamente à história de Prahlāda: quando Hiraṇyakaśipu zombou da ideia de que Viṣṇu estava em toda parte, Narasiṃha emergiu de uma coluna. Na aṅga-rakṣā o verso pede em seguida proteção para phāla (testa) e dhvani (voz/som) — visão e enunciação sagrada juntas. Os olhos são guardados por lua, sol e fogo, símbolos do Seu olhar que refresca, ilumina e purifica.",
+        "es": "Stambha-vāsa, “el que habita en la columna”, recuerda directamente la historia de Prahlāda: cuando Hiraṇyakaśipu se burló de que Viṣṇu estuviera en todas partes, Narasiṃha emergió de un pilar. En la aṅga-rakṣā el verso pide luego protección para phāla (frente) y dhvani (voz/sonido) — visión y enunciación sagrada juntas. Los ojos son guardados por luna, sol y fuego, símbolos de su mirada que refresca, ilumina y purifica.",
+        "it": "Stambha-vāsa, “abitante della colonna”, richiama direttamente la storia di Prahlāda: quando Hiraṇyakaśipu derise l’idea che Viṣṇu fosse ovunque, Narasiṃha emerse da un pilastro. Nell’aṅga-rakṣā il verso chiede poi protezione per phāla (fronte) e dhvani (voce/suono) — visione e enunciazione sacra insieme. Gli occhi sono custoditi da luna, sole e fuoco, simboli del suo sguardo che rinfresca, illumina e purifica.",
+        "ar": "«ساكن العمود» يذكّر مباشرة بقصة براهلادا: عندما سخر هيرانياكاشيبو من وجود فيشنو في كل مكان، ظهر ناراسيمها من العمود. في حماية الأعضاء يطلب الآية بعد ذلك حماية الفالا (الجبين) والذْفاني (الصوت) معًا. والعينان كالقمر والشمس والنار ترمز إلى نظرة تبرد وتنير وتطهّر.",
+        "hi": "स्तम्भ-वास सीधे प्रह्लाद की कथा याद दिलाता है: जब हिरण्यकशिपु ने पूछा कि विष्णु क्या इस खंभे में भी हैं, नृसिंह उसी से प्रकट हुए। अङ्गरक्षा में आगे फाल (भाल) और ध्वनि की रक्षा माँगी जाती है — दृष्टि और पवित्र वाणी साथ। चंद्र, सूर्य और अग्नि जैसे नेत्र शीतलता, प्रकाश और शुद्धि के प्रतीक हैं।"
       }
     },
     {
@@ -758,8 +758,8 @@
           "original": "संसारभयतः पातु मृत्योर्मृत्युर्नृकेसरी॥",
           "transliteration": "saṃsāra-bhayataḥ pātu mṛtyor mṛtyur nṛ-kesarī ||",
           "translations": {
-            "en": "May Narasiṃha, Death of death, protect me from the fear of saṃsāra and from death.",
-            "pt": "Que Narasiṃha, Morte da morte, me proteja do medo do saṃsāra e da morte.",
+            "en": "May the Man-Lion who is Death of death protect me from the dread of saṃsāra — and from death itself.",
+            "pt": "Que o Homem-Leão que é Morte da morte me proteja do pavor do saṃsāra — e da própria morte.",
             "es": "Que Narasiṃha, Muerte de la muerte, me proteja del miedo al saṃsāra y de la muerte.",
             "it": "Possa Narasiṃha, Morte della morte, proteggermi dalla paura del saṃsāra e dalla morte.",
             "ar": "فلتحمِني ناراسيمها، موت الموت، من خوف السامسارا ومن الموت.",
