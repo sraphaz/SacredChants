@@ -1,41 +1,39 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-/** Base URL of this API (GitHub redirects here). e.g. https://api.sacredchants.org or https://xxx.vercel.app */
-const API_ORIGIN = process.env.API_ORIGIN || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
-
-/** Allowed redirect path after login: must start with /contribute and contain no protocol (no //). */
-function safeReturnTo(returnTo: string | undefined): string {
-  if (typeof returnTo !== 'string' || !returnTo.startsWith('/contribute') || returnTo.includes('//')) {
-    return '/contribute/';
-  }
-  return returnTo.startsWith('/contribute/') || returnTo === '/contribute' ? returnTo : '/contribute/';
-}
-
-/** Encode state for GitHub OAuth: includes returnTo so callback can redirect user to the page they wanted. */
-function encodeState(returnTo: string): string {
-  const payload = { r: returnTo, n: Math.random().toString(36).slice(2) };
-  return Buffer.from(JSON.stringify(payload), 'utf8').toString('base64url');
-}
+import { loadLocalEnv } from '../lib/load-local-env.js';
+import { encodeOAuthState } from '../lib/oauth-state.js';
+import { resolveApiOrigin, resolveContributeOrigin } from '../lib/resolve-request-origin.js';
+import { safeReturnOrigin, safeReturnTo } from '../lib/safe-return-to.js';
 
 /**
  * GET /api/auth/github — redirects the user to GitHub OAuth authorization.
- * Query: returnTo (optional) — path to redirect after login, e.g. /contribute/form/. Must start with /contribute.
- * Callback is API_ORIGIN/api/auth/callback. Requires GITHUB_CLIENT_ID.
+ * Query: returnTo (optional path), returnOrigin (optional site origin for post-login redirect).
  */
 export default function handler(req: VercelRequest, res: VercelResponse) {
+  loadLocalEnv();
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  if (!GITHUB_CLIENT_ID) {
-    return res.status(500).json({ error: 'GitHub OAuth not configured' });
+  const githubClientId = process.env.GITHUB_CLIENT_ID;
+  if (!githubClientId) {
+    return res.status(500).json({
+      error: 'GitHub OAuth not configured',
+      hint: 'Set GITHUB_CLIENT_ID in .env.local (local OAuth App) and restart npm run dev:vercel',
+    });
   }
-  const returnTo = safeReturnTo(typeof req.query.returnTo === 'string' ? req.query.returnTo : undefined);
-  const redirectUri = `${API_ORIGIN}/api/auth/callback`;
+  const contributeOrigin = resolveContributeOrigin(req);
+  const returnTo = safeReturnTo(
+    typeof req.query.returnTo === 'string' ? req.query.returnTo : undefined,
+    '/'
+  );
+  const returnOrigin = safeReturnOrigin(
+    typeof req.query.returnOrigin === 'string' ? req.query.returnOrigin : undefined,
+    contributeOrigin
+  );
+  const redirectUri = `${resolveApiOrigin(req)}/api/auth/callback`;
   const scope = 'read:user user:email';
-  const state = encodeState(returnTo);
-  const url = `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(GITHUB_CLIENT_ID)}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(state)}`;
+  const state = encodeOAuthState(returnTo, returnOrigin);
+  const url = `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(githubClientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(state)}`;
   res.setHeader('Location', url);
   res.status(302).end();
 }

@@ -1,0 +1,164 @@
+---
+/**
+ * Global visual bug reporter: write the report first; GitHub login only when sending.
+ */
+import { ui, SUPPORTED_LOCALES } from '../i18n/strings';
+import { getBasePath } from '../utils/base';
+
+const basePath = getBasePath();
+const apiOrigin = (import.meta.env.PUBLIC_CONTRIBUTE_API_ORIGIN as string) ?? '';
+const tEn = ui.en.report;
+const tPt = ui.pt.report;
+const tEs = ui.es.report;
+const tIt = ui.it.report;
+const tHi = ui.hi.report;
+const tAr = ui.ar.report;
+
+const labelsByLocale = {
+  en: tEn,
+  pt: tPt,
+  es: tEs,
+  it: tIt,
+  hi: tHi,
+  ar: tAr,
+} as const;
+---
+
+<button
+  type="button"
+  id="sc-bug-report-open"
+  class="sc-bug-report-fab"
+  aria-haspopup="dialog"
+  aria-controls="sc-bug-report-dialog"
+>
+  {SUPPORTED_LOCALES.map((loc) => (
+    <span class={`locale-${loc}`}>{labelsByLocale[loc].open}</span>
+  ))}
+</button>
+
+<dialog id="sc-bug-report-dialog" class="sc-bug-report-dialog" aria-labelledby="sc-bug-report-heading">
+  <form class="sc-bug-report-panel" id="sc-bug-report-form">
+    <header class="sc-bug-report-panel__header">
+      <h2 id="sc-bug-report-heading" class="sc-bug-report-panel__title sc-heading font-serif">
+        {SUPPORTED_LOCALES.map((loc) => (
+          <span class={`locale-${loc}`}>{labelsByLocale[loc].title}</span>
+        ))}
+      </h2>
+      <button type="button" id="sc-bug-report-close" class="sc-bug-report-panel__close" aria-label="Close">
+        ×
+      </button>
+    </header>
+
+    <div id="sc-bug-report-fields" class="sc-bug-report-fields">
+      <label class="sc-bug-report-field">
+        <span class="sc-bug-report-field__label">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].titleField}</span>
+          ))}
+        </span>
+        <input
+          type="text"
+          id="sc-bug-report-title"
+          name="title"
+          maxlength="120"
+          autocomplete="off"
+        />
+      </label>
+
+      <label class="sc-bug-report-field">
+        <span class="sc-bug-report-field__label">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].descriptionField}</span>
+          ))}
+        </span>
+        <textarea id="sc-bug-report-description" name="description" rows="4" maxlength="8000"></textarea>
+      </label>
+
+      <div class="sc-bug-report-actions">
+        <button type="button" id="sc-bug-report-select" class="sc-bug-report-secondary">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].selectRegion}</span>
+          ))}
+        </button>
+        <button type="button" id="sc-bug-report-upload" class="sc-bug-report-secondary">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].uploadImage}</span>
+          ))}
+        </button>
+        <button type="button" id="sc-bug-report-clear-image" class="sc-bug-report-text-btn" hidden>
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].clearImage}</span>
+          ))}
+        </button>
+      </div>
+
+      <p id="sc-bug-report-crop-hint" class="sc-bug-report-hint" hidden>
+        {SUPPORTED_LOCALES.map((loc) => (
+          <span class={`locale-${loc}`}>{labelsByLocale[loc].cropHint}</span>
+        ))}
+      </p>
+
+      <figure id="sc-bug-report-preview-wrap" class="sc-bug-report-preview" hidden>
+        <img id="sc-bug-report-preview" alt="" />
+      </figure>
+
+      <div id="sc-bug-report-auth" class="sc-bug-report-auth" hidden>
+        <p class="sc-bug-report-auth__text">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].needLogin}</span>
+          ))}
+        </p>
+        <a id="sc-bug-report-signin" class="sc-bug-report-auth__btn" href="#">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].signIn}</span>
+          ))}
+        </a>
+      </div>
+
+      <p id="sc-bug-report-status" class="sc-bug-report-status" role="status" aria-live="polite"></p>
+
+      <div class="sc-bug-report-footer">
+        <button type="button" id="sc-bug-report-cancel" class="sc-bug-report-text-btn">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].cancel}</span>
+          ))}
+        </button>
+        <button type="button" id="sc-bug-report-submit" class="sc-bug-report-primary">
+          {SUPPORTED_LOCALES.map((loc) => (
+            <span class={`locale-${loc}`}>{labelsByLocale[loc].submit}</span>
+          ))}
+        </button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<input
+  type="file"
+  id="sc-bug-report-file"
+  accept="image/png,image/jpeg,image/webp"
+  hidden
+  tabindex="-1"
+  aria-hidden="true"
+/>
+
+<div id="sc-bug-report-crop-overlay" class="sc-bug-report-crop" hidden aria-hidden="true">
+  <div class="sc-bug-report-crop__shade"></div>
+  <p class="sc-bug-report-crop__hint" id="sc-bug-report-crop-overlay-hint">
+    {SUPPORTED_LOCALES.map((loc) => (
+      <span class={`locale-${loc}`}>{labelsByLocale[loc].cropHint}</span>
+    ))}
+  </p>
+  <div id="sc-bug-report-crop-box" class="sc-bug-report-crop__box" hidden></div>
+</div>
+
+<script
+  is:inline
+  type="application/json"
+  id="sc-bug-report-i18n"
+  set:html={JSON.stringify(labelsByLocale)}
+/>
+<script is:inline define:vars={{ apiOrigin, basePath }}>
+  window.__SC_BUG_REPORT__ = { apiOrigin: apiOrigin || '', basePath: basePath || '/' };
+</script>
+<script is:inline src={`${basePath}scripts/bug-report.js`}></script>

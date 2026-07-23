@@ -1,5 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { loadLocalEnv } from './lib/load-local-env.js';
 import { getSessionCookie, verifySession } from './lib/session.js';
+import { applyCors } from './lib/cors.js';
 
 /**
  * GET /api/me — returns the current authenticated user (id, login, avatar_url, name).
@@ -8,8 +10,11 @@ import { getSessionCookie, verifySession } from './lib/session.js';
  * @param res - Vercel response; 200 with user object or 401 if not authenticated
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  loadLocalEnv();
+  if (applyCors(req, res)) return;
+
   if (req.method !== 'GET') {
-    res.setHeader('Allow', 'GET');
+    res.setHeader('Allow', 'GET, OPTIONS');
     return res.status(405).json({ error: 'Method not allowed' });
   }
   const token = getSessionCookie(req);
