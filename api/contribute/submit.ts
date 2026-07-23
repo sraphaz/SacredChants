@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { chantSchema } from '../lib/chant-schema.js';
-import { getSessionCookie, verifySession } from '../lib/session.js';
-import { createContributionPR } from '../lib/github.js';
+import { chantSchema } from '../_lib/chant-schema.js';
+import { getSessionCookie, verifySession } from '../_lib/session.js';
+import { createContributionPR } from '../_lib/github.js';
 import type { z } from 'zod';
 
 type Chant = z.infer<typeof chantSchema>;

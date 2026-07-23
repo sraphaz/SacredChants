@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { loadLocalEnv } from '../lib/load-local-env.js';
-import { createSession, setSessionCookieHeader } from '../lib/session.js';
-import { decodeOAuthState, postLoginLocation } from '../lib/oauth-state.js';
-import { resolveContributeOrigin } from '../lib/resolve-request-origin.js';
+import { loadLocalEnv } from '../_lib/load-local-env.js';
+import { createSession, setSessionCookieHeader } from '../_lib/session.js';
+import { decodeOAuthState, postLoginLocation } from '../_lib/oauth-state.js';
+import { resolveContributeOrigin } from '../_lib/resolve-request-origin.js';
 
 /**
  * GET /api/auth/callback — OAuth callback for GitHub sign-in.

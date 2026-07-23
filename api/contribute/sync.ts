@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { chantSchema } from '../lib/chant-schema.js';
-import { getSessionCookie, verifySession } from '../lib/session.js';
-import { createSyncUpdatePR, getOctokit } from '../lib/github.js';
-import { applyStartsToChantVerses } from '../lib/sync-nudge.js';
+import { chantSchema } from '../_lib/chant-schema.js';
+import { getSessionCookie, verifySession } from '../_lib/session.js';
+import { createSyncUpdatePR, getOctokit } from '../_lib/github.js';
+import { applyStartsToChantVerses } from '../_lib/sync-nudge.js';
 
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER || 'sraphaz';
 const REPO_NAME = process.env.GITHUB_REPO_NAME || 'SacredChants';

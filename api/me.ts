@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { loadLocalEnv } from './lib/load-local-env.js';
-import { getSessionCookie, verifySession } from './lib/session.js';
-import { applyCors } from './lib/cors.js';
+import { loadLocalEnv } from './_lib/load-local-env.js';
+import { getSessionCookie, verifySession } from './_lib/session.js';
+import { applyCors } from './_lib/cors.js';
 
 /**
  * GET /api/me — returns the current authenticated user (id, login, avatar_url, name).

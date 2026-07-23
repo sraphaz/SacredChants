@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { loadLocalEnv } from '../lib/load-local-env.js';
-import { encodeOAuthState } from '../lib/oauth-state.js';
-import { resolveApiOrigin, resolveContributeOrigin } from '../lib/resolve-request-origin.js';
-import { safeReturnOrigin, safeReturnTo } from '../lib/safe-return-to.js';
+import { loadLocalEnv } from '../_lib/load-local-env.js';
+import { encodeOAuthState } from '../_lib/oauth-state.js';
+import { resolveApiOrigin, resolveContributeOrigin } from '../_lib/resolve-request-origin.js';
+import { safeReturnOrigin, safeReturnTo } from '../_lib/safe-return-to.js';
 
 /**
  * GET /api/auth/github — redirects the user to GitHub OAuth authorization.
