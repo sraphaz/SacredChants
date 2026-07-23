@@ -12,6 +12,7 @@ import { PAGE_SEO } from '../i18n/page-seo';
 import { getBasePath } from '../utils/base';
 import NavLinkList from '../components/NavLinkList.astro';
 import FooterTaglines from '../components/FooterTaglines.astro';
+import BugReportLauncher from '../components/BugReportLauncher.astro';
 
 /**
  * Path-only base (e.g. "/") for <base href>, assets, and in-app links.
@@ -148,5 +149,6 @@ const navItems = [
       </div>
     </footer>
     <script type="module" src={`${basePath}scripts/save-offline.js`}></script>
+    <BugReportLauncher />
   </body>
 </html>

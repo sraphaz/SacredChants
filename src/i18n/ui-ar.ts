@@ -95,6 +95,30 @@ export const uiAr = {
     glossaryHint:
       'كلمات سنسكريتية بخط منقّط: انقر (أو اضغط مطوّلاً على الجوال) لمعنى أعمق.',
   },
+  report: {
+    open: 'الإبلاغ عن مشكلة',
+    title: 'الإبلاغ عن مشكلة',
+    titleField: 'عنوان مختصر',
+    descriptionField: 'ماذا حدث؟',
+    selectRegion: 'تحديد منطقة',
+    uploadImage: 'رفع صورة',
+    clearImage: 'إزالة الصورة',
+    submit: 'فتح issue على GitHub',
+    submitting: 'جارٍ الإرسال…',
+    capturing: 'جارٍ تجهيز الصورة…',
+    cancel: 'إلغاء',
+    success: 'تم إنشاء الـ issue',
+    successLink: 'عرض على GitHub',
+    needLogin: 'لإرسال هذا البلاغ، سجّل الدخول عبر GitHub. سيُحفظ المسودة.',
+    signIn: 'تسجيل الدخول عبر GitHub',
+    cropHint: 'اسحب على الصفحة لتحديد المنطقة ثم أفلت.',
+    noImage: 'أضف التقاطًا للمنطقة أو ارفع صورة (اختياري ومفيد).',
+    errorGeneric: 'تعذّر إنشاء الـ issue. حاول مجددًا.',
+    errorAuth: 'انتهت الجلسة. سجّل الدخول مجددًا.',
+    errorNoApi:
+      'واجهة تقرير الأخطاء غير متاحة. شغّل `npm run dev:vercel` وافتح http://localhost:3000، أو عيّن PUBLIC_CONTRIBUTE_API_ORIGIN.',
+    previewAlt: 'معاينة لقطة الشاشة',
+  },
   traditions: {
     title: 'التقاليد',
     description:

@@ -97,6 +97,30 @@ export const uiHi = {
     glossaryHint:
       'बिंदुओं वाली रेखा वाली संस्कृत शब्द: क्लिक करें (या मोबाइल पर दबाकर रखें) गहरा अर्थ देखने के लिए।',
   },
+  report: {
+    open: 'समस्या रिपोर्ट करें',
+    title: 'समस्या रिपोर्ट करें',
+    titleField: 'संक्षिप्त शीर्षक',
+    descriptionField: 'क्या गलत हुआ?',
+    selectRegion: 'क्षेत्र चुनें',
+    uploadImage: 'छवि अपलोड करें',
+    clearImage: 'छवि हटाएँ',
+    submit: 'GitHub पर issue खोलें',
+    submitting: 'भेजा जा रहा है…',
+    capturing: 'छवि तैयार हो रही है…',
+    cancel: 'रद्द करें',
+    success: 'Issue बनाई गई',
+    successLink: 'GitHub पर देखें',
+    needLogin: 'रिपोर्ट भेजने के लिए GitHub से साइन इन करें। ड्राफ़्ट सुरक्षित रहेगा।',
+    signIn: 'GitHub से साइन इन',
+    cropHint: 'क्षेत्र चिह्नित करने के लिए पृष्ठ पर खींचें, फिर छोड़ें।',
+    noImage: 'क्षेत्र कैप्चर या छवि जोड़ें (वैकल्पिक, पर सहायक)।',
+    errorGeneric: 'Issue नहीं बन सकी। पुनः प्रयास करें।',
+    errorAuth: 'सत्र समाप्त। फिर साइन इन करें।',
+    errorNoApi:
+      'रिपोर्ट API उपलब्ध नहीं। `npm run dev:vercel` चलाएँ और http://localhost:3000 खोलें, या PUBLIC_CONTRIBUTE_API_ORIGIN सेट करें।',
+    previewAlt: 'चयनित स्क्रीनशॉट पूर्वावलोकन',
+  },
   traditions: {
     title: 'परंपराएँ',
     description:
