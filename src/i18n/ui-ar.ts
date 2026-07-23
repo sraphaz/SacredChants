@@ -90,6 +90,10 @@ export const uiAr = {
     syncEditPrUnavailable:
       'إرسال PR يحتاج واجهة contribute. نزّل JSON بدلاً من ذلك.',
     syncEditHotkeys: 'مرّر أو اسحب ↕ · Shift+scroll ±0.5s',
+    practiceLoop: 'تكرار',
+    practiceRestart: 'إعادة',
+    practiceMalaComplete: 'اكتملت المالا',
+    practiceRailLabel: 'عناصر التحكم في الممارسة',
   },
   traditions: {
     title: 'التقاليد',

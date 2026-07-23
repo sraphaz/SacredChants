@@ -69,7 +69,9 @@
   --sc-header-h: 2.5rem;         /* fixed site header height (same as player bar) */
   --sc-player-bar-top: 2.5rem;  /* fixed player bar top = header height (no gap) */
   --sc-player-bar-h: 2.5rem;     /* fixed player bar height (chant pages) */
+  --sc-practice-rail-h: 2.25rem; /* practice loop / 108 / restart strip */
   --sc-player-bar-spacer-h: 2.5rem; /* spacer so content starts below fixed bar */
+  --sc-player-bar-spacer-with-practice-h: calc(var(--sc-player-bar-h) + var(--sc-practice-rail-h));
 
   /* ——— Reading measure (line length) ——— */
   --sc-measure-narrow: 50ch;     /* short lines (e.g. header description) */

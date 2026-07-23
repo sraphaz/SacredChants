@@ -3,6 +3,7 @@ import ChantLayout from '../../layouts/ChantLayout.astro';
 import ChantHeader from '../../components/ChantHeader.astro';
 import ChantVerse from '../../components/ChantVerse.astro';
 import ChantPlayerBar from '../../components/ChantPlayerBar.astro';
+import ChantPracticeRail from '../../components/ChantPracticeRail.astro';
 import ChantSyncEditor from '../../components/ChantSyncEditor.astro';
 import SaveOfflineToggle from '../../components/SaveOfflineToggle.astro';
 import { getEntry, getCollection } from 'astro:content';
@@ -123,40 +124,71 @@ const syncEditorLabelsByLocale = {
 <ChantLayout chant={chant} locale={locale}>
   {chant.audio && audioUrlForPlayer && (
     <>
-      <ChantPlayerBar
-        audioUrl={audioUrlForPlayer}
-        title={chant.title}
-        hasSync={hasSync}
-        syncLabelEn={tEn.chant.syncLabel}
-        syncLabelPt={tPt.chant.syncLabel}
-        syncLabelEs={tEs.chant.syncLabel}
-        syncLabelIt={tIt.chant.syncLabel}
-        syncLabelHi={tHi.chant.syncLabel}
-        syncLabelAr={tAr.chant.syncLabel}
-        syncOnEn={tEn.chant.syncOn}
-        syncOffEn={tEn.chant.syncOff}
-        syncOnPt={tPt.chant.syncOn}
-        syncOffPt={tPt.chant.syncOff}
-        syncOnEs={tEs.chant.syncOn}
-        syncOffEs={tEs.chant.syncOff}
-        syncOnIt={tIt.chant.syncOn}
-        syncOffIt={tIt.chant.syncOff}
-        syncOnHi={tHi.chant.syncOn}
-        syncOffHi={tHi.chant.syncOff}
-        syncOnAr={tAr.chant.syncOn}
-        syncOffAr={tAr.chant.syncOff}
-        bandcampUrl={chant.bandcampUrl}
-        bandcampEmbedSrc={chant.bandcampEmbedSrc}
-        bandcampArtImage={bandcampArtImage}
-        bandcampTooltipEn="Listen on Bandcamp"
-        bandcampTooltipPt="Ouvir no Bandcamp"
-        bandcampTooltipEs="Escuchar en Bandcamp"
-        bandcampTooltipIt="Ascolta su Bandcamp"
-        bandcampTooltipHi="Bandcamp पर सुनें"
-        bandcampTooltipAr="الاستماع على Bandcamp"
-        locale={locale}
-      />
-      <div class="chant-player-bar-spacer hidden md:block"></div>
+      <div class:list={['chant-player-stack', hasSync && 'chant-player-stack--with-practice']}>
+        <ChantPlayerBar
+          audioUrl={audioUrlForPlayer}
+          title={chant.title}
+          hasSync={hasSync}
+          syncLabelEn={tEn.chant.syncLabel}
+          syncLabelPt={tPt.chant.syncLabel}
+          syncLabelEs={tEs.chant.syncLabel}
+          syncLabelIt={tIt.chant.syncLabel}
+          syncLabelHi={tHi.chant.syncLabel}
+          syncLabelAr={tAr.chant.syncLabel}
+          syncOnEn={tEn.chant.syncOn}
+          syncOffEn={tEn.chant.syncOff}
+          syncOnPt={tPt.chant.syncOn}
+          syncOffPt={tPt.chant.syncOff}
+          syncOnEs={tEs.chant.syncOn}
+          syncOffEs={tEs.chant.syncOff}
+          syncOnIt={tIt.chant.syncOn}
+          syncOffIt={tIt.chant.syncOff}
+          syncOnHi={tHi.chant.syncOn}
+          syncOffHi={tHi.chant.syncOff}
+          syncOnAr={tAr.chant.syncOn}
+          syncOffAr={tAr.chant.syncOff}
+          bandcampUrl={chant.bandcampUrl}
+          bandcampEmbedSrc={chant.bandcampEmbedSrc}
+          bandcampArtImage={bandcampArtImage}
+          bandcampTooltipEn="Listen on Bandcamp"
+          bandcampTooltipPt="Ouvir no Bandcamp"
+          bandcampTooltipEs="Escuchar en Bandcamp"
+          bandcampTooltipIt="Ascolta su Bandcamp"
+          bandcampTooltipHi="Bandcamp पर सुनें"
+          bandcampTooltipAr="الاستماع على Bandcamp"
+          locale={locale}
+        />
+        {hasSync && (
+          <ChantPracticeRail
+            railLabelEn={tEn.chant.practiceRailLabel}
+            railLabelPt={tPt.chant.practiceRailLabel}
+            railLabelEs={tEs.chant.practiceRailLabel}
+            railLabelIt={tIt.chant.practiceRailLabel}
+            railLabelHi={tHi.chant.practiceRailLabel}
+            railLabelAr={tAr.chant.practiceRailLabel}
+            loopLabelEn={tEn.chant.practiceLoop}
+            loopLabelPt={tPt.chant.practiceLoop}
+            loopLabelEs={tEs.chant.practiceLoop}
+            loopLabelIt={tIt.chant.practiceLoop}
+            loopLabelHi={tHi.chant.practiceLoop}
+            loopLabelAr={tAr.chant.practiceLoop}
+            restartLabelEn={tEn.chant.practiceRestart}
+            restartLabelPt={tPt.chant.practiceRestart}
+            restartLabelEs={tEs.chant.practiceRestart}
+            restartLabelIt={tIt.chant.practiceRestart}
+            restartLabelHi={tHi.chant.practiceRestart}
+            restartLabelAr={tAr.chant.practiceRestart}
+            malaCompleteEn={tEn.chant.practiceMalaComplete}
+            malaCompletePt={tPt.chant.practiceMalaComplete}
+            malaCompleteEs={tEs.chant.practiceMalaComplete}
+            malaCompleteIt={tIt.chant.practiceMalaComplete}
+            malaCompleteHi={tHi.chant.practiceMalaComplete}
+            malaCompleteAr={tAr.chant.practiceMalaComplete}
+            locale={locale}
+          />
+        )}
+      </div>
+      <div class:list={['chant-player-bar-spacer', 'hidden', 'md:block', hasSync && 'chant-player-bar-spacer--with-practice']}></div>
       <script is:inline>
         (function() {
           var audio = document.getElementById('chant-audio');
@@ -547,8 +579,23 @@ const syncEditorLabelsByLocale = {
             refreshHighlight: refreshHighlight,
           });
         }
+
+        window.SacredChantsLyricSync = {
+          goToLine: function(index, scroll) {
+            var i = Math.max(0, Math.min(syncLines.length - 1, Number(index) || 0));
+            lastActiveIndex = i;
+            if (getSyncEnabled()) setActive(i, !!scroll);
+          },
+          getLineCount: function() {
+            return syncLines.length;
+          },
+          getActiveIndex: function() {
+            return lastActiveIndex;
+          },
+        };
       })();
     </script>
+    <script is:inline src={`${BASE_PATH}scripts/chant-practice.js`}></script>
     </>
   )}
 </ChantLayout>

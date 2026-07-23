@@ -92,6 +92,10 @@ export const uiHi = {
     syncEditPrUnavailable:
       'PR के लिए contribute API चाहिए। इसके बजाय JSON डाउनलोड करें।',
     syncEditHotkeys: 'स्क्रॉल या खींचें ↕ · Shift+scroll ±0.5s',
+    practiceLoop: 'लूप',
+    practiceRestart: 'फिर से शुरू',
+    practiceMalaComplete: 'माला पूर्ण',
+    practiceRailLabel: 'अभ्यास नियंत्रण',
   },
   traditions: {
     title: 'परंपराएँ',
