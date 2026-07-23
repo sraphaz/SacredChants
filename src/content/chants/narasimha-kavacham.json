@@ -43,8 +43,8 @@
           "original": "नृसिंहकवचं वक्ष्ये प्रह्लादेनोदितं पुरा।",
           "transliteration": "nṛsiṃha-kavacaṃ vakṣye prahlādenoditaṃ purā |",
           "translations": {
-            "en": "I shall now unfold the Narasiṃha-kavaca — the armor-prayer formerly spoken by Prahlāda Mahārāja.",
-            "pt": "Vou agora revelar o Narasiṃha-kavaca — a oração-armadura outrora proclamada por Prahlāda Mahārāja.",
+            "en": "I shall now recite the Narasiṃha-kavaca, formerly spoken by Prahlāda Mahārāja.",
+            "pt": "Recitarei agora o Narasiṃha-kavaca, outrora proclamado por Prahlāda Mahārāja.",
             "es": "Recitaré ahora el Narasiṃha-kavaca, antiguamente proclamado por Prahlāda Mahārāja.",
             "it": "Reciterò ora il Narasiṃha-kavaca, un tempo proclamato da Prahlāda Mahārāja.",
             "ar": "سأتلو الآن درع ناراسيمها، الذي قاله قديمًا براهلادا مهراجا.",
@@ -56,8 +56,8 @@
           "original": "सर्वरक्षाकरं पुण्यं सर्वोपद्रवनाशनम्॥",
           "transliteration": "sarva-rakṣā-karaṃ puṇyaṃ sarvopadrava-nāśanam ||",
           "translations": {
-            "en": "It is sacred merit itself: it grants complete protection and dissolves every calamity that harasses the soul.",
-            "pt": "É mérito sagrado em si: concede proteção completa e dissolve toda calamidade que assedia a alma.",
+            "en": "It is most pious, vanquishes all impediments, and grants complete protection.",
+            "pt": "É sumamente piedoso, dissipando todos os impedimentos e concedendo proteção completa.",
             "es": "Es sumamente piadoso, disipa todos los impedimentos y concede protección completa.",
             "it": "È sommamente pio, dissolve ogni impedimento e concede protezione completa.",
             "ar": "إنه بالغ التقوى، يبدّد كل العوائق ويمنح حماية تامة.",
@@ -208,7 +208,7 @@
           }
         },
         {
-          "start": 100,
+          "start": 101.8,
           "original": "इन्द्रादिसुरमौलिस्थः स्फुरन्माणिक्यदीप्तिभिः॥",
           "transliteration": "indrādi-sura-mauli-sthaḥ sphuran-māṇikya-dīptibhiḥ ||",
           "translations": {
@@ -234,7 +234,7 @@
       "order": 6,
       "lines": [
         {
-          "start": 113.1,
+          "start": 112.8,
           "original": "विराजितपदद्वन्द्वं शङ्खचक्रादिहेतिभिः।",
           "transliteration": "virājita-pada-dvandvaṃ śaṅkha-cakrādi-hetibhiḥ |",
           "translations": {
@@ -247,7 +247,7 @@
           }
         },
         {
-          "start": 118.7,
+          "start": 120.5,
           "original": "गरुत्मता च विनयात् स्तूयमानं मुदान्वितम्॥",
           "transliteration": "garutmatā ca vinayāt stūyamānaṃ mudānvitam ||",
           "translations": {
@@ -273,12 +273,12 @@
       "order": 7,
       "lines": [
         {
-          "start": 130.2,
+          "start": 131.6,
           "original": "स्वहृत्कमलसंवासं कृत्वा तु कवचं पठेत्।",
           "transliteration": "sva-hṛt-kamala-saṃvāsaṃ kṛtvā tu kavacaṃ paṭhet |",
           "translations": {
-            "en": "Having made the Lord dwell in the lotus of one’s own heart, one should recite this kavaca:",
-            "pt": "Tendo feito o Senhor habitar no lótus do próprio coração, deve-se recitar este kavaca:",
+            "en": "Having seated the Lord upon the lotus of one's heart, one should recite the kavaca:",
+            "pt": "Tendo colocado o Senhor no lótus do próprio coração, deve-se recitar o kavaca:",
             "es": "Habiendo asentado al Señor en el loto del propio corazón, se debe recitar el kavaca:",
             "it": "Avendo posto il Signore nel loto del proprio cuore, si reciti il kavaca:",
             "ar": "بعد إسكان الرب في لوتس القلب، ينبغي تلاوة الكافَتشا:",
@@ -286,7 +286,7 @@
           }
         },
         {
-          "start": 137.7,
+          "start": 139.1,
           "original": "नृसिंहो मे शिरः पातु लोकरक्षार्थसम्भवः॥",
           "transliteration": "nṛsiṃho me śiraḥ pātu loka-rakṣārtha-sambhavaḥ ||",
           "translations": {
@@ -312,20 +312,20 @@
       "order": 8,
       "lines": [
         {
-          "start": 148.9,
-          "original": "सर्वगोऽपि स्तम्भवासः फालं मे रक्षतु ध्वनिम्।",
-          "transliteration": "sarvago 'pi stambha-vāsaḥ phālaṃ me rakṣatu dhvanim |",
+          "start": 150.2,
+          "original": "सर्वगोऽपि स्तम्भवासः फलं मे रक्षतु ध्वनिम्।",
+          "transliteration": "sarvago 'pi stambha-vāsaḥ phalaṃ me rakṣatu dhvanim |",
           "translations": {
-            "en": "Although all-pervading, He dwelt in the pillar; may He protect my forehead and my voice.",
-            "pt": "Embora onipresente, habitou na coluna; que proteja a minha testa e a minha voz.",
-            "es": "Aunque omnipresente, habitó en la columna; que proteja mi frente y mi voz.",
-            "it": "Benché onnipresente, dimorò nella colonna; protegga la mia fronte e la mia voce.",
-            "ar": "مع أنه كليّ الحضور، سكن في العمود؛ فليحمِ جبيني وصوتي.",
-            "hi": "सर्वव्यापी होकर भी स्तंभ में वास करने वाले मेरी भाल और ध्वनि की रक्षा करें।"
+            "en": "Although all-pervading, He dwelt in the pillar (for Prahlāda); may He protect the fruit of my acts and my speech.",
+            "pt": "Embora onipresente, habitou na coluna (por Prahlāda); que proteja o fruto das minhas ações e a minha fala.",
+            "es": "Aunque omnipresente, habitó en la columna (por Prahlāda); que proteja el fruto de mis actos y mi habla.",
+            "it": "Benché onnipresente, dimorò nella colonna (per Prahlāda); protegga il frutto delle mie azioni e la mia parola.",
+            "ar": "مع أنه كليّ الحضور، سكن في عمود؛ فليحمِ ثمرة أعمالي وكلامي.",
+            "hi": "सर्वव्यापी होकर भी स्तंभ में वास करने वाले मेरे फल और ध्वनि की रक्षा करें।"
           }
         },
         {
-          "start": 156.7,
+          "start": 158,
           "original": "नृसिंहो मे दृशौ पातु सोमसूर्याग्निलोचनः॥",
           "transliteration": "nṛsiṃho me dṛśau pātu soma-sūryāgni-locanaḥ ||",
           "translations": {
@@ -339,19 +339,19 @@
         }
       ],
       "explanation": {
-        "en": "Stambha-vāsa, “dweller in the pillar,” directly recalls the Prahlāda story: when Hiraṇyakaśipu mocked the idea that Viṣṇu was everywhere, Narasiṃha emerged from a pillar. In aṅga-rakṣā the verse next asks protection for phāla (forehead) and dhvani (voice/sound) — insight and sacred utterance held together. The eyes are guarded by moon, sun, and fire, symbols of His cooling, illuminating, and purifying gaze.",
-        "pt": "Stambha-vāsa, “aquele que habita a coluna”, remete diretamente à história de Prahlāda: quando Hiraṇyakaśipu zombou da ideia de que Viṣṇu estava em toda parte, Narasiṃha emergiu de uma coluna. Na aṅga-rakṣā o verso pede em seguida proteção para phāla (testa) e dhvani (voz/som) — visão e enunciação sagrada juntas. Os olhos são guardados por lua, sol e fogo, símbolos do Seu olhar que refresca, ilumina e purifica.",
-        "es": "Stambha-vāsa, “el que habita en la columna”, recuerda directamente la historia de Prahlāda: cuando Hiraṇyakaśipu se burló de que Viṣṇu estuviera en todas partes, Narasiṃha emergió de un pilar. En la aṅga-rakṣā el verso pide luego protección para phāla (frente) y dhvani (voz/sonido) — visión y enunciación sagrada juntas. Los ojos son guardados por luna, sol y fuego, símbolos de su mirada que refresca, ilumina y purifica.",
-        "it": "Stambha-vāsa, “abitante della colonna”, richiama direttamente la storia di Prahlāda: quando Hiraṇyakaśipu derise l’idea che Viṣṇu fosse ovunque, Narasiṃha emerse da un pilastro. Nell’aṅga-rakṣā il verso chiede poi protezione per phāla (fronte) e dhvani (voce/suono) — visione e enunciazione sacra insieme. Gli occhi sono custoditi da luna, sole e fuoco, simboli del suo sguardo che rinfresca, illumina e purifica.",
-        "ar": "«ساكن العمود» يذكّر مباشرة بقصة براهلادا: عندما سخر هيرانياكاشيبو من وجود فيشنو في كل مكان، ظهر ناراسيمها من العمود. في حماية الأعضاء يطلب الآية بعد ذلك حماية الفالا (الجبين) والذْفاني (الصوت) معًا. والعينان كالقمر والشمس والنار ترمز إلى نظرة تبرد وتنير وتطهّر.",
-        "hi": "स्तम्भ-वास सीधे प्रह्लाद की कथा याद दिलाता है: जब हिरण्यकशिपु ने पूछा कि विष्णु क्या इस खंभे में भी हैं, नृसिंह उसी से प्रकट हुए। अङ्गरक्षा में आगे फाल (भाल) और ध्वनि की रक्षा माँगी जाती है — दृष्टि और पवित्र वाणी साथ। चंद्र, सूर्य और अग्नि जैसे नेत्र शीतलता, प्रकाश और शुद्धि के प्रतीक हैं।"
+        "en": "Stambha-vāsa, “dweller in the pillar,” directly recalls the Prahlāda story: when Hiraṇyakaśipu mocked the idea that Viṣṇu was everywhere, Narasiṃha emerged from a pillar. The verse asks protection for the fruit of action and for speech or sound, as if saying: may what I do and what I utter be held by truth. The eyes are guarded by moon, sun, and fire, symbols of His cooling, illuminating, and purifying gaze.",
+        "pt": "Stambha-vāsa, “aquele que habita a coluna”, remete diretamente à história de Prahlāda: quando Hiraṇyakaśipu zombou da ideia de que Viṣṇu estava em toda parte, Narasiṃha emergiu de uma coluna. O verso pede proteção para o fruto da ação e para a fala ou o som, como se dissesse: que o que eu faço e o que eu pronuncio sejam sustentados pela verdade. Os olhos são guardados por lua, sol e fogo, símbolos do Seu olhar que refresca, ilumina e purifica.",
+        "es": "Stambha-vāsa, “el que habita en la columna”, recuerda directamente la historia de Prahlāda: cuando Hiraṇyakaśipu se burló de que Viṣṇu estuviera en todas partes, Narasiṃha emergió de un pilar. El verso pide protección para el fruto de la acción y para la voz o el sonido: que lo que hago y pronuncio sea sostenido por la verdad. Los ojos son guardados por luna, sol y fuego, símbolos de su mirada que refresca, ilumina y purifica.",
+        "it": "Stambha-vāsa, “abitante della colonna”, richiama direttamente la storia di Prahlāda: quando Hiraṇyakaśipu derise l’idea che Viṣṇu fosse ovunque, Narasiṃha emerse da un pilastro. Il verso chiede protezione per il frutto dell’azione e per voce o suono: che ciò che faccio e pronuncio sia sostenuto dalla verità. Gli occhi sono custoditi da luna, sole e fuoco, simboli del suo sguardo che rinfresca, illumina e purifica.",
+        "ar": "«ساكن العمود» يذكّر مباشرة بقصة براهلادا: عندما سخر هيرانياكاشيبو من وجود فيشنو في كل مكان، ظهر ناراسيمها من العمود. طلب حماية ثمر العمل والصوت يعني: ليكن ما أفعله وما أقوله محمولًا بالحق. والعينان كالقمر والشمس والنار ترمز إلى نظرة تبرد وتنير وتطهّر.",
+        "hi": "स्तम्भ-वास सीधे प्रह्लाद की कथा याद दिलाता है: जब हिरण्यकशिपु ने पूछा कि विष्णु क्या इस खंभे में भी हैं, नृसिंह उसी से प्रकट हुए। कर्म-फल और वाणी की रक्षा माँगना है कि मेरा करना और बोलना सत्य में रहे। चंद्र, सूर्य और अग्नि जैसे नेत्र शीतलता, प्रकाश और शुद्धि के प्रतीक हैं।"
       }
     },
     {
       "order": 9,
       "lines": [
         {
-          "start": 167.8,
+          "start": 169.1,
           "original": "स्मृतिं मे पातु नृहरिर्मुनिवर्यस्तुतिप्रियः।",
           "transliteration": "smṛtiṃ me pātu nṛharir muni-varya-stuti-priyaḥ |",
           "translations": {
@@ -364,7 +364,7 @@
           }
         },
         {
-          "start": 175.6,
+          "start": 176.9,
           "original": "नासं मे सिंहनासस्तु मुखं लक्ष्मीमुखप्रियः॥",
           "transliteration": "nāsaṃ me siṃha-nāsas tu mukhaṃ lakṣmī-mukha-priyaḥ ||",
           "translations": {
@@ -390,7 +390,7 @@
       "order": 10,
       "lines": [
         {
-          "start": 186.9,
+          "start": 188.2,
           "original": "सर्वविद्याधिपः पातु नृसिंहो रसनां मम।",
           "transliteration": "sarva-vidyādhipaḥ pātu nṛsiṃho rasanāṃ mama |",
           "translations": {
@@ -403,7 +403,7 @@
           }
         },
         {
-          "start": 194.3,
+          "start": 195.7,
           "original": "वक्त्रं पात्विन्दुवदनं सदा प्रह्लादवन्दितः॥",
           "transliteration": "vaktraṃ pātv indu-vadanaṃ sadā prahlāda-vanditaḥ ||",
           "translations": {
@@ -429,7 +429,7 @@
       "order": 11,
       "lines": [
         {
-          "start": 206.7,
+          "start": 207,
           "original": "नृसिंहः पातु मे कण्ठं स्कन्धौ भूभृदनन्तकृत्।",
           "transliteration": "nṛsiṃhaḥ pātu me kaṇṭhaṃ skandhau bhū-bhṛd ananta-kṛt |",
           "translations": {
@@ -442,7 +442,7 @@
           }
         },
         {
-          "start": 215.2,
+          "start": 214.9,
           "original": "दिव्यास्त्रशोभितभुजो नृसिंहः पातु मे भुजौ॥",
           "transliteration": "divyāstra-śobhita-bhujo nṛsiṃhaḥ pātu me bhujau ||",
           "translations": {
@@ -468,7 +468,7 @@
       "order": 12,
       "lines": [
         {
-          "start": 226.1,
+          "start": 225.8,
           "original": "करौ मे देववरदो नृसिंहः पातु सर्वतः।",
           "transliteration": "karau me deva-varado nṛsiṃhaḥ pātu sarvataḥ |",
           "translations": {
@@ -481,7 +481,7 @@
           }
         },
         {
-          "start": 233.8,
+          "start": 233.5,
           "original": "हृदयं योगिसाध्यश्च निवासं पातु मे हरिः॥",
           "transliteration": "hṛdayaṃ yogi-sādhyaś ca nivāsaṃ pātu me hariḥ ||",
           "translations": {
@@ -507,7 +507,7 @@
       "order": 13,
       "lines": [
         {
-          "start": 243.8,
+          "start": 243.5,
           "original": "मध्यं पातु हिरण्याक्षवक्षःकुक्षिविदारणः।",
           "transliteration": "madhyaṃ pātu hiraṇyākṣa-vakṣaḥ-kukṣi-vidāraṇaḥ |",
           "translations": {
@@ -520,7 +520,7 @@
           }
         },
         {
-          "start": 252.8,
+          "start": 252.5,
           "original": "नाभिं मे पातु नृहरिः स्वनाभिब्रह्मसंस्तुतः॥",
           "transliteration": "nābhiṃ me pātu nṛhariḥ sva-nābhi-brahma-saṃstutaḥ ||",
           "translations": {
@@ -546,7 +546,7 @@
       "order": 14,
       "lines": [
         {
-          "start": 262,
+          "start": 261.7,
           "original": "ब्रह्माण्डकोटयः कट्यां यस्यासौ पातु मे कटिम्।",
           "transliteration": "brahmāṇḍa-koṭayaḥ kaṭyāṃ yasyāsau pātu me kaṭim |",
           "translations": {
@@ -559,7 +559,7 @@
           }
         },
         {
-          "start": 271.5,
+          "start": 271.2,
           "original": "गुह्यं मे पातु गुह्यानां मन्त्राणां गुह्यरूपदृक्॥",
           "transliteration": "guhyaṃ me pātu guhyānāṃ mantrāṇāṃ guhya-rūpa-dṛk ||",
           "translations": {
@@ -585,7 +585,7 @@
       "order": 15,
       "lines": [
         {
-          "start": 281,
+          "start": 280.7,
           "original": "ऊरू मनोभवः पातु जानुनी नररूपधृक्।",
           "transliteration": "ūrū manobhavaḥ pātu jānunī nara-rūpa-dhṛk |",
           "translations": {
@@ -598,7 +598,7 @@
           }
         },
         {
-          "start": 290.5,
+          "start": 290.2,
           "original": "जङ्घे पातु धराभारहर्ता योऽसौ नृकेसरी॥",
           "transliteration": "jaṅghe pātu dharā-bhāra-hartā yo 'sau nṛ-kesarī ||",
           "translations": {
@@ -624,7 +624,7 @@
       "order": 16,
       "lines": [
         {
-          "start": 299.9,
+          "start": 299.6,
           "original": "सुरराज्यप्रदः पातु पादौ मे नृहरीश्वरः।",
           "transliteration": "sura-rājya-pradaḥ pātu pādau me nṛharīśvaraḥ |",
           "translations": {
@@ -637,7 +637,7 @@
           }
         },
         {
-          "start": 309.4,
+          "start": 311.2,
           "original": "सहस्रशीर्षा पुरुषः पातु मे सर्वशस्तनुम्॥",
           "transliteration": "sahasra-śīrṣā puruṣaḥ pātu me sarvaśas tanum ||",
           "translations": {
@@ -663,7 +663,7 @@
       "order": 17,
       "lines": [
         {
-          "start": 318.9,
+          "start": 320.7,
           "original": "महोग्रः पूर्वतः पातु महावीराग्रजोऽग्नितः।",
           "transliteration": "mahograḥ pūrvataḥ pātu mahā-vīrāgrajo 'gnitaḥ |",
           "translations": {
@@ -676,7 +676,7 @@
           }
         },
         {
-          "start": 328.4,
+          "start": 329,
           "original": "महाविष्णुर्दक्षिणे तु महाज्वालस्तु नैरृतः॥",
           "transliteration": "mahā-viṣṇur dakṣiṇe tu mahā-jvālas tu nairṛtaḥ ||",
           "translations": {
@@ -702,7 +702,7 @@
       "order": 18,
       "lines": [
         {
-          "start": 337.9,
+          "start": 338.5,
           "original": "पश्चिमे पातु सर्वेशो दिशि मे सर्वतोमुखः।",
           "transliteration": "paścime pātu sarveśo diśi me sarvato-mukhaḥ |",
           "translations": {
@@ -715,7 +715,7 @@
           }
         },
         {
-          "start": 347.4,
+          "start": 348,
           "original": "नृसिंहः पातु वायव्यां सौम्यां भूषणविग्रहः॥",
           "transliteration": "nṛsiṃhaḥ pātu vāyavyāṃ saumyāṃ bhūṣaṇa-vigrahaḥ ||",
           "translations": {
@@ -741,7 +741,7 @@
       "order": 19,
       "lines": [
         {
-          "start": 356.9,
+          "start": 357.5,
           "original": "ईशान्यां पातु भद्रो मे सर्वमङ्गलदायकः।",
           "transliteration": "īśānyāṃ pātu bhadro me sarva-maṅgala-dāyakaḥ |",
           "translations": {
@@ -754,12 +754,12 @@
           }
         },
         {
-          "start": 366.4,
+          "start": 367,
           "original": "संसारभयतः पातु मृत्योर्मृत्युर्नृकेसरी॥",
           "transliteration": "saṃsāra-bhayataḥ pātu mṛtyor mṛtyur nṛ-kesarī ||",
           "translations": {
-            "en": "May the Man-Lion who is Death of death protect me from the dread of saṃsāra — and from death itself.",
-            "pt": "Que o Homem-Leão que é Morte da morte me proteja do pavor do saṃsāra — e da própria morte.",
+            "en": "May Narasiṃha, Death of death, protect me from the fear of saṃsāra and from death.",
+            "pt": "Que Narasiṃha, Morte da morte, me proteja do medo do saṃsāra e da morte.",
             "es": "Que Narasiṃha, Muerte de la muerte, me proteja del miedo al saṃsāra y de la muerte.",
             "it": "Possa Narasiṃha, Morte della morte, proteggermi dalla paura del saṃsāra e dalla morte.",
             "ar": "فلتحمِني ناراسيمها، موت الموت، من خوف السامسارا ومن الموت.",
@@ -780,7 +780,7 @@
       "order": 20,
       "lines": [
         {
-          "start": 375.8,
+          "start": 379.3,
           "original": "इदं नृसिंहकवचं प्रह्लादमुखमण्डितम्।",
           "transliteration": "idaṃ nṛsiṃha-kavacaṃ prahlāda-mukha-maṇḍitam |",
           "translations": {
@@ -793,7 +793,7 @@
           }
         },
         {
-          "start": 385.3,
+          "start": 387.7,
           "original": "भक्तिमान्यः पठेन्नित्यं सर्वपापैः प्रमुच्यते॥",
           "transliteration": "bhaktimān yaḥ paṭhen nityaṃ sarva-pāpaiḥ pramucyate ||",
           "translations": {
@@ -819,7 +819,7 @@
       "order": 21,
       "lines": [
         {
-          "start": 394.8,
+          "start": 397.2,
           "original": "पुत्रवान् धनवान् लोके दीर्घायुरुपजायते।",
           "transliteration": "putravān dhanavān loke dīrghāyur upajāyate |",
           "translations": {
@@ -832,9 +832,9 @@
           }
         },
         {
-          "start": 404.3,
-          "original": "यं यं कामयते कामं तं तं प्राप्नोत्यसंशयम्॥",
-          "transliteration": "yaṃ yaṃ kāmayate kāmaṃ taṃ taṃ prāpnoty asaṃśayam ||",
+          "start": 406.7,
+          "original": "कामयते यं यं कामं तं तं प्राप्नोत्यसंशयम्॥",
+          "transliteration": "kāmayate yaṃ yaṃ kāmaṃ taṃ taṃ prāpnoty asaṃśayam ||",
           "translations": {
             "en": "Whatever desire one cherishes, that one attains without doubt.",
             "pt": "Qualquer desejo que se acalente, esse se alcança sem dúvida.",
@@ -858,7 +858,7 @@
       "order": 22,
       "lines": [
         {
-          "start": 413.8,
+          "start": 417,
           "original": "सर्वत्र जयमाप्नोति सर्वत्र विजयी भवेत्।",
           "transliteration": "sarvatra jayam āpnoti sarvatra vijayī bhavet |",
           "translations": {
@@ -871,7 +871,7 @@
           }
         },
         {
-          "start": 423.3,
+          "start": 425,
           "original": "भूम्यन्तरीक्षदिव्यानां ग्रहाणां विनिवारणम्॥",
           "transliteration": "bhūmy-antarikṣa-divyānāṃ grahāṇāṃ vinivāraṇam ||",
           "translations": {
@@ -897,7 +897,7 @@
       "order": 23,
       "lines": [
         {
-          "start": 432.8,
+          "start": 432.4,
           "original": "वृश्चिकोरगसम्भूतविषापहरणं परम्।",
           "transliteration": "vṛścikoraga-sambhūta-viṣāpaharaṇaṃ param |",
           "translations": {
@@ -910,7 +910,7 @@
           }
         },
         {
-          "start": 442.2,
+          "start": 441.8,
           "original": "ब्रह्मराक्षसयक्षाणां दूरोत्सारणकारणम्॥",
           "transliteration": "brahma-rākṣasa-yakṣāṇāṃ dūrotsāraṇa-kāraṇam ||",
           "translations": {
@@ -936,7 +936,7 @@
       "order": 24,
       "lines": [
         {
-          "start": 451.7,
+          "start": 451.3,
           "original": "भुजे वा तालपत्रे वा कवचं लिखितं शुभम्।",
           "transliteration": "bhuje vā tāla-patre vā kavacaṃ likhitaṃ śubham |",
           "translations": {
@@ -949,7 +949,7 @@
           }
         },
         {
-          "start": 461.2,
+          "start": 460.8,
           "original": "करमूले धृतं येन सिध्येयुः कर्मसिद्धयः॥",
           "transliteration": "kara-mūle dhṛtaṃ yena sidhyeyuḥ karma-siddhayaḥ ||",
           "translations": {
@@ -975,7 +975,7 @@
       "order": 25,
       "lines": [
         {
-          "start": 470.7,
+          "start": 470.3,
           "original": "देवासुरमनुष्येषु स्वं स्वमेव जयं लभेत्।",
           "transliteration": "devāsura-manuṣyeṣu svaṃ svam eva jayaṃ labhet |",
           "translations": {
@@ -988,7 +988,7 @@
           }
         },
         {
-          "start": 479.7,
+          "start": 479.3,
           "original": "एकसन्ध्यं त्रिसन्ध्यं वा यः पठेन्नियतो नरः॥",
           "transliteration": "eka-sandhyaṃ tri-sandhyaṃ vā yaḥ paṭhen niyato naraḥ ||",
           "translations": {
@@ -1014,7 +1014,7 @@
       "order": 26,
       "lines": [
         {
-          "start": 491.7,
+          "start": 491.5,
           "original": "सर्वमङ्गलमाङ्गल्यं भुक्तिं मुक्तिं च विन्दति।",
           "transliteration": "sarva-maṅgala-māṅgalyaṃ bhuktiṃ muktiṃ ca vindati |",
           "translations": {
@@ -1027,7 +1027,7 @@
           }
         },
         {
-          "start": 498.4,
+          "start": 500.1,
           "original": "द्वात्रिंशतिसहस्राणि पठेत् शुद्धात्मनां नृणाम्॥",
           "transliteration": "dvā-triṃśati-sahasrāṇi paṭhet śuddhātmanāṃ nṛṇām ||",
           "translations": {
@@ -1053,7 +1053,7 @@
       "order": 27,
       "lines": [
         {
-          "start": 509.7,
+          "start": 510.2,
           "original": "कवचस्यास्य मन्त्रस्य मन्त्रसिद्धिः प्रजायते।",
           "transliteration": "kavacasyāsya mantrasya mantra-siddhiḥ prajāyate |",
           "translations": {
@@ -1066,7 +1066,7 @@
           }
         },
         {
-          "start": 517.3,
+          "start": 519.1,
           "original": "अनेन मन्त्रराजेन कृत्वा भस्माभिमन्त्रणम्॥",
           "transliteration": "anena mantra-rājena kṛtvā bhasmābhimantraṇam ||",
           "translations": {
@@ -1092,29 +1092,29 @@
       "order": 28,
       "lines": [
         {
-          "start": 528,
-          "original": "तिलकं बिभृयाद्यस्तु तस्य ग्रहभयं हरेत्।",
-          "transliteration": "tilakaṃ bibhṛyād yas tu tasya graha-bhayaṃ haret |",
+          "start": 529.8,
+          "original": "तिलकं बिभृयाद्यस्तु तस्य।",
+          "transliteration": "tilakaṃ bibhṛyād yas tu tasya |",
           "translations": {
-            "en": "One who wears tilaka after this practice has the fear of inauspicious planets removed.",
-            "pt": "Quem aplica tilaka após esta prática tem removido o medo dos planetas inauspiciosos.",
-            "es": "Quien aplica tilaka tras esta práctica ve removido el miedo a los planetas inauspiciosos.",
-            "it": "Chi applica il tilaka dopo questa pratica vede rimossa la paura dei pianeti inauspiciosi.",
-            "ar": "من يضع التِلاكا بعد هذه الممارسة يُرفع عنه خوف الكواكب المشؤومة.",
-            "hi": "तिलक धारण करने वाले का ग्रहभय हर लेता है।"
+            "en": "One who wears tilaka after this practice —",
+            "pt": "Quem aplica tilaka após esta prática —",
+            "es": "Quien aplica tilaka tras esta práctica —",
+            "it": "Chi applica il tilaka dopo questa pratica —",
+            "ar": "من يضع التِلاكا بعد هذه الممارسة —",
+            "hi": "तिलक धारण करने वाले का —"
           }
         },
         {
-          "start": 537.7,
-          "original": "त्रिवारं जपमानस्तु दत्तं वार्यभिमन्त्र्य च॥",
-          "transliteration": "tri-vāraṃ japamānas tu dattaṃ vāry abhimantrya ca ||",
+          "start": 536.7,
+          "original": "ग्रहभयं हरेत् त्रिवारं जपमानस्तु दत्तं वार्यभिमन्त्र्य च॥",
+          "transliteration": "graha-bhayaṃ haret | tri-vāraṃ japamānas tu dattaṃ vāry abhimantrya ca ||",
           "translations": {
-            "en": "Reciting three times and consecrating water offered, one is thus protected.",
-            "pt": "Recitando três vezes e consagrando a água oferecida, assim se é protegido.",
-            "es": "Recitando tres veces y consagrando el agua ofrecida, así se está protegido.",
-            "it": "Recitando tre volte e consacrando l'acqua offerta, così si è protetti.",
-            "ar": "بالتلاوة ثلاث مرات وتكريس الماء المقدَّم يُحمى المرء.",
-            "hi": "तीन बार जप और जल का अभिमंत्रण करके रक्षा होती है।"
+            "en": "has the fear of inauspicious planets removed. Reciting three times and consecrating water offered, one is thus protected.",
+            "pt": "tem removido o medo dos planetas inauspiciosos. Recitando três vezes e consagrando a água oferecida, assim se é protegido.",
+            "es": "ve removido el miedo a los planetas inauspiciosos. Recitando tres veces y consagrando el agua ofrecida, así se está protegido.",
+            "it": "vede rimossa la paura dei pianeti inauspiciosi. Recitando tre volte e consacrando l'acqua offerta, così si è protetti.",
+            "ar": "يُرفع عنه خوف الكواكب المشؤومة. بالتلاوة ثلاث مرات وتكريس الماء المقدَّم يُحمى المرء.",
+            "hi": "ग्रहभय हर लेता है। तीन बार जप और जल का अभिमंत्रण करके रक्षा होती है।"
           }
         }
       ],
@@ -1131,7 +1131,7 @@
       "order": 29,
       "lines": [
         {
-          "start": 546.8,
+          "start": 545.8,
           "original": "प्राशयेद्यो नरो मन्त्रं नृसिंहध्यानमाचरेत्।",
           "transliteration": "prāśayed yo naro mantraṃ nṛsiṃha-dhyānam ācaret |",
           "translations": {
@@ -1144,7 +1144,7 @@
           }
         },
         {
-          "start": 555.2,
+          "start": 554.2,
           "original": "तस्य रोगाः प्रणश्यन्ति ये च स्युः कुक्षिसम्भवाः॥",
           "transliteration": "tasya rogāḥ praṇaśyanti ye ca syuḥ kukṣi-sambhavāḥ ||",
           "translations": {
@@ -1170,7 +1170,7 @@
       "order": 30,
       "lines": [
         {
-          "start": 565.4,
+          "start": 564.4,
           "original": "किमत्र बहुनोक्तेन नृसिंहसदृशो भवेत्।",
           "transliteration": "kim atra bahunoktena nṛsiṃha-sadṛśo bhavet |",
           "translations": {
@@ -1183,7 +1183,7 @@
           }
         },
         {
-          "start": 573.9,
+          "start": 571.9,
           "original": "मनसा चिन्तितं यत्तु स तच्चाप्नोत्यसंशयम्॥",
           "transliteration": "manasā cintitaṃ yat tu sa tac cāpnoty asaṃśayam ||",
           "translations": {
@@ -1209,55 +1209,55 @@
       "order": 31,
       "lines": [
         {
-          "start": 584,
-          "original": "गर्जन्तं गर्जयन्तं निजभुजपटलं स्फोटयन्तं हठन्तम्।",
-          "transliteration": "garjantaṃ garjayantaṃ nija-bhuja-paṭalaṃ sphoṭayantaṃ haṭhantam |",
+          "start": 582,
+          "original": "गर्जन्तं गर्जयन्तं निजभुजपटलं स्फोटयन्तं हठन्तं दीप्यन्तं तापयन्तम्।",
+          "transliteration": "garjantaṃ garjayantaṃ nija-bhuja-paṭalaṃ sphoṭayantaṃ haṭhantaṃ dīpyantaṃ tāpayantam |",
           "translations": {
-            "en": "Roaring and making others roar, with hosts of arms tearing and striking down,",
-            "pt": "Rugindo e fazendo outros rugirem, com multidões de braços dilacerando e abatendo,",
-            "es": "Rugiendo y haciendo rugir a otros, con multitudes de brazos desgarrando y abatiendo,",
-            "it": "Ruggendo e facendo ruggire altri, con schiere di braccia che squarciano e abbattono,",
-            "ar": "يزأر ويجعل الآخرين يزأرون، بأسراب من الأذرع يمزّق ويضرب،",
-            "hi": "गर्जना करते, गर्जना कराते, अपनी भुजा-पटल से स्फोट और हठ करते,"
+            "en": "Roaring and making others roar, with hosts of arms tearing and striking down, blazing and scorching,",
+            "pt": "Rugindo e fazendo outros rugirem, com multidões de braços dilacerando e abatendo, flamejando e abrasando,",
+            "es": "Rugiendo y haciendo rugir a otros, con multitudes de brazos desgarrando y abatiendo, flameando y abrasando,",
+            "it": "Ruggendo e facendo ruggire altri, con schiere di braccia che squarciano e abbattono, fiammeggiando e bruciando,",
+            "ar": "يزأر ويجعل الآخرين يزأرون، بأسراب من الأذرع يمزّق ويضرب، يتوهّج ويحرق،",
+            "hi": "गर्जना करते, गर्जना कराते, अपनी भुजा-पटल से स्फोट और हठ करते, दीप्त और ताप देते,"
           }
         },
         {
-          "start": 596.7,
-          "original": "दीप्यन्तं तापयन्तं दिवि भुवि दितिजं क्षेपयन्तं क्षिपन्तम्।",
-          "transliteration": "dīpyantaṃ tāpayantaṃ divi bhuvi ditijaṃ kṣepayantaṃ kṣipantam |",
+          "start": 600.3,
+          "original": "दिवि भुवि दितिजं क्षेपयन्तं क्षिपन्तं क्रन्दन्तं रोषयन्तं दिशि दिशि सततम्।",
+          "transliteration": "divi bhuvi ditijaṃ kṣepayantaṃ kṣipantaṃ krandantaṃ roṣayantaṃ diśi diśi satataṃ |",
           "translations": {
-            "en": "blazing and tormenting the sons of Diti in heaven and on earth, casting them down and scattering them,",
-            "pt": "flamejando e atormentando os filhos de Diti no céu e na terra, lançando-os e dispersando-os,",
-            "es": "flameando y atormentando a los hijos de Diti en el cielo y en la tierra, arrojándolos y dispersándolos,",
-            "it": "fiammeggiando e tormentando i figli di Diti in cielo e in terra, scagliandoli e disperdendoli,",
-            "ar": "يتوهّج ويعذّب أبناء ديتي في السماء والأرض، يقذفهم ويشتّتهم،",
-            "hi": "दीप्त होते, ताप देते, दिवि-भुवि दितिजों को क्षेप और क्षेपण करते,"
+            "en": "casting down and scattering the sons of Diti in heaven and on earth, crying out in anger in every direction forever,",
+            "pt": "lançando e dispersando os filhos de Diti no céu e na terra, gritando em ira em todas as direções continuamente,",
+            "es": "arrojando y dispersando a los hijos de Diti en el cielo y en la tierra, gritando en ira en todas las direcciones sin cesar,",
+            "it": "scagliando e disperdendo i figli di Diti in cielo e in terra, gridando nell'ira in ogni direzione sempre,",
+            "ar": "يقذف ويشتّت أبناء ديتي في السماء والأرض، ويصرخ غضبًا في كل الجهات دائمًا،",
+            "hi": "दिवि-भुवि दितिजों को क्षेप और क्षेपण करते, दिशा-दिशा में सतत क्रंदन और रोष करते,"
           }
         },
         {
-          "start": 611.9,
-          "original": "क्रन्दन्तं रोषयन्तं दिशि दिशि सततं संहरन्तं भरन्तम्।",
-          "transliteration": "krandantaṃ roṣayantaṃ diśi diśi satataṃ saṃharantaṃ bharantam |",
+          "start": 618.3,
+          "original": "संहरन्तं भरन्तं वीक्षन्तं पूरयन्तम्।",
+          "transliteration": "saṃharantaṃ bharantaṃ vīkṣantaṃ pūrayantam |",
           "translations": {
-            "en": "crying out in anger, forever destroying in every direction yet sustaining all,",
-            "pt": "gritando em ira, destruindo sempre em todas as direções e contudo sustentando tudo,",
-            "es": "gritando en ira, destruyendo siempre en todas las direcciones y sin embargo sosteniendo todo,",
-            "it": "gridando nell'ira, distruggendo sempre in ogni direzione e tuttavia sostenendo tutto,",
-            "ar": "يصرخ غضبًا، يدمّر دائمًا في كل الجهات ومع ذلك يسند الكل،",
-            "hi": "क्रंदन और रोष करते, दिशा-दिशा में संहार करते हुए भी भरते,"
+            "en": "destroying yet sustaining all, gazing and fulfilling,",
+            "pt": "destruindo e contudo sustentando tudo, olhando e preenchendo,",
+            "es": "destruyendo y sin embargo sosteniendo todo, mirando y colmando,",
+            "it": "distruggendo e tuttavia sostenendo tutto, guardando e colmando,",
+            "ar": "يدمّر ومع ذلك يسند الكل، ينظر ويملأ،",
+            "hi": "संहार करते हुए भी भरते, वीक्षण और पूरण करते,"
           }
         },
         {
-          "start": 626.9,
-          "original": "वीक्षन्तं पूरयन्तं करनिकरशतैर्दिव्यसिंहं नमामि॥",
-          "transliteration": "vīkṣantaṃ pūrayantaṃ kara-nikara-śatair divya-siṃhaṃ namāmi ||",
+          "start": 624.6,
+          "original": "करनिकरशतैर्दिव्यसिंहं नमामि॥",
+          "transliteration": "kara-nikara-śatair divya-siṃhaṃ namāmi ||",
           "translations": {
-            "en": "gazing and fulfilling with hundreds of hands — I bow to that divine Lion.",
-            "pt": "olhando e preenchendo com centenas de mãos — curvo-me a esse Leão divino.",
-            "es": "mirando y colmando con cientos de manos — me inclino ante ese León divino.",
-            "it": "guardando e colmando con centinaia di mani — mi inchino a quel Leone divino.",
-            "ar": "ينظر ويملأ بمئات الأيدي — أسجد لذلك الأسد الإلهي.",
-            "hi": "वीक्षण और पूरण करते सैकड़ों करों से — उस दिव्य सिंह को नमन।"
+            "en": "with hundreds of hands — I bow to that divine Lion.",
+            "pt": "com centenas de mãos — curvo-me a esse Leão divino.",
+            "es": "con cientos de manos — me inclino ante ese León divino.",
+            "it": "con centinaia di mani — mi inchino a quel Leone divino.",
+            "ar": "بمئات الأيدي — أسجد لذلك الأسد الإلهي.",
+            "hi": "सैकड़ों करों से — उस दिव्य सिंह को नमन।"
           }
         }
       ],
@@ -1274,7 +1274,7 @@
       "order": 32,
       "lines": [
         {
-          "start": 641.5,
+          "start": 639.2,
           "original": "इति श्रीब्रह्माण्डपुराणे प्रह्लादोक्तं श्रीनृसिंहकवचं सम्पूर्णम्॥",
           "transliteration": "iti śrī-brahmāṇḍa-purāṇe prahlādoktaṃ śrī-nṛsiṃha-kavacaṃ sampūrṇam ||",
           "translations": {
