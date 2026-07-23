@@ -1,4 +1,7 @@
 import { Octokit } from 'octokit';
+import { loadLocalEnv } from './load-local-env.js';
+
+loadLocalEnv();
 
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER || 'sraphaz';
 const REPO_NAME = process.env.GITHUB_REPO_NAME || 'SacredChants';
@@ -8,6 +11,7 @@ const REPO_NAME = process.env.GITHUB_REPO_NAME || 'SacredChants';
  * @throws If GITHUB_TOKEN is not set
  */
 export function getOctokit(): Octokit {
+  loadLocalEnv();
   const token = process.env.GITHUB_TOKEN;
   if (!token) throw new Error('GITHUB_TOKEN is required for PR creation');
   return new Octokit({ auth: token });
@@ -181,4 +185,138 @@ export async function createSyncUpdatePR(
     prUrl: pr.html_url ?? `https://github.com/${REPO_OWNER}/${REPO_NAME}/pull/${pr.number}`,
     branch: branchName,
   };
+}
+
+/** Allowed image MIME types for bug-report screenshots. */
+const BUG_REPORT_MIME: Record<string, string> = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/webp': 'webp',
+};
+
+export interface CreateBugReportIssueParams {
+  title: string;
+  body: string;
+  /** Base64 image payload (no data-URL prefix). Optional. */
+  imageBase64?: string;
+  imageMime?: string;
+  reporterLogin: string;
+}
+
+async function ensureIssueLabels(
+  octokit: Octokit,
+  labels: Array<{ name: string; color: string; description: string }>
+): Promise<void> {
+  for (const label of labels) {
+    try {
+      await octokit.rest.issues.getLabel({
+        owner: REPO_OWNER,
+        repo: REPO_NAME,
+        name: label.name,
+      });
+    } catch (err) {
+      const status =
+        err && typeof err === 'object' && 'status' in err
+          ? (err as { status: number }).status
+          : 0;
+      if (status !== 404) throw err;
+      await octokit.rest.issues.createLabel({
+        owner: REPO_OWNER,
+        repo: REPO_NAME,
+        name: label.name,
+        color: label.color,
+        description: label.description,
+      });
+    }
+  }
+}
+
+/**
+ * Creates a GitHub issue for a visual bug report.
+ * When an image is provided, uploads it to the long-lived `bug-report-assets` branch
+ * and embeds a raw.githubusercontent.com link in the issue body.
+ */
+export async function createBugReportIssue(
+  params: CreateBugReportIssueParams
+): Promise<{ issueNumber: number; issueUrl: string }> {
+  const octokit = getOctokit();
+  let body = params.body;
+
+  if (params.imageBase64 && params.imageMime) {
+    const ext = BUG_REPORT_MIME[params.imageMime];
+    if (!ext) {
+      throw new Error('Unsupported image type; use PNG, JPEG, or WebP');
+    }
+    const imageUrl = await uploadBugReportImage(octokit, params.imageBase64, ext);
+    body += `\n\n## Screenshot\n\n![Bug report screenshot](${imageUrl})\n`;
+  }
+
+  await ensureIssueLabels(octokit, [
+    { name: 'bug', color: 'd73a4a', description: "Something isn't working" },
+    {
+      name: 'agent-queue',
+      color: '0e8a16',
+      description: 'Queued for agent or assisted follow-up',
+    },
+  ]);
+
+  const { data: issue } = await octokit.rest.issues.create({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    title: params.title.slice(0, 200),
+    body,
+    labels: ['bug', 'agent-queue'],
+  });
+
+  return {
+    issueNumber: issue.number,
+    issueUrl:
+      issue.html_url ??
+      `https://github.com/${REPO_OWNER}/${REPO_NAME}/issues/${issue.number}`,
+  };
+}
+
+/**
+ * Ensures branch `bug-report-assets` exists and commits the screenshot file.
+ * Returns a raw.githubusercontent.com URL for Markdown embedding.
+ */
+async function uploadBugReportImage(
+  octokit: Octokit,
+  imageBase64: string,
+  ext: string
+): Promise<string> {
+  const branch = 'bug-report-assets';
+  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const path = `tmp/bug-reports/${filename}`;
+
+  try {
+    await octokit.rest.git.getRef({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      ref: `heads/${branch}`,
+    });
+  } catch {
+    const { data: mainRef } = await octokit.rest.repos.getBranch({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      branch: 'main',
+    });
+    await octokit.rest.git.createRef({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      ref: `refs/heads/${branch}`,
+      sha: mainRef.commit.sha,
+    });
+  }
+
+  await octokit.rest.repos.createOrUpdateFileContents({
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    path,
+    message: `chore(bug-report): screenshot ${filename}`,
+    content: imageBase64,
+    branch,
+  });
+
+  return `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${branch}/${path}`;
 }

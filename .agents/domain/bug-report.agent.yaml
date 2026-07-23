@@ -1,0 +1,27 @@
+﻿id: bug-report
+name: Visual Bug Reporter
+mode: consult
+enrich: |
+    Fluxo: preencher formulario primeiro; login GitHub so no envio.
+    OAuth deve voltar a mesma origem (returnOrigin) + ?report=1 com rascunho.
+    Nao redirecionar para /contribute/ apos login do reportador.
+validate: |
+    npm run test:e2e -- e2e/bug-report.spec.ts deve passar.
+    Upload de imagem nao deve POST /api/contribute/report.
+autonomy:
+  - consult_post
+scope:
+  paths:
+    - public/scripts/bug-report.js
+    - src/components/BugReportLauncher.astro
+    - api/contribute/report.ts
+    - api/auth/**
+    - api/lib/safe-return-to.ts
+    - e2e/bug-report.spec.ts
+references:
+  - AGENTS.md
+  - CONTRIBUTING.md
+  - docs/DEPLOY-VERCEL-APP.md
+guardrails:
+  no_merge: true
+  consult_only: true

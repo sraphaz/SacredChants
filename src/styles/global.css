@@ -1525,3 +1525,289 @@ html[data-sync-editing='true'] #chant-sync-edit-toggle {
     height: 5rem;
   }
 }
+
+
+/* Visual bug reporter */
+.sc-bug-report-fab {
+  position: fixed;
+  z-index: 40;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 11rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--sc-text) 18%, transparent);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--sc-bg) 92%, var(--sc-text));
+  color: var(--sc-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--sc-text) 8%, transparent);
+}
+.sc-bug-report-fab:hover,
+.sc-bug-report-fab:focus-visible {
+  color: var(--sc-text);
+  border-color: color-mix(in srgb, var(--sc-text) 35%, transparent);
+  outline: none;
+}
+body.sc-bug-report-cropping .sc-bug-report-fab {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sc-bug-report-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(28rem, calc(100vw - 1.5rem));
+  max-height: min(90dvh, 40rem);
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--sc-text) 16%, transparent);
+  border-radius: 0.5rem;
+  background: var(--sc-bg);
+  color: var(--sc-text);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--sc-text) 18%, transparent);
+  overflow: hidden;
+}
+.sc-bug-report-dialog::backdrop {
+  background: color-mix(in srgb, #0a0a0a 45%, transparent);
+}
+.sc-bug-report-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1rem 1.1rem 1.1rem;
+  max-height: min(90dvh, 40rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.sc-bug-report-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.sc-bug-report-panel__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.sc-bug-report-panel__close {
+  border: none;
+  background: transparent;
+  color: var(--sc-text-muted);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.1rem 0.35rem;
+}
+.sc-bug-report-panel__close:hover {
+  color: var(--sc-text);
+}
+.sc-bug-report-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--sc-text) 16%, transparent);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--sc-bg) 92%, var(--sc-text));
+}
+.sc-bug-report-auth__text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--sc-text-muted);
+}
+.sc-bug-report-auth__btn,
+.sc-bug-report-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.35rem;
+  border: 1px solid color-mix(in srgb, var(--sc-text) 25%, transparent);
+  background: var(--sc-text);
+  color: var(--sc-bg);
+  font-size: 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.sc-bug-report-auth__btn:hover,
+.sc-bug-report-primary:hover {
+  opacity: 0.92;
+}
+.sc-bug-report-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.sc-bug-report-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.sc-bug-report-field__label {
+  font-size: 0.8rem;
+  color: var(--sc-text-muted);
+}
+.sc-bug-report-field input,
+.sc-bug-report-field textarea {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--sc-text) 18%, transparent);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--sc-bg) 96%, var(--sc-text));
+  color: var(--sc-text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.sc-bug-report-field textarea {
+  resize: vertical;
+  min-height: 5rem;
+}
+.sc-bug-report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.sc-bug-report-secondary,
+.sc-bug-report-upload-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--sc-text) 20%, transparent);
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--sc-text);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.sc-bug-report-secondary:hover,
+.sc-bug-report-upload-label:hover {
+  border-color: color-mix(in srgb, var(--sc-text) 40%, transparent);
+}
+.sc-bug-report-text-btn {
+  border: none;
+  background: transparent;
+  color: var(--sc-text-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.35rem 0.4rem;
+}
+.sc-bug-report-text-btn:hover {
+  color: var(--sc-text);
+}
+.sc-bug-report-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--sc-text-muted);
+}
+.sc-bug-report-preview {
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--sc-text) 14%, transparent);
+  border-radius: 0.35rem;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--sc-bg) 90%, var(--sc-text));
+}
+.sc-bug-report-preview img {
+  display: block;
+  width: 100%;
+  max-height: 10rem;
+  object-fit: contain;
+}
+.sc-bug-report-status {
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 0.85rem;
+  color: var(--sc-text-muted);
+}
+.sc-bug-report-status--error {
+  color: #9a3412;
+}
+[data-theme='dark'] .sc-bug-report-status--error {
+  color: #fdba74;
+}
+.sc-bug-report-status a {
+  color: var(--sc-text);
+  text-decoration: underline;
+}
+.sc-bug-report-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+.sc-bug-report-crop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  cursor: crosshair;
+  touch-action: none;
+}
+.sc-bug-report-crop__shade {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, #0a0a0a 35%, transparent);
+}
+.sc-bug-report-crop__hint {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin: 0;
+  max-width: min(24rem, calc(100vw - 2rem));
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--sc-bg) 92%, transparent);
+  color: var(--sc-text);
+  font-size: 0.8rem;
+  text-align: center;
+  pointer-events: none;
+}
+.sc-bug-report-crop__box {
+  position: absolute;
+  z-index: 1;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 9999px color-mix(in srgb, #0a0a0a 45%, transparent);
+  background: transparent;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .sc-bug-report-fab {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    max-width: 9.5rem;
+    font-size: 0.7rem;
+  }
+  .sc-bug-report-dialog {
+    width: calc(100vw - 1rem);
+    max-height: calc(100dvh - 1rem);
+    border-radius: 0.45rem;
+  }
+  .sc-bug-report-panel {
+    padding: 0.85rem 0.9rem 1rem;
+    max-height: calc(100dvh - 1rem);
+  }
+  .sc-bug-report-panel__title {
+    font-size: 1.05rem;
+  }
+  .sc-bug-report-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sc-bug-report-secondary,
+  .sc-bug-report-upload-label {
+    width: 100%;
+  }
+  .sc-bug-report-footer {
+    flex-wrap: wrap;
+  }
+  .sc-bug-report-primary {
+    flex: 1 1 auto;
+  }
+}
