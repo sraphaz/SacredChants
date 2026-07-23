@@ -6,7 +6,7 @@ import {
   setSessionCookieHeader,
   clearSessionCookieHeader,
   type SessionUser,
-} from '../../api/lib/session';
+} from '../../api/_lib/session';
 
 const testUser: SessionUser = {
   id: 123,

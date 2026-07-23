@@ -4,13 +4,13 @@ import {
   decodeOAuthState,
   encodeOAuthState,
   postLoginLocation,
-} from '../../api/lib/oauth-state';
+} from '../../api/_lib/oauth-state';
 import {
   resolveApiOrigin,
   resolveContributeOrigin,
   resolveLocalRequestOrigin,
-} from '../../api/lib/resolve-request-origin';
-import { safeReturnOrigin, safeReturnTo } from '../../api/lib/safe-return-to';
+} from '../../api/_lib/resolve-request-origin';
+import { safeReturnOrigin, safeReturnTo } from '../../api/_lib/safe-return-to';
 
 function req(host: string, proto?: string): VercelRequest {
   return {

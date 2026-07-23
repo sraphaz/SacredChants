@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { chantSchema } from '../../api/lib/chant-schema';
+import { chantSchema } from '../../api/_lib/chant-schema';
 
 const minimalValidChant = {
   slug: 'my-chant',
