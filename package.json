@@ -45,7 +45,7 @@
     "@astrojs/mdx": "^7.0.3",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.1",
-    "jose": "^6.2.3",
+    "jose": "^6.2.4",
     "octokit": "^5.0.5",
     "tailwindcss": "^4.3.3",
     "zod": "^4.4.3"
