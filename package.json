@@ -44,7 +44,7 @@
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.4",
+    "astro": "^7.2.9",
     "jose": "^6.2.10",
     "octokit": "^5.0.5",
     "tailwindcss": "^4.3.3",
