@@ -48,7 +48,7 @@
     "jose": "^6.2.11",
     "octokit": "^5.0.5",
     "tailwindcss": "^4.3.3",
-    "zod": "^4.4.3"
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
