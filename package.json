@@ -47,7 +47,7 @@
     "astro": "^7.4.4",
     "jose": "^6.2.15",
     "octokit": "^5.0.5",
-    "tailwindcss": "^4.3.3",
+    "tailwindcss": "^4.3.4",
     "zod": "^4.6.7"
   },
   "devDependencies": {
