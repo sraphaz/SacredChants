@@ -59,7 +59,7 @@
     "@vercel/node": "^5.8.26",
     "cross-env": "^10.1.0",
     "semantic-release": "^26.0.1",
-    "serve": "^14.2.6",
+    "serve": "^14.2.8",
     "sharp": "^0.35.5",
     "typescript": "7.0.2",
     "vercel": "^56.4.1",
